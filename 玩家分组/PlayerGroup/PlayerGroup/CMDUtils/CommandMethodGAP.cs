@@ -19,7 +19,8 @@ namespace PlayerGroup.CMDUtils
         {
             CommandGetGroup a = new CommandGetGroup(print: print);
             a.SubCommand.Add(new CommandHelpList(a.SubCommand, "玩家名或索引", print));
-            a.SubCommand.Add(new CommandGetPlayName());
+            a.SubCommand.Add(new CommandGetPlayName(print: print));
+            SubCommand.Add(a);
         }
 
         /// <inheritdoc/>

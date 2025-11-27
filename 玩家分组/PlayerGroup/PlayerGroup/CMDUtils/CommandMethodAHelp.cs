@@ -30,35 +30,19 @@ namespace PlayerGroup.CMDUtils
         /// <inheritdoc/>
         public override object Run(ref int index, List<CommandObject> commandList)
         {
-            if (index + 1 < commandList.Count)
+            for (int i = 0;
+                i < ArgCount &&
+                i + index + 1 < commandList.Count;
+                ++i)
             {
-                if (commandList[index + 1] is CommandHelpList chl)
-                {
-                    ++index;
-                    chl.Run(ref index, commandList);
-                    return null;
-                }
+                if (commandList[index + i + 1] is CommandHelpList chl == false) continue;
+
+                index += i + 1;
+                chl.Run(ref index, commandList);
+                return null;
             }
-
+            
             return base.Run(ref index, commandList);
-        }
-
-        /// <summary>
-        /// 构建
-        /// </summary>
-        /// <param name="text"></param>
-        /// <param name="argCount"></param>
-        /// <param name="tip"></param>
-        /// <param name="action"></param>
-        /// <param name="cos"></param>
-        /// <returns></returns>
-        public static CommandMethodAHelp Build(string text = null, int argCount = 0, string tip = null, Action<object[]> action = null, params CommandObject[] cos)
-        {
-            CommandMethodAHelp co = new CommandMethodAHelp(text, argCount, tip);
-            co.SubCommand.AddRange(cos);
-            if (action != null) co.Runing += action;
-
-            return co;
         }
     }
 }

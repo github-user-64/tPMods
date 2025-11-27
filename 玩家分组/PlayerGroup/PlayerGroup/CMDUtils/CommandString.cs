@@ -16,8 +16,7 @@ namespace PlayerGroup.CMDUtils
         /// 
         /// </summary>
         /// <param name="isVariable"></param>
-        /// <param name="text"></param>
-        public CommandString(bool isVariable = false, string text = null) : base(isVariable, text) { }
+        public CommandString(bool isVariable = false) : base(isVariable, null) { }
 
         /// <inheritdoc/>
         protected override string ArgConvertThrow(string arg) => StringToString(arg);

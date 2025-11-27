@@ -48,6 +48,27 @@ namespace PlayerGroup
         }
 
         /// <summary>
+        /// 标签是否存在
+        /// </summary>
+        /// <param name="tag"></param>
+        /// <returns></returns>
+        public bool HasTag(string tag)
+        {
+            if (tag == null) return false;
+            return Tag.ContainsKey(tag);
+        }
+
+        /// <summary>
+        /// 删除标签, 没有标签被删除则为<see langword="false"/>
+        /// </summary>
+        /// <param name="tag"></param>
+        /// <returns></returns>
+        public bool DelTag(string tag)
+        {
+            return Tag.Remove(tag);
+        }
+
+        /// <summary>
         /// 创建一个分组数据, 不会添加到分组中
         /// </summary>
         /// <param name="name"></param>

@@ -67,5 +67,25 @@ namespace PlayerGroup
             if (GetGroup(index) is GroupData gd) PrintGroup(gd, print);
             else Utils.Utils.PrintTry($"[{index}]不在索引范围内", print);
         }
+
+        /// <summary>
+        /// 输出名称的分组
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="print"></param>
+        public static void PrintNameHasGroup(string name, Action<string> print = null)
+        {
+            List<GroupData> gds = GetNameGroup(name);
+            if (gds.Count < 1)
+            {
+                print($"[{name}]不在任何分组中");
+                return;
+            }
+
+            string s = $"[{name}]在[{gds.Count}]个分组中:";
+            for (int i = 0; i < gds.Count; ++i) s = $"{s}\n{i}:[{gds[i].Name}]";
+
+            Utils.Utils.PrintTry(s, print);
+        }
     }
 }
