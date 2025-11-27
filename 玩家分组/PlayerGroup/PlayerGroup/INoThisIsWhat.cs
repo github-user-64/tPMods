@@ -19,7 +19,7 @@ namespace PlayerGroup
             
             INoThisIsWhat.mo = mo;
 
-            if (mo == null) throw new Exception("PlayerGroup:找不到模组对象");
+            if (mo == null) throw new Exception($"{nameof(PlayerGroup)}:找不到模组对象");
 
             //
 

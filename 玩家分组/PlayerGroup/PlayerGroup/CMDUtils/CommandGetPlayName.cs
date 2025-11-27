@@ -38,9 +38,10 @@ namespace PlayerGroup.CMDUtils
                 if (isString)
                 {
                     arg = CommandString.StringToString(arg);
-                    Player player = Main.player.FirstOrDefault(i => i.name == arg);
-                    if (player == null) throw new Exception($"玩家名不存在[{arg}]");
-                    return player.name;
+                    //Player player = Main.player.FirstOrDefault(i => i.name == arg);
+                    //if (player == null) throw new Exception($"玩家名不存在[{arg}]");
+                    //return player.name;
+                    return arg;
                 }
                 else
                 {

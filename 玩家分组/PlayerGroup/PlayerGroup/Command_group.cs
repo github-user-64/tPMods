@@ -20,7 +20,7 @@ namespace PlayerGroup
             {
                 get_addp(print),
                 get_delp(print),
-                get_addt(print),
+                get_sett(print),
                 get_delt(print),
             };
 
@@ -29,7 +29,7 @@ namespace PlayerGroup
 
         public static CommandObject get_addp(Action<string> print) => new pg_addn(print);
         public static CommandObject get_delp(Action<string> print) => new pg_deln(print);
-        public static CommandObject get_addt(Action<string> print) => new pg_addt(print);
+        public static CommandObject get_sett(Action<string> print) => new pg_sett(print);
         public static CommandObject get_delt(Action<string> print) => new pg_delt(print);
     }
 
@@ -55,9 +55,9 @@ namespace PlayerGroup
         }
     }
 
-    internal class pg_addt : CommandMethodGAT
+    internal class pg_sett : CommandMethodGAT
     {
-        public pg_addt(Action<string> print) : base("sett", "设置标签", print) { }
+        public pg_sett(Action<string> print) : base("sett", "设置标签", print) { }
 
         public override void OnRuning(GroupData group, string tag, string val) => group.SetTag(tag, val);
     }

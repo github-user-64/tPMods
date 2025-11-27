@@ -17,7 +17,7 @@ namespace PlayerGroup
             List<CommandObject> list = new List<CommandObject>();
             CommandObject root = new CommandObject("pg");
             root.SubCommand.Add(new CommandHelpList(root.SubCommand,
-                "显示数据, 添加分组, 删除分组, 保存分组, 更新数据"
+                "显示数据, 添加分组, 删除分组, 保存分组, 更新数据, 添加玩家, 删除玩家, 设置标签, 删除标签"
                 , ContentPatch.PrintTry));
 
             root.SubCommand.Add(get_list(ContentPatch.PrintTry));
