@@ -23,6 +23,8 @@ namespace PlayerGroup.CMDUtils
         /// <param name="print"></param>
         public CommandMethodAHelp(string text = null, int argCount = 0, string tip = null, Action<string> print = null) : base(text, argCount)
         {
+            TipText = tip;
+
             this.print = print;
             SubCommand.Add(new CommandHelpList(SubCommand, tip, print));
         }

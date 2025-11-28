@@ -17,14 +17,17 @@ namespace PlayerGroup.CMDUtils
         /// <param name="print"></param>
         public CommandMethodGAT(string text, string tip, Action<string> print) : base(text, 3, $"{tip}(分组, 标签, 值(可不填))", print)
         {
-            CommandGetGroup a = new CommandGetGroup(print: print);
-            a.SubCommand.Add(new CommandHelpList(a.SubCommand, "标签", print));
-            SubCommand.Add(a);
-            
-            CommandString tag = new CommandString();
-            tag.SubCommand.Add(new CommandHelpList(tag.SubCommand, "标签值", print));
-            tag.SubCommand.Add(new CommandString(true));
-            a.SubCommand.Add(tag);
+            TipText = $"{tip}(分组, 标签, 值(可不填))";
+
+            CommandGetGroup g = new CommandGetGroup(print: print) { TipText = "分组" };
+            CommandString tag = new CommandString() { TipText = "标签" };
+            CommandString tagV = new CommandString(true) { TipText = "标签值(可不填)" };
+
+            SubCommand.Add(g);
+            g.SubCommand.Add(new CommandHelpList(g.SubCommand, tag.TipText, print));
+            g.SubCommand.Add(tag);
+            tag.SubCommand.Add(new CommandHelpList(tag.SubCommand, tagV.TipText, print));
+            tag.SubCommand.Add(tagV);
         }
 
         /// <inheritdoc/>

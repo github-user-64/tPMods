@@ -1,6 +1,5 @@
 ﻿using CommandHelp;
 using System;
-using System.Linq;
 using Terraria;
 
 namespace PlayerGroup.CMDUtils
@@ -10,6 +9,8 @@ namespace PlayerGroup.CMDUtils
     /// </summary>
     public class CommandGetPlayName : CommandValue<string>
     {
+        /// <inheritdoc/>
+        public override string TipText { get; set; } = "玩家名或索引";
         /// <inheritdoc/>
         public override string TypeName => "玩家名或索引";
         /// <inheritdoc/>

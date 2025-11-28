@@ -18,7 +18,7 @@ namespace PlayerGroup
                 GroupData gd = GroupSetting.datas[i];
 
                 s += $"\n{i}:[{gd.Name}],标签:";
-                foreach (KeyValuePair<string, string> tag in gd.Tag) s += $"[{tag.Key}:{tag.Value}]";
+                foreach (KeyValuePair<string, string> tag in gd.Tag) s += $"[{tag.Key}={tag.Value}]";
             }
 
             Utils.Utils.PrintTry(s, print);
@@ -34,7 +34,7 @@ namespace PlayerGroup
             if (groupData == null) return;
 
             string s = $"名称:[{groupData.Name}],索引:[{GroupSetting.datas.IndexOf(groupData)}],标签:";
-            foreach (KeyValuePair<string, string> tag in groupData.Tag) s += $"[{tag.Key}:{tag.Value}]";
+            foreach (KeyValuePair<string, string> tag in groupData.Tag) s += $"[{tag.Key}={tag.Value}]";
 
             s += $"\n玩家名数量:[{groupData.PlaysName.Count}]";
 

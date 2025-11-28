@@ -17,10 +17,14 @@ namespace PlayerGroup.CMDUtils
         /// <param name="print"></param>
         public CommandMethodGAP(string text, string tip, Action<string> print) : base(text, 2, $"{tip}(分组, 玩家名或索引)", print)
         {
-            CommandGetGroup a = new CommandGetGroup(print: print);
-            a.SubCommand.Add(new CommandHelpList(a.SubCommand, "玩家名或索引", print));
-            a.SubCommand.Add(new CommandGetPlayName(print: print));
-            SubCommand.Add(a);
+            TipText = $"{tip}(分组, 玩家名或索引)";
+
+            CommandGetGroup g = new CommandGetGroup(print: print) { TipText = "分组名或索引" };
+            CommandGetPlayName p = new CommandGetPlayName(print: print) { TipText = "玩家名或索引" };
+
+            SubCommand.Add(g);
+            g.SubCommand.Add(new CommandHelpList(g.SubCommand, p.TipText, print));
+            g.SubCommand.Add(p);
         }
 
         /// <inheritdoc/>

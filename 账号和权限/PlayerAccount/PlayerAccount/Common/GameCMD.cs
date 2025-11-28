@@ -3,16 +3,15 @@ using PlayerGroup;
 using PlayerGroup.CMDUtils;
 using System;
 using System.Collections.Generic;
-using tContentPatch;
 
-namespace PlayerAccount.Common.GameChatCommand
+namespace PlayerAccount.Common
 {
-    internal partial class GameChatCommand
+    internal partial class GameCMD
     {
-        public static List<CommandObject> GetGameCO(Action<string> print)
+        public static List<CommandObject> GetGameCO(Action<string> print, bool addHelp = false)
         {
             List<CommandObject> list = new List<CommandObject>();
-            list.Add(new CommandHelpList(list, print: print));
+            if (addHelp) list.Add(new CommandHelpList(list, print: print));
 
             CommandObject root = new CommandObject("pg");
             root.SubCommand.Add(new CommandHelpList(root.SubCommand,

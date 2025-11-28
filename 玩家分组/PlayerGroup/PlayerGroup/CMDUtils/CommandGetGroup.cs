@@ -9,6 +9,8 @@ namespace PlayerGroup.CMDUtils
     public class CommandGetGroup : CommandValue<GroupData>
     {
         /// <inheritdoc/>
+        public override string TipText { get; set; } = "分组名或索引";
+        /// <inheritdoc/>
         public override string TypeName => "分组名或索引";
         /// <inheritdoc/>
         public override string Text => "<分组名或索引>";

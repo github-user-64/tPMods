@@ -41,12 +41,13 @@ namespace PlayerGroup
         public static CommandObject get_update(Action<string> print) => new CommandMethodAction("update", () =>
         {
             Utils.Utils.PrintTry($"{GroupHelp.UpdateData() ?? "更新成功"}", print);
-        });
+        })
+        { TipText = "更新数据" };
     }
 
     internal class pg_list : CommandMethodAHelp
     {
-        public pg_list(Action<string> print) : base("list", 1, "显示分组列表,显示玩家所在分组", print)
+        public pg_list(Action<string> print) : base("list", 1, "显示数据", print)
         {
             SubCommand.Add(Command.get_list_g(print));
             SubCommand.Add(Command.get_list_play(print));
@@ -55,7 +56,7 @@ namespace PlayerGroup
 
     internal class pg_list_g : CommandMethodAHelp
     {
-        public pg_list_g(Action<string> print) : base("g", 1, "显示全部分组列表,加上分组名(\"group\")或索引(0)显示分组信息", print)
+        public pg_list_g(Action<string> print) : base("g", 1, "显示全部分组列表,加上分组名[\"group\"]或索引[0]显示分组信息", print)
         {
             SubCommand.Add(new CommandGetGroup(true, print));
 
@@ -69,7 +70,7 @@ namespace PlayerGroup
 
     internal class pg_list_play : CommandMethodAHelp
     {
-        public pg_list_play(Action<string> print) : base("p", 1, "显示玩家所在分组(玩家名(\"玩家名\")或索引(0))", print)
+        public pg_list_play(Action<string> print) : base("p", 1, "显示玩家名所在分组(玩家名[\"play\"]或索引[0])", print)
         {
             SubCommand.Add(new CommandGetPlayName(print: print));
 
@@ -82,9 +83,9 @@ namespace PlayerGroup
 
     internal class pg_add : CommandMethodAHelp
     {
-        public pg_add(Action<string> print) : base("add", 1, "添加分组(分组名)", print)
+        public pg_add(Action<string> print) : base("add", 1, "添加分组(\"分组名\")", print)
         {
-            SubCommand.Add(new CommandString());
+            SubCommand.Add(new CommandString() { TipText = "分组名" });
 
             Runing += args =>
             {
@@ -104,7 +105,7 @@ namespace PlayerGroup
 
     internal class pg_del : CommandMethodAHelp
     {
-        public pg_del(Action<string> print) : base("del", 1, "删除指定名称或索引的分组", print)
+        public pg_del(Action<string> print) : base("del", 1, "删除分组(分组名或索引)", print)
         {
             SubCommand.Add(new CommandGetGroup(print: print));
             
@@ -124,7 +125,10 @@ namespace PlayerGroup
             SubCommand.Add(new CommandMethodAction("all", () =>
             {
                 Utils.Utils.ActionState(() => GroupHelp.SaveData(GroupSetting.datas), "已保存全部", "保存失败", print);
-            }));
+            })
+            {
+                TipText = "保存全部"
+            });
             SubCommand.Add(new CommandGetGroup(print: print));
 
             Runing += args =>

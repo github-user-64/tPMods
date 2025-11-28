@@ -27,15 +27,15 @@ namespace PlayerGroup
             return list;
         }
 
-        public static CommandObject get_addp(Action<string> print) => new pg_addn(print);
+        public static CommandObject get_addp(Action<string> print) => new pg_addp(print);
         public static CommandObject get_delp(Action<string> print) => new pg_deln(print);
         public static CommandObject get_sett(Action<string> print) => new pg_sett(print);
         public static CommandObject get_delt(Action<string> print) => new pg_delt(print);
     }
 
-    internal class pg_addn : CommandMethodGAP
+    internal class pg_addp : CommandMethodGAP
     {
-        public pg_addn(Action<string> print) : base("addp", "添加玩家名", print) { }
+        public pg_addp(Action<string> print) : base("addp", "添加玩家名", print) { }
 
         public override void OnRuning(GroupData group, string playName)
         {
@@ -62,7 +62,7 @@ namespace PlayerGroup
         public override void OnRuning(GroupData group, string tag, string val)
         {
             group.SetTag(tag, val);
-            Utils.Utils.PrintTry($"[{group.Name}]的标签设置为[{tag}:{group.GetTag(tag)}]");
+            Utils.Utils.PrintTry($"[{group.Name}]的标签设置为[{tag}:{group.GetTag(tag)}]", print);
         }
     }
 
@@ -73,8 +73,8 @@ namespace PlayerGroup
         public override void OnRuning(GroupData group, string tag, string val)
         {
             bool ok = group.DelTag(tag);
-            if (ok) Utils.Utils.PrintTry($"[{group.Name}]已删除标签[{tag}]");
-            else Utils.Utils.PrintTry($"[{group.Name}]没有[{tag}]标签被删除");
+            if (ok) Utils.Utils.PrintTry($"[{group.Name}]已删除标签[{tag}]", print);
+            else Utils.Utils.PrintTry($"[{group.Name}]没有[{tag}]标签被删除", print);
         }
     }
 }
