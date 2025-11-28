@@ -59,13 +59,22 @@ namespace PlayerGroup
     {
         public pg_sett(Action<string> print) : base("sett", "设置标签", print) { }
 
-        public override void OnRuning(GroupData group, string tag, string val) => group.SetTag(tag, val);
+        public override void OnRuning(GroupData group, string tag, string val)
+        {
+            group.SetTag(tag, val);
+            Utils.Utils.PrintTry($"[{group.Name}]的标签设置为[{tag}:{group.GetTag(tag)}]");
+        }
     }
 
     internal class pg_delt : CommandMethodGAT
     {
         public pg_delt(Action<string> print) : base("delt", "删除标签", print) { }
 
-        public override void OnRuning(GroupData group, string tag, string val) => group.DelTag(tag);
+        public override void OnRuning(GroupData group, string tag, string val)
+        {
+            bool ok = group.DelTag(tag);
+            if (ok) Utils.Utils.PrintTry($"[{group.Name}]已删除标签[{tag}]");
+            else Utils.Utils.PrintTry($"[{group.Name}]没有[{tag}]标签被删除");
+        }
     }
 }

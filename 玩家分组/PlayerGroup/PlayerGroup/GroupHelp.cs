@@ -16,13 +16,16 @@ namespace PlayerGroup
         /// 保存分组数据
         /// </summary>
         /// <param name="data"></param>
+        /// <exception cref="ArgumentNullException"></exception>
+        /// <exception cref="Exception"></exception>
         public static void SaveData(GroupData data)
         {
+            if (data == null) throw new ArgumentNullException(nameof(data));
+
             Directory.CreateDirectory(INoThisIsWhat.DirGroup);//目录不存在就创建
-            if (data == null) return;
 
             string save = GetSaveName(data);
-            if (save == null) return;
+            if (save == null) throw new Exception("无法获取可保存的文件名");
 
             data.Save(Path.Combine(INoThisIsWhat.DirGroup, save));
         }
@@ -31,16 +34,17 @@ namespace PlayerGroup
         /// 保存分组数据
         /// </summary>
         /// <param name="datas"></param>
+        /// <exception cref="ArgumentNullException"></exception>
         public static void SaveData(List<GroupData> datas)
         {
+            if (datas == null) throw new ArgumentNullException(nameof(datas));
+
             if (Directory.Exists(INoThisIsWhat.DirTempGroupSaveAll))
                 Utils.Utils.DirectoryFileDelete(INoThisIsWhat.DirTempGroupSaveAll);//清空临时文件夹下的文件
             else
                 Directory.CreateDirectory(INoThisIsWhat.DirTempGroupSaveAll);//目录不存在就创建
 
             //
-
-            if (datas == null) return;
 
             int count = 0;
             foreach (GroupData a in datas)
