@@ -21,6 +21,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <DocumentationFile>..\..\..\..\tPlainModLoader\tPlainModLoader\tPlainModLoader\bin\Debug\Mods\账号和权限\PlayerAccount.xml</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -33,6 +34,10 @@
   <ItemGroup>
     <Reference Include="0Harmony">
       <HintPath>..\..\..\..\tPlainModLoader\tPlainModLoader\tPlainModLoader\bin\Debug\0Harmony.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="ChatBarCMD">
+      <HintPath>..\..\..\..\tPlainModLoader\tPlainModLoader\tPlainModLoader\bin\Debug\Mods\聊天栏指令\ChatBarCMD.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="CommandHelp">
@@ -76,6 +81,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Account\AccountData.cs" />
+    <Compile Include="Account\PlayAccount.cs" />
+    <Compile Include="Account\GroupTag.cs" />
+    <Compile Include="Account\AccountHelp.cs" />
     <Compile Include="Common\GameCMD.cs" />
     <Compile Include="ModLinkage\ModChatBarCMD.cs" />
     <Compile Include="ThisMod.cs" />
@@ -85,11 +94,6 @@
     <ProjectReference Include="..\..\..\玩家分组\PlayerGroup\PlayerGroup\PlayerGroup.csproj">
       <Project>{96c4dfc2-900a-4e3c-b95e-61216c3823e2}</Project>
       <Name>PlayerGroup</Name>
-      <Private>False</Private>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\聊天栏指令\ChatBarCMD\ChatBarCMD\ChatBarCMD.csproj">
-      <Project>{5f1673b3-6898-4f0c-aa9d-5ea8886d71cf}</Project>
-      <Name>ChatBarCMD</Name>
       <Private>False</Private>
     </ProjectReference>
   </ItemGroup>

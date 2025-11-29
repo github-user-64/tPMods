@@ -5,7 +5,7 @@ using Terraria;
 
 namespace PlayerAccount.ModLinkage
 {
-    public class ModChatBarCMD : Mod
+    internal class ModChatBarCMD : Mod
     {
         public override void Loaded()
         {

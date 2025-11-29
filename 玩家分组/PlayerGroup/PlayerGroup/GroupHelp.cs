@@ -87,6 +87,8 @@ namespace PlayerGroup
         /// <returns></returns>
         public static bool IsValidFileName(string fileName)
         {
+            if (fileName == null || fileName.Length < 1) return false;
+
             //检查文件名是否包含无效字符
             if (fileName.IndexOfAny(Path.GetInvalidFileNameChars()) >= 0)
             {
@@ -102,24 +104,27 @@ namespace PlayerGroup
         /// <returns></returns>
         public static string GetSaveName(GroupData data)
         {
-            string save = $"{data.Name}.json";
+            string save = $"{data?.Name}.json";
 
             if (IsValidFileName(save)) return save;
 
-            
-            List<string> files = Directory.GetFiles(INoThisIsWhat.DirGroup).ToList();//获取所有文件路径
-            files = files.Where(i => Path.GetExtension(i) == ".json").ToList();//筛选后缀是.json的文件
-            files = files.ConvertAll(i => Path.GetFileName(i));//只保留文件名
+            List<string> files = Directory.GetFiles(INoThisIsWhat.DirGroup)//获取所有文件路径
+                .Where(i => Path.GetExtension(i) == ".json")//筛选后缀是.json的文件
+                .ToList();
+            files = files.ConvertAll(i => Path.GetFileNameWithoutExtension(i));//只保留文件名
 
             //查找分组名相同的文件
             foreach (string file in files)
             {
                 try
                 {
-                    string path = Path.Combine(INoThisIsWhat.DirGroup, file);
+                    save = $"{file}.json";
+                    string path = Path.Combine(INoThisIsWhat.DirGroup, save);
+
                     if (File.Exists(path) == false) continue;
+
                     GroupData gd = MyJson1.Get2<GroupData>(path);//读取数据
-                    if (gd?.Name == data.Name) return file;
+                    if (gd?.Name == data.Name) return save;
                 }
                 catch { }
             }
@@ -127,9 +132,9 @@ namespace PlayerGroup
             //找到没占用的文件名
             for (int i = 0; i < 999; ++i)
             {
-                save = $"分组{i}.json";
+                save = $"分组{i}";
 
-                if (files.Contains(save) == false) return save;
+                if (files.Contains(save) == false) return $"{save}.json";
             }
 
             return null;

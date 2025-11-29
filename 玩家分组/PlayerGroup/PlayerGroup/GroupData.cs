@@ -21,7 +21,7 @@ namespace PlayerGroup
         public List<string> PlaysName = null;
 
         /// <summary>
-        /// 获取标签, 标签不存在则返回<paramref name="def"/>
+        /// 获取标签值, 标签不存在则返回<paramref name="def"/>
         /// </summary>
         /// <param name="key"></param>
         /// <param name="def"></param>

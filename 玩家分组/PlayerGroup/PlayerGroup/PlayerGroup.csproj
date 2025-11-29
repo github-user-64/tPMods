@@ -89,6 +89,7 @@
     <Compile Include="Command.cs" />
     <Compile Include="Command_group.cs" />
     <Compile Include="GroupHelp_PlaysName.cs" />
+    <Compile Include="GroupHelp_Tag.cs" />
     <Compile Include="GroupHelp_Print.cs" />
     <Compile Include="GroupHelp_Group.cs" />
     <Compile Include="GroupSetting.cs" />
