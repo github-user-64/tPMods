@@ -82,6 +82,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Account\AccountData.cs" />
+    <Compile Include="Account\GroupHelp_GroupType.cs" />
     <Compile Include="Account\PlayAccount.cs" />
     <Compile Include="Account\GroupTag.cs" />
     <Compile Include="Account\AccountHelp.cs" />
@@ -97,6 +98,8 @@
       <Private>False</Private>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="GamePatch\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -35,7 +35,7 @@ namespace PlayerGroup
         /// <param name="gd"></param>
         /// <param name="index"></param>
         /// <returns></returns>
-        public static bool AddName(this GroupData gd, int index)
+        public static bool AddPlay(this GroupData gd, int index)
         {
             if (Main.player?.IndexInRange(index) == false) return false;
 
@@ -59,7 +59,7 @@ namespace PlayerGroup
         /// <param name="gd"></param>
         /// <param name="index"></param>
         /// <returns></returns>
-        public static bool DelName(this GroupData gd, int index)
+        public static bool DelPlay(this GroupData gd, int index)
         {
             if (Main.player?.IndexInRange(index) == false) return false;
 
@@ -67,7 +67,7 @@ namespace PlayerGroup
         }
 
         /// <summary>
-        /// 查找该名字所在的分组, 名字不在任何分组中返回空列表
+        /// 获取该名字所在的分组, 名字不在任何分组中返回空列表
         /// </summary>
         /// <param name="name"></param>
         /// <returns></returns>
@@ -84,12 +84,14 @@ namespace PlayerGroup
         }
 
         /// <summary>
-        /// 查找玩家名所在的分组, 名字不在任何分组中返回空列表
+        /// 获取玩家名所在的分组, 名字不在任何分组中返回空列表
         /// </summary>
         /// <param name="player"></param>
         /// <returns></returns>
         public static List<GroupData> GetPlayGroup(this Player player)
         {
+            if (player == null) return new List<GroupData>();
+
             return GetNameGroup(player.name);
         }
 
@@ -99,7 +101,7 @@ namespace PlayerGroup
         /// <param name="name"></param>
         /// <param name="group"></param>
         /// <returns></returns>
-        public static bool GetNameHasGroup(string name, string group)
+        public static bool NameHasGroup(string name, string group)
         {
             List<GroupData> gs = GetNameGroup(name);
 
@@ -107,14 +109,16 @@ namespace PlayerGroup
         }
 
         /// <summary>
-        /// 该玩家名是否在指定分组
+        /// 玩家名是否在指定分组
         /// </summary>
         /// <param name="player"></param>
         /// <param name="group"></param>
         /// <returns></returns>
-        public static bool GetPlayHasGroup(this Player player, string group)
+        public static bool PlayHasGroup(this Player player, string group)
         {
-            return GetNameHasGroup(player.name, group);
+            if (player == null) return false;
+
+            return NameHasGroup(player.name, group);
         }
     }
 }

@@ -11,24 +11,13 @@ namespace PlayerAccount.Account
     /// </summary>
     public static class AccountHelp
     {
-        internal static List<AccountData> datas { get; private set; } = null;
-
-        internal static void Init()
-        {
-            UpdateData();
-            if (datas == null) datas = new List<AccountData>();
-        }
-
         /// <summary>
         /// 更新账号数据
         /// </summary>
         /// <returns></returns>
         public static bool UpdateData()
         {
-            List<AccountData> data = ReadData();
-            if (data == null) return false;
-            datas = data;
-            return true;
+            return PlayAccount.UpdateData();
         }
 
         /// <summary>
@@ -97,7 +86,22 @@ namespace PlayerAccount.Account
         {
             if (data == null) throw new ArgumentNullException(nameof(data));
 
-            data.RemoveAll(i => i == null || i.name == null || i.password == null);
+            data.RemoveAll(i => CheckData(i) == false);
+        }
+
+        /// <summary>
+        /// 检查数据, 不正常返回<see langword="false"/>
+        /// </summary>
+        /// <param name="data"></param>
+        /// <returns></returns>
+        public static bool CheckData(AccountData data)
+        {
+            if (data == null) return false;
+            if (data.name == null) return false;
+            if (data.password == null) return false;
+            if (data.uuid == null) return false;
+            if (data.ip == null) return false;
+            return true;
         }
 
         /// <summary>
@@ -111,7 +115,7 @@ namespace PlayerAccount.Account
 
             string file = Path.Combine(ThisMod.Dir, $"{ThisMod.FileNameAccountData}.txt");
 
-            PlayerGroup.Utils.Utils.Save(datas, file);
+            PlayerGroup.Utils.Utils.Save(PlayAccount.datas, file);
         }
 
         /// <summary>
@@ -145,7 +149,7 @@ namespace PlayerAccount.Account
 
             save = Path.Combine(ThisMod.DirBackup, $"{save}.txt");
 
-            PlayerGroup.Utils.Utils.Save(datas, save);
+            PlayerGroup.Utils.Utils.Save(PlayAccount.datas, save);
         }
     }
 }

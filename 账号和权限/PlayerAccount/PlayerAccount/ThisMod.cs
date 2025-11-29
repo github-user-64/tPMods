@@ -29,7 +29,7 @@ namespace PlayerAccount
 
             //
 
-            Account.AccountHelp.Init();
+            Account.PlayAccount.Init();
         }
     }
 }

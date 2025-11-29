@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Terraria;
 
+
 namespace PlayerAccount.Account
 {
     /// <summary>
@@ -9,30 +10,20 @@ namespace PlayerAccount.Account
     /// </summary>
     public static class PlayAccount
     {
-        /// <summary>
-        /// 玩家的分组标签<see cref="GroupTag.KeyGroupType"/>是否等于<paramref name="groupType"/>
-        /// </summary>
-        /// <param name="player"></param>
-        /// <param name="groupType"></param>
-        /// <returns></returns>
-        public static bool GroupTypeEquals(this Player player, string groupType)
+        internal static List<AccountData> datas { get; private set; } = null;
+
+        internal static void Init()
         {
-            return player.TagEqualsVal(GroupTag.KeyGroupType, groupType);
+            AccountHelp.UpdateData();
+            if (datas == null) datas = new List<AccountData>();
         }
 
-        /// <summary>
-        /// 玩家的分组标签<see cref="GroupTag.KeyGroupType"/>是否有管理员
-        /// </summary>
-        /// <param name="player"></param>
-        /// <returns></returns>
-        public static bool HasAdministrator(this Player player)
+        internal static bool UpdateData()
         {
-            return player.GroupTypeEquals(GroupTag.GroupTypeAdministrator);
-        }
-
-        public static int GetGroupTypeLevel(this Player player, int def = -1)
-        {
-
+            List<AccountData> data = AccountHelp.ReadData();
+            if (data == null) return false;
+            datas = data;
+            return true;
         }
     }
 }
