@@ -17,14 +17,14 @@ namespace ChatBarCMD.Common.GameChatCommand
             UpdateTip(Main.chatText, oldChatText != Main.chatText);
         }
 
-        internal static bool OnProcessIncomingMessage(ChatMessage message, int clientId)//玩家输入文本时
+        internal static bool OnProcessIncomingMessage(ChatMessage message, int clientId)//客户端和服务端处理传入消息时
         {
             if (clientId != Main.myPlayer) return true;
 
             return OnSendChat(message?.Text);
         }
 
-        internal static bool OnSendChatMessageFromClient(ChatMessage message)//玩家输入文本时
+        internal static bool OnSendChatMessageFromClient(ChatMessage message)//客户端发送聊天时
         {
             return OnSendChat(message?.Text);
         }

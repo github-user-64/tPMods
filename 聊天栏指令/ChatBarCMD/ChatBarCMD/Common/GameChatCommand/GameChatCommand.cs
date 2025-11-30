@@ -100,6 +100,10 @@ namespace ChatBarCMD.Common.GameChatCommand
             if (exText != null) Main.NewText(exText);
         }
 
+        /// <summary>
+        /// 功能启用且在单人或客户端时
+        /// </summary>
+        /// <returns></returns>
         internal static bool CanUse()
         {
             if (Enable.val == false) return false;

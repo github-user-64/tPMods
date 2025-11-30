@@ -8,7 +8,7 @@ namespace ChatBarCMD.PatchGame
     {
         [HarmonyPatch("SendChatMessageFromClient")]
         [HarmonyPrefix]
-        public static bool SendChatMessageFromClientPrefix(ChatMessage message)
+        public static bool SendChatMessageFromClientPrefix(ChatMessage message)//客户端发送聊天时
         {
             try
             {

@@ -8,7 +8,7 @@ namespace ChatBarCMD.PatchGame
     {
         [HarmonyPatch("ProcessIncomingMessage")]
         [HarmonyPrefix]
-        public static bool ProcessIncomingMessagePrefix(ChatMessage message, int clientId)
+        public static bool ProcessIncomingMessagePrefix(ChatMessage message, int clientId)//客户端和服务端处理传入消息时
         {
             try
             {
