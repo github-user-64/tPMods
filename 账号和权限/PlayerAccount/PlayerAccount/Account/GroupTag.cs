@@ -22,6 +22,10 @@
         /// </summary>
         public const string GroupTypeAdministrator = "管理员";
         /// <summary>
+        /// 分组类型封禁
+        /// </summary>
+        public const string GroupTypeBan = "封禁";
+        /// <summary>
         /// key分组类型等级
         /// </summary>
         public const string KeyGroupTypeLevel = "GroupTypeLevel";

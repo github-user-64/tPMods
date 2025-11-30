@@ -86,10 +86,10 @@
     <Compile Include="Account\PlayAccount.cs" />
     <Compile Include="Account\GroupTag.cs" />
     <Compile Include="Account\AccountHelp.cs" />
+    <Compile Include="Common\FunctionCommand.cs" />
     <Compile Include="Common\PrintTo.cs" />
-    <Compile Include="Common\GameCMD.cs" />
-    <Compile Include="Common\PlayCMD.cs" />
-    <Compile Include="Common\PlaySendChat.cs" />
+    <Compile Include="Common\PlayCommand.cs" />
+    <Compile Include="Common\GotPlayChat.cs" />
     <Compile Include="PatchGame\Init.cs" />
     <Compile Include="PatchGame\PatchChatCommandProcessor.cs" />
     <Compile Include="PatchGame\PatchNetMessage.cs" />

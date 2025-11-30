@@ -9,10 +9,22 @@ using Terraria;
 
 namespace ChatBarCMD.Common.GameChatCommand
 {
+    /// <summary>
+    /// 游戏聊天指令
+    /// </summary>
     public partial class GameChatCommand
     {
+        /// <summary>
+        /// 启用
+        /// </summary>
         public static GetSetReset<bool> Enable = new GetSetReset<bool>(true, true);
+        /// <summary>
+        /// 指令头
+        /// </summary>
         public static GetSetReset<string> CMDHead = new GetSetReset<string>("/", "/", s => s ?? "/");
+        /// <summary>
+        /// 游戏指令, 在单人或客户端时可用
+        /// </summary>
         public static List<Func<List<CommandObject>>> GameCMD { get; internal set; } = new List<Func<List<CommandObject>>>();
 
         /// <summary>
@@ -76,8 +88,9 @@ namespace ChatBarCMD.Common.GameChatCommand
             {
                 try
                 {
-                    if (i == null) continue;
-                    cos.AddRange(i());
+                    List<CommandObject> list = i?.Invoke();
+                    if (list == null) continue;
+                    cos.AddRange(list);
                 }
                 catch
                 {

@@ -14,18 +14,24 @@ namespace PlayerGroup
         /// <inheritdoc/>
         public override List<CommandObject> GetCommands()
         {
+            return GetCMD(ContentPatch.PrintTry);
+        }
+
+        public static List<CommandObject> GetCMD(Action<string> print)
+        {
             List<CommandObject> list = new List<CommandObject>();
-            CommandObject root = new CommandObject("pg");
+
+            CommandObject root = new CommandObject("pg") { TipText = "玩家分组" };
             root.SubCommand.Add(new CommandHelpList(root.SubCommand,
                 "显示数据, 添加分组, 删除分组, 保存分组, 更新数据, 添加玩家, 删除玩家, 设置标签, 删除标签"
-                , ContentPatch.PrintTry));
+                , print));
 
-            root.SubCommand.Add(get_list(ContentPatch.PrintTry));
-            root.SubCommand.Add(get_add(ContentPatch.PrintTry));
-            root.SubCommand.Add(get_del(ContentPatch.PrintTry));
-            root.SubCommand.Add(get_save(ContentPatch.PrintTry));
-            root.SubCommand.Add(get_update(ContentPatch.PrintTry));
-            root.SubCommand.AddRange(Command_group.GetCO(ContentPatch.PrintTry));
+            root.SubCommand.Add(get_list(print));
+            root.SubCommand.Add(get_add(print));
+            root.SubCommand.Add(get_del(print));
+            root.SubCommand.Add(get_save(print));
+            root.SubCommand.Add(get_update(print));
+            root.SubCommand.AddRange(Command_group.GetCO(print));
 
             list.Add(root);
 

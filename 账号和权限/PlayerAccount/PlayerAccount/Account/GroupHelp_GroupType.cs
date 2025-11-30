@@ -30,7 +30,7 @@ namespace PlayerAccount.Account
         }
 
         /// <summary>
-        /// 获取玩家名的管理员等级
+        /// 获取管理员等级
         /// <para>标签<see cref="GroupTag.KeyGroupType"/>不等于<see cref="GroupTag.GroupTypeAdministrator"/>返回<see langword="null"/></para>
         /// <para>标签<see cref="GroupTag.KeyGroupTypeLevel"/>值无法转化为<see langword="int"/>返回<see langword="null"/></para>
         /// </summary>
@@ -39,6 +39,30 @@ namespace PlayerAccount.Account
         public static int? GetPlayAdministratorLevel(this Player player)
         {
             return player.GetPlayGroupTypeLevel(GroupTag.GroupTypeAdministrator);
+        }
+
+        /// <summary>
+        /// 获取普通玩家等级
+        /// <para>标签<see cref="GroupTag.KeyGroupType"/>不等于<see cref="GroupTag.GroupTypeOrdinary"/>返回<see langword="null"/></para>
+        /// <para>标签<see cref="GroupTag.KeyGroupTypeLevel"/>值无法转化为<see langword="int"/>返回<see langword="null"/></para>
+        /// </summary>
+        /// <param name="player"></param>
+        /// <returns></returns>
+        public static int? GetPlayOrdinaryLevel(this Player player)
+        {
+            return player.GetPlayGroupTypeLevel(GroupTag.GroupTypeOrdinary);
+        }
+
+        /// <summary>
+        /// 获取封禁等级
+        /// <para>标签<see cref="GroupTag.KeyGroupType"/>不等于<see cref="GroupTag.GroupTypeBan"/>返回<see langword="null"/></para>
+        /// <para>标签<see cref="GroupTag.KeyGroupTypeLevel"/>值无法转化为<see langword="int"/>返回<see langword="null"/></para>
+        /// </summary>
+        /// <param name="player"></param>
+        /// <returns></returns>
+        public static int? GetPlayBanLevel(this Player player)
+        {
+            return player.GetPlayGroupTypeLevel(GroupTag.GroupTypeBan);
         }
     }
 }
