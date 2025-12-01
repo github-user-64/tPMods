@@ -1,4 +1,6 @@
-﻿using System;
+﻿using CommandHelp;
+using Microsoft.Xna.Framework;
+using System;
 using Terraria;
 
 namespace PlayerAccount.Common.FunctionCommand
@@ -8,6 +10,16 @@ namespace PlayerAccount.Common.FunctionCommand
     /// </summary>
     public static class playing
     {
+        /// <summary/>
+        public class cmd : CommandMethod
+        {
+            /// <summary/>
+            public cmd(Player player) : base("playing")
+            {
+                Runing += _ => print(s => PrintTo.PrintToPlay(player.whoAmI, s, Color.White));
+            }
+        }
+
         /// <summary>
         /// 输出玩家列表
         /// </summary>
@@ -18,6 +30,7 @@ namespace PlayerAccount.Common.FunctionCommand
 
             string s = null;
             int len = 0;
+            int count = 0;
 
             for (int i = 0; i < Main.player?.Length; ++i)
             {
@@ -25,10 +38,11 @@ namespace PlayerAccount.Common.FunctionCommand
                 if (player == null) continue;
                 if (player.active == false) continue;
 
+                ++count;
                 string text = null;
 
                 if (s == null) text = $"{player.name}";
-                else text = $",{player.name}";
+                else text = $", {player.name}";
 
                 if (len > 32)
                 {
@@ -42,7 +56,10 @@ namespace PlayerAccount.Common.FunctionCommand
                 }
             }
 
-            PlayerGroup.Utils.Utils.PrintTry(s ?? "没有玩家", print);
+            print($"在线玩家数量[[c/aaffaa:{count}]]");
+
+            if (s == null) return;
+            print(s);
         }
     }
 }

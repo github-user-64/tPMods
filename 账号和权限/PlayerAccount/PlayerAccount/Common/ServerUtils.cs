@@ -43,7 +43,7 @@ namespace PlayerAccount.Common
         public static RemoteClient GetClient(this Player player)
         {
             if (player == null) return null;
-            if (player.active == false) return null;
+            //if (player.active == false) return null;
             if (player.name == null) return null;
             if (Main.player?.IndexInRange(player.whoAmI) != true) return null;
             if (Main.player[player.whoAmI] != player) return null;

@@ -109,12 +109,10 @@ namespace PlayerAccount.Common
         /// </summary>
         private static List<CommandObject> GetAll(Player player, int? aLevel, int? olevel, int? bLeve, Action<string> print)
         {
-            List<CommandObject> list = new List<CommandObject>();
-
-            CommandMethod playing = new CommandMethod("playing");
-            playing.Runing += _ => FunctionCommand.playing.print(print);
-
-            list.Add(playing);
+            List<CommandObject> list = new List<CommandObject>
+            {
+                new FunctionCommand.playing.cmd(player)
+            };
 
             return list;
         }

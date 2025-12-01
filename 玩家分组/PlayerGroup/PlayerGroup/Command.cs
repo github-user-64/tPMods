@@ -17,6 +17,7 @@ namespace PlayerGroup
             return GetCMD(ContentPatch.PrintTry);
         }
 
+        /// <summary/>
         public static List<CommandObject> GetCMD(Action<string> print)
         {
             List<CommandObject> list = new List<CommandObject>();
@@ -38,12 +39,19 @@ namespace PlayerGroup
             return list;
         }
 
+        /// <summary/>
         public static CommandObject get_list(Action<string> print) => new pg_list(print);
+        /// <summary/>
         public static CommandObject get_list_g(Action<string> print) => new pg_list_g(print);
+        /// <summary/>
         public static CommandObject get_list_play(Action<string> print) => new pg_list_play(print);
+        /// <summary/>
         public static CommandObject get_add(Action<string> print) => new pg_add(print);
+        /// <summary/>
         public static CommandObject get_del(Action<string> print) => new pg_del(print);
+        /// <summary/>
         public static CommandObject get_save(Action<string> print) => new pg_save(print);
+        /// <summary/>
         public static CommandObject get_update(Action<string> print) => new CommandMethodAction("update", () =>
         {
             Utils.Utils.PrintTry($"{GroupHelp.UpdateData() ?? "更新成功"}", print);

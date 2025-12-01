@@ -27,9 +27,13 @@ namespace PlayerGroup
             return list;
         }
 
+        /// <summary/>
         public static CommandObject get_addp(Action<string> print) => new pg_addp(print);
+        /// <summary/>
         public static CommandObject get_delp(Action<string> print) => new pg_deln(print);
+        /// <summary/>
         public static CommandObject get_sett(Action<string> print) => new pg_sett(print);
+        /// <summary/>
         public static CommandObject get_delt(Action<string> print) => new pg_delt(print);
     }
 
