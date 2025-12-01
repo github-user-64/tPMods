@@ -24,7 +24,7 @@ namespace PlayerAccount.Common
         {
             if (Main.netMode != 2) return true;
 
-            if (Main.player?.IndexInRange(clientId) == false) return true;
+            if (Main.player?.IndexInRange(clientId) != true) return true;
 
             if (CMDHead == null || CMDHead == string.Empty) CMDHead = "/";
 

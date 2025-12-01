@@ -70,7 +70,7 @@ namespace PlayerAccount.Common
         {
             if (Main.netMode != 2) return;
 
-            if (Netplay.Clients?.IndexInRange(clientId) == false) return;
+            if (Netplay.Clients?.IndexInRange(clientId) != true) return;
             if (Netplay.Clients[clientId].IsConnected() == false) return;
             if (canSend != null && canSend.Invoke(clientId) == false) return;
 

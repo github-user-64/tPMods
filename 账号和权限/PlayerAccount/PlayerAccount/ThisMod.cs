@@ -29,6 +29,7 @@ namespace PlayerAccount
 
             //
 
+            Common.ClientUUID.Init();
             Account.PlayAccount.Init();
         }
     }

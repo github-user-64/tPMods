@@ -37,7 +37,7 @@ namespace PlayerGroup
         /// <returns></returns>
         public static bool AddPlay(this GroupData gd, int index)
         {
-            if (Main.player?.IndexInRange(index) == false) return false;
+            if (Main.player?.IndexInRange(index) != true) return false;
 
             return gd.AddName(Main.player[index].name);
         }
@@ -61,7 +61,7 @@ namespace PlayerGroup
         /// <returns></returns>
         public static bool DelPlay(this GroupData gd, int index)
         {
-            if (Main.player?.IndexInRange(index) == false) return false;
+            if (Main.player?.IndexInRange(index) != true) return false;
 
             return gd.DelName(Main.player[index].name);
         }

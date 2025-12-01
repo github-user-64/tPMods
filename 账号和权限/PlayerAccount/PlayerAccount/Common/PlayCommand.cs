@@ -112,7 +112,7 @@ namespace PlayerAccount.Common
             List<CommandObject> list = new List<CommandObject>();
 
             CommandMethod playing = new CommandMethod("playing");
-            playing.Runing += _ => FunctionCommand.playing(print);
+            playing.Runing += _ => FunctionCommand.playing.print(print);
 
             list.Add(playing);
 

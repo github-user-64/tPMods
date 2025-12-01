@@ -33,8 +33,12 @@
         /// </summary>
         public string uuid = null;
         /// <summary>
-        /// ui
+        /// 地址
         /// </summary>
         public string ip = null;
+        /// <summary>
+        /// 端口
+        /// </summary>
+        public string port = null;
     }
 }

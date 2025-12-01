@@ -86,10 +86,13 @@
     <Compile Include="Account\PlayAccount.cs" />
     <Compile Include="Account\GroupTag.cs" />
     <Compile Include="Account\AccountHelp.cs" />
-    <Compile Include="Common\FunctionCommand.cs" />
+    <Compile Include="Common\ClientUUID.cs" />
+    <Compile Include="Common\FunctionCommand\playing.cs" />
+    <Compile Include="Common\FunctionCommand\kickPlay.cs" />
     <Compile Include="Common\PrintTo.cs" />
     <Compile Include="Common\PlayCommand.cs" />
     <Compile Include="Common\GotPlayChat.cs" />
+    <Compile Include="Common\ServerUtils.cs" />
     <Compile Include="PatchGame\Init.cs" />
     <Compile Include="PatchGame\PatchChatCommandProcessor.cs" />
     <Compile Include="PatchGame\PatchMessageBuffer.cs" />
@@ -107,6 +110,5 @@
       <Private>False</Private>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
