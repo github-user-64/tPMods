@@ -92,6 +92,7 @@
     <Compile Include="Common\GotPlayChat.cs" />
     <Compile Include="PatchGame\Init.cs" />
     <Compile Include="PatchGame\PatchChatCommandProcessor.cs" />
+    <Compile Include="PatchGame\PatchMessageBuffer.cs" />
     <Compile Include="PatchGame\PatchNetMessage.cs" />
     <Compile Include="PatchGame\PatchPlayer.cs" />
     <Compile Include="ModLinkage\ModChatBarCMD.cs" />

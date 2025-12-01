@@ -2,7 +2,7 @@
 using System;
 using Terraria;
 
-namespace SuspiciousPlayer.Patch
+namespace PlayerAccount.PatchGame
 {
     /// <summary>
     /// 修补<see cref="NetMessage"/>

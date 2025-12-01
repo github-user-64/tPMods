@@ -1,5 +1,7 @@
 ﻿using System;
 using Terraria;
+using Terraria.ID;
+using Terraria.Localization;
 
 namespace PlayerAccount.Common
 {
@@ -42,11 +44,32 @@ namespace PlayerAccount.Common
                 }
             }
 
-            try
+            PlayerGroup.Utils.Utils.PrintTry(s ?? "没有玩家", print);
+        }
+
+        /// <summary>
+        /// 踢出玩家
+        /// </summary>
+        /// <param name="whoAmI"></param>
+        /// <param name="msg"></param>
+        /// <param name="print"></param>
+        public static void kick(int whoAmI, string msg, Action<string> print)
+        {
+            if (Main.player?.IndexInRange(whoAmI) == false)
             {
-                print(s ?? "没有玩家");
+                PlayerGroup.Utils.Utils.PrintTry($"[{whoAmI}]不在范围内", print);
+                return;
             }
-            catch { }
+
+            string name = Main.player[whoAmI]?.name ?? string.Empty;
+
+            NetMessage.SendData(MessageID.Kick, whoAmI, -1, NetworkText.FromLiteral(msg ?? string.Empty));
+
+            PlayerGroup.Utils.Utils.PrintTry($"已踢出[{name}]", print);
+
+            ////踢出玩家
+            //Netplay.Clients[__instance.whoAmI].PendingTermination = true;
+            //Netplay.Clients[__instance.whoAmI].PendingTerminationApproved = true;
         }
     }
 }

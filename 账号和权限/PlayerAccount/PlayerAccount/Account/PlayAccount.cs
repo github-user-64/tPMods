@@ -23,5 +23,11 @@ namespace PlayerAccount.Account
             datas = data;
             return true;
         }
+
+        public static void Register(string name, string password)
+        {
+            //as TcpAddress
+            Terraria.Netplay.Clients[0].Socket.GetRemoteAddress().GetIdentifier();
+        }
     }
 }
