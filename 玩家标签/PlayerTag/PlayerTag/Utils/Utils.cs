@@ -39,7 +39,6 @@ namespace PlayerTag.Utils
         /// <summary>
         /// 清空目录下的所有文件
         /// </summary>
-        /// <param name="path"></param>
         public static void DirectoryFileDelete(string path)
         {
             DirectoryInfo di = new DirectoryInfo(path);
@@ -50,8 +49,6 @@ namespace PlayerTag.Utils
         /// <summary>
         /// 复制目录下所有文件
         /// </summary>
-        /// <param name="path"></param>
-        /// <param name="pathTo"></param>
         public static void DirectoryFileCopyTo(string path, string pathTo)
         {
             DirectoryInfo di = new DirectoryInfo(path);
@@ -62,10 +59,6 @@ namespace PlayerTag.Utils
         /// <summary>
         /// 何意味
         /// </summary>
-        /// <param name="action"></param>
-        /// <param name="ok"></param>
-        /// <param name="no"></param>
-        /// <param name="print"></param>
         public static void ActionState(Action action, string ok, string no, Action<string> print = null)
         {
             try
@@ -83,8 +76,6 @@ namespace PlayerTag.Utils
         /// <summary>
         /// 输出, 如果<paramref name="print"/>为<see langword="null"/>那么使用<see cref="ContentPatch.PrintTry(string)"/>输出
         /// </summary>
-        /// <param name="s"></param>
-        /// <param name="print"></param>
         public static void PrintTry(string s, Action<string> print = null)
         {
             try
@@ -97,11 +88,6 @@ namespace PlayerTag.Utils
         /// <summary>
         /// key是否存在
         /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <typeparam name="TV"></typeparam>
-        /// <param name="d"></param>
-        /// <param name="key"></param>
-        /// <returns></returns>
         public static bool DictionaryHasKey<T, TV>(this Dictionary<T, TV> d, T key)
         {
             if (d == null) return false;
@@ -112,12 +98,6 @@ namespace PlayerTag.Utils
         /// <summary>
         /// 设置val, key不存在则创建, 成功返回<see langword="true"/>
         /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <typeparam name="TV"></typeparam>
-        /// <param name="d"></param>
-        /// <param name="key"></param>
-        /// <param name="val"></param>
-        /// <returns></returns>
         public static bool DictionarySetVal<T, TV>(this Dictionary<T, TV> d, T key, TV val)
         {
             if (d == null) return false;
@@ -132,12 +112,6 @@ namespace PlayerTag.Utils
         /// <summary>
         /// 获取val, key不存在则返回<paramref name="def"/>
         /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <typeparam name="TV"></typeparam>
-        /// <param name="d"></param>
-        /// <param name="key"></param>
-        /// <param name="def"></param>
-        /// <returns></returns>
         public static TV DictionaryGetVal<T, TV>(this Dictionary<T, TV> d, T key, TV def = default)
         {
             if (d.DictionaryHasKey(key)) return def;
@@ -148,11 +122,6 @@ namespace PlayerTag.Utils
         /// <summary>
         /// 删除key, 有key被删除则为<see langword="true"/>
         /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <typeparam name="TV"></typeparam>
-        /// <param name="d"></param>
-        /// <param name="key"></param>
-        /// <returns></returns>
         public static bool DictionaryDel<T, TV>(this Dictionary<T, TV> d, T key)
         {
             if (d == null) return false;

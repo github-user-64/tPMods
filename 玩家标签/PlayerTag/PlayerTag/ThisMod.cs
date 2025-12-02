@@ -21,7 +21,7 @@ namespace PlayerTag
             
             ThisMod.mo = mo;
 
-            if (mo == null) throw new Exception($"{nameof(ThisMod)}:找不到模组对象");
+            if (mo == null) throw new Exception($"{nameof(PlayerTag)}:找不到模组对象");
 
             //
 

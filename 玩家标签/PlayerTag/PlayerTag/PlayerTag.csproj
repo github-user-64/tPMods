@@ -17,7 +17,7 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
+    <OutputPath>..\..\..\..\tPlainModLoader\tPlainModLoader\tPlainModLoader\bin\Debug\Mods\玩家标签\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -81,8 +81,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="PatchGame\Init.cs" />
-    <Compile Include="PatchGame\PatchNetMessage.cs" />
+    <Compile Include="ClientTag.cs" />
     <Compile Include="TagData.cs" />
     <Compile Include="TagHelp.cs" />
     <Compile Include="TagHelp_.cs" />

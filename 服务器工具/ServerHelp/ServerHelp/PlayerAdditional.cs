@@ -27,10 +27,7 @@ namespace ServerHelp
         /// </summary>
         public virtual void DisconnectedPlayer(int ply)
         {
-            if (data?.IndexInRange(ply) != true) return;
-
-            data[ply] = default;
-            name[ply] = null;
+            ClearDataItem(ply);
         }
 
         /// <summary>
@@ -38,32 +35,24 @@ namespace ServerHelp
         /// </summary>
         public virtual void ConnectedPlayer(int ply)
         {
-            if (data?.IndexInRange(ply) != true) return;
+            ClearDataItem(ply);
 
-            try
-            {
-                Player p = Utils.GetPlay(ply);
-                if (p?.name == null) return;
-
-                data[ply] = default;
-                name[ply] = null;
-                data[ply] = Converter(ply);
-                name[ply] = p.name;
-            }
-            catch { }
+            UpdateDataItem(ply);
         }
 
         /// <summary>
         /// 将<paramref name="ply"/>转化为<typeparamref name="T"/>
         /// </summary>
-        public virtual T Converter(int ply) => default;
+        public virtual T ConverterThrow(int ply) => default;
 
         /// <summary>
         /// 获取玩家的数据, 不存在返回<paramref name="def"/>
         /// </summary>
-        public T GetData(Player player, T def = default)
+        public virtual T GetData(Player player, T def = default)
         {
             if (CheckPlayer(player, out int index) == false) return def;
+
+            if (name[index] == null) return def;
 
             return data[index];
         }
@@ -71,19 +60,73 @@ namespace ServerHelp
         /// <summary>
         /// 设置数据, 成功返回<see langword="true"/>
         /// </summary>
-        public bool SetData(Player player, T val)
+        public virtual bool SetData(Player player, T val)
         {
             if (CheckPlayer(player, out int index) == false) return false;
+
+            if (name[index] == null) return false;
 
             data[index] = val;
 
             return true;
         }
+        
+        /// <summary>
+        /// 更新数据
+        /// </summary>
+        public virtual void UpdateData()
+        {
+            if (data == null) return;
+
+            for (int i = 0; i < data.Length; ++i)
+            {
+                ClearDataItem(i);
+
+                UpdateDataItem(i);
+            }
+        }
+
+        /// <summary>
+        /// 更新数据项, 成功返回<see langword="true"/>
+        /// </summary>
+        public virtual bool UpdateDataItem(int index)
+        {
+            try
+            {
+                if (data?.IndexInRange(index) != true) return false;
+
+                Player p = Utils.GetPlay(index);
+                if (p?.name == null) return false;
+
+                T d = ConverterThrow(index);
+                string n = p.name;
+
+                data[index] = d;
+                name[index] = n;
+
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// 清除数据项
+        /// </summary>
+        protected virtual void ClearDataItem(int index)
+        {
+            if (data?.IndexInRange(index) != true) return;
+
+            data[index] = default;
+            name[index] = null;
+        }
 
         /// <summary>
         /// 检查玩家, 正常返回<see langword="true"/>, 否则<paramref name="whoAmI"/>为-1
         /// </summary>
-        protected bool CheckPlayer(Player player, out int whoAmI)
+        protected virtual bool CheckPlayer(Player player, out int whoAmI)
         {
             whoAmI = -1;
 
@@ -103,7 +146,7 @@ namespace ServerHelp
         /// <summary>
         /// 检查玩家, 正常返回<see cref="Player"/>
         /// </summary>
-        protected Player CheckPlayer(int whoAmI)
+        protected virtual Player CheckPlayer(int whoAmI)
         {
             if (data?.IndexInRange(whoAmI) != true) return null;
 

@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using tContentPatch.Utils;
 
 namespace PlayerTag
@@ -14,12 +15,12 @@ namespace PlayerTag
         /// <summary>
         /// 保存标签数据
         /// </summary>
-        public static void SaveData(List<TagData> datas)
+        public static void SaveData()
         {
             Directory.CreateDirectory(ThisMod.DirTag);//目录不存在就创建
             Directory.CreateDirectory(ThisMod.DirTagTemp);//目录不存在就创建
 
-            SaveData(datas, ThisMod.FileTag, ThisMod.FileTagTemp);
+            SaveData(TagSetting.datas, ThisMod.FileTag, ThisMod.FileTagTemp);
         }
 
         /// <summary>
@@ -44,27 +45,26 @@ namespace PlayerTag
 
             //
 
+            datas = datas.ToList();//复制
+            CheckTagData(datas);//检查删除active为false的
+
             //保存到临时文件夹
             datas.Save(temp);
 
-            //复制到分组文件夹
+            //复制到文件夹
             FileInfo fi = new FileInfo(temp);
             fi.CopyTo(file, true);
         }
 
         /// <summary>
-        /// 更新分组数据, 更新成功为<see langword="null"/>
+        /// 更新标签数据, 更新成功为<see langword="null"/>
         /// </summary>
-        /// <returns></returns>
         public static string UpdateData()
         {
             try
             {
                 List<TagData> data = Read(ThisMod.FileTag);
-                if (data == null) return "数据为[null]";
-
-                CheckTagData(data);
-                TagSetting.datas = data;
+                TagSetting.UpdateData(data);
 
                 return null;
             }
@@ -74,26 +74,18 @@ namespace PlayerTag
         /// <summary>
         /// 读取标签数据
         /// </summary>
-        public static List<TagData> Read(string read)
+        public static List<TagData> Read(string file)
         {
-            return MyJson1.Get2<List<TagData>>(read);//读取数据
+            return MyJson1.Get2<List<TagData>>(file);//读取数据
         }
 
         /// <summary>
-        /// 检查并恢复数据
+        /// 检查和恢复数据并删除<see cref="TagData.active"/>为<see langword="false"/>项
         /// </summary>
         /// <exception cref="ArgumentNullException"></exception>
         public static void CheckTagData(this List<TagData> datas)
         {
-            if (datas == null) throw new ArgumentNullException(nameof(datas));
-
-            datas.RemoveAll(i => i == null || i.Name == null);
-
-            foreach (TagData data in datas)
-            {
-                if (data.Tag == null) data.Tag = new Dictionary<string, string>();
-                if (data.TagTemp == null) data.TagTemp = new Dictionary<string, string>();
-            }
+            TagSetting.CheckTagData(datas);
         }
     }
 }

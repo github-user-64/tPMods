@@ -21,6 +21,11 @@ namespace PlayerTag
         /// </summary>
         [Newtonsoft.Json.JsonIgnore]
         public Dictionary<string, string> TagTemp = null;
+        /// <summary>
+        /// 为<see langword="false"/>意味着不在列表里, 如果在列表里那么会被删除
+        /// </summary>
+        [Newtonsoft.Json.JsonIgnore]
+        public bool active = false;
 
         /// <summary>
         /// 标签是否存在
@@ -70,6 +75,7 @@ namespace PlayerTag
                 Name = name,
                 Tag = new Dictionary<string, string>(),
                 TagTemp = new Dictionary<string, string>(),
+                active = false,
             };
         }
     }

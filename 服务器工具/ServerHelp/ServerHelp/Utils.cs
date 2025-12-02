@@ -9,13 +9,14 @@ namespace ServerHelp
     public static class Utils
     {
         /// <summary>
-        /// 获取正常玩家, 不存在返回<see langword="null"/>
+        /// 获取数据正常的玩家, 不存在返回<see langword="null"/>
         /// </summary>
         public static Player GetPlay(int index)
         {
             if (Main.player?.IndexInRange(index) != true) return null;
 
             Player player = Main.player[index];
+            if (player?.whoAmI != index) return null;
 
             if (GetClient(player) == null) return null;
 
