@@ -18,8 +18,14 @@ namespace ServerHelp
             data = new T[Main.player.Length];
             name = new string[data.Length];
 
+            PatchGame.PatchMain.OnEnterWorlding += EnterWorlding;
             PatchGame.PatchNetMessage.OnSyncConnectedPlayer += ConnectedPlayer;
             PatchGame.PatchNetMessage.OnSyncDisconnectedPlayer += DisconnectedPlayer;
+        }
+
+        private void EnterWorlding()
+        {
+            UpdateDataItem(Main.myPlayer);
         }
 
         /// <summary>
@@ -95,7 +101,7 @@ namespace ServerHelp
             {
                 if (data?.IndexInRange(index) != true) return false;
 
-                Player p = Utils.GetPlay(index);
+                Player p = ServerUtils.GetPlay(index);
                 if (p?.name == null) return false;
 
                 T d = ConverterThrow(index);
@@ -150,7 +156,7 @@ namespace ServerHelp
         {
             if (data?.IndexInRange(whoAmI) != true) return null;
 
-            Player p = Utils.GetPlay(whoAmI);
+            Player p = ServerUtils.GetPlay(whoAmI);
 
             return p;
         }

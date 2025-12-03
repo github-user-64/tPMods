@@ -6,13 +6,14 @@ namespace ServerHelp
     /// <summary>
     /// 服务器工具
     /// </summary>
-    public static class Utils
+    public static class ServerUtils
     {
         /// <summary>
         /// 获取数据正常的玩家, 不存在返回<see langword="null"/>
         /// </summary>
         public static Player GetPlay(int index)
         {
+            if (Main.netMode != 2) return null;
             if (Main.player?.IndexInRange(index) != true) return null;
 
             Player player = Main.player[index];
@@ -24,7 +25,7 @@ namespace ServerHelp
         }
 
         /// <summary>
-        /// 获取正常玩家, 不存在返回<see langword="null"/>(会不会有点多余了?)
+        /// 获取正常玩家, 不存在返回<see langword="null"/>
         /// </summary>
         public static Player GetPlay(this Player player)
         {
@@ -37,6 +38,8 @@ namespace ServerHelp
         /// </summary>
         public static RemoteClient GetClient(this Player player)
         {
+            if (Main.netMode != 2) return null;
+
             if (player == null) return null;
             //if (player.active == false) return null;
             if (player.name == null) return null;
@@ -91,6 +94,8 @@ namespace ServerHelp
         /// </summary>
         public static string GetUUID(this Player player)
         {
+            if (Main.netMode != 2) return null;
+
             return ClientUUID.GetUUID(player);
         }
     }
