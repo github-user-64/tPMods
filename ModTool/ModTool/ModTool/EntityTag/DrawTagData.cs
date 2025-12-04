@@ -2,8 +2,10 @@
 using Microsoft.Xna.Framework.Graphics;
 using ModTool.AdditionalData;
 using System.Collections.Generic;
+using System.Text;
 using tContentPatch;
 using Terraria;
+using Terraria.GameContent;
 using Terraria.UI;
 
 namespace ModTool.EntityTag
@@ -17,6 +19,7 @@ namespace ModTool.EntityTag
         private static bool EnableDrawProjectile = true;
         private static bool EnableDrawItem = true;
         private static bool EnableDrawNPC = true;
+        private static Color[] info_Colors = { Color.Green, Color.BlueViolet, Color.Gold, Color.Pink };
 
         public override void SetupDrawInterfaceLayersPostfix(List<GameInterfaceLayer> gameInterfaceLayers)
         {
@@ -27,14 +30,10 @@ namespace ModTool.EntityTag
                     "StaticTile.ModTool: DrawTagData.InventoryPrefix",
                     () =>
                     {
-                        if (EnableDrawPlayer == false)
-                            Draw(Main.spriteBatch, Main.player, Entitys.player);
-                        if (EnableDrawProjectile == false)
-                            Draw(Main.spriteBatch, Main.projectile, Entitys.projectile);
-                        if (EnableDrawItem == false)
-                            Draw(Main.spriteBatch, Main.item, Entitys.item);
-                        if (EnableDrawNPC == false)
-                            Draw(Main.spriteBatch, Main.npc, Entitys.npc);
+                        if (EnableDrawPlayer) Draw(Main.spriteBatch, Main.player, Entitys.player);
+                        if (EnableDrawProjectile) Draw(Main.spriteBatch, Main.projectile, Entitys.projectile);
+                        if (EnableDrawItem) Draw(Main.spriteBatch, Main.item, Entitys.item);
+                        if (EnableDrawNPC) Draw(Main.spriteBatch, Main.npc, Entitys.npc);
 
                         return true;
                     },
@@ -47,23 +46,55 @@ namespace ModTool.EntityTag
         {
             Vector2 pos = Main.LocalPlayer.Center;
 
-            foreach (T i in list)
+            for (int i = 0; i < list.Length; ++i)
             {
-                if (i == null) continue;
-                if (i.active == false) continue;
+                T e = list[i];
 
-                if (pos.Distance(i.Center) > 1000) continue;
+                if (e == null) continue;
+                if (e.active == false) continue;
 
-                Dictionary<string, string> tag = ad.GetKeyVal(i);
+                if (pos.Distance(e.Center) > 1000) continue;
+
+                Dictionary<string, string> tag = ad.GetTagDic(e);
                 if (tag == null) continue;
 
-                Draw(spriteBatch, i, tag);
+                Color color = info_Colors[i % info_Colors.Length];
+
+                Draw(spriteBatch, e, tag, color);
             }
         }
 
-        private static void Draw<T>(SpriteBatch spriteBatch, T obj, Dictionary<string, string> tag) where T : Entity
+        private static void Draw<T>(SpriteBatch spriteBatch, T obj, Dictionary<string, string> tag, Color color) where T : Entity
         {
+            StringBuilder strb = new StringBuilder();
 
+            foreach (KeyValuePair<string, string> i in tag)
+            {
+                if (strb.Length > 0) strb.Append('\n');
+
+                strb.Append('{');
+
+                if (i.Key != null)
+                {
+                    strb.Append(i.Key.ToString());
+                }
+
+                strb.Append(',');
+
+                if (i.Value != null)
+                {
+                    strb.Append(i.Value.ToString());
+                }
+
+                strb.Append('}');
+            }
+
+            Vector2 pos = obj.position - Main.screenPosition;
+            pos.Y += obj.height;
+
+            Terraria.Utils.DrawBorderString(Main.spriteBatch,
+                strb.ToString(),
+                pos, color);
         }
     }
 }

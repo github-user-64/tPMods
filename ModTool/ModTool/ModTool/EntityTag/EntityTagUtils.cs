@@ -11,57 +11,57 @@ namespace ModTool.EntityTag
     public static class EntityTagUtils
     {
         /// <summary>
-        /// key是否存在
+        /// tag是否存在
         /// </summary>
-        public static bool HasKey<T>(this AdditionalData<Dictionary<string, string>, T> obj, T entity,
-            string key) where T : Entity
+        public static bool HasTag<T>(this AdditionalData<Dictionary<string, string>, T> obj, T entity,
+            string tag) where T : Entity
         {
             if (obj == null) return false;
             if (entity == null) return false;
 
-            return obj.GetData(entity.whoAmI).HasKey(key);
+            return obj.GetData(entity.whoAmI).HasKey(tag);
         }
 
         /// <summary>
-        /// 设置val, key不存在则添加, 成功返回<see langword="true"/>
+        /// 设置val, tag不存在则添加, 成功返回<see langword="true"/>
         /// </summary>
         public static bool SetVal<T>(this AdditionalData<Dictionary<string, string>, T> obj, T entity,
-            string key, string val) where T : Entity
+            string tag, string val) where T : Entity
         {
             if (obj == null) return false;
             if (entity == null) return false;
 
-            return obj.GetData(entity.whoAmI).SetVal(key, val);
+            return obj.GetData(entity.whoAmI).SetVal(tag, val);
         }
 
         /// <summary>
-        /// 获取val, key不存在则返回<paramref name="def"/>
+        /// 获取val, tag不存在则返回<paramref name="def"/>
         /// </summary>
         public static string GetVal<T>(this AdditionalData<Dictionary<string, string>, T> obj, T entity,
-            string key, string def = null) where T : Entity
+            string tag, string def = null) where T : Entity
         {
             if (obj == null) return def;
             if (entity == null) return def;
 
-            return obj.GetData(entity.whoAmI).GetVal(key, def);
+            return obj.GetData(entity.whoAmI).GetVal(tag, def);
         }
 
         /// <summary>
-        /// 删除key, 有key被删除则为<see langword="true"/>
+        /// 删除tag, 有tag被删除则为<see langword="true"/>
         /// </summary>
-        public static bool DelKey<T>(this AdditionalData<Dictionary<string, string>, T> obj, T entity,
-            string key) where T : Entity
+        public static bool DelTag<T>(this AdditionalData<Dictionary<string, string>, T> obj, T entity,
+            string tag) where T : Entity
         {
             if (obj == null) return false;
             if (entity == null) return false;
 
-            return obj.GetData(entity.whoAmI).DelKey(key);
+            return obj.GetData(entity.whoAmI).DelKey(tag);
         }
 
         /// <summary>
-        /// 获取key列表, 获取失败返回<see langword="null"/>
+        /// 获取tag列表, 获取失败返回<see langword="null"/>
         /// </summary>
-        public static List<string> GetKeys<T>(this AdditionalData<Dictionary<string, string>, T> obj, T entity) where T : Entity
+        public static List<string> GetTags<T>(this AdditionalData<Dictionary<string, string>, T> obj, T entity) where T : Entity
         {
             if (obj == null) return null;
             if (entity == null) return null;
@@ -70,15 +70,39 @@ namespace ModTool.EntityTag
         }
 
         /// <summary>
-        /// 获取字典, 获取失败返回<see langword="null"/>
+        /// 获取tag字典, 获取失败返回<see langword="null"/>
         /// </summary>
         public static Dictionary<string, string>
-            GetKeyVal<T>(this AdditionalData<Dictionary<string, string>, T> obj, T entity) where T : Entity
+            GetTagDic<T>(this AdditionalData<Dictionary<string, string>, T> obj, T entity) where T : Entity
         {
             if (obj == null) return null;
             if (entity == null) return null;
 
             return obj.GetData(entity.whoAmI);
+        }
+
+        /// <summary>
+        /// 获取键值对, 不存在则返回<paramref name="def"/>
+        /// </summary>
+        public static KeyValuePair<string, string>? GetTagVal<T>(this AdditionalData<Dictionary<string, string>, T> obj, T entity,
+            string tag, KeyValuePair<string, string>? def = null) where T : Entity
+        {
+            if (obj == null) return def;
+            if (entity == null) return def;
+
+            return obj.GetData(entity.whoAmI).GetKeyVal(tag, def);
+        }
+
+        /// <summary>
+        /// 获取键值对文本, 不存在则返回<paramref name="def"/>
+        /// </summary>
+        public static string GetTagValString<T>(this AdditionalData<Dictionary<string, string>, T> obj, T entity,
+            string tag, string def = "{null}") where T : Entity
+        {
+            if (obj == null) return def;
+            if (entity == null) return def;
+
+            return obj.GetData(entity.whoAmI).GetKeyValString(tag, def);
         }
     }
 }

@@ -36,6 +36,10 @@
       <HintPath>..\..\..\..\tPlainModLoader\tPlainModLoader\tPlainModLoader\bin\Debug\0Harmony.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="CommandHelp">
+      <HintPath>..\..\..\..\tPlainModLoader\tPlainModLoader\tPlainModLoader\bin\Debug\CommandHelp.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
     <Reference Include="Microsoft.Xna.Framework, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553, processorArchitecture=x86">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\tPlainModLoader\dll\Microsoft.Xna.Framework.dll</HintPath>
@@ -96,8 +100,19 @@
     <Compile Include="ServerHelp\ClientUUID.cs" />
     <Compile Include="ServerHelp\PrintTo.cs" />
     <Compile Include="ServerHelp\PlayDataUtils.cs" />
+    <Compile Include="test\CommandeEntityTagMethod.cs" />
+    <Compile Include="test\CommandeEnumEntity.cs" />
+    <Compile Include="test\CommandString.cs" />
     <Compile Include="ThisMod.cs" />
     <Compile Include="Utils\Utils.cs" />
+    <Compile Include="test\测试指令.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\聊天栏指令\ChatBarCMD\ChatBarCMD\ChatBarCMD.csproj">
+      <Project>{5f1673b3-6898-4f0c-aa9d-5ea8886d71cf}</Project>
+      <Name>ChatBarCMD</Name>
+      <Private>False</Private>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -201,14 +201,20 @@ namespace ChatBarCMD.Common.GameChatCommand
                 CommandObject subco = coList[i];
                 if (subco == null) continue;
 
+                string isVariable = (subco as CommandValue)?.IsVariable == true ? "(可不填)" : string.Empty;
+
                 if (subco is CommandeEnum ce)
                 {
-                    for (int i2 = 0; i2 < ce.Enums.Length; i2++) text += $"{(text == null ? "" : "\n")}> {ce.Enums[i2]}";
+                    for (int i2 = 0; i2 < ce.Enums.Length; i2++)
+                    {
+                        text += $"{(text == null ? "" : "\n")}> {ce.Enums[i2]}";
+                        if (i2 < ce.TipTexts?.Length) text += $"//{ce.TipTexts[i2]}{isVariable}";
+                    }
                 }
                 else
                 {
                     text += $"{(text == null ? "" : "\n")}> {subco.Text}";
-                    if (subco.TipText != null) text += $"//{subco.TipText}";
+                    if (subco.TipText != null) text += $"//{subco.TipText}{isVariable}";
                 }
             }
 

@@ -2,10 +2,13 @@
 
 namespace ChatBarCMD.Utils
 {
+    /// <summary/>
     public class GetSetReset<T>
     {
+        /// <summary/>
         public Action<T> OnValUpdate = null;
         private T _val;
+        /// <summary/>
         public T val
         {
             get => _val;
@@ -20,6 +23,7 @@ namespace ChatBarCMD.Utils
         private T reset;
         private Func<T, T> func;
 
+        /// <summary/>
         public GetSetReset(T val = default, T reset = default, Func<T, T> func = null)
         {
             this.val = val;
@@ -29,11 +33,14 @@ namespace ChatBarCMD.Utils
             if (this.func != null) this.val = this.func(this.val);
         }
 
+        /// <summary/>
         public void Reset() => val = reset;
     }
 
+    /// <summary/>
     public class GetSetReset
     {
+        /// <summary/>
         public static Func<int, int> GetIntFunc(int min = int.MinValue, int max = int.MaxValue)
         {
             return v =>

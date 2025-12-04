@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using ModTool.AdditionalData;
+using System.Collections.Generic;
 using System.Linq;
+using Terraria;
 
 namespace ModTool.Utils
 {
@@ -61,6 +63,27 @@ namespace ModTool.Utils
             if (d == null) return null;
 
             return d.Keys.ToList();
+        }
+
+        /// <summary>
+        /// 获取键值对, 不存在则返回<paramref name="def"/>
+        /// </summary>
+        public static KeyValuePair<T, TV>? GetKeyVal<T, TV>(this Dictionary<T, TV> d,
+            T key, KeyValuePair<T, TV>? def = null)
+        {
+            if (d.HasKey(key) == false) return def;
+
+            return new KeyValuePair<T, TV>(key, d[key]);
+        }
+
+        /// <summary>
+        /// 获取键值对文本, 不存在则返回<paramref name="def"/>
+        /// </summary>
+        public static string GetKeyValString<T, TV>(this Dictionary<T, TV> d, T key, string def = "{null}")
+        {
+            if (d.HasKey(key) == false) return def;
+
+            return $"{{{key.ToString()},{d[key]?.ToString()}}}";
         }
     }
 }
