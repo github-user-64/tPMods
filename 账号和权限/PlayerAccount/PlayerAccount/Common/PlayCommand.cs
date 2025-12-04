@@ -1,8 +1,6 @@
 ﻿using CommandHelp;
 using Microsoft.Xna.Framework;
-using PlayerAccount.Account;
-using PlayerGroup;
-using PlayerGroup.CMDUtils;
+using ModTool.ServerHelp;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -32,8 +30,8 @@ namespace PlayerAccount.Common
         
         static PlayCommand()
         {
-            PlayCMDList.Add(GetA0);
-            PlayCMDList.Add(GetAll);
+            //PlayCMDList.Add(GetA0);
+            //PlayCMDList.Add(GetAll);
         }
 
         /// <summary>
@@ -67,27 +65,27 @@ namespace PlayerAccount.Common
         /// <returns></returns>
         private static List<CommandObject> GetPlayCMD(Player player, Action<string> print)
         {
-            int? aLevel = player.GetPlayAdministratorLevel();
-            int? oLevel = player.GetPlayOrdinaryLevel();
-            int? bLevel = player.GetPlayBanLevel();
+            //int? aLevel = player.GetPlayAdministratorLevel();
+            //int? oLevel = player.GetPlayOrdinaryLevel();
+            //int? bLevel = player.GetPlayBanLevel();
 
             List<CommandObject> cos = new List<CommandObject>();
-            cos.Add(new CommandHelpList(cos, print: print));
+            //cos.Add(new CommandHelpList(cos, print: print));
 
-            PlayCMDList.RemoveAll(i => i == null);
-            foreach (PlayCMD i in PlayCMDList)
-            {
-                try
-                {
-                    List<CommandObject> list = i?.Invoke(player, aLevel, oLevel, bLevel, print);
-                    if (list == null) continue;
-                    cos.AddRange(list);
-                }
-                catch
-                {
-                    Debug.WriteLine($"{nameof(PlayCommand)}:获取指令异常, 跳过该指令");
-                }
-            }
+            //PlayCMDList.RemoveAll(i => i == null);
+            //foreach (PlayCMD i in PlayCMDList)
+            //{
+            //    try
+            //    {
+            //        List<CommandObject> list = i?.Invoke(player, aLevel, oLevel, bLevel, print);
+            //        if (list == null) continue;
+            //        cos.AddRange(list);
+            //    }
+            //    catch
+            //    {
+            //        Debug.WriteLine($"{nameof(PlayCommand)}:获取指令异常, 跳过该指令");
+            //    }
+            //}
 
             return cos;
         }
@@ -95,14 +93,14 @@ namespace PlayerAccount.Common
         /// <summary>
         /// 获取0级管理员可用指令
         /// </summary>
-        private static List<CommandObject> GetA0(Player player, int? aLevel, int? olevel, int? bLeve, Action<string> print)
-        {
-            if (aLevel == null) return null;//不是管理员
-            if (aLevel != 0) return null;//等级不是0
-            if (bLeve != null) return null;//被封禁
+        //private static List<CommandObject> GetA0(Player player, int? aLevel, int? olevel, int? bLeve, Action<string> print)
+        //{
+        //    if (aLevel == null) return null;//不是管理员
+        //    if (aLevel != 0) return null;//等级不是0
+        //    if (bLeve != null) return null;//被封禁
 
-            return Command.GetCMD(print);
-        }
+        //    return Command.GetCMD(print);
+        //}
 
         /// <summary>
         /// 获取所有玩家可用指令
@@ -111,8 +109,9 @@ namespace PlayerAccount.Common
         {
             List<CommandObject> list = new List<CommandObject>
             {
-                new FunctionCommand.playing.cmd(player)
+                new FunctionCommand.playing.cmd(player),
             };
+            list.AddRange(ModTool.test.测试指令.GetCMD(player, print));
 
             return list;
         }

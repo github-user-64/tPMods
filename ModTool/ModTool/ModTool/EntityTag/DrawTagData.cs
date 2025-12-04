@@ -5,7 +5,6 @@ using System.Collections.Generic;
 using System.Text;
 using tContentPatch;
 using Terraria;
-using Terraria.GameContent;
 using Terraria.UI;
 
 namespace ModTool.EntityTag
@@ -13,7 +12,7 @@ namespace ModTool.EntityTag
     /// <summary>
     /// 显示标签数据
     /// </summary>
-    internal class DrawTagData : PatchMain
+    public class DrawTagData : PatchMain
     {
         private static bool EnableDrawPlayer = true;
         private static bool EnableDrawProjectile = true;
@@ -21,6 +20,7 @@ namespace ModTool.EntityTag
         private static bool EnableDrawNPC = true;
         private static Color[] info_Colors = { Color.Green, Color.BlueViolet, Color.Gold, Color.Pink };
 
+        /// <inheritdoc/>
         public override void SetupDrawInterfaceLayersPostfix(List<GameInterfaceLayer> gameInterfaceLayers)
         {
             int index = gameInterfaceLayers.FindIndex(i => i.Name == "Vanilla: Inventory");
@@ -30,10 +30,10 @@ namespace ModTool.EntityTag
                     "StaticTile.ModTool: DrawTagData.InventoryPrefix",
                     () =>
                     {
-                        if (EnableDrawPlayer) Draw(Main.spriteBatch, Main.player, Entitys.player);
-                        if (EnableDrawProjectile) Draw(Main.spriteBatch, Main.projectile, Entitys.projectile);
-                        if (EnableDrawItem) Draw(Main.spriteBatch, Main.item, Entitys.item);
-                        if (EnableDrawNPC) Draw(Main.spriteBatch, Main.npc, Entitys.npc);
+                        if (EnableDrawPlayer) DrawAD(Main.spriteBatch, Main.player, Entitys.player);
+                        if (EnableDrawProjectile) DrawAD(Main.spriteBatch, Main.projectile, Entitys.projectile);
+                        if (EnableDrawItem) DrawAD(Main.spriteBatch, Main.item, Entitys.item);
+                        if (EnableDrawNPC) DrawAD(Main.spriteBatch, Main.npc, Entitys.npc);
 
                         return true;
                     },
@@ -41,7 +41,10 @@ namespace ModTool.EntityTag
             }
         }
 
-        private static void Draw<T>(SpriteBatch spriteBatch, T[] list,
+        /// <summary>
+        /// 绘制附加数据
+        /// </summary>
+        public static void DrawAD<T>(SpriteBatch spriteBatch, T[] list,
             AdditionalData<Dictionary<string, string>, T> ad) where T : Entity
         {
             Vector2 pos = Main.LocalPlayer.Center;
@@ -60,11 +63,14 @@ namespace ModTool.EntityTag
 
                 Color color = info_Colors[i % info_Colors.Length];
 
-                Draw(spriteBatch, e, tag, color);
+                DrawTag(spriteBatch, e, tag, color);
             }
         }
 
-        private static void Draw<T>(SpriteBatch spriteBatch, T obj, Dictionary<string, string> tag, Color color) where T : Entity
+        /// <summary>
+        /// 绘制标签数据
+        /// </summary>
+        public static void DrawTag<T>(SpriteBatch spriteBatch, T obj, Dictionary<string, string> tag, Color color) where T : Entity
         {
             StringBuilder strb = new StringBuilder();
 

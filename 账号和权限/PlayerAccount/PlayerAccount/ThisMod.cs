@@ -26,11 +26,6 @@ namespace PlayerAccount
 
             Dir = ThisMod.mo.modPath;
             DirBackup = Path.Combine(Dir, "Backup");//账号备份
-
-            //
-
-            Common.ClientUUID.Init();
-            Account.PlayAccount.Init();
         }
     }
 }

@@ -1,5 +1,4 @@
-﻿using PlayerGroup;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using tContentPatch;
 using Terraria;
@@ -25,7 +24,8 @@ namespace PlayerAccount.ModLinkage
             {
                 if (Main.netMode != 0) return null;
 
-                return Command.GetCMD(s => Main.NewText(s));
+                //return Command.GetCMD(s => Main.NewText(s));
+                return null;
             });
         }
     }

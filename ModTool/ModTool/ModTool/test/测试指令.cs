@@ -8,7 +8,7 @@ using Terraria;
 
 namespace ModTool.test
 {
-    internal class 测试指令 : Mod
+    public class 测试指令 : Mod
     {
         public override void Loaded()
         {
@@ -29,7 +29,7 @@ namespace ModTool.test
             });
         }
 
-        private static List<CommandObject> GetCMD(Player player, Action<string> print)
+        public static List<CommandObject> GetCMD(Player player, Action<string> print)
         {
             List<CommandObject> list = new List<CommandObject>();
 

@@ -20,7 +20,7 @@ namespace PlayerAccount.Common.FunctionCommand
         {
             if (Main.player?.IndexInRange(whoAmI) != true)
             {
-                PlayerGroup.Utils.Utils.PrintTry($"[{whoAmI}]不在范围内", print);
+                print?.Invoke($"[{whoAmI}]不在范围内");
                 return;
             }
 
@@ -28,7 +28,8 @@ namespace PlayerAccount.Common.FunctionCommand
 
             NetMessage.SendData(MessageID.Kick, whoAmI, -1, NetworkText.FromLiteral(msg ?? string.Empty));
 
-            PlayerGroup.Utils.Utils.PrintTry($"已踢出[{name}]", print);
+            print?.Invoke($"已踢出[{name}]");
+            tContentPatch.ContentPatch.PrintTry($"已踢出[{name}]");
 
             ////踢出玩家
             //Netplay.Clients[__instance.whoAmI].PendingTermination = true;

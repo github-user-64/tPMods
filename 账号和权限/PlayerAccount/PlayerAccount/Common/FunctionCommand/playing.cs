@@ -1,5 +1,6 @@
 ﻿using CommandHelp;
 using Microsoft.Xna.Framework;
+using ModTool.ServerHelp;
 using System;
 using Terraria;
 
@@ -56,7 +57,7 @@ namespace PlayerAccount.Common.FunctionCommand
                 }
             }
 
-            print($"在线玩家数量[[c/aaffaa:{count}]]");
+            print($"在线玩家数量[[c/aaffaa:{count}]/{Main.maxNetPlayers}]");
 
             if (s == null) return;
             print(s);
