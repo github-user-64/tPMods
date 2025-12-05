@@ -79,9 +79,11 @@
   <ItemGroup>
     <Compile Include="Command.cs" />
     <Compile Include="Common\GameChatCommand\CommandTip.cs" />
-    <Compile Include="Common\GameChatCommand\GameChatCommand_patch.cs" />
+    <Compile Include="Common\GameChatCommand\NetMode2.cs" />
+    <Compile Include="Common\GameChatCommand\NetMode01.cs" />
+    <Compile Include="Common\GameChatCommand\OnSendChat.cs" />
     <Compile Include="Common\GameChatCommand\Setting.cs" />
-    <Compile Include="Common\GameChatCommand\GameChatCommand.cs" />
+    <Compile Include="Common\GameChatCommand\Utils.cs" />
     <Compile Include="Common\UI\UIItemMouseText.cs" />
     <Compile Include="Common\UI\UIItemSwitchBind.cs" />
     <Compile Include="Common\UI\UIItemTextBoxBind.cs" />
@@ -97,6 +99,14 @@
     <Compile Include="Utils\CommandString.cs" />
     <Compile Include="Utils\CommandVariable.cs" />
     <Compile Include="Utils\GetSetReset.cs" />
+    <Compile Include="Utils\Utils.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\ModTool\ModTool\ModTool\ModTool.csproj">
+      <Project>{e80b35b3-88db-4fc0-a106-a659c937edac}</Project>
+      <Name>ModTool</Name>
+      <Private>False</Private>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

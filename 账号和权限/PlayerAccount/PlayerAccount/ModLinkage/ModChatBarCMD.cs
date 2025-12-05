@@ -20,13 +20,13 @@ namespace PlayerAccount.ModLinkage
 
         private static void Init()
         {
-            ChatBarCMD.Common.GameChatCommand.GameChatCommand.GameCMD.Add(() =>
-            {
-                if (Main.netMode != 0) return null;
+            //ChatBarCMD.Common.GameChatCommand.Utils.GameCMD.Add(() =>
+            //{
+            //    if (Main.netMode != 0) return null;
 
-                //return Command.GetCMD(s => Main.NewText(s));
-                return null;
-            });
+            //    //return Command.GetCMD(s => Main.NewText(s));
+            //    return null;
+            //});
         }
     }
 }

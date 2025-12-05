@@ -6,7 +6,7 @@ namespace ChatBarCMD.Utils
     /// <summary>
     /// 指令匹配或者为空字符串的都会进来
     /// </summary>
-    public class CommandVariable : CommandObject
+    internal class CommandVariable : CommandObject
     {
         /// <summary>
         /// 指令匹配

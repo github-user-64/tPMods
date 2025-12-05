@@ -10,14 +10,14 @@ namespace ChatBarCMD.PatchGame
         [HarmonyPrefix]
         public static void DoUpdate_HandleChatPrefix()
         {
-            Common.GameChatCommand.GameChatCommand.DoUpdate_HandleChatPrefix();
+            Common.GameChatCommand.CommandTip.DoUpdate_HandleChatPrefix();
         }
 
         [HarmonyPatch("DoUpdate_HandleChat")]
         [HarmonyPostfix]
         public static void DoUpdate_HandleChatPostfix()
         {
-            Common.GameChatCommand.GameChatCommand.DoUpdate_HandleChatPostfix();
+            Common.GameChatCommand.CommandTip.DoUpdate_HandleChatPostfix();
         }
     }
 }

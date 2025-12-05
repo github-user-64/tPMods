@@ -16,17 +16,7 @@ namespace PlayerAccount.Common
         /// <summary>
         /// 玩家指令
         /// </summary>
-        /// <param name="player"></param>
-        /// <param name="aleve">管理员等级, 不是管理员为<see langword="null"/></param>
-        /// <param name="oleve">普通玩家等级, 不是普通玩家为<see langword="null"/></param>
-        /// <param name="bLeve">封禁等级, 不是封禁为<see langword="null"/></param>
-        /// <param name="print"></param>
-        /// <returns></returns>
-        public delegate List<CommandObject> PlayCMD(Player player, int? aleve, int? oleve, int? bLeve, Action<string> print);
-        /// <summary>
-        /// 玩家指令
-        /// </summary>
-        public static List<PlayCMD> PlayCMDList { get; internal set; } = new List<PlayCMD>();
+        public static List<Action<Player, Action<string>>> PlayCMDList { get; internal set; } = new List<Action<Player, Action<string>>>();
         
         static PlayCommand()
         {
@@ -111,7 +101,6 @@ namespace PlayerAccount.Common
             {
                 new FunctionCommand.playing.cmd(player),
             };
-            list.AddRange(ModTool.test.测试指令.GetCMD(player, print));
 
             return list;
         }

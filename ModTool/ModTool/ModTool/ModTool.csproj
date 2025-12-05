@@ -107,12 +107,5 @@
     <Compile Include="Utils\Utils.cs" />
     <Compile Include="test\测试指令.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\..\聊天栏指令\ChatBarCMD\ChatBarCMD\ChatBarCMD.csproj">
-      <Project>{5f1673b3-6898-4f0c-aa9d-5ea8886d71cf}</Project>
-      <Name>ChatBarCMD</Name>
-      <Private>False</Private>
-    </ProjectReference>
-  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
