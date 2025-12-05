@@ -15,7 +15,8 @@ namespace ChatBarCMD.Common.GameChatCommand
         /// 获取指令
         /// </summary>
         /// <param name="clientId">客户端id</param>
-        public delegate List<CommandObject> CMDGet(int clientId);
+        /// <param name="print">输出</param>
+        public delegate List<CommandObject> CMDGet(int clientId, Action<string> print);
 
         /// <summary>
         /// 聊天转指令, 不是指令返回<see langword="null"/>
@@ -33,35 +34,18 @@ namespace ChatBarCMD.Common.GameChatCommand
         }
 
         /// <summary>
-        /// 聊天转指令, 不是指令返回<see langword="null"/>, 是发送到服务端的指令则<paramref name="isToServer"/>为<see langword="true"/>
-        /// </summary>
-        public static string ChatToCMD(string chat, out bool isToServer)
-        {
-            isToServer = false;//不是发送到服务端
-
-            string cmd = ChatToCMD(chat, NetMode2.Head.val);
-            if (cmd != null)
-            {
-                isToServer = true;//是发送到服务端
-                return cmd;
-            }
-
-            return ChatToCMD(chat, NetMode01.Head.val);
-        }
-
-        /// <summary>
         /// 获取指令
         /// </summary>
-        public static List<CommandObject> GetCMD(List<CMDGet> gameCmd, int clientId, Action<string> print)
+        public static List<CommandObject> GetCMD(List<CMDGet> gameCmd, int clientId, Action<string> print, bool addHelp = true)
         {
             List<CommandObject> cos = new List<CommandObject>();
-            cos.Add(new CommandPrintList(cos, null, print));
-
+            if (addHelp) cos.Add(new CommandPrintList(cos, null, print));
+            
             foreach (CMDGet i in gameCmd)
             {
                 try
                 {
-                    List<CommandObject> list = i?.Invoke(clientId);
+                    List<CommandObject> list = i?.Invoke(clientId, print);
                     if (list == null) continue;
                     cos.AddRange(list);
                 }

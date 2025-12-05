@@ -1,95 +1,116 @@
-﻿//using System;
-//using tContentPatch;
-//using tContentPatch.Content.UI;
-//using Terraria.UI;
+﻿using ChatBarCMD.Utils;
+using System;
+using tContentPatch;
+using tContentPatch.Content.UI;
+using Terraria.UI;
 
-//namespace ChatBarCMD.Common.GameChatCommand
-//{
-//    internal class Setting : ModSetting
-//    {
-//        public class Data
-//        {
-//            public bool Enable = true;
-//            public string Head = "/";
-//            public bool EnableTip = true;
-//        }
+namespace ChatBarCMD.Common.GameChatCommand
+{
+    internal class Setting : ModSetting
+    {
+        public class Data
+        {
+            public bool Enable = true;
+            public string Head = "//";
+            public string HeadToServer = "/";
 
-//        public override string Name => "设置";
-//        public override string Title => "聊天栏指令: 设置";
-//        public override Type DataType => typeof(Data);
-//        public override string FilePath => "set.txt";
-//        internal static Setting instance = null;
+            public bool ServerEnable = true;
+            public string ServerHead = "/";
 
-//        public override void Load(object v)
-//        {
-//            if (instance == null)
-//            {
-//                GameChatCommand.Enable.OnValUpdate += _ => OnDataUpdate();
-//                GameChatCommand.CMDHead.OnValUpdate += _ => OnDataUpdate();
-//                CommandTip.Enable.OnValUpdate += _ => OnDataUpdate();
-//            }
-//            instance = this;
+            public bool EnableTip = true;
+        }
 
-//            if (v is Data data)
-//            {
-//                UpdateData(data);
-//            }
-//            else
-//            {
-//                SetDefault();
-//                Save();
-//            }
-//        }
+        public override string Name => "设置";
+        public override string Title => "聊天栏指令: 设置";
+        public override Type DataType => typeof(Data);
+        public override string FilePath => "set.txt";
+        private static Setting instance = null;
 
-//        public override void SetDefault()
-//        {
-//            UpdateData(new Data());
-//            NeedSave = true;
-//        }
+        public override void Load(object v)
+        {
+            instance = this;
 
-//        public override object GetSaveData()
-//        {
-//            return new Data()
-//            {
-//                Enable = GameChatCommand.Enable.val,
-//                Head = GameChatCommand.CMDHead.val,
-//                EnableTip = CommandTip.Enable.val,
-//            };
-//        }
+            if (v is Data data)
+            {
+                UpdateData(data);
+            }
+            else
+            {
+                SetDefault();
+                Save();
+            }
 
-//        public static void UpdateData(Data data)
-//        {
-//            if (data == null) return;
+            BindNeedSave(NetMode01.Enable);
+            BindNeedSave(NetMode01.Head);
+            BindNeedSave(NetMode01.HeadToServer);
+            BindNeedSave(NetMode2.Enable);
+            BindNeedSave(NetMode2.Head);
+            BindNeedSave(CommandTip.Enable);
+        }
 
-//            GameChatCommand.Enable.val = data.Enable;
-//            GameChatCommand.CMDHead.val = data.Head;
-//            CommandTip.Enable.val = data.EnableTip;
-//        }
+        private void BindNeedSave<T>(GetSetReset<T> gsr)
+        {
+            gsr.OnValUpdate += v => NeedSave = true;
+        }
 
-//        public static void SaveData()
-//        {
-//            if (instance == null) return;
-//            instance.NeedSave = true;
-//            instance.Save();
-//        }
+        public override void SetDefault()
+        {
+            UpdateData(new Data());
+            NeedSave = true;
+        }
 
-//        public static void OnDataUpdate()
-//        {
-//            if (instance == null) return;
-//            instance.NeedSave = true;
-//        }
+        public override object GetSaveData()
+        {
+            return new Data()
+            {
+                Enable = NetMode01.Enable.val,
+                Head = NetMode01.Head.val,
+                HeadToServer = NetMode01.HeadToServer.val,
 
-//        public override UIElement GetUI()
-//        {
-//            UIScrollViewer2 sv = new UIScrollViewer2();
-//            sv.Width.Precent = 1;
-//            sv.Height.Precent = 1;
+                ServerEnable = NetMode2.Enable.val,
+                ServerHead = NetMode2.Head.val,
 
-//            sv.AddChild(new UI.UIItemSwitchBind(GameChatCommand.Enable, null, "启用"));
-//            sv.AddChild(new UI.UIItemTextBoxBind<string>(GameChatCommand.CMDHead, s => s, null, "指令头"));
-//            sv.AddChild(new UI.UIItemSwitchBind(CommandTip.Enable, null, "显示指令提示"));
+                EnableTip = CommandTip.Enable.val,
+            };
+        }
 
-//            return sv;
-//        }
-//    }
-//}
+        public static void UpdateData(Data data)
+        {
+            if (data == null) return;
+
+            NetMode01.Enable.val = data.Enable;
+            NetMode01.Head.val = data.Head;
+            NetMode01.HeadToServer.val = data.HeadToServer;
+
+            NetMode2.Enable.val = data.ServerEnable;
+            NetMode2.Head.val = data.ServerHead;
+
+            CommandTip.Enable.val = data.EnableTip;
+        }
+
+        public override UIElement GetUI()
+        {
+            UIScrollViewer2 sv = new UIScrollViewer2();
+            sv.Width.Precent = 1;
+            sv.Height.Precent = 1;
+
+            sv.AddChild(new tContentPatch.Content.UI.ModSet.UIItemTitle(null, "单人和客户端"));
+            sv.AddChild(new UI.UIItemSwitch(NetMode01.Enable, null, "启用指令"));
+            sv.AddChild(new UI.UIItemTextBox<string>(NetMode01.Head, s => s, null, "指令头"));
+            sv.AddChild(new UI.UIItemTextBox<string>(NetMode01.HeadToServer, s => s, null, "指令头,发送到服务端"));
+            sv.AddChild(new tContentPatch.Content.UI.ModSet.UIItemTitle(null, "服务端"));
+            sv.AddChild(new UI.UIItemSwitch(NetMode2.Enable, null, "启用指令"));
+            sv.AddChild(new UI.UIItemTextBox<string>(NetMode2.Head, s => s, null, "指令头"));
+
+            return sv;
+        }
+
+        public static void SaveData()
+        {
+            if (instance == null) return;
+
+            instance.NeedSave = true;
+            instance.Save();
+        }
+    }
+}

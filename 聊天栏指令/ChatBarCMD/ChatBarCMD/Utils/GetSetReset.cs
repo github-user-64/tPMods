@@ -20,17 +20,15 @@ namespace ChatBarCMD.Utils
                 OnValUpdate?.Invoke(_val);
             }
         }
-        private T reset;
-        private Func<T, T> func;
+        private readonly T reset = default;
+        private readonly Func<T, T> func = null;
 
         /// <summary/>
         public GetSetReset(T val = default, T reset = default, Func<T, T> func = null)
         {
+            this.func = func;//放在上面这样设置初始值的时候也能用
             this.val = val;
             this.reset = reset;
-            this.func = func;
-
-            if (this.func != null) this.val = this.func(this.val);
         }
 
         /// <summary/>
@@ -38,7 +36,7 @@ namespace ChatBarCMD.Utils
     }
 
     /// <summary/>
-    public class GetSetReset
+    public static class GetSetReset
     {
         /// <summary/>
         public static Func<int, int> GetIntFunc(int min = int.MinValue, int max = int.MaxValue)

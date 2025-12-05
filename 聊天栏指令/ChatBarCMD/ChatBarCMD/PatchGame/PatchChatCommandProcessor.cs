@@ -19,7 +19,7 @@ namespace ChatBarCMD.PatchGame
         [HarmonyPrefix]
         public static bool ProcessIncomingMessagePrefix(ChatMessage message, int clientId)//单人和服务端处理传入消息时
         {
-            if (Main.netMode != 1 && Main.netMode != 2) return true;
+            if (Main.netMode != 0 && Main.netMode != 2) return true;
 
             return CanProcessIncomingMessage.A2(message, clientId);
         }

@@ -48,7 +48,7 @@ namespace ChatBarCMD.Common.GameChatCommand
                 TipList = null;
                 TipEx = null;
 
-                string cmd = Utils.ChatToCMD(chat, out bool iss);
+                string cmd = NetMode01.ChatToCMD(chat, out bool iss);
                 if (cmd == null) return;
 
                 Action<string> print = s => Utils.MainNewTextTry(s, B: 0);
@@ -94,7 +94,7 @@ namespace ChatBarCMD.Common.GameChatCommand
         /// <param name="text"></param>
         public static void DrawTipList(string text)
         {
-            if (text?.Length > 0 == false) return;
+            if (text?.Length > 0 != true) return;
 
             Vector2 size = ChatManager.GetStringSize(FontAssets.MouseText.Value, text, Vector2.One);
             Vector2 pos = new Vector2(50, Main.screenHeight - 300);
@@ -110,7 +110,7 @@ namespace ChatBarCMD.Common.GameChatCommand
         /// <param name="text"></param>
         public static void DrawTipEx(string text)
         {
-            if (text?.Length > 0 == false) return;
+            if (text?.Length > 0 != true) return;
 
             Vector2 pos = new Vector2(50, Main.screenHeight - 300);
 
