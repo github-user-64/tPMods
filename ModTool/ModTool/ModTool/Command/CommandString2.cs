@@ -1,6 +1,6 @@
 ﻿using CommandHelp;
 
-namespace test2.ModTool
+namespace ModTool.Command
 {
     /// <summary>
     /// 字符串

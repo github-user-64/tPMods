@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using ModTool.AdditionalData;
 using ModTool.Common.UI;
 using ModTool.Utils;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using tContentPatch;
@@ -35,7 +36,7 @@ namespace ModTool.EntityTag
                     {
                         if (EnableDrawPlayer.val) DrawAD(Main.spriteBatch, Main.player, Entitys.player);
                         if (EnableDrawProjectile.val) DrawAD(Main.spriteBatch, Main.projectile, Entitys.projectile);
-                        if (EnableDrawItem.val) DrawAD(Main.spriteBatch, Main.item, Entitys.item);
+                        if (EnableDrawItem.val) DrawAD(Main.spriteBatch, Main.item, Entitys.item, i => i != Main.item.Length - 1);
                         if (EnableDrawNPC.val) DrawAD(Main.spriteBatch, Main.npc, Entitys.npc);
 
                         return true;
@@ -48,7 +49,8 @@ namespace ModTool.EntityTag
         /// 绘制附加数据
         /// </summary>
         public static void DrawAD<T>(SpriteBatch spriteBatch, T[] list,
-            AdditionalData<Dictionary<string, string>, T> ad) where T : Entity
+            AdditionalData<Dictionary<string, string>, T> ad,
+            Func<int, bool> fun = null) where T : Entity
         {
             Vector2 pos = Main.LocalPlayer.Center;
 
@@ -58,6 +60,7 @@ namespace ModTool.EntityTag
 
                 if (e == null) continue;
                 if (e.active == false) continue;
+                if (fun != null && fun(i) == false) continue;
 
                 if (pos.Distance(e.Center) > 1000) continue;
 

@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using Terraria;
 
-namespace test2.ModTool
+namespace test2.MT
 {
     /// <summary>
     /// 枚举实体
@@ -48,7 +48,12 @@ namespace test2.ModTool
             }
             else if (type == 1)
             {
-                entity = GetEntity(Main.item);
+                entity = GetEntity(Main.item, e =>
+                {
+                    if (e.whoAmI == Main.item.Length - 1) return false;
+                    if (e is Item i) return i.stack > 0;
+                    return false;
+                });
                 if (entity == null) print?.Invoke("找不到物品");
             }
             else if (type == 2)

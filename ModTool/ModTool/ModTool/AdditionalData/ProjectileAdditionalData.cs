@@ -1,4 +1,5 @@
-﻿using Terraria;
+﻿using System.Linq;
+using Terraria;
 
 namespace ModTool.AdditionalData
 {
@@ -10,24 +11,23 @@ namespace ModTool.AdditionalData
         /// <summary/>
         public ProjectileAdditionalData() : base(Main.projectile)
         {
-            PatchGame.PatchMain.OnEnterWorlding += EnterWorlding;
-            PatchGame.PatchProjectile.OnSetDefaults += OnSetDefaults;
+            PatchGame.PatchMain.OnEnterWorldPr += EnterWorldPr;
+            PatchGame.PatchProjectile.OnSetDefaultsPos += OnSetDefaultsPos;
         }
 
         /// <summary>
-        /// 单人和客户端进入游戏时
+        /// 单人和客户端进入游戏前
         /// </summary>
-        public virtual void EnterWorlding()
+        public virtual void EnterWorldPr()
         {
             ClearData();
         }
 
-        private void OnSetDefaults(Projectile This, int Type)
+        private void OnSetDefaultsPos(Projectile This, int Type)
         {
-            if (This.active == false || This.type != Type)
-            {
-                UpdateDataItem(This.whoAmI, true);
-            }
+            if (Main.projectile?.Contains(This) != true) return;
+
+            UpdateDataItem(This.whoAmI, true);
         }
     }
 }

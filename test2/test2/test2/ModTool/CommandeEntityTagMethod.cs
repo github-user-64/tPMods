@@ -1,9 +1,10 @@
 ﻿using CommandHelp;
+using ModTool.Command;
 using System;
 using System.Collections.Generic;
 using Terraria;
 
-namespace test2.ModTool
+namespace test2.MT
 {
     /// <summary>
     /// 实体标签操作

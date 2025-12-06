@@ -1,31 +1,15 @@
 ﻿using CommandHelp;
+using Microsoft.Xna.Framework;
 using ModTool.EntityTag;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using tContentPatch;
-using tContentPatch.ModLoad;
 using Terraria;
 
-namespace test2.ModTool
+namespace test2.MT
 {
-    public class 测试指令 : Mod
+    public class 测试指令
     {
-        public override void Loaded()
-        {
-            List<ModObject> mos = ContentPatch.GetModObjects();
-            if (mos == null) return;
-
-            ModObject mo1 = mos.FirstOrDefault(i => i.config.key == "StaticTile.ChatBarCMD");
-            if (mo1 == null) return;
-
-            ModObject mo2 = mos.FirstOrDefault(i => i.config.key == "StaticTile.ModTool");
-            if (mo2 == null) return;
-
-            Init();
-        }
-
-        private static void Init()
+        public static void Init()
         {
             ChatBarCMD.Common.GameChatCommand.NetMode01.CMD.Add((i, p) =>
             {
@@ -43,6 +27,28 @@ namespace test2.ModTool
                 clear.SubCommand.Add(new CommandObject("i"));
 
                 list.Add(new CommandObject("playing"));
+
+                return list;
+            });
+
+            ChatBarCMD.Common.GameChatCommand.NetMode2.CMD.Add((i, p) =>
+            {
+                List<CommandObject> list = new List<CommandObject>();
+
+                CommandObject clear = new CommandObject("clear");
+                list.Add(clear);
+
+                CommandMethod clear_p = new CommandMethod("p");
+                clear_p.Runing += _ =>
+                {
+                    ModTool.ServerHelp.PrintTo.PrintToPlayAll($"发送到全部", Color.SaddleBrown);
+                    ModTool.ServerHelp.PrintTo.PrintToPlay(i, "发给你哦哦哦", Color.BlanchedAlmond);
+                };
+                clear.SubCommand.Add(clear_p);
+
+                CommandMethod playing = new CommandMethod("playing");
+                playing.Runing += _ => p?.Invoke("超级大玩家");
+                list.Add(playing);
 
                 return list;
             });

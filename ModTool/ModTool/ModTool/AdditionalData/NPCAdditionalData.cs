@@ -1,5 +1,5 @@
-﻿using Terraria;
-using Terraria.DataStructures;
+﻿using System.Linq;
+using Terraria;
 
 namespace ModTool.AdditionalData
 {
@@ -11,23 +11,23 @@ namespace ModTool.AdditionalData
         /// <summary/>
         public NPCAdditionalData() : base(Main.npc)
         {
-            PatchGame.PatchMain.OnEnterWorlding += EnterWorlding;
-            PatchGame.PatchNPC.OnNewNPCPos += PatchNPC_OnNewNPCPos;
+            PatchGame.PatchMain.OnEnterWorldPr += EnterWorldPr;
+            PatchGame.PatchNPC.OnSetDefaultsPos += OnSetDefaultsPos;
         }
 
         /// <summary>
-        /// 单人和客户端进入游戏时
+        /// 单人和客户端进入游戏前
         /// </summary>
-        public virtual void EnterWorlding()
+        public virtual void EnterWorldPr()
         {
             ClearData();
         }
 
-        private void PatchNPC_OnNewNPCPos(int result, IEntitySource source, int X, int Y, int Type, int Start, float ai0, float ai1, float ai2, float ai3, int Target)
+        private void OnSetDefaultsPos(NPC This, int Type, NPCSpawnParams spawnparams)
         {
-            if (Main.npc?.IndexInRange(result) != true) return;
+            if (Main.npc?.Contains(This) != true) return;
 
-            UpdateDataItem(result, true);
+            UpdateDataItem(This.whoAmI, true);
         }
     }
 }

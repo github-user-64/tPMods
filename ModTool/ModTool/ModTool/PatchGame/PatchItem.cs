@@ -1,5 +1,6 @@
 ﻿using Terraria;
 using Terraria.DataStructures;
+using Terraria.GameContent.Items;
 
 namespace ModTool.PatchGame
 {
@@ -20,6 +21,17 @@ namespace ModTool.PatchGame
         {
             OnNewItemPos?.Invoke(__result, source, X, Y, Width, Height, Type, Stack,
                 noBroadcast, pfix, noGrabDelay, reverseLookup);
+        }
+
+        /// <summary/>
+        public delegate void SetDefaultsEvent(Item This, int Type, bool noMatCheck, ItemVariant variant);
+        /// <summary>在设置默认前</summary>
+        public static event SetDefaultsEvent OnSetDefaults = null;
+
+        /// <inheritdoc/>
+        public override void SetDefaultsPrefix(Item This, int Type, bool noMatCheck, ItemVariant variant)
+        {
+            OnSetDefaults?.Invoke(This, Type, noMatCheck, variant);
         }
     }
 }

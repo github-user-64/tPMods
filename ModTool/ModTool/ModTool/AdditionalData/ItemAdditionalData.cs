@@ -1,4 +1,5 @@
-﻿using Terraria;
+﻿using Microsoft.Xna.Framework;
+using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 
@@ -12,15 +13,15 @@ namespace ModTool.AdditionalData
         /// <summary/>
         public ItemAdditionalData() : base(Main.item)
         {
-            PatchGame.PatchMain.OnEnterWorlding += EnterWorlding;
+            PatchGame.PatchMain.OnEnterWorldPr += EnterWorldPr;
             PatchGame.PatchItem.OnNewItemPos += OnNewItemPos;
-            PatchGame.PatchMessageBuffer.OnGetDataPo.Add(OnGetData);
+            PatchGame.PatchMessageBuffer.OnGetData.Add(OnGetData);
         }
 
         /// <summary>
-        /// 单人和客户端进入游戏时
+        /// 单人和客户端进入游戏前
         /// </summary>
-        public virtual void EnterWorlding()
+        public virtual void EnterWorldPr()
         {
             ClearData();
         }
@@ -29,9 +30,26 @@ namespace ModTool.AdditionalData
         {
             if (messageType != MessageID.SyncItem) return;
             if (Main.netMode != 1) return;
-            //客户端收到物品同步后
+            //客户端收到物品同步前
 
             int whoAmI = This.reader.ReadInt16();
+            if (Main.item?.IndexInRange(whoAmI) != true) return;
+
+            Vector2 pos = This.reader.ReadVector2();
+            Vector2 vel = This.reader.ReadVector2();
+            int stack = This.reader.ReadInt16();
+            int prefix = This.reader.ReadByte();
+            int ownIgnore = This.reader.ReadByte();
+            int type = This.reader.ReadInt16();
+
+            Item item = Main.item[whoAmI];
+
+            if (item.active == true &&
+                item.stack == stack &&
+                item.prefix == prefix &&
+                item.type == type &&
+                HasData(whoAmI)) return;
+
             UpdateDataItem(whoAmI, true);
         }
 

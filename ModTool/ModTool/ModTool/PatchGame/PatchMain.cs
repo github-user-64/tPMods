@@ -1,20 +1,17 @@
 ﻿using System;
-using Terraria;
 
 namespace ModTool.PatchGame
 {
     /// <summary/>
     public class PatchMain : tContentPatch.PatchMain
     {
-        /// <summary>在单人或客户端进入世界后</summary>
-        public static event Action OnEnterWorlding = null;
+        /// <summary>在单人或客户端进入世界前</summary>
+        public static event Action OnEnterWorldPr = null;
 
         /// <inheritdoc/>
-        public override void OnEnterWorld()
+        public override void OnEnterWorldPrefix()
         {
-            if (Main.netMode != 0 && Main.netMode != 1) return;
-
-            OnEnterWorlding?.Invoke();
+            OnEnterWorldPr?.Invoke();
         }
     }
 }

@@ -26,7 +26,7 @@ namespace ModTool.ServerHelp
             PatchGame.PatchMessageBuffer.OnGetDataPo.Add(GetDataPo);
         }
 
-        public override void EnterWorlding() { }
+        public override void EnterWorldPr() { }
         public override void ConnectedPlayer(int ply) { }
         public override void DisconnectedPlayer(int ply)
         {

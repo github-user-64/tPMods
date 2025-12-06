@@ -1,5 +1,4 @@
 ﻿using Terraria;
-using Terraria.DataStructures;
 
 namespace ModTool.PatchGame
 {
@@ -9,16 +8,14 @@ namespace ModTool.PatchGame
     public class PatchNPC : tContentPatch.PatchNPC
     {
         /// <summary/>
-        public delegate void NewNPCEvent(int result, IEntitySource source,
-            int X, int Y, int Type, int Start, float ai0, float ai1, float ai2, float ai3, int Target);
-        /// <summary>在创建NPC后</summary>
-        public static event NewNPCEvent OnNewNPCPos = null;
+        public delegate void SetDefaultsEvent(NPC This, int Type, NPCSpawnParams spawnparams);
+        /// <summary>在设置默认后</summary>
+        public static event SetDefaultsEvent OnSetDefaultsPos = null;
 
         /// <inheritdoc/>
-        public override void NewNPCPostfix(int __result, IEntitySource source,
-            int X, int Y, int Type, int Start, float ai0, float ai1, float ai2, float ai3, int Target)
+        public override void SetDefaultsPostfix(NPC This, int Type, NPCSpawnParams spawnparams)
         {
-            OnNewNPCPos?.Invoke(__result, source, X, Y, Type, Start, ai0, ai1, ai2, ai3, Target);
+            OnSetDefaultsPos?.Invoke(This, Type, spawnparams);
         }
     }
 }

@@ -11,15 +11,15 @@ namespace ModTool.AdditionalData
         /// <summary/>
         public PlayerAdditionalData() : base(Main.player)
         {
-            PatchGame.PatchMain.OnEnterWorlding += EnterWorlding;
+            PatchGame.PatchMain.OnEnterWorldPr += EnterWorldPr;
             PatchGame.PatchNetMessage.OnSyncConnectedPlayer += ConnectedPlayer;
             PatchGame.PatchNetMessage.OnSyncDisconnectedPlayer += DisconnectedPlayer;
         }
 
         /// <summary>
-        /// 单人和客户端进入游戏时
+        /// 单人和客户端进入游戏前
         /// </summary>
-        public virtual void EnterWorlding()
+        public virtual void EnterWorldPr()
         {
             ClearData();
             UpdateDataItem(Main.myPlayer, true);
