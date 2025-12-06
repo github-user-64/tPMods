@@ -1,21 +1,22 @@
 ﻿using CommandHelp;
+using ModTool.Utils;
 using System;
 
-namespace ChatBarCMD.Utils
+namespace ModTool.Command
 {
     /// <summary>
-    /// Help, Reset, Add
+    /// Help, Reset, AddType
     /// </summary>
-    internal class CommandHRA<T> : CommandMethod
+    public class CommandHRA<T> : CommandMethod
     {
         /// <summary>
-        /// Help, Reset, Add
+        /// Help, Reset, AddType
         /// </summary>
         public CommandHRA(string texe, GetSetReset<T> gsr, string tip = null, Action<string> print = null, params CommandObject[] add) : base(texe, 1)
         {
             SubCommand.Add(new CommandPrintList(SubCommand, tip, print));
             SubCommand.Add(new CommandVariable("reset"));
-            foreach (CommandObject co in add) SubCommand.Add(co);
+            SubCommand.AddRange(add);
 
             Runing += args =>
             {

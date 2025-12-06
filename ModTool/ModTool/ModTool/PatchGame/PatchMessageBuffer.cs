@@ -1,4 +1,5 @@
 ﻿using HarmonyLib;
+using System.Collections.Generic;
 using Terraria;
 
 namespace ModTool.PatchGame
@@ -12,17 +13,24 @@ namespace ModTool.PatchGame
         /// <summary/>
         public delegate void GetDataEvent(MessageBuffer This, int start, int length, int messageType);
         /// <summary>在收到数据后</summary>
-        public static event GetDataEvent OnGetDataPo = null;
+        public static List<GetDataEvent> OnGetDataPo { get; } = new List<GetDataEvent>();
 
         [HarmonyPatch("GetData")]
         [HarmonyPostfix]
         internal static void GetData(MessageBuffer __instance, int start, int length, int messageType)
         {
-            int num = start + 1;
+            OnGetDataPo.RemoveAll(i => i == null);
 
-            __instance.reader.BaseStream.Position = num;
+            foreach (GetDataEvent i in OnGetDataPo)
+            {
+                __instance.reader.BaseStream.Position = start + 1;
 
-            OnGetDataPo?.Invoke(__instance, start, length, messageType);
+                try
+                {
+                    i(__instance, start, length, messageType);
+                }
+                catch { }
+            }
         }
     }
 }

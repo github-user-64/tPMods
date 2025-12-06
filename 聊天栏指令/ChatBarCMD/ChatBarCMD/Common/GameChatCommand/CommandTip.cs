@@ -1,7 +1,7 @@
-﻿using ChatBarCMD.Utils;
-using CommandHelp;
+﻿using CommandHelp;
 using CommandHelp.Exceptions;
 using Microsoft.Xna.Framework;
+using ModTool.Utils;
 using System;
 using System.Collections.Generic;
 using System.Linq;

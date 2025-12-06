@@ -1,4 +1,5 @@
-﻿using ChatBarCMD.Utils;
+﻿using ModTool.Common.UI;
+using ModTool.Utils;
 using System;
 using tContentPatch;
 using tContentPatch.Content.UI;
@@ -95,12 +96,12 @@ namespace ChatBarCMD.Common.GameChatCommand
             sv.Height.Precent = 1;
 
             sv.AddChild(new tContentPatch.Content.UI.ModSet.UIItemTitle(null, "单人和客户端"));
-            sv.AddChild(new UI.UIItemSwitch(NetMode01.Enable, null, "启用指令"));
-            sv.AddChild(new UI.UIItemTextBox<string>(NetMode01.Head, s => s, null, "指令头"));
-            sv.AddChild(new UI.UIItemTextBox<string>(NetMode01.HeadToServer, s => s, null, "指令头,发送到服务端"));
+            sv.AddChild(new UIItemSwitch(NetMode01.Enable, null, "启用指令"));
+            sv.AddChild(new UIItemTextBox<string>(NetMode01.Head, s => s, null, "指令头"));
+            sv.AddChild(new UIItemTextBox<string>(NetMode01.HeadToServer, s => s, null, "指令头,发送到服务端"));
             sv.AddChild(new tContentPatch.Content.UI.ModSet.UIItemTitle(null, "服务端"));
-            sv.AddChild(new UI.UIItemSwitch(NetMode2.Enable, null, "启用指令"));
-            sv.AddChild(new UI.UIItemTextBox<string>(NetMode2.Head, s => s, null, "指令头"));
+            sv.AddChild(new UIItemSwitch(NetMode2.Enable, null, "启用指令"));
+            sv.AddChild(new UIItemTextBox<string>(NetMode2.Head, s => s, null, "指令头"));
 
             return sv;
         }

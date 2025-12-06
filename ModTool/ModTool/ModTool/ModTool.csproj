@@ -80,6 +80,12 @@
     <Compile Include="AdditionalData\AdditionalData.cs" />
     <Compile Include="AdditionalData\NPCAdditionalData.cs" />
     <Compile Include="AdditionalData\ItemAdditionalData.cs" />
+    <Compile Include="Command\CommandString.cs" />
+    <Compile Include="Command\CommandString2.cs" />
+    <Compile Include="Common\UI\UIItemMouseText.cs" />
+    <Compile Include="Common\UI\UIItemSwitch.cs" />
+    <Compile Include="Common\UI\UIItemTextBox.cs" />
+    <Compile Include="Common\UI\UITextBox.cs" />
     <Compile Include="EntityTag\DrawTagData.cs" />
     <Compile Include="EntityTag\Entitys.cs" />
     <Compile Include="EntityTag\EntityTagUtils.cs" />
@@ -100,11 +106,11 @@
     <Compile Include="ServerHelp\ClientUUID.cs" />
     <Compile Include="ServerHelp\PrintTo.cs" />
     <Compile Include="ServerHelp\PlayDataUtils.cs" />
-    <Compile Include="test\CommandeEntityTagMethod.cs" />
-    <Compile Include="test\CommandeEnumEntity.cs" />
-    <Compile Include="test\CommandString.cs" />
     <Compile Include="ThisMod.cs" />
-    <Compile Include="Utils\Utils.cs" />
+    <Compile Include="Command\CommandHRA.cs" />
+    <Compile Include="Command\CommandVariable.cs" />
+    <Compile Include="Utils\DictionaryUtils.cs" />
+    <Compile Include="Utils\GetSetReset.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

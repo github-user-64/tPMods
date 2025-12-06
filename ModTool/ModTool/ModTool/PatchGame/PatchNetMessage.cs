@@ -10,9 +10,9 @@ namespace ModTool.PatchGame
     [HarmonyPatch(typeof(NetMessage))]
     public class PatchNetMessage
     {
-        /// <summary>在同步已连接玩家时</summary>
+        /// <summary>在同步已连接玩家前</summary>
         public static event Action<int> OnSyncConnectedPlayer = null;
-        /// <summary>在同步断开连接玩家时</summary>
+        /// <summary>在同步断开连接玩家前</summary>
         public static event Action<int> OnSyncDisconnectedPlayer = null;
 
         [HarmonyPatch("SyncConnectedPlayer")]

@@ -73,7 +73,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="测试指令.cs" />
+    <Compile Include="ModTool\CommandeEntityTagMethod.cs" />
+    <Compile Include="ModTool\CommandeEnumEntity.cs" />
+    <Compile Include="ModTool\测试指令.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\ModTool\ModTool\ModTool\ModTool.csproj">

@@ -1,5 +1,5 @@
-﻿using ChatBarCMD.Utils;
-using CommandHelp;
+﻿using CommandHelp;
+using ModTool.Utils;
 using System;
 using System.Collections.Generic;
 using Terraria;

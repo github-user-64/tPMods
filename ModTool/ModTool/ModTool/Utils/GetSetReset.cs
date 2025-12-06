@@ -1,8 +1,10 @@
 ﻿using System;
 
-namespace ChatBarCMD.Utils
+namespace ModTool.Utils
 {
-    /// <summary/>
+    /// <summary>
+    /// 获取设置重置值
+    /// </summary>
     public class GetSetReset<T>
     {
         /// <summary/>
@@ -31,7 +33,9 @@ namespace ChatBarCMD.Utils
             this.reset = reset;
         }
 
-        /// <summary/>
+        /// <summary>
+        /// 重置
+        /// </summary>
         public void Reset() => val = reset;
     }
 
@@ -39,7 +43,7 @@ namespace ChatBarCMD.Utils
     public static class GetSetReset
     {
         /// <summary/>
-        public static Func<int, int> GetIntFunc(int min = int.MinValue, int max = int.MaxValue)
+        public static Func<int, int> IntFunc(int min = int.MinValue, int max = int.MaxValue)
         {
             return v =>
             {

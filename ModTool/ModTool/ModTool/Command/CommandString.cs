@@ -1,22 +1,19 @@
 ﻿using CommandHelp;
 
-namespace ChatBarCMD.Utils
+namespace ModTool.Command
 {
     /// <summary>
-    /// 字符串
+    /// "字符串"
     /// </summary>
     public class CommandString: CommandValue<string>
     {
         /// <inheritdoc/>
-        public override string Text => "<string>";
+        public override string Text => "<\"string\">";
         /// <inheritdoc/>
         protected override string GetDefault() => null;
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="isVariable"></param>
-        public CommandString(bool isVariable = false) : base(isVariable, null) { }
+        /// <summary/>
+        public CommandString(bool isVariable = false) : base(isVariable) { }
 
         /// <inheritdoc/>
         protected override string ArgConvertThrow(string arg) => StringToString(arg);
@@ -27,9 +24,6 @@ namespace ChatBarCMD.Utils
         /// <summary>
         /// 解析格式["字符串"]
         /// </summary>
-        /// <param name="IsVariable"></param>
-        /// <param name="command"></param>
-        /// <returns></returns>
         public static (string cmdParse, string cmd) ValParseFormat(bool IsVariable, string command)
         {
             if (command == null) return (IsVariable ? string.Empty : null, command);
@@ -54,8 +48,6 @@ namespace ChatBarCMD.Utils
         /// <summary>
         /// ["字符串"]=>[字符串]
         /// </summary>
-        /// <param name="s"></param>
-        /// <returns></returns>
         /// <exception cref="System.Exception"></exception>
         public static string StringToString(string s)
         {

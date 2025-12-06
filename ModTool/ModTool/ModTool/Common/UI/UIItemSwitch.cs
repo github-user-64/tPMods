@@ -1,16 +1,20 @@
-﻿using ChatBarCMD.Utils;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using ModTool.Utils;
 using System;
 using tContentPatch.Content.UI;
 
-namespace ChatBarCMD.Common.UI
+namespace ModTool.Common.UI
 {
-    internal class UIItemSwitch : UIItemMouseText
+    /// <summary>
+    /// 项, 开关
+    /// </summary>
+    public class UIItemSwitch : UIItemMouseText
     {
         private readonly UISwitch ui_s = null;
         private readonly GetSetReset<bool> gsr = null;
 
+        /// <exception cref="ArgumentNullException"></exception>
         public UIItemSwitch(GetSetReset<bool> gsr, Texture2D ico = null, string text = null) : base(ico, text)
         {
             this.gsr = gsr ?? throw new ArgumentNullException(nameof(gsr));
@@ -24,6 +28,7 @@ namespace ChatBarCMD.Common.UI
             Append(ui_s);
         }
 
+        /// <inheritdoc/>
         public override void Update(GameTime gameTime)
         {
             base.Update(gameTime);

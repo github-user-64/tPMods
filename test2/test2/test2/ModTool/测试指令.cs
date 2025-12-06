@@ -1,6 +1,5 @@
 ﻿using CommandHelp;
 using ModTool.EntityTag;
-using ModTool.test;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,7 +7,7 @@ using tContentPatch;
 using tContentPatch.ModLoad;
 using Terraria;
 
-namespace test2.test
+namespace test2.ModTool
 {
     public class 测试指令 : Mod
     {

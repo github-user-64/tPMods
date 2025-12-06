@@ -1,4 +1,5 @@
-﻿using Terraria;
+﻿using HarmonyLib;
+using Terraria;
 using Terraria.DataStructures;
 
 namespace ModTool.PatchGame
@@ -6,6 +7,7 @@ namespace ModTool.PatchGame
     /// <summary>
     /// 修补<see cref="Projectile"/>
     /// </summary>
+    [HarmonyPatch(typeof(Projectile))]
     public class PatchProjectile : tContentPatch.PatchProjectile
     {
         /// <summary/>
@@ -21,6 +23,18 @@ namespace ModTool.PatchGame
         {
             OnNewProjectilePos?.Invoke(result, spawnSource,
                 X, Y, SpeedX, SpeedY, Type, Damage, KnockBack, Owner, ai0, ai1, ai2);
+        }
+
+        /// <summary/>
+        public delegate void SetDefaultsEvent(Projectile This, int Type);
+        /// <summary>在设置默认前</summary>
+        public static event SetDefaultsEvent OnSetDefaults = null;
+
+        [HarmonyPatch("SetDefaults")]
+        [HarmonyPrefix]
+        internal static void SetDefaultsPrefix(Projectile __instance, int Type)
+        {
+            OnSetDefaults?.Invoke(__instance, Type);
         }
     }
 }

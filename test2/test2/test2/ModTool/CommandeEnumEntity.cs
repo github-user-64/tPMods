@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using Terraria;
 
-namespace ModTool.test
+namespace test2.ModTool
 {
     /// <summary>
     /// 枚举实体

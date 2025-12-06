@@ -1,5 +1,4 @@
 ﻿using Terraria;
-using Terraria.DataStructures;
 
 namespace ModTool.AdditionalData
 {
@@ -12,7 +11,7 @@ namespace ModTool.AdditionalData
         public ProjectileAdditionalData() : base(Main.projectile)
         {
             PatchGame.PatchMain.OnEnterWorlding += EnterWorlding;
-            PatchGame.PatchProjectile.OnNewProjectilePos += OnNewProjectilePos;
+            PatchGame.PatchProjectile.OnSetDefaults += OnSetDefaults;
         }
 
         /// <summary>
@@ -23,17 +22,12 @@ namespace ModTool.AdditionalData
             ClearData();
         }
 
-        private void OnNewProjectilePos(int result, IEntitySource spawnSource,
-            float X, float Y, float SpeedX, float SpeedY, int Type, int Damage, float KnockBack, int Owner, float ai0, float ai1, float ai2)
+        private void OnSetDefaults(Projectile This, int Type)
         {
-            if (Main.projectile?.IndexInRange(result) != true) return;
-
-            Entity v = Main.projectile[result];
-
-            if (v == null) return;
-            if (v.active == false) return;
-
-            UpdateDataItem(result, true);
+            if (This.active == false || This.type != Type)
+            {
+                UpdateDataItem(This.whoAmI, true);
+            }
         }
     }
 }

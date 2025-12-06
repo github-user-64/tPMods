@@ -1,9 +1,12 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ModTool.AdditionalData;
+using ModTool.Common.UI;
+using ModTool.Utils;
 using System.Collections.Generic;
 using System.Text;
 using tContentPatch;
+using tContentPatch.Content.UI;
 using Terraria;
 using Terraria.UI;
 
@@ -14,10 +17,10 @@ namespace ModTool.EntityTag
     /// </summary>
     public class DrawTagData : PatchMain
     {
-        private static bool EnableDrawPlayer = true;
-        private static bool EnableDrawProjectile = true;
-        private static bool EnableDrawItem = true;
-        private static bool EnableDrawNPC = true;
+        private static GetSetReset<bool> EnableDrawPlayer = new GetSetReset<bool>();
+        private static GetSetReset<bool> EnableDrawProjectile = new GetSetReset<bool>();
+        private static GetSetReset<bool> EnableDrawItem = new GetSetReset<bool>();
+        private static GetSetReset<bool> EnableDrawNPC = new GetSetReset<bool>();
         private static Color[] info_Colors = { Color.Green, Color.BlueViolet, Color.Gold, Color.Pink };
 
         /// <inheritdoc/>
@@ -30,10 +33,10 @@ namespace ModTool.EntityTag
                     "StaticTile.ModTool: DrawTagData.InventoryPrefix",
                     () =>
                     {
-                        if (EnableDrawPlayer) DrawAD(Main.spriteBatch, Main.player, Entitys.player);
-                        if (EnableDrawProjectile) DrawAD(Main.spriteBatch, Main.projectile, Entitys.projectile);
-                        if (EnableDrawItem) DrawAD(Main.spriteBatch, Main.item, Entitys.item);
-                        if (EnableDrawNPC) DrawAD(Main.spriteBatch, Main.npc, Entitys.npc);
+                        if (EnableDrawPlayer.val) DrawAD(Main.spriteBatch, Main.player, Entitys.player);
+                        if (EnableDrawProjectile.val) DrawAD(Main.spriteBatch, Main.projectile, Entitys.projectile);
+                        if (EnableDrawItem.val) DrawAD(Main.spriteBatch, Main.item, Entitys.item);
+                        if (EnableDrawNPC.val) DrawAD(Main.spriteBatch, Main.npc, Entitys.npc);
 
                         return true;
                     },
@@ -101,6 +104,26 @@ namespace ModTool.EntityTag
             Terraria.Utils.DrawBorderString(Main.spriteBatch,
                 strb.ToString(),
                 pos, color);
+        }
+
+        private class setui : ModSetting
+        {
+            public override string Name => "数据显示";
+            public override string Title => "模组工具: 数据显示";
+            public override UIElement GetUI()
+            {
+                UIScrollViewer2 sv = new UIScrollViewer2();
+                sv.Width.Precent = 1;
+                sv.Height.Precent = 1;
+
+                sv.AddChild(new tContentPatch.Content.UI.ModSet.UIItemTitle(null, "显示标签"));
+                sv.AddChild(new UIItemSwitch(EnableDrawPlayer, null, "显示玩家标签"));
+                sv.AddChild(new UIItemSwitch(EnableDrawProjectile, null, "显示射弹标签"));
+                sv.AddChild(new UIItemSwitch(EnableDrawItem, null, "显示物品标签"));
+                sv.AddChild(new UIItemSwitch(EnableDrawNPC, null, "显示NPC标签"));
+
+                return sv;
+            }
         }
     }
 }

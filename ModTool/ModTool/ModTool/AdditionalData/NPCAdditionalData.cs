@@ -27,11 +27,6 @@ namespace ModTool.AdditionalData
         {
             if (Main.npc?.IndexInRange(result) != true) return;
 
-            Entity v = Main.npc[result];
-
-            if (v == null) return;
-            if (v.active == false) return;
-
             UpdateDataItem(result, true);
         }
     }

@@ -1,11 +1,16 @@
-﻿using ChatBarCMD.Utils;
-using Microsoft.Xna.Framework.Graphics;
+﻿using Microsoft.Xna.Framework.Graphics;
+using ModTool.Utils;
 using System;
 
-namespace ChatBarCMD.Common.UI
+namespace ModTool.Common.UI
 {
-    internal class UIItemTextBox<T> : UIItemMouseText
+    /// <summary>
+    /// 项, 文本框
+    /// </summary>
+    /// <typeparam name="T">文本转化为该类型</typeparam>
+    public class UIItemTextBox<T> : UIItemMouseText
     {
+        /// <summary/>
         public UIItemTextBox(GetSetReset<T> gsr, Func<string, T> parseTry,
             Texture2D ico = null, string text = null) : base(ico, text)
         {

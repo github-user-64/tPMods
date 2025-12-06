@@ -1,6 +1,8 @@
 ﻿using ChatBarCMD.Common.GameChatCommand;
 using ChatBarCMD.Utils;
 using CommandHelp;
+using ModTool.Command;
+using ModTool.Utils;
 using System.Collections.Generic;
 using tContentPatch;
 

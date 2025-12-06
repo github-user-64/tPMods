@@ -1,12 +1,12 @@
 ﻿using CommandHelp;
 using System.Collections.Generic;
 
-namespace ChatBarCMD.Utils
+namespace ModTool.Command
 {
     /// <summary>
     /// 指令匹配或者为空字符串的都会进来
     /// </summary>
-    internal class CommandVariable : CommandObject
+    public class CommandVariable : CommandObject
     {
         /// <summary>
         /// 指令匹配

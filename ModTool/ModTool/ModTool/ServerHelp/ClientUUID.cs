@@ -23,7 +23,7 @@ namespace ModTool.ServerHelp
 
         public ClientUUID()
         {
-            PatchGame.PatchMessageBuffer.OnGetDataPo += GetDataPo;
+            PatchGame.PatchMessageBuffer.OnGetDataPo.Add(GetDataPo);
         }
 
         public override void EnterWorlding() { }

@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using Terraria;
 
-namespace ModTool.test
+namespace test2.ModTool
 {
     /// <summary>
     /// 实体标签操作
@@ -27,11 +27,11 @@ namespace ModTool.test
             at.SubCommand.Add(new CommandPrintList(at.SubCommand, "标签", print));
             SubCommand.Add(at);
 
-            CommandString tag = new CommandString() { TipText = "标签" };
+            CommandString2 tag = new CommandString2() { TipText = "标签" };
             tag.SubCommand.Add(new CommandPrintList(tag.SubCommand, "值", print));
             at.SubCommand.Add(tag);
 
-            CommandString val = new CommandString(true) { TipText = "值" };
+            CommandString2 val = new CommandString2(true) { TipText = "值" };
             tag.SubCommand.Add(val);
         }
 
