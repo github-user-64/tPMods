@@ -81,20 +81,15 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Account\GroupTag.cs" />
+    <Compile Include="Account\AccountData.cs" />
+    <Compile Include="Account\AccountHelp.cs" />
+    <Compile Include="Account\AccountTag.cs" />
+    <Compile Include="Common\Class1.cs" />
     <Compile Include="Common\FunctionCommand\playing.cs" />
-    <Compile Include="Common\FunctionCommand\kickPlay.cs" />
-    <Compile Include="Common\PlayCommand.cs" />
-    <Compile Include="Common\GotPlayChat.cs" />
-    <Compile Include="PatchGame\Init.cs" />
-    <Compile Include="PatchGame\PatchChatCommandProcessor.cs" />
-    <Compile Include="PatchGame\PatchMessageBuffer.cs" />
-    <Compile Include="PatchGame\PatchNetMessage.cs" />
-    <Compile Include="PatchGame\PatchPlayer.cs" />
+    <Compile Include="Account\AccountFileHelp.cs" />
     <Compile Include="ModLinkage\ModChatBarCMD.cs" />
     <Compile Include="ThisMod.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Utils\Utils.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\ModTool\ModTool\ModTool\ModTool.csproj">

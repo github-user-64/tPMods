@@ -3,20 +3,17 @@ using Terraria;
 using Terraria.ID;
 using Terraria.Localization;
 
-namespace PlayerAccount.Common.FunctionCommand
+namespace ModTool.ServerHelp
 {
     /// <summary>
     /// 踢出玩家
     /// </summary>
-    public static class kickPlay
+    public static class KickPlay
     {
         /// <summary>
         /// 踢出玩家
         /// </summary>
-        /// <param name="whoAmI"></param>
-        /// <param name="msg"></param>
-        /// <param name="print"></param>
-        public static void kick(int whoAmI, string msg, Action<string> print)
+        public static void Kick(int whoAmI, string msg, Action<string> print)
         {
             if (Main.player?.IndexInRange(whoAmI) != true)
             {

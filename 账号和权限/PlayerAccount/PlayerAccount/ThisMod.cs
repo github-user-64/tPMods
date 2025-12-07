@@ -12,6 +12,7 @@ namespace PlayerAccount
         public static ModObject mo { get; private set; } = null;
         public static string Dir { get; private set; } = null;
         public static string DirBackup { get; private set; } = null;
+        public const string FileAccountData = "AccountData.txt";
         public const string FileNameAccountData = "AccountData";
 
         public override void Load()
@@ -25,7 +26,11 @@ namespace PlayerAccount
             //
 
             Dir = ThisMod.mo.modPath;
-            DirBackup = Path.Combine(Dir, "Backup");//账号备份
+            DirBackup = Path.Combine(Dir, "Backup");//账号备份目录
+
+            //
+
+            Account.AccountData.Init();
         }
     }
 }

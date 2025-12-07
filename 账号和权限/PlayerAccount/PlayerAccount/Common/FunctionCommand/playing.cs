@@ -24,7 +24,6 @@ namespace PlayerAccount.Common.FunctionCommand
         /// <summary>
         /// 输出玩家列表
         /// </summary>
-        /// <param name="print"></param>
         public static void print(Action<string> print)
         {
             if (print == null) return;
