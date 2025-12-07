@@ -10,12 +10,12 @@ namespace ModTool.PatchGame
         /// <summary/>
         public delegate void SetDefaultsEvent(NPC This, int Type, NPCSpawnParams spawnparams);
         /// <summary>在设置默认后</summary>
-        public static event SetDefaultsEvent OnSetDefaultsPos = null;
+        public static event SetDefaultsEvent OnSetDefaultsPo = null;
 
         /// <inheritdoc/>
         public override void SetDefaultsPostfix(NPC This, int Type, NPCSpawnParams spawnparams)
         {
-            OnSetDefaultsPos?.Invoke(This, Type, spawnparams);
+            OnSetDefaultsPo?.Invoke(This, Type, spawnparams);
         }
     }
 }

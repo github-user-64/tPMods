@@ -52,8 +52,10 @@ namespace ModTool.Command
         public static string StringToString(string s)
         {
             if (s.Length < 2) throw new System.Exception($"[{s}]字符串格式错误");
+            if (s[0] != '\"') throw new System.Exception($"[{s}]字符串格式错误:开头不为\"");
+            if (s[s.Length - 1] != '\"') throw new System.Exception($"[{s}]字符串格式错误:结尾不为\"");
             if (s.Length < 3) return string.Empty;
-            else return s.Substring(1, s.Length - 2);
+            return s.Substring(1, s.Length - 2);
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using CommandHelp;
 using Microsoft.Xna.Framework;
+using ModTool.Command;
 using ModTool.EntityTag;
 using System;
 using System.Collections.Generic;
@@ -49,6 +50,12 @@ namespace test2.MT
                 CommandMethod playing = new CommandMethod("playing");
                 playing.Runing += _ => p?.Invoke("超级大玩家");
                 list.Add(playing);
+
+                CommandMethod getp = new CommandMethod("getp", 1);
+                getp.SubCommand.Add(new CommandPrintList(getp.SubCommand, print: p));
+                getp.SubCommand.Add(new CommandGetPlayer());
+                getp.Runing += args => p?.Invoke((args[0] as Player)?.name ?? "是null哦");
+                list.Add(getp);
 
                 return list;
             });

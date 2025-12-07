@@ -80,6 +80,7 @@
     <Compile Include="AdditionalData\AdditionalData.cs" />
     <Compile Include="AdditionalData\NPCAdditionalData.cs" />
     <Compile Include="AdditionalData\ItemAdditionalData.cs" />
+    <Compile Include="Command\CommandGetPlayer.cs" />
     <Compile Include="Command\CommandString.cs" />
     <Compile Include="Command\CommandString2.cs" />
     <Compile Include="Common\UI\UIItemMouseText.cs" />

@@ -1,5 +1,4 @@
-﻿using HarmonyLib;
-using System.Collections.Generic;
+﻿using System;
 using Terraria;
 
 namespace ModTool.PatchGame
@@ -7,63 +6,41 @@ namespace ModTool.PatchGame
     /// <summary>
     /// 修补<see cref="MessageBuffer"/>
     /// </summary>
-    [HarmonyPatch(typeof(MessageBuffer))]
-    public class PatchMessageBuffer
+    public class PatchMessageBuffer : tContentPatch.PatchMessageBuffer
     {
         /// <summary/>
         public delegate void GetDataEvent(MessageBuffer This, int start, int length, int messageType);
         /// <summary>在收到数据前</summary>
-        public static List<GetDataEvent> OnGetData { get; } = new List<GetDataEvent>();
+        public static event GetDataEvent OnGetDataPr = null;
         /// <summary>在收到数据后</summary>
-        public static List<GetDataEvent> OnGetDataPo { get; } = new List<GetDataEvent>();
+        public static event GetDataEvent OnGetDataPo = null;
+        /// <summary>客户端收到玩家连接时//只是有玩家处于活动状态时, 其它数据可能还未同步</summary>
+        public static event Action<int> OnPlayerConnecting = null;
+        /// <summary>客户端收到玩家断开连接时</summary>
+        public static event Action<int> OnPlayerDisconnecting = null;
 
-        [HarmonyPatch("GetData")]
-        [HarmonyPrefix]
-        internal static void GetData(MessageBuffer __instance, int start, int length, int messageType)
+        /// <inheritdoc/>
+        public override void GetDataPrefix(MessageBuffer This, int start, int length, int messageType)
         {
-            messageType = __instance.readBuffer[start];
-
-            if (__instance.reader == null)
-            {
-                __instance.ResetReader();
-            }
-
-            //
-
-            OnGetData.RemoveAll(i => i == null);
-
-            foreach (GetDataEvent i in OnGetData)
-            {
-                __instance.reader.BaseStream.Position = start + 1;
-
-                try
-                {
-                    i(__instance, start, length, messageType);
-                }
-                catch { }
-            }
-
-            __instance.reader.BaseStream.Position = start + 1;
+            OnGetDataPr?.Invoke(This, start, length, messageType);
         }
 
-        [HarmonyPatch("GetData")]
-        [HarmonyPostfix]
-        internal static void GetDataPo(MessageBuffer __instance, int start, int length, int messageType)
+        /// <inheritdoc/>
+        public override void GetDataPostfix(MessageBuffer This, int start, int length, int messageType)
         {
-            OnGetDataPo.RemoveAll(i => i == null);
+            OnGetDataPo?.Invoke(This, start, length, messageType);
+        }
 
-            foreach (GetDataEvent i in OnGetDataPo)
-            {
-                __instance.reader.BaseStream.Position = start + 1;
+        /// <inheritdoc/>
+        public override void OnPlayerConnect(int playerIndex)
+        {
+            OnPlayerConnecting?.Invoke(playerIndex);
+        }
 
-                try
-                {
-                    i(__instance, start, length, messageType);
-                }
-                catch { }
-            }
-
-            __instance.reader.BaseStream.Position = start + 1;
+        /// <inheritdoc/>
+        public override void OnPlayerDisconnect(int playerIndex)
+        {
+            OnPlayerDisconnecting?.Invoke(playerIndex);
         }
     }
 }

@@ -10,12 +10,12 @@ namespace ModTool.PatchGame
         /// <summary/>
         public delegate void SetDefaultsEvent(Projectile This, int Type);
         /// <summary>在设置默认后</summary>
-        public static event SetDefaultsEvent OnSetDefaultsPos = null;
+        public static event SetDefaultsEvent OnSetDefaultsPo = null;
 
         /// <inheritdoc/>
         public override void SetDefaultsPostfix(Projectile This, int Type)
         {
-            OnSetDefaultsPos?.Invoke(This, Type);
+            OnSetDefaultsPo?.Invoke(This, Type);
         }
     }
 }

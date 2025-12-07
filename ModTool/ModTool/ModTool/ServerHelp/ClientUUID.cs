@@ -23,12 +23,12 @@ namespace ModTool.ServerHelp
 
         public ClientUUID()
         {
-            PatchGame.PatchMessageBuffer.OnGetDataPo.Add(GetDataPo);
+            PatchGame.PatchMessageBuffer.OnGetDataPo += GetDataPo;
         }
 
         public override void EnterWorldPr() { }
-        public override void ConnectedPlayer(int ply) { }
-        public override void DisconnectedPlayer(int ply)
+        public override void ServerConnectedPlayer(int ply) { }
+        public override void ServerDisconnectedPlayer(int ply)
         {
             ClearDataItem(ply);
         }

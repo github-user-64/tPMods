@@ -12,7 +12,7 @@ namespace ModTool.AdditionalData
         public NPCAdditionalData() : base(Main.npc)
         {
             PatchGame.PatchMain.OnEnterWorldPr += EnterWorldPr;
-            PatchGame.PatchNPC.OnSetDefaultsPos += OnSetDefaultsPos;
+            PatchGame.PatchNPC.OnSetDefaultsPo += OnSetDefaultsPos;
         }
 
         /// <summary>

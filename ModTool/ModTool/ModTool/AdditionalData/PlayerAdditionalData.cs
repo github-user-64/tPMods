@@ -12,8 +12,26 @@ namespace ModTool.AdditionalData
         public PlayerAdditionalData() : base(Main.player)
         {
             PatchGame.PatchMain.OnEnterWorldPr += EnterWorldPr;
-            PatchGame.PatchNetMessage.OnSyncConnectedPlayer += ConnectedPlayer;
-            PatchGame.PatchNetMessage.OnSyncDisconnectedPlayer += DisconnectedPlayer;
+            PatchGame.PatchNetMessage.OnSyncConnectedPlayerPr += ServerConnectedPlayer;
+            PatchGame.PatchNetMessage.OnSyncDisconnectedPlayerPr += ServerDisconnectedPlayer;
+            PatchGame.PatchMessageBuffer.OnPlayerConnecting += ClientGotConnect;
+            PatchGame.PatchMessageBuffer.OnPlayerDisconnecting += ClientGotDisconnect;
+        }
+
+        /// <summary>
+        /// 客户端收到玩家连接时
+        /// </summary>
+        public virtual void ClientGotConnect(int playerIndex)
+        {
+            UpdateDataItem(Main.myPlayer, true);
+        }
+
+        /// <summary>
+        /// 客户端收到玩家断开连接时
+        /// </summary>
+        public virtual void ClientGotDisconnect(int playerIndex)
+        {
+            ClearDataItem(playerIndex);
         }
 
         /// <summary>
@@ -26,17 +44,17 @@ namespace ModTool.AdditionalData
         }
 
         /// <summary>
-        /// 有玩家连接时
+        /// 服务端在同步已连接玩家前
         /// </summary>
-        public virtual void ConnectedPlayer(int ply)
+        public virtual void ServerConnectedPlayer(int ply)
         {
             UpdateDataItem(ply, true);
         }
 
         /// <summary>
-        /// 有玩家断开连接时
+        /// 服务端在同步断开连接玩家前
         /// </summary>
-        public virtual void DisconnectedPlayer(int ply)
+        public virtual void ServerDisconnectedPlayer(int ply)
         {
             ClearDataItem(ply);
         }
