@@ -69,12 +69,16 @@ namespace PlayerAccount.Account
             var (name, ip, port, uuid, ex) = GetPlayerData(player);
             if (ex != null) return ex;
 
-            Dictionary<string, string> acc = new Dictionary<string, string>();
-            if (acc.SetVal(AccountTag.Name, name) == false) return "未知异常";
-            if (acc.SetVal(AccountTag.IP, ip) == false) return "未知异常";
-            if (acc.SetVal(AccountTag.Port, port.ToString()) == false) return "未知异常";
-            if (acc.SetVal(AccountTag.UUID, uuid) == false) return "未知异常";
-            if (acc.SetVal(AccountTag.Password, password) == false) return "未知异常";
+            Dictionary<string, string> acc = GetAccount(player);
+            if (acc != null) return $"{name}已注册";
+
+            acc = new Dictionary<string, string>();
+
+            if (acc.SetVal(AccountTag.Name, name) == false) return "设置名称失败";
+            if (acc.SetVal(AccountTag.IP, ip) == false) return "设置地址失败";
+            if (acc.SetVal(AccountTag.Port, port.ToString()) == false) return "设置端口失败";
+            if (acc.SetVal(AccountTag.UUID, uuid) == false) return "设置uuid失败";
+            if (acc.SetVal(AccountTag.Password, password) == false) return "设置密码失败";
 
             AccountData.datas.Insert(0, acc);
 
@@ -94,7 +98,7 @@ namespace PlayerAccount.Account
             Dictionary<string, string> acc = GetAccount(player);
             if (acc == null) return $"{name}未注册";
 
-            if (acc.EqualsVal(AccountTag.Name, name)) return "名称异常";
+            if (acc.EqualsVal(AccountTag.Name, name) == false) return "名称异常";
 
             if (acc.GetVal(AccountTag.Password) != password)
             {

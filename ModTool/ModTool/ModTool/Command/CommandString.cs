@@ -12,7 +12,9 @@ namespace ModTool.Command
         /// <inheritdoc/>
         protected override string GetDefault() => null;
 
-        /// <summary/>
+        /// <summary>
+        /// "字符串"
+        /// </summary>
         public CommandString(bool isVariable = false) : base(isVariable) { }
 
         /// <inheritdoc/>

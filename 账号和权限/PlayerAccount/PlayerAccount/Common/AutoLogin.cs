@@ -11,7 +11,7 @@ namespace PlayerAccount.Common
     {
         public override void Load()
         {
-            ModTool.PatchGame.PatchNetMessage.OnSyncConnectedPlayerPr += ply =>
+            ModTool.PatchGame.PatchNetMessage.OnSyncConnectedPlayerPo += ply =>
             {
                 if (Main.player?.IndexInRange(ply) != true) return;
 
@@ -30,7 +30,7 @@ namespace PlayerAccount.Common
 
                 player.Login(acc.GetVal(AccountTag.Password, null));
 
-                ModTool.ServerHelp.PrintTo.PrintToPlay(ply, $"{name}登录成功", Color.White);
+                ModTool.ServerHelp.PrintTo.PrintToPlay(ply, $"{name}[c/00ff00:登录成功]", Color.White);
             };
         }
     }

@@ -37,7 +37,7 @@ namespace ModTool.Utils
         /// </summary>
         public static TV GetVal<T, TV>(this Dictionary<T, TV> d, T key, TV def = default)
         {
-            if (d.HasKey(key)) return def;
+            if (d.HasKey(key) == false) return def;
 
             return d[key];
         }
@@ -58,7 +58,7 @@ namespace ModTool.Utils
         /// </summary>
         public static bool EqualsVal<T, TV>(this Dictionary<T, TV> d, T key, TV val)
         {
-            if (d.HasKey(key)) return false;
+            if (d.HasKey(key) == false) return false;
 
             TV val2 = d[key];
 

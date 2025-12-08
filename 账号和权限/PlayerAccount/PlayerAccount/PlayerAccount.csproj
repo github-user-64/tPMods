@@ -84,10 +84,14 @@
     <Compile Include="Account\AccountData.cs" />
     <Compile Include="Account\AccountHelp.cs" />
     <Compile Include="Account\AccountTag.cs" />
+    <Compile Include="Command.cs" />
     <Compile Include="Common\AutoLogin.cs" />
     <Compile Include="Account\PlayerAccount.cs" />
+    <Compile Include="Common\FunctionCommand\login.cs" />
+    <Compile Include="Common\PlayerCommand.cs" />
     <Compile Include="Common\FunctionCommand\playing.cs" />
     <Compile Include="Account\AccountFileHelp.cs" />
+    <Compile Include="Common\FunctionCommand\register.cs" />
     <Compile Include="Common\LoginMaxKick.cs" />
     <Compile Include="ModLinkage\ModChatBarCMD.cs" />
     <Compile Include="ThisMod.cs" />

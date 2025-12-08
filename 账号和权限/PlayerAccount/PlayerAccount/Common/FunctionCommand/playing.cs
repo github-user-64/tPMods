@@ -15,16 +15,17 @@ namespace PlayerAccount.Common.FunctionCommand
         public class cmd : CommandMethod
         {
             /// <summary/>
-            public cmd(Player player) : base("playing")
+            public cmd(Player player, Action<string> print) : base("playing")
             {
-                Runing += _ => print(s => PrintTo.PrintToPlay(player.whoAmI, s, Color.White));
+                if (print == null) return;
+                Runing += _ => foo(print);
             }
         }
 
         /// <summary>
         /// 输出玩家列表
         /// </summary>
-        public static void print(Action<string> print)
+        public static void foo(Action<string> print)
         {
             if (print == null) return;
 
@@ -56,7 +57,7 @@ namespace PlayerAccount.Common.FunctionCommand
                 }
             }
 
-            print($"在线玩家数量[[c/aaffaa:{count}]/{Main.maxNetPlayers}]");
+            print($"在线玩家数量([c/aaffaa:{count}]/{Main.maxNetPlayers})");
 
             if (s == null) return;
             print(s);

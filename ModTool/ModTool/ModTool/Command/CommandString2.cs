@@ -10,7 +10,9 @@ namespace ModTool.Command
         /// <inheritdoc/>
         public override string Text => "<strint>";
 
-        /// <summary/>
+        /// <summary>
+        /// 字符串
+        /// </summary>
         public CommandString2(bool isVariable = false) : base(isVariable) { }
 
         /// <inheritdoc/>

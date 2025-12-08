@@ -42,6 +42,16 @@ namespace ModTool.ServerHelp
 
         //不允许设置值
         public override bool SetData(int index, string val) => false;
+        //不允许设置值
+        protected override void ClearDataItem(int index) { }
+
+        public override void ServerDisconnectedPlayer(int ply)
+        {
+            if (IndexInRange(ply) == false) return;
+
+            data[ply] = null;
+            hasData[ply] = false;
+        }
 
         private void SetUUIDData(int index, string val)
         {

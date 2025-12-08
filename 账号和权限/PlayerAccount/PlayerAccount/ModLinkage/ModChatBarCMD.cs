@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using tContentPatch;
-using Terraria;
 
 namespace PlayerAccount.ModLinkage
 {
