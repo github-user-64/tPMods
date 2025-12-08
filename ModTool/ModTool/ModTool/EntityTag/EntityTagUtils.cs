@@ -59,6 +59,18 @@ namespace ModTool.EntityTag
         }
 
         /// <summary>
+        /// tag的val是否相等
+        /// </summary>
+        public static bool EqualsVal<T>(this AdditionalData<Dictionary<string, string>, T> obj, T entity,
+            string tag, string val) where T : Entity
+        {
+            if (obj == null) return false;
+            if (entity == null) return false;
+
+            return obj.GetData(entity.whoAmI).EqualsVal(tag, val);
+        }
+
+        /// <summary>
         /// 获取tag列表, 获取失败返回<see langword="null"/>
         /// </summary>
         public static List<string> GetTags<T>(this AdditionalData<Dictionary<string, string>, T> obj, T entity) where T : Entity

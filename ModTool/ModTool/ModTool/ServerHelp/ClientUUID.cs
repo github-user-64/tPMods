@@ -26,13 +26,6 @@ namespace ModTool.ServerHelp
             PatchGame.PatchMessageBuffer.OnGetDataPo += GetDataPo;
         }
 
-        public override void EnterWorldPr() { }
-        public override void ServerConnectedPlayer(int ply) { }
-        public override void ServerDisconnectedPlayer(int ply)
-        {
-            ClearDataItem(ply);
-        }
-
         private void GetDataPo(MessageBuffer This, int start, int length, int messageType)
         {
             if (messageType != MessageID.Unknown68) return;

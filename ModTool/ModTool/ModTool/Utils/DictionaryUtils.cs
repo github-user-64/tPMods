@@ -54,6 +54,21 @@ namespace ModTool.Utils
         }
 
         /// <summary>
+        /// key的val是否相等
+        /// </summary>
+        public static bool EqualsVal<T, TV>(this Dictionary<T, TV> d, T key, TV val)
+        {
+            if (d.HasKey(key)) return false;
+
+            TV val2 = d[key];
+
+            if (val2 == null && val == null) return true;
+            if (val2 == null) return false;
+
+            return val2.Equals(val);
+        }
+
+        /// <summary>
         /// 获取key列表, 获取失败返回<see langword="null"/>
         /// </summary>
         public static List<T> GetKeys<T, TV>(this Dictionary<T, TV> d)

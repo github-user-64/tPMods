@@ -31,6 +31,7 @@ namespace PlayerAccount
             //
 
             Account.AccountData.Init();
+            Account.AccountHelp.Init();
         }
     }
 }
