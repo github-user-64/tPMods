@@ -18,7 +18,7 @@ namespace PlayerAccount.Common.FunctionCommand
             /// <summary/>
             public cmd(Player player, Action<string> print) : base("register", 1)
             {
-                SubCommand.Add(new CommandPrintList(SubCommand, print: print));
+                SubCommand.Add(new CommandPrintList(SubCommand, "密码", print));
                 SubCommand.Add(new CommandString2());
 
                 Runing += args =>

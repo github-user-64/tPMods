@@ -69,7 +69,7 @@ namespace PlayerAccount.Account
             var (name, ip, port, uuid, ex) = GetPlayerData(player);
             if (ex != null) return ex;
 
-            Dictionary<string, string> acc = GetAccount(player);
+            Dictionary<string, string> acc = GetNameAccount(player.name);
             if (acc != null) return $"{name}已注册";
 
             acc = new Dictionary<string, string>();
@@ -95,7 +95,7 @@ namespace PlayerAccount.Account
             var (name, ip, port, uuid, ex) = GetPlayerData(player);
             if (ex != null) return ex;
 
-            Dictionary<string, string> acc = GetAccount(player);
+            Dictionary<string, string> acc = GetNameAccount(player.name);
             if (acc == null) return $"{name}未注册";
 
             if (acc.EqualsVal(AccountTag.Name, name) == false) return "名称异常";
@@ -119,14 +119,23 @@ namespace PlayerAccount.Account
         }
 
         /// <summary>
-        /// 获取和玩家同名的账号数据, 没有返回<see langword="null"/>
+        /// 获取该名称的账号数据, 不存在返回<see langword="null"/>
         /// </summary>
-        public static Dictionary<string, string> GetAccount(this Player player)
+        public static Dictionary<string, string> GetNameAccount(string name)
         {
-            string name = player?.name;
             if (name == null) return null;
 
             return AccountData.datas.FirstOrDefault(i => i.GetVal(AccountTag.Name, null) == name);
+        }
+
+        /// <summary>
+        /// 获取已登录玩家的账号数据, 不存在返回<see langword="null"/>
+        /// </summary>
+        public static Dictionary<string, string> GetAccount(this Player player)
+        {
+            if (player == null) return null;
+
+            return playerAccount.GetData(player.whoAmI, null);
         }
     }
 }

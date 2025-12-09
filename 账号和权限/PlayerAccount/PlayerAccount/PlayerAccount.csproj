@@ -59,6 +59,10 @@
       <HintPath>..\..\..\..\tPlainModLoader\dll\Microsoft.Xna.Framework.Graphics.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.13.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
     <Reference Include="ReLogic">
       <HintPath>..\..\..\..\tPlainModLoader\dll\ReLogic.dll</HintPath>
       <Private>False</Private>
@@ -87,6 +91,8 @@
     <Compile Include="Command.cs" />
     <Compile Include="Common\AutoLogin.cs" />
     <Compile Include="Account\PlayerAccount.cs" />
+    <Compile Include="Common\FunctionCommand\ban.cs" />
+    <Compile Include="Common\FunctionCommand\kick.cs" />
     <Compile Include="Common\FunctionCommand\login.cs" />
     <Compile Include="Common\PlayerCommand.cs" />
     <Compile Include="Common\FunctionCommand\playing.cs" />
@@ -94,6 +100,7 @@
     <Compile Include="Common\FunctionCommand\register.cs" />
     <Compile Include="Common\LoginMaxKick.cs" />
     <Compile Include="ModLinkage\ModChatBarCMD.cs" />
+    <Compile Include="ServerConfig.cs" />
     <Compile Include="ThisMod.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -103,6 +110,9 @@
       <Name>ModTool</Name>
       <Private>False</Private>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

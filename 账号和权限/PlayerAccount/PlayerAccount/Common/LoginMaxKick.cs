@@ -21,7 +21,7 @@ namespace PlayerAccount.Common
 
                 if (count < 5) return;
 
-                ModTool.ServerHelp.KickPlay.Kick(ply.whoAmI, "密码多次错误", ContentPatch.PrintTry);
+                ModTool.ServerHelp.KickPlay.Kick(ply.whoAmI, "密码多次错误");
             };
         }
     }

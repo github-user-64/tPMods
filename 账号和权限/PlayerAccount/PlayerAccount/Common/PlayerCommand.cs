@@ -1,4 +1,5 @@
 ﻿using CommandHelp;
+using ModTool.Utils;
 using PlayerAccount.Account;
 using System;
 using System.Collections.Generic;
@@ -16,8 +17,9 @@ namespace PlayerAccount.Common
         /// 获取指令(来自该玩家, 玩家账号)
         /// </summary>
         /// <param name="player">来自该玩家</param>
-        /// <param name="account">玩家账号</param>
-        public delegate List<CommandObject> GetCosDelegate(Player player, Dictionary<string, string> account);
+        /// <param name="account">已登录玩家账号</param>
+        /// <param name="print"></param>
+        public delegate List<CommandObject> GetCosDelegate(Player player, Dictionary<string, string> account, Action<string> print);
         /// <summary>
         /// 指令
         /// </summary>
@@ -26,10 +28,29 @@ namespace PlayerAccount.Common
         /// <inheritdoc/>
         public override void Load()
         {
-            ChatBarCMD.Common.GameChatCommand.NetMode2.CMD.Add(GetCMD);
+            CMD.Add(GetCMD);
+            ChatBarCMD.Common.GameChatCommand.NetMode2.CMD.Add(GetChatCMD);
         }
 
-        private List<CommandObject> GetCMD(int clientId, Action<string> print)
+        private List<CommandObject> GetCMD(Player player, Dictionary<string, string> account, Action<string> print)
+        {
+            if (Main.netMode != 2) return null;
+
+            List<CommandObject> cos = new List<CommandObject>
+            {
+                new FunctionCommand.register.cmd(player, print),
+                new FunctionCommand.login.cmd(player, account, print),
+                new FunctionCommand.playing.cmd(player, print)
+            };
+            if (account.HasKey(AccountTag.Administrator))
+            {
+                cos.Add(new FunctionCommand.kick.cmd(player, account, print));
+            }
+
+            return cos;
+        }
+
+        private List<CommandObject> GetChatCMD(int clientId, Action<string> print)
         {
             if (Main.player?.IndexInRange(clientId) != true) return null;
 
@@ -40,17 +61,13 @@ namespace PlayerAccount.Common
 
             List<CommandObject> cos = new List<CommandObject>();
 
-            cos.Add(new FunctionCommand.register.cmd(player, print));
-            cos.Add(new FunctionCommand.login.cmd(player, print));
-            cos.Add(new FunctionCommand.playing.cmd(player, print));
-
             CMD.RemoveAll(i => i == null);
 
             foreach (var i in CMD)
             {
                 try
                 {
-                    List<CommandObject> c = i?.Invoke(player, acc);
+                    List<CommandObject> c = i?.Invoke(player, acc, print);
                     if (c == null) continue;
                     cos.AddRange(c);
                 }

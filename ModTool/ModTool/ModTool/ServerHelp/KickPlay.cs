@@ -1,5 +1,4 @@
-﻿using System;
-using Terraria;
+﻿using Terraria;
 using Terraria.ID;
 using Terraria.Localization;
 
@@ -11,22 +10,17 @@ namespace ModTool.ServerHelp
     public static class KickPlay
     {
         /// <summary>
-        /// 踢出玩家
+        /// 踢出玩家, 成功返回<see langword="null"/>
         /// </summary>
-        public static void Kick(int whoAmI, string msg, Action<string> print)
+        public static string Kick(int whoAmI, string msg)
         {
-            if (Main.player?.IndexInRange(whoAmI) != true)
-            {
-                print?.Invoke($"[{whoAmI}]不在范围内");
-                return;
-            }
+            if (Main.player?.IndexInRange(whoAmI) != true) return $"[{whoAmI}]不在范围内";
 
             string name = Main.player[whoAmI]?.name ?? string.Empty;
 
             NetMessage.SendData(MessageID.Kick, whoAmI, -1, NetworkText.FromLiteral(msg ?? string.Empty));
 
-            print?.Invoke($"已踢出[{name}]");
-            tContentPatch.ContentPatch.PrintTry($"已踢出[{name}]");
+            return null;
 
             ////踢出玩家
             //Netplay.Clients[__instance.whoAmI].PendingTermination = true;
