@@ -94,11 +94,13 @@
     <Compile Include="Common\FunctionCommand\ban.cs" />
     <Compile Include="Common\FunctionCommand\kick.cs" />
     <Compile Include="Common\FunctionCommand\login.cs" />
+    <Compile Include="Common\OnEnterServering.cs" />
     <Compile Include="Common\PlayerCommand.cs" />
     <Compile Include="Common\FunctionCommand\playing.cs" />
     <Compile Include="Account\AccountFileHelp.cs" />
     <Compile Include="Common\FunctionCommand\register.cs" />
     <Compile Include="Common\LoginMaxKick.cs" />
+    <Compile Include="Common\SaveAccountData.cs" />
     <Compile Include="ModLinkage\ModChatBarCMD.cs" />
     <Compile Include="ServerConfig.cs" />
     <Compile Include="ThisMod.cs" />

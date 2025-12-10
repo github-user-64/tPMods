@@ -2,6 +2,9 @@
 
 namespace PlayerAccount.Common
 {
+    /// <summary>
+    /// 登录上限踢出
+    /// </summary>
     internal class LoginMaxKick : Mod
     {
         private class ErrorCount : ModTool.AdditionalData.PlayerAdditionalData<int>

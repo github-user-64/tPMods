@@ -33,5 +33,9 @@
         /// 密码
         /// </summary>
         public const string Password = "密码";
+        /// <summary>
+        /// 可以设置所有账号的标签
+        /// </summary>
+        public const string CanSetAccTag = "可设置账号标签";
     }
 }

@@ -42,9 +42,13 @@ namespace PlayerAccount.Common
                 new FunctionCommand.login.cmd(player, account, print),
                 new FunctionCommand.playing.cmd(player, print)
             };
-            if (account.HasKey(AccountTag.Administrator))
+
+            bool isban = account.HasKey(AccountTag.Ban);
+            bool canSetTag = account.HasKey(AccountTag.CanSetAccTag);
+
+            if (isban == false && account.HasKey(AccountTag.Administrator))
             {
-                cos.Add(new FunctionCommand.kick.cmd(player, account, print));
+                cos.Add(new FunctionCommand.kick.cmd(false, player, account, print));
             }
 
             return cos;

@@ -17,8 +17,11 @@ namespace PlayerAccount.Common.FunctionCommand
         /// <summary/>
         public class cmd : CommandMethod
         {
-            /// <summary/>
-            public cmd(Player player, Dictionary<string, string> account, Action<string> print) : base("kick", 2)
+            /// <summary>
+            /// 来自服务器, 来自玩家, 来自玩家的账号, 输出
+            /// </summary>
+            public cmd(bool formServer, Player formPlay = null, Dictionary<string, string> formAcc = null,
+                Action<string> print = null) : base("kick", 2)
             {
                 SubCommand.Add(new CommandPrintList(SubCommand, "\"完整玩家名\"或匹配玩家名或索引", print));
 
@@ -31,29 +34,43 @@ namespace PlayerAccount.Common.FunctionCommand
 
                 Runing += args =>
                 {
-                    if (args[0] is Player ply == false)
+                    if (args[0] is Player kickP == false)
                     {
                         print?.Invoke("参数错误");
                         return;
                     }
-                    string msg = args[1] as string;
+                    string kickM = args[1] as string;
                     
-                    string ex = foo(player, account, ply, msg);
-                    if (ex == null) ex = $"{player?.name}踢出{ply?.name}{(msg == null ? null : $",原因是:{msg}")}";
+                    string ex = foo(kickP, formServer, formAcc, kickM);
+                    if (ex == null)
+                    {
+                        ex = formServer ? "Server" : $"{formPlay?.name}";
+                        ex = $"{ex}踢出{kickP?.name}{(kickM == null ? null : $",原因是:{kickM}")}";
 
-                    ModTool.ServerHelp.PrintTo.PrintToPlayAll(ex, Color.White);
+                        tContentPatch.ContentPatch.PrintTry(ex);
+                        ModTool.ServerHelp.PrintTo.PrintToPlayAll(ex, Color.White);
+                    }
+                    else
+                    {
+                        print?.Invoke(ex);
+                    }
                 };
             }
         }
 
+
         /// <summary>
         /// 踢出玩家, 成功返回<see langword="null"/>
         /// </summary>
-        public static string foo(Player player, Dictionary<string, string> account, Player kickPly, string msg = null)
+        public static string foo(Player kickPly, bool formServer, Dictionary<string, string> formAcc = null, string msg = null)
         {
-            if (player == null) return "无法判断你的身份";
-            if (account == null) return "你未登录";
-            if (account.HasKey(AccountTag.Administrator) == false) return "你没有权限";
+            if (kickPly == null) return "玩家为null";
+            if (formServer == false)
+            {
+                if (formAcc == null) return "你未登录";
+                if (formAcc.HasKey(AccountTag.Administrator) == false) return "你没有权限";
+                if (formAcc.HasKey(AccountTag.Ban) == true) return "你没有权限";
+            }
 
             if (msg == null)
             {
