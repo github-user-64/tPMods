@@ -100,6 +100,7 @@
     <Compile Include="PatchGame\PatchMessageBuffer.cs" />
     <Compile Include="PatchGame\PatchNetMessage.cs" />
     <Compile Include="PatchGame\PatchItem.cs" />
+    <Compile Include="PatchGame\PatchWorldFile.cs" />
     <Compile Include="PatchGame\PatchProjectile.cs" />
     <Compile Include="AdditionalData\ProjectileAdditionalData.cs" />
     <Compile Include="AdditionalData\PlayerAdditionalData.cs" />
@@ -113,6 +114,7 @@
     <Compile Include="Command\CommandVariable.cs" />
     <Compile Include="Utils\DictionaryUtils.cs" />
     <Compile Include="Utils\GetSetReset.cs" />
+    <Compile Include="Utils\ModSettingBackup.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

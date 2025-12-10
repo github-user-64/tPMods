@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using tContentPatch.Utils;
 
 namespace PlayerAccount.Account
 {
@@ -10,37 +8,9 @@ namespace PlayerAccount.Account
     public static class AccountFileHelp
     {
         /// <summary>
-        /// 保存数据到指定位置
-        /// </summary>
-        /// <exception cref="Exception"></exception>
-        public static void SaveData(List<Dictionary<string, string>> datas, string FilePath, bool indented = false)
-        {
-            MyJson1.Save(datas, FilePath, indented);
-        }
-
-        /// <summary>
-        /// 从指定位置读取账号数据, 数据会检查
-        /// </summary>
-        /// <exception cref="Exception"></exception>
-        public static List<Dictionary<string, string>> ReadData(string FilePath)
-        {
-            List<Dictionary<string, string>> datas = MyJson1.Get2<List<Dictionary<string, string>>>(FilePath);
-
-            CheckData(datas);
-
-            return datas;
-        }
-
-        /// <summary>
-        /// 清空异常数据
-        /// </summary>
-        /// <exception cref="ArgumentNullException"></exception>
-        public static void CheckData(List<Dictionary<string, string>> datas) => AccountData.CheckData(datas);
-
-        /// <summary>
         /// 更新账号数据, 失败返回<see langword="false"/>
         /// </summary>
-        public static bool UpdateData() => AccountData.UpdateData();
+        public static bool UpdateData() => AccountData.instance.UpdateData();
 
         /// <summary>
         /// 备份账号数据, 成功返回<see langword="null"/>
@@ -49,8 +19,7 @@ namespace PlayerAccount.Account
         {
             try
             {
-                AccountData.BackupData();
-                return null;
+                return AccountData.instance.BackupSave() ? null : "备份失败";
             }
             catch (Exception ex)
             {
@@ -65,7 +34,8 @@ namespace PlayerAccount.Account
         {
             try
             {
-                AccountData.SaveData();
+                if (AccountData.instance.BackupSave() == false) return "备份失败";
+                AccountData.instance.Save();
                 return null;
             }
             catch (Exception ex)

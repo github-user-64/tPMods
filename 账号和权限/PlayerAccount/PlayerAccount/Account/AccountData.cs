@@ -1,147 +1,59 @@
 ﻿using ModTool.Utils;
 using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Linq;
 using tContentPatch;
 
 namespace PlayerAccount.Account
 {
-    internal class AccountData
+    internal class AccountData : ModSettingBackup
     {
+        public override bool HasUI => false;
+        public override string FilePath => "AccountData.txt";
+        public override string BackupDir => "BackupAcc";
+        public override string BackupFileName => "AccountData.txt";
+        public override Type DataType => typeof(List<Dictionary<string, string>>);
         internal static List<Dictionary<string, string>> datas { get; private set; } = null;
+        internal static AccountData instance = null;
 
-        internal static void Init()
+        public override void Load(object v)
         {
-            if (UpdateData()) return;
+            instance = this;
 
-            ContentPatch.PrintTry($"{nameof(PlayerAccount)}:读取账号数据失败,所有数据将会清空,在备份中可能有以前数据");
+            if (v is List<Dictionary<string, string>> data)
+            {
+                CheckData(data);
+                datas = data;
 
+                return;
+            }
+
+            ContentPatch.PrintTry($"{nameof(AccountData)}:读取账号数据失败,尝试读取备份");
+
+            if (BackupRead() is List<Dictionary<string, string>> backup)
+            {
+                CheckData(backup);
+                datas = backup;
+
+                return;
+            }
+
+            ContentPatch.PrintTry($"{nameof(AccountData)}:读取账号数据失败,所有数据将会清空,在备份中可能有以前数据");
             datas = new List<Dictionary<string, string>>();
         }
+
+        public override object GetSaveData() => datas;
 
         /// <summary>
         /// 更新账号数据, 失败返回<see langword="false"/>
         /// </summary>
-        internal static bool UpdateData()
+        internal bool UpdateData()
         {
-            try
-            {
-                if (Directory.Exists(ThisMod.Dir) == false) return false;
-                Directory.CreateDirectory(ThisMod.DirBackup);
+            if (Read() is List<Dictionary<string, string>> data == false) return false;
+            CheckData(data);
 
-                List<Dictionary<string, string>> datas = ReadData();
-                if (datas == null) return false;
+            datas = data;
 
-                AccountData.datas = datas;
-
-                return true;
-            }
-            catch { }
-
-            return false;
-        }
-
-        /// <summary>
-        /// 读取账号数据, 读取失败从备份中读取, 读取失败返回<see langword="null"/>
-        /// </summary>
-        private static List<Dictionary<string, string>> ReadData()
-        {
-            try
-            {
-                return AccountFileHelp.ReadData(Path.Combine(ThisMod.Dir, $"{ThisMod.FileNameAccountData}.txt"));
-            }
-            catch (Exception ex)
-            {
-                ContentPatch.PrintTry($"{nameof(PlayerAccount)}:读取账号数据失败,尝试读取备份:{ex.Message}");
-            }
-
-            if (Directory.Exists(ThisMod.DirBackup) == false)
-            {
-                ContentPatch.PrintTry($"{nameof(PlayerAccount)}:备份目录不存在:[{ThisMod.DirBackup}]");
-                return null;
-            }
-
-            try
-            {
-                DirectoryInfo dir = new DirectoryInfo(ThisMod.DirBackup);
-                IOrderedEnumerable<FileInfo> files = dir.GetFiles()
-                    .Where(i => i.Extension == ".txt")
-                    .OrderByDescending(i => i.LastWriteTime);
-
-                foreach (FileInfo f in files)
-                {
-                    try
-                    {
-                        ContentPatch.PrintTry($"{nameof(PlayerAccount)}:尝试读取备份文件:[{f.Name}]");
-                        List<Dictionary<string, string>> datas = AccountFileHelp.ReadData(f.FullName);
-                        ContentPatch.PrintTry($"{nameof(PlayerAccount)}:已读取备份文件:[{f.Name}]");
-                        return datas;
-                    }
-                    catch { }
-                }
-            }
-            catch { }
-
-            return null;
-        }
-
-        /// <summary>
-        /// 备份账号数据
-        /// </summary>
-        /// <exception cref="Exception"></exception>
-        internal static void BackupData()
-        {
-            if (Directory.Exists(ThisMod.Dir) == false) throw new Exception("模组目录不存在");
-            Directory.CreateDirectory(ThisMod.DirBackup);//目录不存在就创建
-
-            List<string> files = Directory.GetFiles(ThisMod.DirBackup)//获取所有文件路径
-                .Where(i => Path.GetExtension(i) == ".txt")//筛选后缀
-                .ToList();
-            files = files.ConvertAll(i => Path.GetFileNameWithoutExtension(i));//只保留文件名
-
-            string save = null;
-
-            //找到没占用的文件名
-            for (int i = 0; ; ++i)
-            {
-                string name = $"{ThisMod.FileNameAccountData}{i}";
-
-                if (files.Contains(name)) continue;
-
-                save = name;
-                break;
-            }
-
-            //何意味
-            if (save == null) throw new Exception("未知异常");
-
-            save = Path.Combine(ThisMod.DirBackup, $"{save}.txt");
-
-            AccountFileHelp.SaveData(datas, save, true);
-        }
-
-        /// <summary>
-        /// 备份并保存数据
-        /// </summary>
-        /// <exception cref="Exception"></exception>
-        internal static void SaveData()
-        {
-            if (Directory.Exists(ThisMod.Dir) == false) throw new Exception("模组目录不存在");
-
-            if (datas == null) datas = new List<Dictionary<string, string>>();
-            CheckData(datas);
-
-            try
-            {
-                BackupData();
-            }
-            catch (Exception ex)
-            {
-                throw new Exception($"备份数据失败:{ex.Message}", ex);
-            }
-
-            AccountFileHelp.SaveData(datas, Path.Combine(ThisMod.Dir, ThisMod.FileAccountData), true);
+            return true;
         }
 
         /// <summary>
