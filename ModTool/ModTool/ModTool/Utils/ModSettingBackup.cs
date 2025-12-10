@@ -26,8 +26,14 @@ namespace ModTool.Utils
         /// 保存文件是否缩进
         /// </summary>
         public virtual bool SaveFileIndented => true;
+        /// <summary>
+        /// 最大备份文件数量
+        /// </summary>
+        public virtual int BackupMaxSaveCount => 32;
 
-        /// <inheritdoc/>
+        /// <summary>
+        /// 保存, 不用设置<see cref="ModSetting.NeedSave"/>
+        /// </summary>
         public override void Save()
         {
             Assembly assembly = GetType().Assembly;
@@ -44,6 +50,8 @@ namespace ModTool.Utils
 
         /// <summary>
         /// 备份, 成功返回<see langword="true"/>
+        /// <para/>在备份目录下按"(0到<see cref="BackupMaxSaveCount"/>)<see cref="BackupFileName"/>"格式保存
+        /// <para/>若全被占用则覆盖修改时间最早的文件
         /// </summary>
         public virtual bool BackupSave()
         {
@@ -69,7 +77,7 @@ namespace ModTool.Utils
             string save = null;
 
             //找到没占用的文件名
-            for (int i = 0; i < 16; ++i)
+            for (int i = 0; i < BackupMaxSaveCount; ++i)
             {
                 string n = $"{i}{BackupFileName}";
 
@@ -97,9 +105,10 @@ namespace ModTool.Utils
                 return false;
             }
         }
-        
+
         /// <summary>
         /// 读取备份, 失败返回<see langword="null"/>
+        /// <para/>在备份目录下从最新的文件开始读取, 读取到的值为<see langword="null"/>则跳过
         /// </summary>
         public virtual object BackupRead()
         {
