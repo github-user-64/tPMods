@@ -1,6 +1,7 @@
 ﻿using CommandHelp;
 using ModTool.Utils;
 using PlayerAccount.Account;
+using PlayerAccount.Common.FunctionCommand;
 using System;
 using System.Collections.Generic;
 using tContentPatch;
@@ -32,28 +33,6 @@ namespace PlayerAccount.Common
             ChatBarCMD.Common.GameChatCommand.NetMode2.CMD.Add(GetChatCMD);
         }
 
-        private List<CommandObject> GetCMD(Player player, Dictionary<string, string> account, Action<string> print)
-        {
-            if (Main.netMode != 2) return null;
-
-            List<CommandObject> cos = new List<CommandObject>
-            {
-                new FunctionCommand.register.cmd(player, print),
-                new FunctionCommand.login.cmd(player, account, print),
-                new FunctionCommand.playing.cmd(player, print)
-            };
-
-            bool isban = account.HasKey(AccountTag.Ban);
-            bool canSetTag = account.HasKey(AccountTag.CanSetAccTag);
-
-            if (isban == false && account.HasKey(AccountTag.Administrator))
-            {
-                cos.Add(new FunctionCommand.kick.cmd(false, player, account, print));
-            }
-
-            return cos;
-        }
-
         private List<CommandObject> GetChatCMD(int clientId, Action<string> print)
         {
             if (Main.player?.IndexInRange(clientId) != true) return null;
@@ -76,6 +55,37 @@ namespace PlayerAccount.Common
                     cos.AddRange(c);
                 }
                 catch { }
+            }
+
+            return cos;
+        }
+
+        private List<CommandObject> GetCMD(Player player, Dictionary<string, string> account, Action<string> print)
+        {
+            if (Main.netMode != 2) return null;
+
+            List<CommandObject> cos = new List<CommandObject>
+            {
+                new register.cmd(player, account, print),
+                new login.cmd(player, account, print),
+                new playing.cmd(player, print)
+            };
+
+            bool isban = account.HasKey(AccountTag.Ban);//是封禁
+            int? al = AccountHelp.GetAdminLevel(account);//管理等级
+
+            if (isban == false && al != null)
+            {
+                cos.Add(new kick.cmd(player, account, print));
+                ban.cmd ban = new ban.cmd(player, account, print);
+                cos.Add(ban);
+
+                if (al == 0)
+                {
+                    ban.SubCommand.Add(new banAdd.cmd(print));
+                    ban.SubCommand.Add(new banDel.cmd(print));
+                    cos.Add(new accAction.cmd(print));
+                }
             }
 
             return cos;

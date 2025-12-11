@@ -39,7 +39,7 @@ namespace PlayerAccount.Account
 
         internal override void CheckData(List<string> data)
         {
-            if (datas == null) throw new ArgumentNullException(nameof(datas));
+            if (data == null) throw new ArgumentNullException(nameof(data));
 
             data.RemoveAll(i => i == null);
         }

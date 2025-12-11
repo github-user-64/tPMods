@@ -117,9 +117,24 @@ namespace PlayerAccount.Account
             acc.SetVal(AccountTag.Port, port.ToString());
             acc.SetVal(AccountTag.UUID, uuid);
 
+            //移动到最前
+            DataAcc.instance.datas.Remove(acc);
+            DataAcc.instance.datas.Insert(0, acc);
+
             OnLogined?.Invoke(player);
 
             return null;
+        }
+
+        /// <summary>
+        /// 删除账号, 有账号被删除返回<see langword="true"/>
+        /// </summary>
+        public static bool DelAccount(Dictionary<string, string> acc)
+        {
+            bool ok = DataAcc.instance.datas.Remove(acc);
+            if (ok) DataAcc.instance.NeedSaveData();
+
+            return ok;
         }
 
         /// <summary>

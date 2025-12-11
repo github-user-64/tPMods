@@ -83,6 +83,7 @@
     <Compile Include="Command\CommandGetPlayer.cs" />
     <Compile Include="Command\CommandString.cs" />
     <Compile Include="Command\CommandString2.cs" />
+    <Compile Include="Command\Utils.cs" />
     <Compile Include="Common\UI\UIItemMouseText.cs" />
     <Compile Include="Common\UI\UIItemSwitch.cs" />
     <Compile Include="Common\UI\UIItemTextBox.cs" />

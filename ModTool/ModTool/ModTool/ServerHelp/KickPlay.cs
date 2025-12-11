@@ -15,16 +15,22 @@ namespace ModTool.ServerHelp
         public static string Kick(int whoAmI, string msg)
         {
             if (Main.player?.IndexInRange(whoAmI) != true) return $"[{whoAmI}]不在范围内";
-
-            string name = Main.player[whoAmI]?.name ?? string.Empty;
+            if (Netplay.Clients?.IndexInRange(whoAmI) != true) return $"[{whoAmI}]不在范围内";
 
             NetMessage.SendData(MessageID.Kick, whoAmI, -1, NetworkText.FromLiteral(msg ?? string.Empty));
 
-            return null;
-
             ////踢出玩家
-            //Netplay.Clients[__instance.whoAmI].PendingTermination = true;
-            //Netplay.Clients[__instance.whoAmI].PendingTerminationApproved = true;
+            Netplay.Clients[whoAmI].PendingTermination = true;
+            Netplay.Clients[whoAmI].PendingTerminationApproved = true;
+
+            try
+            {
+                Netplay.Clients[whoAmI].Reset();
+                NetMessage.SyncDisconnectedPlayer(whoAmI);
+            }
+            catch { }
+
+            return null;
         }
     }
 }

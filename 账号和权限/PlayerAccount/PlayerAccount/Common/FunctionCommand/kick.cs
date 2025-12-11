@@ -1,7 +1,6 @@
 ﻿using CommandHelp;
 using Microsoft.Xna.Framework;
 using ModTool.Command;
-using ModTool.Utils;
 using PlayerAccount.Account;
 using System;
 using System.Collections.Generic;
@@ -18,7 +17,23 @@ namespace PlayerAccount.Common.FunctionCommand
         public class cmd : CommandMethod
         {
             /// <summary>
-            /// 来自服务器, 来自玩家, 来自玩家的账号, 输出
+            /// 服务端踢出玩家
+            /// </summary>
+            public cmd(Action<string> print) : this(true, null, null, print)
+            {
+
+            }
+            /// <summary>
+            /// 玩家踢出玩家
+            /// </summary>
+            public cmd(Player formPlay, Dictionary<string, string> formAcc, Action<string> print) :
+                this(false, formPlay, formAcc, print)
+            {
+
+            }
+
+            /// <summary>
+            /// 踢出来自服务器, 来自玩家, 来自玩家的账号, 输出
             /// </summary>
             public cmd(bool formServer, Player formPlay = null, Dictionary<string, string> formAcc = null,
                 Action<string> print = null) : base("kick", 2)
@@ -44,7 +59,7 @@ namespace PlayerAccount.Common.FunctionCommand
                     string ex = foo(kickP, formServer, formAcc, kickM);
                     if (ex == null)
                     {
-                        ex = formServer ? "Server" : $"{formPlay?.name}";
+                        ex = formServer ? "Server" : $"玩家{formPlay?.name}";
                         ex = $"{ex}踢出{kickP?.name}{(kickM == null ? null : $",原因是:{kickM}")}";
 
                         tContentPatch.ContentPatch.PrintTry(ex);
@@ -58,7 +73,6 @@ namespace PlayerAccount.Common.FunctionCommand
             }
         }
 
-
         /// <summary>
         /// 踢出玩家, 成功返回<see langword="null"/>
         /// </summary>
@@ -67,19 +81,7 @@ namespace PlayerAccount.Common.FunctionCommand
             if (kickPly == null) return "玩家为null";
             if (formServer == false)
             {
-                if (formAcc == null) return "你未登录";
-                if (formAcc.HasKey(AccountTag.Ban) == true) return "你没有权限";
-
-                string formLeve = formAcc.GetVal(AccountTag.Administrator, null);
-                if (formLeve == null) return "你没有权限";
-
-                string kickLeve = kickPly.GetAccount().GetVal(AccountTag.Administrator, null);
-
-                //如果发起踢出和被踢出的都是管理员
-                if (int.TryParse(formLeve, out int fl) && int.TryParse(kickLeve, out int kl))
-                {
-                    if (fl < kl) return "权限不足";
-                }
+                if (AccountHelp.MeasureAdminLevel(formAcc, kickPly.GetAccount()) == false) return "你的权限不足";
             }
 
             if (msg == null)

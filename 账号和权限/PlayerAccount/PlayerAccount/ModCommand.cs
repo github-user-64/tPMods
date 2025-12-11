@@ -6,16 +6,18 @@ using tContentPatch;
 
 namespace PlayerAccount
 {
-    internal class Command : Mod
+    internal class ModCommand : Mod
     {
         public override List<CommandObject> GetCommands()
         {
             List<CommandObject> list = new List<CommandObject>();
 
             CommandObject root = new CommandObject("pa");
-            root.SubCommand.Add(new CommandPrintList(root.SubCommand, "保存账号, 更新账号, 更新服务器配置, 踢出玩家", ContentPatch.PrintTry));
+            root.SubCommand.Add(new CommandPrintList(root.SubCommand,
+                "保存账号数据, 更新账号数据, 更新服务器配置, 踢出玩家, 封禁, 账号操作, 发送消息到游戏", ContentPatch.PrintTry));
             list.Add(root);
 
+            //保存
             CommandMethod save = new CommandMethod("save");
             save.Runing += _ =>
             {
@@ -24,6 +26,7 @@ namespace PlayerAccount
             };
             root.SubCommand.Add(save);
 
+            //更新
             CommandMethod readAcc = new CommandMethod("update");
             readAcc.Runing += _ =>
             {
@@ -31,6 +34,7 @@ namespace PlayerAccount
             };
             root.SubCommand.Add(readAcc);
 
+            //更新配置
             CommandMethod readConfig = new CommandMethod("updateConfig");
             readConfig.Runing += _ =>
             {
@@ -38,7 +42,20 @@ namespace PlayerAccount
             };
             root.SubCommand.Add(readConfig);
 
-            root.SubCommand.Add(new kick.cmd(true, print: ContentPatch.PrintTry));
+            //踢出
+            root.SubCommand.Add(new kick.cmd(ContentPatch.PrintTry));
+
+            //封禁
+            ban.cmd ban = new ban.cmd(ContentPatch.PrintTry);
+            ban.SubCommand.Add(new banAdd.cmd(ContentPatch.PrintTry));
+            ban.SubCommand.Add(new banDel.cmd(ContentPatch.PrintTry));
+            root.SubCommand.Add(ban);
+
+            //账号操作
+            root.SubCommand.Add(new accAction.cmd(ContentPatch.PrintTry));
+
+            //发送消息到游戏
+            root.SubCommand.Add(new print.cmd(ContentPatch.PrintTry));
 
             return list;
         }

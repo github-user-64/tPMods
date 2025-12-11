@@ -86,6 +86,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Account\AccountHelp_Ban.cs" />
+    <Compile Include="Account\AccountHelp_Utils.cs" />
     <Compile Include="Account\DataBanIP.cs" />
     <Compile Include="Account\DataBanUUID.cs" />
     <Compile Include="Account\DataBanName.cs" />
@@ -93,12 +94,19 @@
     <Compile Include="Account\AccountHelp.cs" />
     <Compile Include="Account\AccountTag.cs" />
     <Compile Include="Account\DataABackup.cs" />
-    <Compile Include="Command.cs" />
+    <Compile Include="cs1.cs" />
+    <Compile Include="ModCommand.cs" />
+    <Compile Include="Command\CommandGetAcc.cs" />
     <Compile Include="Common\AutoLogin.cs" />
     <Compile Include="Account\PlayerAccount.cs" />
+    <Compile Include="Common\FunctionCommand\accAction.cs" />
+    <Compile Include="Common\FunctionCommand\banDel.cs" />
+    <Compile Include="Common\FunctionCommand\banAdd.cs" />
     <Compile Include="Common\FunctionCommand\ban.cs" />
     <Compile Include="Common\FunctionCommand\kick.cs" />
     <Compile Include="Common\FunctionCommand\login.cs" />
+    <Compile Include="Common\FunctionCommand\print.cs" />
+    <Compile Include="Common\KickBan.cs" />
     <Compile Include="Common\OnEnterServering.cs" />
     <Compile Include="Common\PlayerCommand.cs" />
     <Compile Include="Common\FunctionCommand\playing.cs" />
@@ -121,5 +129,6 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

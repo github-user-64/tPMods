@@ -39,9 +39,9 @@ namespace PlayerAccount.Account
 
         internal override void CheckData(List<string> data)
         {
-            if (datas == null) throw new ArgumentNullException(nameof(data));
+            if (data == null) throw new ArgumentNullException(nameof(data));
 
-            datas.RemoveAll(i => i == null);
+            data.RemoveAll(i => i == null);
         }
 
         public string BanAdd(string uuid)

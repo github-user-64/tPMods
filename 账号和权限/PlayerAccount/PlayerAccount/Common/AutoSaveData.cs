@@ -1,4 +1,5 @@
-﻿using tContentPatch;
+﻿using PlayerAccount.Account;
+using tContentPatch;
 using Terraria;
 
 namespace PlayerAccount.Common
@@ -12,17 +13,12 @@ namespace PlayerAccount.Common
         {
             if (Main.netMode != 2) return;
 
-            if (Account.DataAcc.instance.NeedSave)
-            {
-                ContentPatch.PrintTry("保存并备份账号数据");
+            string msg = AccountFileHelp.BackupSaveData();
 
-                string msg = Account.AccountFileHelp.BackupSaveData();
+            if (msg == null) msg = "保存账号数据完成";
+            else msg = $"保存账号数据失败:{msg}";
 
-                if (msg == null) msg = "保存账号数据完成";
-                else msg = $"保存账号数据失败:{msg}";
-
-                ContentPatch.PrintTry(msg);
-            }
+            ContentPatch.PrintTry(msg);
         }
     }
 }

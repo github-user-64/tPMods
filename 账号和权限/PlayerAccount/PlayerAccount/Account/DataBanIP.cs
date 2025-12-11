@@ -39,9 +39,9 @@ namespace PlayerAccount.Account
 
         internal override void CheckData(List<(string IP, string Port)> data)
         {
-            if (datas == null) throw new ArgumentNullException(nameof(data));
+            if (data == null) throw new ArgumentNullException(nameof(data));
 
-            datas.RemoveAll(i => i.IP == null);
+            data.RemoveAll(i => i.IP == null);
         }
 
         public string BanAdd(string ip, string port = null)

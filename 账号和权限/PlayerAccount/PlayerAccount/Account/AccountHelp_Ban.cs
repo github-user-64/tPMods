@@ -75,7 +75,7 @@ namespace PlayerAccount.Account
                 BanAddIP(player.GetIP(), port);
             }
             
-            player.GetAccount().GetVal(AccountTag.Ban, msg);
+            player.GetAccount().SetVal(AccountTag.Ban, msg);
             DataAcc.instance.NeedSaveData();
 
             return null;
