@@ -68,8 +68,18 @@ namespace PlayerAccount.Common.FunctionCommand
             if (formServer == false)
             {
                 if (formAcc == null) return "你未登录";
-                if (formAcc.HasKey(AccountTag.Administrator) == false) return "你没有权限";
                 if (formAcc.HasKey(AccountTag.Ban) == true) return "你没有权限";
+
+                string formLeve = formAcc.GetVal(AccountTag.Administrator, null);
+                if (formLeve == null) return "你没有权限";
+
+                string kickLeve = kickPly.GetAccount().GetVal(AccountTag.Administrator, null);
+
+                //如果发起踢出和被踢出的都是管理员
+                if (int.TryParse(formLeve, out int fl) && int.TryParse(kickLeve, out int kl))
+                {
+                    if (fl < kl) return "权限不足";
+                }
             }
 
             if (msg == null)

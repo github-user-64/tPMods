@@ -18,16 +18,16 @@ namespace PlayerAccount.Common
             {
                 logined = AutoLogin.Login(ply);
             }
+            
+            if (ServerConfig.data.EnterServerMsg is string msg)
+            {
+                ModTool.ServerHelp.PrintTo.PrintToPlay(ply, msg, Color.White);
+            }
 
             if (logined == false)
             {
                 ModTool.ServerHelp.PrintTo.PrintToPlay(ply, "注册账号输入/register [c/aaffaa:密码]", Color.Yellow);
                 ModTool.ServerHelp.PrintTo.PrintToPlay(ply, "登录输入/login [c/aaffaa:密码]", Color.Yellow);
-            }
-            
-            if (ServerConfig.data.EnterServerMsg is string msg)
-            {
-                ModTool.ServerHelp.PrintTo.PrintToPlay(ply, msg, Color.White);
             }
         }
     }

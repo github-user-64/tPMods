@@ -19,19 +19,19 @@ namespace PlayerAccount
             CommandMethod save = new CommandMethod("save");
             save.Runing += _ =>
             {
-                string msg = AccountFileHelp.SaveData();
-                ContentPatch.PrintTry(msg ?? "保存账号成功");
+                string msg = AccountFileHelp.BackupSaveData();
+                ContentPatch.PrintTry(msg ?? "保存数据成功");
             };
             root.SubCommand.Add(save);
 
-            CommandMethod readAcc = new CommandMethod("readAcc");
+            CommandMethod readAcc = new CommandMethod("update");
             readAcc.Runing += _ =>
             {
-                ContentPatch.PrintTry(AccountFileHelp.UpdateData() ? "更新账号成功" : "更新账号失败");
+                ContentPatch.PrintTry(AccountFileHelp.UpdateData() ?? "更新数据成功");
             };
             root.SubCommand.Add(readAcc);
 
-            CommandMethod readConfig = new CommandMethod("readConfig");
+            CommandMethod readConfig = new CommandMethod("updateConfig");
             readConfig.Runing += _ =>
             {
                 ContentPatch.PrintTry(ServerConfig.Update() ? "更新配置成功" : "更新配置失败");

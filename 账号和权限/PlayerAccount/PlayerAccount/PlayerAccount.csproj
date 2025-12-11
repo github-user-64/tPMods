@@ -85,9 +85,14 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Account\AccountData.cs" />
+    <Compile Include="Account\AccountHelp_Ban.cs" />
+    <Compile Include="Account\DataBanIP.cs" />
+    <Compile Include="Account\DataBanUUID.cs" />
+    <Compile Include="Account\DataBanName.cs" />
+    <Compile Include="Account\DataAcc.cs" />
     <Compile Include="Account\AccountHelp.cs" />
     <Compile Include="Account\AccountTag.cs" />
+    <Compile Include="Account\DataABackup.cs" />
     <Compile Include="Command.cs" />
     <Compile Include="Common\AutoLogin.cs" />
     <Compile Include="Account\PlayerAccount.cs" />
@@ -100,7 +105,7 @@
     <Compile Include="Account\AccountFileHelp.cs" />
     <Compile Include="Common\FunctionCommand\register.cs" />
     <Compile Include="Common\LoginMaxKick.cs" />
-    <Compile Include="Common\SaveAccountData.cs" />
+    <Compile Include="Common\AutoSaveData.cs" />
     <Compile Include="ModLinkage\ModChatBarCMD.cs" />
     <Compile Include="ServerConfig.cs" />
     <Compile Include="ThisMod.cs" />

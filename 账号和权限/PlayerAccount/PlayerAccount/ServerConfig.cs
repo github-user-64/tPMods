@@ -18,6 +18,8 @@ namespace PlayerAccount
             public bool AutoLoginMatchUUID = true;
             [JsonProperty("进服消息")]
             public string EnterServerMsg = null;
+            [JsonProperty("封禁玩家或账号时封禁IP")]
+            public bool BanIP = false;
         }
 
         public override bool HasUI => false;

@@ -10,8 +10,11 @@ namespace PlayerAccount.Account
     /// <summary>
     /// 账号帮助
     /// </summary>
-    public static class AccountHelp
+    public static partial class AccountHelp
     {
+        /// <summary>
+        /// 在线玩家账号
+        /// </summary>
         private static PlayerAccount playerAccount = null;
         /// <summary>
         /// 登录密码错误时
@@ -80,7 +83,8 @@ namespace PlayerAccount.Account
             if (acc.SetVal(AccountTag.UUID, uuid) == false) return "设置uuid失败";
             if (acc.SetVal(AccountTag.Password, password) == false) return "设置密码失败";
 
-            AccountData.datas.Insert(0, acc);
+            DataAcc.instance.datas.Insert(0, acc);
+            DataAcc.instance.NeedSaveData();
 
             OnRegistered?.Invoke(player);
 
@@ -125,7 +129,7 @@ namespace PlayerAccount.Account
         {
             if (name == null) return null;
 
-            return AccountData.datas.FirstOrDefault(i => i.GetVal(AccountTag.Name, null) == name);
+            return DataAcc.instance.datas.FirstOrDefault(i => i.GetVal(AccountTag.Name, null) == name);
         }
 
         /// <summary>
