@@ -22,7 +22,7 @@ namespace PlayerAccount.PatchGaem
             Player player = Main.player[messageAuthor];
             if (player == null) return true;
 
-            return SetChat.a(player, text.ToString(), color, excludedPlayer);
+            return SetChat.foo(player, text.ToString(), color, excludedPlayer);
         }
     }
 }

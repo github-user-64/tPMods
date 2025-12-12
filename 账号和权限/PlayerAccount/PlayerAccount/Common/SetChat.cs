@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using ModTool.Utils;
 using PlayerAccount.Account;
 using System;
 using System.Collections.Generic;
@@ -44,14 +45,15 @@ namespace PlayerAccount.Common
                 {
                     datas = new List<ChatData>
                     {
-                        new ChatData() { tag = AccountTag.AdminLevel, text = "<{0}>: {1}", color = new Color(0f, 1f, 1f) }
+                        new ChatData() { tag = AccountTag.AdminLevel, text = "<{0}>: {1}", color = new Color(0f, 1f, 1f) },
+                        new ChatData() { tag = "禁言", text = null },
                     };
                     Save();
                 }
             }
         }
 
-        public static bool a(Player player, string text, Color color, int excludedPlayer)
+        public static bool foo(Player player, string text, Color color, int excludedPlayer)
         {
             Dictionary<string, string> acc = AccountHelp.GetAccount(player);
 
@@ -60,12 +62,28 @@ namespace PlayerAccount.Common
                 string msg = $"(未登录){player.name}: {text}";
 
                 ModTool.ServerHelp.PrintTo.PrintToPlayAll(msg, color, excludedPlayer);
-                return true;
+                return false;
             }
 
             List<ChatData> list = ChatConfig.instance.datas;
 
-            return false;
+            foreach (ChatData data in list)
+            {
+                if (acc.HasKey(data.tag) == false) continue;
+                if (data.text == null) return false;//为null直接说不了话
+
+                try
+                {
+                    string msg = string.Format(data.text, player.name, text);
+
+                    ModTool.ServerHelp.PrintTo.PrintToPlayAll(msg, data.color, excludedPlayer);
+                }
+                catch { }
+
+                return false;
+            }
+
+            return true;
         }
     }
 }

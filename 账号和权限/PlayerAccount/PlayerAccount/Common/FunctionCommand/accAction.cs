@@ -23,7 +23,7 @@ namespace PlayerAccount.Common.FunctionCommand
 
                 SubCommand.Add(new del(print));
 
-                SubCommand.Add(new pdata(print));
+                SubCommand.Add(new data(print));
 
                 SubCommand.Add(new tags(print));
 
@@ -58,12 +58,12 @@ namespace PlayerAccount.Common.FunctionCommand
         }
 
         /// <summary/>
-        public class pdata : CommandMethod
+        public class data : CommandMethod
         {
             /// <summary>
             /// 显示账号数据
             /// </summary>
-            public pdata(Action<string> print) : base("pdata", 1)
+            public data(Action<string> print) : base("data", 1)
             {
                 SubCommand.Add(new CommandPrintList(SubCommand, "账号", print));
                 SubCommand.Add(new CommandGetAcc());
