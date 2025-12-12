@@ -14,7 +14,7 @@ namespace PlayerAccount.Account
         /// <summary>
         /// 更新数据, 失败返回<see langword="false"/>
         /// </summary>
-        internal bool UpdateData()
+        public bool UpdateData()
         {
             if (Read() is T data == false) return false;
             CheckData(data);
@@ -28,9 +28,9 @@ namespace PlayerAccount.Account
         /// 清空异常数据
         /// </summary>
         /// <exception cref="ArgumentNullException"></exception>
-        internal abstract void CheckData(T data);
+        public abstract void CheckData(T data);
 
-        internal void NeedSaveData()
+        public void NeedSaveData()
         {
             NeedSave = true;
         }

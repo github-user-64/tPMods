@@ -150,11 +150,19 @@ namespace PlayerAccount.Account
         /// <summary>
         /// 获取已登录玩家的账号数据, 不存在返回<see langword="null"/>
         /// </summary>
+        public static Dictionary<string, string> GetAccount(int whoAmI)
+        {
+            return playerAccount.GetData(whoAmI, null);
+        }
+
+        /// <summary>
+        /// 获取已登录玩家的账号数据, 不存在返回<see langword="null"/>
+        /// </summary>
         public static Dictionary<string, string> GetAccount(this Player player)
         {
             if (player == null) return null;
 
-            return playerAccount.GetData(player.whoAmI, null);
+            return GetAccount(player.whoAmI);
         }
     }
 }

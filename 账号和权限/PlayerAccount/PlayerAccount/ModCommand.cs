@@ -14,7 +14,7 @@ namespace PlayerAccount
 
             CommandObject root = new CommandObject("pa");
             root.SubCommand.Add(new CommandPrintList(root.SubCommand,
-                "保存账号数据, 更新账号数据, 更新服务器配置, 踢出玩家, 封禁, 账号操作, 发送消息到游戏", ContentPatch.PrintTry));
+                "保存账号数据, 更新账号数据, 更新配置, 踢出玩家, 封禁, 账号操作, 发送消息到游戏", ContentPatch.PrintTry));
             list.Add(root);
 
             //保存
@@ -38,7 +38,8 @@ namespace PlayerAccount
             CommandMethod readConfig = new CommandMethod("updateConfig");
             readConfig.Runing += _ =>
             {
-                ContentPatch.PrintTry(ServerConfig.Update() ? "更新配置成功" : "更新配置失败");
+                ContentPatch.PrintTry(ServerConfig.Update() ? "更新服务器配置成功" : "更新服务器配置失败");
+                ContentPatch.PrintTry(Common.SetChat.ChatConfig.instance.UpdateData() == true ? "更新聊天配置成功" : "更新聊天配置失败");
             };
             root.SubCommand.Add(readConfig);
 

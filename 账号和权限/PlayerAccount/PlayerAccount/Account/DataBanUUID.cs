@@ -37,7 +37,7 @@ namespace PlayerAccount.Account
             datas = new List<string>();
         }
 
-        internal override void CheckData(List<string> data)
+        public override void CheckData(List<string> data)
         {
             if (data == null) throw new ArgumentNullException(nameof(data));
 

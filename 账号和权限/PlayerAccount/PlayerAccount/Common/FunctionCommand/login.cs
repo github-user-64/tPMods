@@ -25,7 +25,7 @@ namespace PlayerAccount.Common.FunctionCommand
                 {
                     if (args[0] is string pas == false)
                     {
-                        print?.Invoke("参数错误");
+                        print?.Invoke("密码为null");
                         return;
                     }
 

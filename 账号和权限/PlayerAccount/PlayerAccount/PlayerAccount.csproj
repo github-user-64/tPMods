@@ -94,6 +94,7 @@
     <Compile Include="Account\AccountHelp.cs" />
     <Compile Include="Account\AccountTag.cs" />
     <Compile Include="Account\DataABackup.cs" />
+    <Compile Include="Common\SetChat.cs" />
     <Compile Include="cs1.cs" />
     <Compile Include="ModCommand.cs" />
     <Compile Include="Command\CommandGetAcc.cs" />
@@ -115,6 +116,8 @@
     <Compile Include="Common\LoginMaxKick.cs" />
     <Compile Include="Common\AutoSaveData.cs" />
     <Compile Include="ModLinkage\ModChatBarCMD.cs" />
+    <Compile Include="PatchGaem\Init.cs" />
+    <Compile Include="PatchGaem\PatchChatHelper.cs" />
     <Compile Include="ServerConfig.cs" />
     <Compile Include="ThisMod.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

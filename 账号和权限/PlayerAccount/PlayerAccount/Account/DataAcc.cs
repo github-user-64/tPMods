@@ -38,7 +38,7 @@ namespace PlayerAccount.Account
             datas = new List<Dictionary<string, string>>();
         }
 
-        internal override void CheckData(List<Dictionary<string, string>> data)
+        public override void CheckData(List<Dictionary<string, string>> data)
         {
             if (data == null) throw new ArgumentNullException(nameof(data));
 

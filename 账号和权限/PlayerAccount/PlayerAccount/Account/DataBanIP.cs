@@ -37,7 +37,7 @@ namespace PlayerAccount.Account
             datas = new List<(string IP, string Port)>();
         }
 
-        internal override void CheckData(List<(string IP, string Port)> data)
+        public override void CheckData(List<(string IP, string Port)> data)
         {
             if (data == null) throw new ArgumentNullException(nameof(data));
 

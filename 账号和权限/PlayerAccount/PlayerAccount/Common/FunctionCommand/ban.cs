@@ -56,7 +56,7 @@ namespace PlayerAccount.Common.FunctionCommand
                 {
                     if (args[0] is Player kickP == false)
                     {
-                        print?.Invoke("参数错误");
+                        print?.Invoke("玩家为null");
                         return;
                     }
                     string kickM = args[1] as string;
@@ -68,7 +68,7 @@ namespace PlayerAccount.Common.FunctionCommand
                         ex = $"{ex}封禁{kickP?.name}{(kickM == null ? null : $",原因是:{kickM}")}";
 
                         tContentPatch.ContentPatch.PrintTry(ex);
-                        PrintTo.PrintToPlayAll(ex, Color.White);
+                        PrintTo.PrintToPlayAll(ex, Color.White, kickP?.whoAmI ?? -1);
                     }
                     else
                     {

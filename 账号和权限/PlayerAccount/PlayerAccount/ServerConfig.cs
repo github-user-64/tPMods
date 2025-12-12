@@ -1,10 +1,10 @@
-﻿using Newtonsoft.Json;
+﻿using ModTool.Utils;
+using Newtonsoft.Json;
 using System;
-using tContentPatch;
 
 namespace PlayerAccount
 {
-    internal class ServerConfig : ModSetting
+    internal class ServerConfig : ModSettingBackup
     {
         public class Data
         {
@@ -22,7 +22,6 @@ namespace PlayerAccount
             public bool BanIP = false;
         }
 
-        public override bool HasUI => false;
         public override string FilePath => "服务器配置.txt";
         public override Type DataType => typeof(Data);
         public static Data data = null;
