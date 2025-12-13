@@ -94,6 +94,7 @@
     <Compile Include="Account\AccountHelp.cs" />
     <Compile Include="Account\AccountTag.cs" />
     <Compile Include="Account\DataABackup.cs" />
+    <Compile Include="Common\FunctionCommand\addMan.cs" />
     <Compile Include="Common\FunctionCommand\noChat.cs" />
     <Compile Include="Common\FunctionCommand\openRegister.cs" />
     <Compile Include="Common\SetChat.cs" />

@@ -24,6 +24,7 @@ namespace PlayerAccount
             public bool EnableRegister = true;
         }
 
+        public override bool HasUI => false;
         public override string FilePath => "服务器配置.txt";
         public override Type DataType => typeof(Data);
         public static Data data = null;

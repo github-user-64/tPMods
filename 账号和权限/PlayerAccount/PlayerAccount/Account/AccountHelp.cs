@@ -22,9 +22,9 @@ namespace PlayerAccount.Account
         /// </summary>
         public static event Action<Player> OnLoginPasswdError = null;
         /// <summary>
-        /// 在注册成功时
+        /// 在玩家注册成功时
         /// </summary>
-        public static event Action<Player> OnRegistered = null;
+        public static event Action<Player> OnRegisterPlayered = null;
         /// <summary>
         /// 在登录成功时
         /// </summary>
@@ -66,28 +66,47 @@ namespace PlayerAccount.Account
         }
 
         /// <summary>
-        /// 注册, 成功返回<see langword="null"/>
+        /// 玩家注册账号, 成功返回<see langword="null"/>
         /// </summary>
-        public static string Register(this Player player, string password = null)
+        public static string RegisterPlayer(this Player player, string password = null)
         {
             var (name, ip, port, uuid, ex) = GetPlayerData(player);
             if (ex != null) return ex;
 
-            Dictionary<string, string> acc = GetNameAccount(player.name);
+            string exMsg = Register(name, password, out Dictionary<string, string> regOkAcc);
+            if (exMsg != null) return exMsg;
+
+            regOkAcc.SetVal(AccountTag.IP, ip);
+            regOkAcc.SetVal(AccountTag.Port, port.ToString());
+            regOkAcc.SetVal(AccountTag.UUID, uuid);
+
+            OnRegisterPlayered?.Invoke(player);
+
+            return null;
+        }
+
+        /// <summary>
+        /// 添加账号, 成功返回<see langword="null"/>, 成功<paramref name="regOkAcc"/>为添加的账号
+        /// </summary>
+        public static string Register(string name, string password, out Dictionary<string, string> regOkAcc)
+        {
+            regOkAcc = null;
+
+            if (name == null) return "名称为null";
+            if (password == null) return "密码为null";
+
+            Dictionary<string, string> acc = GetNameAccount(name);
             if (acc != null) return $"{name}已注册";
 
             acc = new Dictionary<string, string>();
 
             if (acc.SetVal(AccountTag.Name, name) == false) return "设置名称失败";
-            if (acc.SetVal(AccountTag.IP, ip) == false) return "设置地址失败";
-            if (acc.SetVal(AccountTag.Port, port.ToString()) == false) return "设置端口失败";
-            if (acc.SetVal(AccountTag.UUID, uuid) == false) return "设置uuid失败";
             if (acc.SetVal(AccountTag.Password, password) == false) return "设置密码失败";
 
             DataAcc.instance.datas.Insert(0, acc);
-            DataAcc.instance.NeedSaveData();
+            regOkAcc = acc;
 
-            OnRegistered?.Invoke(player);
+            DataAcc.instance.NeedSaveData();
 
             return null;
         }

@@ -58,7 +58,7 @@ namespace PlayerAccount.Common.FunctionCommand
             Regex regex = new Regex("[^0-9a-zA-Z\u4e00-\u9fa5]");
             if (regex.IsMatch(password)) return "密码不能有特殊字符";
 
-            string ex = player.Register(password);
+            string ex = player.RegisterPlayer(password);
             if (ex != null) return $"注册失败:{ex}";
 
             return null;
