@@ -20,6 +20,8 @@ namespace PlayerAccount
             public string EnterServerMsg = null;
             [JsonProperty("封禁玩家或账号时封禁IP")]
             public bool BanIP = false;
+            [JsonProperty("启用注册")]
+            public bool EnableRegister = true;
         }
 
         public override string FilePath => "服务器配置.txt";

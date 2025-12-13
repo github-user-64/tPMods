@@ -56,7 +56,14 @@ namespace PlayerAccount
             root.SubCommand.Add(new accAction.cmd(ContentPatch.PrintTry));
 
             //发送消息到游戏
-            root.SubCommand.Add(new print.cmd(ContentPatch.PrintTry));
+            root.SubCommand.Add(new printToGame.cmd(ContentPatch.PrintTry));
+
+            //禁言
+            root.SubCommand.Add(noChat.GetYes(null, null, ContentPatch.PrintTry));
+            root.SubCommand.Add(noChat.GetNo(null, null, ContentPatch.PrintTry));
+
+            //打开关闭注册
+            root.SubCommand.Add(new openRegister.cmd(ContentPatch.PrintTry));
 
             return list;
         }

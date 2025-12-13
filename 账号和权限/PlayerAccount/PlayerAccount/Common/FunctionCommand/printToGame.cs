@@ -9,7 +9,7 @@ namespace PlayerAccount.Common.FunctionCommand
     /// <summary>
     /// 服务器发送消息到游戏
     /// </summary>
-    public class print
+    public class printToGame
     {
         /// <summary/>
         public class cmd : CommandMethod

@@ -94,6 +94,8 @@
     <Compile Include="Account\AccountHelp.cs" />
     <Compile Include="Account\AccountTag.cs" />
     <Compile Include="Account\DataABackup.cs" />
+    <Compile Include="Common\FunctionCommand\noChat.cs" />
+    <Compile Include="Common\FunctionCommand\openRegister.cs" />
     <Compile Include="Common\SetChat.cs" />
     <Compile Include="cs1.cs" />
     <Compile Include="ModCommand.cs" />
@@ -106,7 +108,7 @@
     <Compile Include="Common\FunctionCommand\ban.cs" />
     <Compile Include="Common\FunctionCommand\kick.cs" />
     <Compile Include="Common\FunctionCommand\login.cs" />
-    <Compile Include="Common\FunctionCommand\print.cs" />
+    <Compile Include="Common\FunctionCommand\printToGame.cs" />
     <Compile Include="Common\KickBan.cs" />
     <Compile Include="Common\OnEnterServering.cs" />
     <Compile Include="Common\PlayerCommand.cs" />

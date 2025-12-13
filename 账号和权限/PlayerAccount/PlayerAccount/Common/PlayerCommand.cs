@@ -64,12 +64,11 @@ namespace PlayerAccount.Common
         {
             if (Main.netMode != 2) return null;
 
-            List<CommandObject> cos = new List<CommandObject>
-            {
-                new register.cmd(player, account, print),
-                new login.cmd(player, account, print),
-                new playing.cmd(player, print)
-            };
+            List<CommandObject> cos = new List<CommandObject>();
+
+            if (ServerConfig.data.EnableRegister) cos.Add(new register.cmd(player, account, print));
+            cos.Add(new login.cmd(player, account, print));
+            cos.Add(new playing.cmd(player, print));
 
             bool isban = account.HasKey(AccountTag.Ban);//是封禁
             int? al = AccountHelp.GetAdminLevel(account);//管理等级
@@ -86,6 +85,11 @@ namespace PlayerAccount.Common
                     ban.SubCommand.Add(new banDel.cmd(print));
                     cos.Add(new accAction.cmd(print));
                 }
+
+                cos.Add(noChat.GetYes(player, account, print));
+                cos.Add(noChat.GetNo(player, account, print));
+
+                cos.Add(new openRegister.cmd(print));
             }
 
             return cos;

@@ -14,7 +14,7 @@ namespace PlayerAccount.Account
         /// <summary>
         /// 更新数据, 失败返回<see langword="false"/>
         /// </summary>
-        public bool UpdateData()
+        public virtual bool UpdateData()
         {
             if (Read() is T data == false) return false;
             CheckData(data);

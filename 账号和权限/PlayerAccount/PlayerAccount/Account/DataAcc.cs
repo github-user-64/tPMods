@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using tContentPatch;
+using Terraria;
 
 namespace PlayerAccount.Account
 {
@@ -45,6 +46,16 @@ namespace PlayerAccount.Account
             data.RemoveAll(i =>
             i == null ||
             i.GetVal(AccountTag.Name, null) == null);
+        }
+
+        public override bool UpdateData()
+        {
+            if (base.UpdateData() == false) return false;
+            //如果更新数据成功
+
+            AccountHelp.UpdateAccount();
+
+            return true;
         }
     }
 }

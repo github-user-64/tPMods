@@ -1,4 +1,5 @@
-﻿using ModTool.ServerHelp;
+﻿using Microsoft.Xna.Framework;
+using ModTool.ServerHelp;
 using ModTool.Utils;
 using System;
 using System.Collections.Generic;
@@ -163,6 +164,27 @@ namespace PlayerAccount.Account
             if (player == null) return null;
 
             return GetAccount(player.whoAmI);
+        }
+
+        /// <summary>
+        /// 更新在线玩家账号数据, 只更新已登录玩家账号
+        /// </summary>
+        public static void UpdateAccount()
+        {
+            for (int i = 0; i < Main.player.Length; ++i)
+            {
+                Player player = Main.player[i];
+                if (player?.active != true) return;
+
+                Dictionary<string, string> oldAcc = GetAccount(i);
+
+                if (oldAcc == null) continue;
+
+                Dictionary<string, string> newAcc = GetNameAccount(oldAcc.GetVal(AccountTag.Name));
+
+                playerAccount.SetAccount(player, newAcc);
+                PrintTo.PrintToPlay(i, "你的账号已变更", new Color(0f, 1f, 1f));
+            }
         }
     }
 }
