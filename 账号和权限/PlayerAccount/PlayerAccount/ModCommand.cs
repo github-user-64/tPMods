@@ -65,6 +65,12 @@ namespace PlayerAccount
             //打开关闭注册
             root.SubCommand.Add(new openRegister.cmd(ContentPatch.PrintTry));
 
+            //添加服主账号
+            root.SubCommand.Add(new addMan.cmd(ContentPatch.PrintTry));
+
+            //将在线玩家账户设为管理员
+            root.SubCommand.Add(new addPlayerAdmin.cmd(null, ContentPatch.PrintTry));
+
             return list;
         }
     }

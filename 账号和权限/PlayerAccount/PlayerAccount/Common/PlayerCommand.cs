@@ -84,6 +84,7 @@ namespace PlayerAccount.Common
                     ban.SubCommand.Add(new banAdd.cmd(print));
                     ban.SubCommand.Add(new banDel.cmd(print));
                     cos.Add(new accAction.cmd(print));
+                    cos.Add(new addPlayerAdmin.cmd(player, print));
                 }
 
                 cos.Add(noChat.GetYes(player, account, print));

@@ -36,10 +36,6 @@
       <HintPath>..\..\..\..\tPlainModLoader\tPlainModLoader\tPlainModLoader\bin\Debug\0Harmony.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="ChatBarCMD">
-      <HintPath>..\..\..\..\tPlainModLoader\tPlainModLoader\tPlainModLoader\bin\Debug\Mods\聊天栏指令\ChatBarCMD.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
     <Reference Include="CommandHelp">
       <HintPath>..\..\..\..\tPlainModLoader\tPlainModLoader\tPlainModLoader\bin\Debug\CommandHelp.dll</HintPath>
       <Private>False</Private>
@@ -95,6 +91,7 @@
     <Compile Include="Account\AccountTag.cs" />
     <Compile Include="Account\DataABackup.cs" />
     <Compile Include="Common\FunctionCommand\addMan.cs" />
+    <Compile Include="Common\FunctionCommand\addPlayerAdmin.cs" />
     <Compile Include="Common\FunctionCommand\noChat.cs" />
     <Compile Include="Common\FunctionCommand\openRegister.cs" />
     <Compile Include="Common\SetChat.cs" />
@@ -118,7 +115,6 @@
     <Compile Include="Common\FunctionCommand\register.cs" />
     <Compile Include="Common\LoginMaxKick.cs" />
     <Compile Include="Common\AutoSaveData.cs" />
-    <Compile Include="ModLinkage\ModChatBarCMD.cs" />
     <Compile Include="PatchGaem\Init.cs" />
     <Compile Include="PatchGaem\PatchChatHelper.cs" />
     <Compile Include="ServerConfig.cs" />
@@ -129,6 +125,11 @@
     <ProjectReference Include="..\..\..\ModTool\ModTool\ModTool\ModTool.csproj">
       <Project>{e80b35b3-88db-4fc0-a106-a659c937edac}</Project>
       <Name>ModTool</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\聊天栏指令\ChatBarCMD\ChatBarCMD\ChatBarCMD.csproj">
+      <Project>{5f1673b3-6898-4f0c-aa9d-5ea8886d71cf}</Project>
+      <Name>ChatBarCMD</Name>
       <Private>False</Private>
     </ProjectReference>
   </ItemGroup>
