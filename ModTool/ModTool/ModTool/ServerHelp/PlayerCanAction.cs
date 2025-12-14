@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using System;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;
@@ -8,29 +9,50 @@ namespace ModTool.ServerHelp
     /// <summary>
     /// 玩家能否交互
     /// </summary>
-    public static class PlayerCanAction
+    public static partial class PlayerCanAction
     {
         internal static void Init()
         {
             PatchGame.PatchMessageBuffer.OnCanGetData.Add(CanNewProjectile);
+            PatchGame.PatchMessageBuffer.OnCanGetData.Add(CanTogglePVP);
+            PatchGame.PatchMessageBuffer.OnCanGetData.Add(CanToggleTeam);
+
+            OnCanToggleTeam.Add((p, t) =>
+            {
+                if (p.HeldItem.type == 0) return true;
+                PrintTo.PrintToPlay(p.whoAmI, "不可以哦", Color.AliceBlue);
+                return false;
+            });
         }
 
-        /// <summary/>
-        public delegate bool NewProjectileEvent(Player player, int type, int damage);
-        /// <summary>
-        /// 能否生成射弹, 当有一个返回<see langword="false"/>则<see cref="OnCanNewProjectile"/>剩下的不会再执行
-        /// </summary>
-        public static readonly List<NewProjectileEvent> OnCanNewProjectile = new List<NewProjectileEvent>();
+        private static bool GetP(MessageBuffer This, out Player player)
+        {
+            player = null;
+
+            if (Main.netMode != 2) return false;
+
+            if (Main.player.IndexInRange(This.whoAmI) != true) return false;
+            player = Main.player[This.whoAmI];
+
+            return player != null;
+        }
+
+        private static bool Foo<T>(this List<T> list, Func<T, bool> action)
+        {
+            list.RemoveAll(i => i == null);
+
+            foreach (T i in list)
+            {
+                if (action(i) == false) return false;
+            }
+
+            return true;
+        }
 
         private static bool CanNewProjectile(MessageBuffer This, int start, int length, int messageType)
         {
             if (messageType != MessageID.SyncProjectile) return true;
-            if (Main.netMode != 2) return true;
-
-            int whoAmI = This.whoAmI;
-            if (Main.player.IndexInRange(whoAmI) != true) return true;
-            Player player = Main.player[whoAmI];
-            if (player == null) return true;
+            if (GetP(This, out Player player) == false) return true;
 
             int identity = This.reader.ReadInt16();
             Vector2 position = This.reader.ReadVector2();
@@ -49,31 +71,62 @@ namespace ModTool.ServerHelp
             int originalDamage = (bitsByte8[6] ? This.reader.ReadInt16() : 0);
             int num68 = (bitsByte8[7] ? This.reader.ReadInt16() : (-1));
 
-            OnCanNewProjectile.RemoveAll(i => i == null);
-
-            foreach (NewProjectileEvent i in OnCanNewProjectile)
+            return OnCanNewProjectile.Foo(i =>
             {
-                if (i.Invoke(player, type, damage2) == false)
+                if (i.Invoke(player, type, damage2)) return true;
+
+                for (int index = 0; index < Main.projectile.Length; ++index)
                 {
-                    for (int index = 0; index < Main.projectile.Length; ++index)
-                    {
-                        Projectile proj = Main.projectile[index];
+                    Projectile proj = Main.projectile[index];
 
-                        if (proj.active) continue;
+                    if (proj.active) continue;
 
-                        proj.identity = identity;
-                        proj.type = ProjectileID.None;
-                        proj.owner = owner;
+                    proj.identity = identity;
+                    proj.type = ProjectileID.None;
+                    proj.owner = owner;
 
-                        NetMessage.TrySendData(MessageID.SyncProjectile, This.whoAmI, -1, null, index);
-                        break;
-                    }
-                    
-                    return false;
+                    NetMessage.TrySendData(MessageID.SyncProjectile, This.whoAmI, -1, null, index);
+                    break;
                 }
-            }
-            
-            return true;
+
+                return false;
+            });
+        }
+
+        private static bool CanTogglePVP(MessageBuffer This, int start, int length, int messageType)
+        {
+            if (messageType != MessageID.TogglePVP) return true;
+            if (GetP(This, out Player player) == false) return true;
+
+            int _whoAmI = This.reader.ReadByte();
+            bool hostile = This.reader.ReadBoolean();
+
+            return OnCanTogglePVP.Foo(i =>
+            {
+                if (i.Invoke(player, hostile)) return true;
+
+                NetMessage.TrySendData(MessageID.TogglePVP, This.whoAmI, -1, null, player.whoAmI);
+
+                return false;
+            });
+        }
+
+        private static bool CanToggleTeam(MessageBuffer This, int start, int length, int messageType)
+        {
+            if (messageType != MessageID.Unknown45) return true;
+            if (GetP(This, out Player player) == false) return true;
+
+            int _whoAmI = This.reader.ReadByte();
+            int team = This.reader.ReadByte();
+
+            return OnCanToggleTeam.Foo(i =>
+            {
+                if (i.Invoke(player, team)) return true;
+
+                NetMessage.TrySendData(MessageID.Unknown45, This.whoAmI, -1, null, player.whoAmI);
+
+                return false;
+            });
         }
     }
 }
