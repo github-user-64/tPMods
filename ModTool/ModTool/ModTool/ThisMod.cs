@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ModTool.ServerHelp;
+using System;
 using System.Linq;
 using System.Reflection;
 using tContentPatch;
@@ -20,8 +21,9 @@ namespace ModTool
 
             //
 
-            ServerHelp.ClientUUID.Init();
+            ClientUUID.Init();
             EntityTag.Entitys.Init();
+            PlayerCanAction.Init();
         }
     }
 }

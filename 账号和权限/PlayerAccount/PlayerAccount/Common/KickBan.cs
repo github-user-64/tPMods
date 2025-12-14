@@ -15,8 +15,8 @@ namespace PlayerAccount.Common
     {
         public override void Load()
         {
-            ModTool.PatchGame.PatchMessageBuffer.OnGetDataPo += OnSyncPlayer;
-            ModTool.PatchGame.PatchMessageBuffer.OnGetDataPo += OnUUID;
+            ModTool.PatchGame.PatchMessageBuffer.OnGetDataPo.Add(OnSyncPlayer);
+            ModTool.PatchGame.PatchMessageBuffer.OnGetDataPo.Add(OnUUID);
             ModTool.PatchGame.PatchNetMessage.OnSyncConnectedPlayerPr += OnSyncConnectedPlayerPr;
             AccountHelp.OnLogined += OnLogined;
         }

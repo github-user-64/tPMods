@@ -12,7 +12,7 @@ namespace ModTool.ServerHelp
     /// <summary>
     /// 输出到
     /// </summary>
-    public class PrintTo
+    public static class PrintTo
     {
         /// <summary>
         /// 字符串转包
