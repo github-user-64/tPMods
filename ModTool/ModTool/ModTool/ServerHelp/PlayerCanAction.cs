@@ -1,6 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+using tContentPatch;
 using Terraria;
 using Terraria.ID;
 
@@ -16,13 +18,14 @@ namespace ModTool.ServerHelp
             PatchGame.PatchMessageBuffer.OnCanGetData.Add(CanNewProjectile);
             PatchGame.PatchMessageBuffer.OnCanGetData.Add(CanTogglePVP);
             PatchGame.PatchMessageBuffer.OnCanGetData.Add(CanToggleTeam);
+            PatchGame.PatchMessageBuffer.OnCanGetData.Add(CanControls);
 
-            OnCanToggleTeam.Add((p, t) =>
-            {
-                if (p.HeldItem.type == 0) return true;
-                PrintTo.PrintToPlay(p.whoAmI, "不可以哦", Color.AliceBlue);
-                return false;
-            });
+            //OnCanControls.Add((p, t) =>
+            //{
+            //    //if (p.HeldItem.type == 0) return true;
+            //    PrintTo.PrintToPlay(p.whoAmI, "不可以哦", Color.AliceBlue);
+            //    return false;
+            //});
         }
 
         private static bool GetP(MessageBuffer This, out Player player)
@@ -124,6 +127,38 @@ namespace ModTool.ServerHelp
                 if (i.Invoke(player, team)) return true;
 
                 NetMessage.TrySendData(MessageID.Unknown45, This.whoAmI, -1, null, player.whoAmI);
+
+                return false;
+            });
+        }
+
+        private static bool CanControls(MessageBuffer This, int start, int length, int messageType)
+        {
+            if (messageType != MessageID.PlayerControls) return true;
+            if (GetP(This, out Player player) == false) return true;
+
+            int _whoAmI = This.reader.ReadByte();
+            BitsByte bs0 = This.reader.ReadByte();
+            BitsByte bs1 = This.reader.ReadByte();
+            BitsByte bs2 = This.reader.ReadByte();
+            BitsByte bs3 = This.reader.ReadByte();
+            int selectedItem = This.reader.ReadByte();
+            Vector2 position = This.reader.ReadVector2();
+
+            ControlsEventArgs e = new ControlsEventArgs();
+            e.controlUp = bs0[0];
+            e.controlDown = bs0[1];
+            e.controlLeft = bs0[2];
+            e.controlRight = bs0[3];
+            e.controlJump = bs0[4];
+            e.controlUseItem = bs0[5];
+            e.position = position;
+
+            return OnCanControls.Foo(i =>
+            {
+                if (i.Invoke(player, e)) return true;
+
+                NetMessage.TrySendData(MessageID.PlayerControls, This.whoAmI, -1, null, player.whoAmI);
 
                 return false;
             });

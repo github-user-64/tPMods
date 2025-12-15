@@ -96,6 +96,8 @@
     <Compile Include="EntityTag\ProjectileTag.cs" />
     <Compile Include="EntityTag\PlayerTag.cs" />
     <Compile Include="PatchGame\Init.cs" />
+    <Compile Include="PatchGame\PatchNetMessage_SendData\PatchNetMessage_SendData.cs" />
+    <Compile Include="PatchGame\PatchNetMessage_SendData\PatchWorldData.cs" />
     <Compile Include="PatchGame\PatchNPC.cs" />
     <Compile Include="PatchGame\PatchMain.cs" />
     <Compile Include="PatchGame\PatchMessageBuffer.cs" />
@@ -106,12 +108,14 @@
     <Compile Include="AdditionalData\ProjectileAdditionalData.cs" />
     <Compile Include="AdditionalData\PlayerAdditionalData.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ServerHelp\a1.cs" />
     <Compile Include="ServerHelp\ClientUUID.cs" />
     <Compile Include="ServerHelp\KickPlay.cs" />
     <Compile Include="ServerHelp\PlayerCanAction_E.cs" />
     <Compile Include="ServerHelp\PlayerCanAction.cs" />
     <Compile Include="ServerHelp\PrintTo.cs" />
     <Compile Include="ServerHelp\PlayDataUtils.cs" />
+    <Compile Include="ServerHelp\Utils.cs" />
     <Compile Include="ThisMod.cs" />
     <Compile Include="Command\CommandHRA.cs" />
     <Compile Include="Command\CommandVariable.cs" />
