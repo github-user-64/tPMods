@@ -1,0 +1,184 @@
+﻿using Microsoft.Xna.Framework;
+using ModTool.Utils;
+using ModTool.Utils.GetDataEventArgs;
+using System.Collections.Generic;
+using Terraria;
+using Terraria.DataStructures;
+using Terraria.GameContent.Tile_Entities;
+using Terraria.ID;
+
+namespace ModTool.ServerHelp
+{
+    /// <summary>
+    /// 玩家能否交互
+    /// </summary>
+    public static partial class PlayerCanAction
+    {
+        private delegate bool CanGetDataEvent(Player player, MessageBuffer This, int start, int length, int messageType);
+        private static Dictionary<int, CanGetDataEvent> kv = null;
+
+        internal static void Init()
+        {
+            PatchGame.PatchMessageBuffer.OnCanGetData.Add(asd);
+
+            kv = new Dictionary<int, CanGetDataEvent>();
+            kv.Add(MessageID.SyncProjectile, CanNewProjectile);
+            kv.Add(MessageID.TogglePVP, CanTogglePVP);
+            kv.Add(MessageID.Unknown45, CanToggleTeam);
+            kv.Add(MessageID.PlayerControls, CanControls);
+            kv.Add(MessageID.TileManipulation, CanTileManipulation);
+            kv.Add(MessageID.PlaceObject, CanPlaceObject);
+            kv.Add(MessageID.TileEntityPlacement, CanTileEntityPlacement);
+            kv.Add(MessageID.Unknown20, CanSendTileSquare);
+            kv.Add(MessageID.ItemFrameTryPlacing, CanItemFrameTryPlacing);
+        }
+
+        private static bool asd(MessageBuffer This, int start, int length, int messageType)
+        {
+            if (Main.netMode != 2) return true;
+
+            if (Main.player.IndexInRange(This.whoAmI) != true) return true;
+            Player player = Main.player[This.whoAmI];
+            if (player == null) return true;
+
+            CanGetDataEvent foo = kv.GetVal(messageType, null);
+            if (foo == null) return true;
+
+            return foo(player, This, start, length, messageType);
+        }
+
+        private static bool CanNewProjectile(Player player, MessageBuffer This, int start, int length, int messageType)
+        {
+            SyncProjectileEventArgs e = This.SyncProjectile(player);
+
+            return OnCanNewProjectile.Call(e, () =>
+            {
+                for (int index = 0; index < Main.projectile.Length; ++index)
+                {
+                    Projectile proj = Main.projectile[index];
+
+                    if (proj.active) continue;
+
+                    proj.identity = e.identity;
+                    proj.type = ProjectileID.None;
+                    proj.owner = e.owner;
+
+                    NetMessage.TrySendData(MessageID.SyncProjectile, This.whoAmI, -1, null, index);
+                    break;
+                }
+            });
+        }
+
+        private static bool CanTogglePVP(Player player, MessageBuffer This, int start, int length, int messageType)
+        {
+            TogglePVPEventArgs e = This.TogglePVP(player);
+
+            return OnCanTogglePVP.Call(e, () =>
+            {
+                NetMessage.TrySendData(MessageID.TogglePVP, This.whoAmI, -1, null, player.whoAmI);
+            });
+        }
+
+        private static bool CanToggleTeam(Player player, MessageBuffer This, int start, int length, int messageType)
+        {
+            ToggleTeamEventArgs e = This.ToggleTeam(player);
+
+            return OnCanToggleTeam.Call(e, () =>
+            {
+                NetMessage.TrySendData(MessageID.Unknown45, This.whoAmI, -1, null, player.whoAmI);
+            });
+        }
+
+        private static bool CanControls(Player player, MessageBuffer This, int start, int length, int messageType)
+        {
+            ControlsEventArgs e = This.PlayerControls(player);
+
+            return OnCanControls.Call(e, () =>
+            {
+                NetMessage.TrySendData(MessageID.PlayerControls, This.whoAmI, -1, null, player.whoAmI);
+            });
+        }
+
+        private static bool CanTileManipulation(Player player, MessageBuffer This, int start, int length, int messageType)
+        {
+            TileManipulationEventArgs e = This.TileManipulation(player);
+
+            return OnCanTileManipulation.Call(e, () =>
+            {
+                NetMessage.SendTileSquare(-1, e.x, e.y, 5);
+            });
+        }
+
+        private static bool CanPlaceObject(Player player, MessageBuffer This, int start, int length, int messageType)
+        {
+            PlaceObjectEventArgs e = This.PlaceObject(player);
+
+            return OnCanPlaceObject.Call(e, () =>
+            {
+                NetMessage.SendTileSquare(-1, e.x, e.y, 5);
+            });
+        }
+
+        private static bool CanTileEntityPlacement(Player player, MessageBuffer This, int start, int length, int messageType)
+        {
+            TileEntityPlacementEventArgs e = This.TileEntityPlacement(player);
+
+            return OnCanTileEntityPlacement.Call(e, () =>
+            {
+                NetMessage.SendTileSquare(-1, e.x, e.y, 5);
+            });
+        }
+
+        private static bool CanSendTileSquare(Player player, MessageBuffer This, int start, int length, int messageType)
+        {
+            SendTileSquareEventArgs e = This.SendTileSquare(player);
+
+            return OnCanSendTileSquare.Call(e, () =>
+            {
+                NetMessage.SendTileSquare(-1, e.x, e.y, 5);
+            });
+        }
+
+        private static bool CanB(Player player, MessageBuffer This, int start, int length, int messageType)
+        {
+            SendTileSquareEventArgs e = This.SendTileSquare(player);
+            //搞箱子!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+            return OnCanSendTileSquare.Call(e, () =>
+            {
+                NetMessage.SendTileSquare(-1, e.x, e.y, 5);
+            });
+        }
+
+        private static bool CanItemFrameTryPlacing(Player player, MessageBuffer This, int start, int length, int messageType)
+        {
+            ItemFrameTryPlacingEventArgs e = This.ItemFrameTryPlacing(player);
+
+            return OnCanItemFrameTryPlacing.Call(e, () =>
+            {
+                int num = TEItemFrame.Find(e.x, e.y);
+                if (num == -1) return;
+                TEItemFrame tEItemFrame = (TEItemFrame)TileEntity.ByID[num];
+                if (tEItemFrame == null) return;
+                NetMessage.SendData(MessageID.TileEntitySharing, This.whoAmI, -1, null, tEItemFrame.ID, e.x, e.y);
+            });
+        }
+
+        //private static bool Can(MessageBuffer This, int start, int length, int messageType)
+        //{
+        //    if (messageType != MessageID.WeaponsRackTryPlacing) return true;//武器架尝试放置
+        //    if (messageType != MessageID.FoodPlatterTryPlacing) return true;//食物拼盘尝试摆放
+        //    if (messageType != MessageID.RequestChestOpen) return true;//请求打开箱子
+        //    if (messageType != MessageID.QuickStackChests) return true;//快速堆叠箱子
+        //    if (GetP(This, out Player player) == false) return true;
+
+        //    return OnCanControls.Foo(i =>
+        //    {
+        //        if (i.Invoke(player, e)) return true;
+
+        //        NetMessage.TrySendData(MessageID.PlayerControls, This.whoAmI, -1, null, player.whoAmI);
+
+        //        return false;
+        //    });
+        //}
+    }
+}

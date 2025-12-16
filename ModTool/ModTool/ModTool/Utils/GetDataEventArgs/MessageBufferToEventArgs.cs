@@ -1,0 +1,160 @@
+﻿using Microsoft.Xna.Framework;
+using System;
+using System.IO;
+using Terraria;
+using static Terraria.Graphics.Capture.CaptureBiome;
+
+namespace ModTool.Utils.GetDataEventArgs
+{
+    /// <summary>
+    /// <see cref="MessageBuffer"/>转为对应事件参数, 调用后<see cref="Stream.Position"/>会改变, 所以有必要的话记得给<see cref="MessageBuffer"/>复位哦
+    /// </summary>
+    public static class MessageBufferToEventArgs
+    {
+        /// <summary/>
+        public static SyncProjectileEventArgs SyncProjectile(this MessageBuffer This, Player player)
+        {
+            int identity = This.reader.ReadInt16();
+            Vector2 position = This.reader.ReadVector2();
+            Vector2 velocity = This.reader.ReadVector2();
+            int owner = This.reader.ReadByte();
+            int type = This.reader.ReadInt16();
+
+            BitsByte bitsByte8 = This.reader.ReadByte();
+            BitsByte bitsByte9 = (byte)(bitsByte8[2] ? This.reader.ReadByte() : 0);
+            float[] array3 = new float[Projectile.maxAI];
+            array3[0] = (bitsByte8[0] ? This.reader.ReadSingle() : 0f);
+            array3[1] = (bitsByte8[1] ? This.reader.ReadSingle() : 0f);
+            int bannerIdToRespondTo = (bitsByte8[3] ? This.reader.ReadUInt16() : 0);
+            int damage2 = (bitsByte8[4] ? This.reader.ReadInt16() : 0);
+            float knockBack2 = (bitsByte8[5] ? This.reader.ReadSingle() : 0f);
+            int originalDamage = (bitsByte8[6] ? This.reader.ReadInt16() : 0);
+            int num68 = (bitsByte8[7] ? This.reader.ReadInt16() : (-1));
+
+            return new SyncProjectileEventArgs()
+            {
+                player = player,
+                identity = identity,
+                type = type,
+                owner = owner,
+                damage = damage2,
+            };
+        }
+        /// <summary/>
+        public static TogglePVPEventArgs TogglePVP(this MessageBuffer This, Player player)
+        {
+            int _whoAmI = This.reader.ReadByte();
+            bool hostile = This.reader.ReadBoolean();
+
+            return new TogglePVPEventArgs()
+            {
+                player = player,
+                hostile = hostile,
+            };
+        }
+        /// <summary/>
+        public static ToggleTeamEventArgs ToggleTeam(this MessageBuffer This, Player player)
+        {
+            int _whoAmI = This.reader.ReadByte();
+            int team = This.reader.ReadByte();
+
+            return new ToggleTeamEventArgs()
+            {
+                player = player,
+                team = team,
+            };
+        }
+        /// <summary/>
+        public static ControlsEventArgs PlayerControls(this MessageBuffer This, Player player)
+        {
+            int _whoAmI = This.reader.ReadByte();
+            BitsByte bs0 = This.reader.ReadByte();
+            BitsByte bs1 = This.reader.ReadByte();
+            BitsByte bs2 = This.reader.ReadByte();
+            BitsByte bs3 = This.reader.ReadByte();
+            int selectedItem = This.reader.ReadByte();
+            Vector2 position = This.reader.ReadVector2();
+
+            ControlsEventArgs e = new ControlsEventArgs();
+
+            e.player = player;
+            e.controlUp = bs0[0];
+            e.controlDown = bs0[1];
+            e.controlLeft = bs0[2];
+            e.controlRight = bs0[3];
+            e.controlJump = bs0[4];
+            e.controlUseItem = bs0[5];
+            e.position = position;
+
+            return e;
+        }
+        /// <summary/>
+        public static TileManipulationEventArgs TileManipulation(this MessageBuffer This, Player player)
+        {
+            TileManipulationEventArgs e = new TileManipulationEventArgs();
+
+            e.player = player;
+            e.manipulationType = This.reader.ReadByte();
+            e.x = This.reader.ReadInt16();
+            e.y = This.reader.ReadInt16();
+            e.tileType = This.reader.ReadInt16();
+            e.placeStyle = This.reader.ReadByte();
+
+            return e;
+        }
+        /// <summary/>
+        public static PlaceObjectEventArgs PlaceObject(this MessageBuffer This, Player player)
+        {
+            PlaceObjectEventArgs e = new PlaceObjectEventArgs();
+
+            e.player = player;
+            e.x = This.reader.ReadInt16();
+            e.y = This.reader.ReadInt16();
+            e.type = This.reader.ReadInt16();
+            e.style = This.reader.ReadInt16();
+            e.alternate = This.reader.ReadByte();
+            e.random = This.reader.ReadSByte();
+            e.direction = (This.reader.ReadBoolean() ? 1 : (-1));
+
+            return e;
+        }
+        /// <summary/>
+        public static TileEntityPlacementEventArgs TileEntityPlacement(this MessageBuffer This, Player player)
+        {
+            TileEntityPlacementEventArgs e = new TileEntityPlacementEventArgs();
+
+            e.player = player;
+            e.x = This.reader.ReadInt16();
+            e.y = This.reader.ReadInt16();
+            e.type = This.reader.ReadByte();
+
+            return e;
+        }
+        /// <summary/>
+        public static SendTileSquareEventArgs SendTileSquare(this MessageBuffer This, Player player)
+        {
+            SendTileSquareEventArgs e = new SendTileSquareEventArgs();
+
+            e.player = player;
+            e.x = This.reader.ReadInt16();
+            e.y = This.reader.ReadInt16();
+            e.sizeX = This.reader.ReadByte();
+            e.sizeY = This.reader.ReadByte();
+            e.changeType = This.reader.ReadByte();
+
+            return e;
+        }
+        /// <summary/>
+        public static ItemFrameTryPlacingEventArgs ItemFrameTryPlacing(this MessageBuffer This, Player player)
+        {
+            ItemFrameTryPlacingEventArgs e = new ItemFrameTryPlacingEventArgs();
+
+            e.player = player;
+            e.x = This.reader.ReadInt16();
+            e.y = This.reader.ReadInt16();
+            e.netid = This.reader.ReadInt16();
+
+            return e;
+        }
+    }
+}

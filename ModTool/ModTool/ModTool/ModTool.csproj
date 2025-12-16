@@ -88,6 +88,7 @@
     <Compile Include="Common\UI\UIItemSwitch.cs" />
     <Compile Include="Common\UI\UIItemTextBox.cs" />
     <Compile Include="Common\UI\UITextBox.cs" />
+    <Compile Include="cs1.cs" />
     <Compile Include="EntityTag\DrawTagData.cs" />
     <Compile Include="EntityTag\Entitys.cs" />
     <Compile Include="EntityTag\EntityTagUtils.cs" />
@@ -111,8 +112,10 @@
     <Compile Include="ServerHelp\a1.cs" />
     <Compile Include="ServerHelp\ClientUUID.cs" />
     <Compile Include="ServerHelp\KickPlay.cs" />
-    <Compile Include="ServerHelp\PlayerCanAction_E.cs" />
-    <Compile Include="ServerHelp\PlayerCanAction.cs" />
+    <Compile Include="ServerHelp\PlayerCanAction\PlayerCanAction_E.cs" />
+    <Compile Include="Utils\GetDataEventArgs\MessageBufferToEventArgs.cs" />
+    <Compile Include="Utils\GetDataEventArgs\EventArgs.cs" />
+    <Compile Include="ServerHelp\PlayerCanAction\PlayerCanAction.cs" />
     <Compile Include="ServerHelp\PrintTo.cs" />
     <Compile Include="ServerHelp\PlayDataUtils.cs" />
     <Compile Include="ServerHelp\Utils.cs" />

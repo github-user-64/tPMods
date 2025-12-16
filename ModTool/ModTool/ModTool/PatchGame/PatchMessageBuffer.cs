@@ -10,13 +10,13 @@ namespace ModTool.PatchGame
     public class PatchMessageBuffer : tContentPatch.PatchMessageBuffer
     {
         /// <summary/>
-        public delegate void GetDataEvent(MessageBuffer This, int start, int length, int messageType);
-        /// <summary/>
         public delegate bool CanGetDataEvent(MessageBuffer This, int start, int length, int messageType);
         /// <summary>
         /// 如果返回<see langword="false"/>那么原版方法不会被调用, 不影响<see cref="OnGetDataPr"/>和<see cref="OnGetDataPo"/>
         /// </summary>
         public static List<CanGetDataEvent> OnCanGetData { get; private set; } = new List<CanGetDataEvent>();
+        /// <summary/>
+        public delegate void GetDataEvent(MessageBuffer This, int start, int length, int messageType);
         /// <summary>
         /// 在收到数据前
         /// </summary>
