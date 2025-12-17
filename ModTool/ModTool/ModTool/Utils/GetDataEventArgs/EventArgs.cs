@@ -133,14 +133,84 @@ namespace ModTool.Utils.GetDataEventArgs
     }
 
     /// <summary>
-    /// 物品框放置物品
+    /// 箱子放置破坏
     /// </summary>
-    public class ItemFrameTryPlacingEventArgs : GetDataEventArgs
+    public class ChestUpdatesEventArgs : GetDataEventArgs
+    {
+        /// <summary/>
+        public byte updateType;
+        /// <summary/>
+        public int x;
+        /// <summary/>
+        public int y;
+        /// <summary/>
+        public int style;
+        /// <summary/>
+        public int id;
+    }
+
+    /// <summary>
+    /// 点击开关
+    /// </summary>
+    public class HitSwitchEventArgs : GetDataEventArgs
     {
         /// <summary/>
         public int x;
         /// <summary/>
         public int y;
+    }
+
+    /// <summary>
+    /// 物品框放置物品
+    /// </summary>
+    public class ItemFrameTryPlacingEventArgs : GetDataEventArgs
+    {
+        /// <summary/>
+        public short x;
+        /// <summary/>
+        public int y;
+        /// <summary/>
+        public int netid;
+        /// <summary/>
+        public int prefix;
+        /// <summary/>
+        public int stack;
+    }
+
+    /// <summary>
+    /// 武器架放置物品
+    /// </summary>
+    public class WeaponsRackTryPlacingEventArgs : GetDataEventArgs
+    {
+        /// <summary/>
+        public short x;
+        /// <summary/>
+        public int y;
+        /// <summary/>
+        public int netid;
+        /// <summary/>
+        public int prefix;
+        /// <summary/>
+        public int stack;
+    }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    public class SyncItemEventArgs : GetDataEventArgs
+    {
+        /// <summary/>
+        public int index;
+        /// <summary/>
+        public Vector2 position;
+        /// <summary/>
+        public Vector2 velocity;
+        /// <summary/>
+        public int stack;
+        /// <summary/>
+        public int prefix;
+        /// <summary>应该是防止丢出物品立即捡起</summary>
+        public int ownIgnore;
         /// <summary/>
         public int netid;
     }

@@ -9,12 +9,14 @@ namespace ModTool.ServerHelp
         /// <summary/>
         public class HandlerList<T> where T : GetDataEventArgs
         {
-            private readonly List<Func<T, bool>> list = new List<Func<T, bool>>();
+            /// <summary/>
+            public delegate bool Handler(T e);
+            private readonly List<Handler> list = new List<Handler>();
 
             /// <summary/>
             public bool Invoke(T args, Action isFalse)
             {
-                foreach (Func<T, bool> i in list)
+                foreach (Handler i in list)
                 {
                     if (i.Invoke(args) is true) continue;
 
@@ -25,14 +27,14 @@ namespace ModTool.ServerHelp
                 return true;
             }
             /// <summary/>
-            public static HandlerList<T> operator +(HandlerList<T> hand, Func<T, bool> handler)
+            public static HandlerList<T> operator +(HandlerList<T> hand, Handler handler)
             {
                 if (hand == null) hand = new HandlerList<T>();
                 hand.list.Add(handler);
                 return hand;
             }
             /// <summary/>
-            public static HandlerList<T> operator -(HandlerList<T> hand, Func<T, bool> handler)
+            public static HandlerList<T> operator -(HandlerList<T> hand, Handler handler)
             {
                 hand.list.Remove(handler);
                 return hand;
@@ -65,7 +67,7 @@ namespace ModTool.ServerHelp
         public static HandlerList<ControlsEventArgs> OnCanControls = null;
 
         /// <summary>
-        /// 能否操作方块, 挖炸放置方块基本都在这, 当有一个返回<see langword="false"/>则剩下的不会再执行
+        /// 能否操作方块, 挖炸放置方块基本都在这, 物品框武器架拿物品也是, 当有一个返回<see langword="false"/>则剩下的不会再执行
         /// </summary>
         public static HandlerList<TileManipulationEventArgs> OnCanTileManipulation = null;
 
@@ -85,8 +87,28 @@ namespace ModTool.ServerHelp
         public static HandlerList<SendTileSquareEventArgs> OnCanSendTileSquare = null;
 
         /// <summary>
+        /// 能否放置破坏箱子, 当有一个返回<see langword="false"/>则剩下的不会再执行
+        /// </summary>
+        public static HandlerList<ChestUpdatesEventArgs> OnCanChestUpdates = null;
+
+        /// <summary>
+        /// 能否点击开关, 当有一个返回<see langword="false"/>则剩下的不会再执行
+        /// </summary>
+        public static HandlerList<HitSwitchEventArgs> OnCanHitSwitch = null;
+
+        /// <summary>
         /// 能否在物品框放置物品, 当有一个返回<see langword="false"/>则剩下的不会再执行
         /// </summary>
         public static HandlerList<ItemFrameTryPlacingEventArgs> OnCanItemFrameTryPlacing = null;
+
+        /// <summary>
+        /// 能否在武器架放置物品, 当有一个返回<see langword="false"/>则剩下的不会再执行
+        /// </summary>
+        public static HandlerList<WeaponsRackTryPlacingEventArgs> OnCanWeaponsRackTryPlacing = null;
+
+        /// <summary>
+        /// 能否创建物品(丢出,开宝藏袋), 当有一个返回<see langword="false"/>则剩下的不会再执行
+        /// </summary>
+        public static HandlerList<SyncItemEventArgs> OnCanNewItem = null;
     }
 }

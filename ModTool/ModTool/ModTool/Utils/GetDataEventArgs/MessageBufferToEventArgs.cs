@@ -1,8 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
-using System;
 using System.IO;
 using Terraria;
-using static Terraria.Graphics.Capture.CaptureBiome;
 
 namespace ModTool.Utils.GetDataEventArgs
 {
@@ -145,6 +143,31 @@ namespace ModTool.Utils.GetDataEventArgs
             return e;
         }
         /// <summary/>
+        public static ChestUpdatesEventArgs ChestUpdates(this MessageBuffer This, Player player)
+        {
+            ChestUpdatesEventArgs e = new ChestUpdatesEventArgs();
+
+            e.player = player;
+            e.updateType = This.reader.ReadByte();
+            e.x = This.reader.ReadInt16();
+            e.y = This.reader.ReadInt16();
+            e.style = This.reader.ReadInt16();
+            e.id = This.reader.ReadInt16();
+
+            return e;
+        }
+        /// <summary/>
+        public static HitSwitchEventArgs HitSwitch(this MessageBuffer This, Player player)
+        {
+            HitSwitchEventArgs e = new HitSwitchEventArgs();
+
+            e.player = player;
+            e.x = This.reader.ReadInt16();
+            e.y = This.reader.ReadInt16();
+
+            return e;
+        }
+        /// <summary/>
         public static ItemFrameTryPlacingEventArgs ItemFrameTryPlacing(this MessageBuffer This, Player player)
         {
             ItemFrameTryPlacingEventArgs e = new ItemFrameTryPlacingEventArgs();
@@ -152,6 +175,38 @@ namespace ModTool.Utils.GetDataEventArgs
             e.player = player;
             e.x = This.reader.ReadInt16();
             e.y = This.reader.ReadInt16();
+            e.netid = This.reader.ReadInt16();
+            e.prefix = This.reader.ReadByte();
+            e.stack = This.reader.ReadInt16();
+
+            return e;
+        }
+        /// <summary/>
+        public static WeaponsRackTryPlacingEventArgs WeaponsRackTryPlacing(this MessageBuffer This, Player player)
+        {
+            WeaponsRackTryPlacingEventArgs e = new WeaponsRackTryPlacingEventArgs();
+
+            e.player = player;
+            e.x = This.reader.ReadInt16();
+            e.y = This.reader.ReadInt16();
+            e.netid = This.reader.ReadInt16();
+            e.prefix = This.reader.ReadByte();
+            e.stack = This.reader.ReadInt16();
+
+            return e;
+        }
+        /// <summary/>
+        public static SyncItemEventArgs SyncItem(this MessageBuffer This, Player player)
+        {
+            SyncItemEventArgs e = new SyncItemEventArgs();
+
+            e.player = player;
+            e.index = This.reader.ReadInt16();
+            e.position = This.reader.ReadVector2();
+            e.velocity = This.reader.ReadVector2();
+            e.stack = This.reader.ReadInt16();
+            e.prefix = This.reader.ReadByte();
+            e.ownIgnore = This.reader.ReadByte();
             e.netid = This.reader.ReadInt16();
 
             return e;

@@ -23,6 +23,8 @@ namespace ModTool
                 if (c == 40) return;
                 if (c == 36) return;
                 if (c == 16) return;
+                if (c == 5) return;
+                if (c == 138) return;
 
                 ContentPatch.PrintTry(c.ToString());
             });

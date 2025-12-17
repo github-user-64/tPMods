@@ -1,7 +1,7 @@
-﻿using Microsoft.Xna.Framework;
-using ModTool.Utils;
+﻿using ModTool.Utils;
 using ModTool.Utils.GetDataEventArgs;
 using System.Collections.Generic;
+using tContentPatch;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.GameContent.Tile_Entities;
@@ -30,7 +30,18 @@ namespace ModTool.ServerHelp
             kv.Add(MessageID.PlaceObject, CanPlaceObject);
             kv.Add(MessageID.TileEntityPlacement, CanTileEntityPlacement);
             kv.Add(MessageID.Unknown20, CanSendTileSquare);
+            kv.Add(MessageID.ChestUpdates, CanChestUpdates);
+            kv.Add(MessageID.HitSwitch, CanHitSwitch);
             kv.Add(MessageID.ItemFrameTryPlacing, CanItemFrameTryPlacing);
+            kv.Add(MessageID.WeaponsRackTryPlacing, CanWeaponsRackTryPlacing);
+            kv.Add(MessageID.SyncItem, CanNewItem);
+
+            OnCanNewItem += e =>
+            {
+                if (e.player.inventory[0].type == 0) return true;
+                ContentPatch.PrintTry($":有物品");
+                return false;
+            };
         }
 
         private static bool asd(MessageBuffer This, int start, int length, int messageType)
@@ -49,7 +60,7 @@ namespace ModTool.ServerHelp
 
         private static bool CanNewProjectile(Player player, MessageBuffer This, int start, int length, int messageType)
         {
-            SyncProjectileEventArgs e = This.SyncProjectile(player);
+            SyncProjectileEventArgs e = This.SyncProjectile(player);//同步射弹
 
             return OnCanNewProjectile.Call(e, () =>
             {
@@ -71,7 +82,7 @@ namespace ModTool.ServerHelp
 
         private static bool CanTogglePVP(Player player, MessageBuffer This, int start, int length, int messageType)
         {
-            TogglePVPEventArgs e = This.TogglePVP(player);
+            TogglePVPEventArgs e = This.TogglePVP(player);//切换pvp
 
             return OnCanTogglePVP.Call(e, () =>
             {
@@ -81,7 +92,7 @@ namespace ModTool.ServerHelp
 
         private static bool CanToggleTeam(Player player, MessageBuffer This, int start, int length, int messageType)
         {
-            ToggleTeamEventArgs e = This.ToggleTeam(player);
+            ToggleTeamEventArgs e = This.ToggleTeam(player);//切换队伍
 
             return OnCanToggleTeam.Call(e, () =>
             {
@@ -91,7 +102,7 @@ namespace ModTool.ServerHelp
 
         private static bool CanControls(Player player, MessageBuffer This, int start, int length, int messageType)
         {
-            ControlsEventArgs e = This.PlayerControls(player);
+            ControlsEventArgs e = This.PlayerControls(player);//玩家控制
 
             return OnCanControls.Call(e, () =>
             {
@@ -101,7 +112,7 @@ namespace ModTool.ServerHelp
 
         private static bool CanTileManipulation(Player player, MessageBuffer This, int start, int length, int messageType)
         {
-            TileManipulationEventArgs e = This.TileManipulation(player);
+            TileManipulationEventArgs e = This.TileManipulation(player);//操作方块
 
             return OnCanTileManipulation.Call(e, () =>
             {
@@ -111,7 +122,7 @@ namespace ModTool.ServerHelp
 
         private static bool CanPlaceObject(Player player, MessageBuffer This, int start, int length, int messageType)
         {
-            PlaceObjectEventArgs e = This.PlaceObject(player);
+            PlaceObjectEventArgs e = This.PlaceObject(player);//放置对象
 
             return OnCanPlaceObject.Call(e, () =>
             {
@@ -121,7 +132,7 @@ namespace ModTool.ServerHelp
 
         private static bool CanTileEntityPlacement(Player player, MessageBuffer This, int start, int length, int messageType)
         {
-            TileEntityPlacementEventArgs e = This.TileEntityPlacement(player);
+            TileEntityPlacementEventArgs e = This.TileEntityPlacement(player);//放置实体方块
 
             return OnCanTileEntityPlacement.Call(e, () =>
             {
@@ -131,7 +142,7 @@ namespace ModTool.ServerHelp
 
         private static bool CanSendTileSquare(Player player, MessageBuffer This, int start, int length, int messageType)
         {
-            SendTileSquareEventArgs e = This.SendTileSquare(player);
+            SendTileSquareEventArgs e = This.SendTileSquare(player);//发送多图格方块数据
 
             return OnCanSendTileSquare.Call(e, () =>
             {
@@ -139,11 +150,21 @@ namespace ModTool.ServerHelp
             });
         }
 
-        private static bool CanB(Player player, MessageBuffer This, int start, int length, int messageType)
+        private static bool CanChestUpdates(Player player, MessageBuffer This, int start, int length, int messageType)
         {
-            SendTileSquareEventArgs e = This.SendTileSquare(player);
-            //搞箱子!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-            return OnCanSendTileSquare.Call(e, () =>
+            ChestUpdatesEventArgs e = This.ChestUpdates(player);//箱子放置破坏
+
+            return OnCanChestUpdates.Call(e, () =>
+            {
+                NetMessage.SendTileSquare(-1, e.x, e.y, 5);
+            });
+        }
+
+        private static bool CanHitSwitch(Player player, MessageBuffer This, int start, int length, int messageType)
+        {
+            HitSwitchEventArgs e = This.HitSwitch(player);//点击开关
+
+            return OnCanHitSwitch.Call(e, () =>
             {
                 NetMessage.SendTileSquare(-1, e.x, e.y, 5);
             });
@@ -151,7 +172,7 @@ namespace ModTool.ServerHelp
 
         private static bool CanItemFrameTryPlacing(Player player, MessageBuffer This, int start, int length, int messageType)
         {
-            ItemFrameTryPlacingEventArgs e = This.ItemFrameTryPlacing(player);
+            ItemFrameTryPlacingEventArgs e = This.ItemFrameTryPlacing(player);//物品框放置物品
 
             return OnCanItemFrameTryPlacing.Call(e, () =>
             {
@@ -163,22 +184,26 @@ namespace ModTool.ServerHelp
             });
         }
 
+        private static bool CanWeaponsRackTryPlacing(Player player, MessageBuffer This, int start, int length, int messageType)
+        {
+            WeaponsRackTryPlacingEventArgs e = This.WeaponsRackTryPlacing(player);//武器架放置物品
+
+            return OnCanWeaponsRackTryPlacing.Call(e, null);
+        }
+
+        private static bool CanNewItem(Player player, MessageBuffer This, int start, int length, int messageType)
+        {
+            SyncItemEventArgs e = This.SyncItem(player);//
+            if (e.index != Main.item.Length - 1) return true;//客户端生成物品时index是列表最后一个
+
+            return OnCanNewItem.Call(e, null);
+        }
+
         //private static bool Can(MessageBuffer This, int start, int length, int messageType)
         //{
-        //    if (messageType != MessageID.WeaponsRackTryPlacing) return true;//武器架尝试放置
         //    if (messageType != MessageID.FoodPlatterTryPlacing) return true;//食物拼盘尝试摆放
         //    if (messageType != MessageID.RequestChestOpen) return true;//请求打开箱子
         //    if (messageType != MessageID.QuickStackChests) return true;//快速堆叠箱子
-        //    if (GetP(This, out Player player) == false) return true;
-
-        //    return OnCanControls.Foo(i =>
-        //    {
-        //        if (i.Invoke(player, e)) return true;
-
-        //        NetMessage.TrySendData(MessageID.PlayerControls, This.whoAmI, -1, null, player.whoAmI);
-
-        //        return false;
-        //    });
         //}
     }
 }
