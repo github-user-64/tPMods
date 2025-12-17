@@ -26,6 +26,27 @@ namespace ModTool.Utils.GetDataEventArgs
     }
 
     /// <summary>
+    /// 同步物品
+    /// </summary>
+    public class SyncItemEventArgs : GetDataEventArgs
+    {
+        /// <summary/>
+        public int index;
+        /// <summary/>
+        public Vector2 position;
+        /// <summary/>
+        public Vector2 velocity;
+        /// <summary/>
+        public int stack;
+        /// <summary/>
+        public int prefix;
+        /// <summary>应该是防止丢出物品立即捡起</summary>
+        public int ownIgnore;
+        /// <summary/>
+        public int netid;
+    }
+
+    /// <summary>
     /// 切换pvp
     /// </summary>
     public class TogglePVPEventArgs : GetDataEventArgs
@@ -161,9 +182,9 @@ namespace ModTool.Utils.GetDataEventArgs
     }
 
     /// <summary>
-    /// 物品框放置物品
+    /// 自定义的, 放置物品
     /// </summary>
-    public class ItemFrameTryPlacingEventArgs : GetDataEventArgs
+    public abstract class ItemTryPlacingEventArgs : GetDataEventArgs
     {
         /// <summary/>
         public short x;
@@ -175,43 +196,57 @@ namespace ModTool.Utils.GetDataEventArgs
         public int prefix;
         /// <summary/>
         public int stack;
+    }
+
+    /// <summary>
+    /// 物品框放置物品
+    /// </summary>
+    public class ItemFrameTryPlacingEventArgs : ItemTryPlacingEventArgs
+    {
+
     }
 
     /// <summary>
     /// 武器架放置物品
     /// </summary>
-    public class WeaponsRackTryPlacingEventArgs : GetDataEventArgs
+    public class WeaponsRackTryPlacingEventArgs : ItemTryPlacingEventArgs
     {
-        /// <summary/>
-        public short x;
-        /// <summary/>
-        public int y;
-        /// <summary/>
-        public int netid;
-        /// <summary/>
-        public int prefix;
-        /// <summary/>
-        public int stack;
+
     }
 
     /// <summary>
-    /// 
+    /// 食物盘子放置物品
     /// </summary>
-    public class SyncItemEventArgs : GetDataEventArgs
+    public class FoodPlatterTryPlacingEventArgs : ItemTryPlacingEventArgs
+    {
+
+    }
+
+    /// <summary>
+    /// 请求打开箱子
+    /// </summary>
+    public class RequestChestOpenEventArgs : GetDataEventArgs
     {
         /// <summary/>
-        public int index;
+        public int x;
         /// <summary/>
-        public Vector2 position;
+        public int y;
+    }
+
+    /// <summary>
+    /// 快速堆叠到箱子
+    /// </summary>
+    public class QuickStackChestsEventArgs : GetDataEventArgs
+    {
         /// <summary/>
-        public Vector2 velocity;
-        /// <summary/>
-        public int stack;
-        /// <summary/>
-        public int prefix;
-        /// <summary>应该是防止丢出物品立即捡起</summary>
-        public int ownIgnore;
-        /// <summary/>
-        public int netid;
+        public int slot;
+    }
+
+    /// <summary>
+    /// 玩家buffs
+    /// </summary>
+    public class PlayerBuffsEventArgs : GetDataEventArgs
+    {
+
     }
 }

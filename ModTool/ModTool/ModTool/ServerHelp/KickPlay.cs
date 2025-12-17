@@ -17,7 +17,7 @@ namespace ModTool.ServerHelp
             if (Main.player?.IndexInRange(whoAmI) != true) return $"[{whoAmI}]不在范围内";
             if (Netplay.Clients?.IndexInRange(whoAmI) != true) return $"[{whoAmI}]不在范围内";
 
-            NetMessage.SendData(MessageID.Kick, whoAmI, -1, NetworkText.FromLiteral(msg ?? string.Empty));
+            NetMessage.TrySendData(MessageID.Kick, whoAmI, -1, NetworkText.FromLiteral(msg ?? string.Empty));
 
             ////踢出玩家
             Netplay.Clients[whoAmI].PendingTermination = true;

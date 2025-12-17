@@ -23,6 +23,7 @@ namespace ModTool.ServerHelp
 
             kv = new Dictionary<int, CanGetDataEvent>();
             kv.Add(MessageID.SyncProjectile, CanNewProjectile);
+            kv.Add(MessageID.SyncItem, CanNewItem);
             kv.Add(MessageID.TogglePVP, CanTogglePVP);
             kv.Add(MessageID.Unknown45, CanToggleTeam);
             kv.Add(MessageID.PlayerControls, CanControls);
@@ -34,14 +35,19 @@ namespace ModTool.ServerHelp
             kv.Add(MessageID.HitSwitch, CanHitSwitch);
             kv.Add(MessageID.ItemFrameTryPlacing, CanItemFrameTryPlacing);
             kv.Add(MessageID.WeaponsRackTryPlacing, CanWeaponsRackTryPlacing);
-            kv.Add(MessageID.SyncItem, CanNewItem);
+            kv.Add(MessageID.FoodPlatterTryPlacing, CanFoodPlatterTryPlacing);
+            kv.Add(MessageID.RequestChestOpen, CanRequestChestOpen);
+            kv.Add(MessageID.QuickStackChests, CanQuickStackChests);
+            kv.Add(MessageID.PlayerBuffs, CanPlayerBuffs);
 
-            OnCanNewItem += e =>
-            {
-                if (e.player.inventory[0].type == 0) return true;
-                ContentPatch.PrintTry($":有物品");
-                return false;
-            };
+            //Utils.ServerSideCharacter(true);
+
+            //OnCanPlayerBuffs += e =>
+            //{
+            //    if (e.player.inventory[0].type == 0) return true;
+            //    ContentPatch.PrintTry($":");
+            //    return false;
+            //};
         }
 
         private static bool asd(MessageBuffer This, int start, int length, int messageType)
@@ -80,6 +86,14 @@ namespace ModTool.ServerHelp
             });
         }
 
+        private static bool CanNewItem(Player player, MessageBuffer This, int start, int length, int messageType)
+        {
+            SyncItemEventArgs e = This.SyncItem(player);//同步物品
+            if (e.index != Main.item.Length - 1) return true;//客户端生成物品时index是列表最后一个
+
+            return OnCanNewItem.Call(e, null);
+        }
+
         private static bool CanTogglePVP(Player player, MessageBuffer This, int start, int length, int messageType)
         {
             TogglePVPEventArgs e = This.TogglePVP(player);//切换pvp
@@ -106,7 +120,7 @@ namespace ModTool.ServerHelp
 
             return OnCanControls.Call(e, () =>
             {
-                NetMessage.TrySendData(MessageID.PlayerControls, This.whoAmI, -1, null, player.whoAmI);
+                NetMessage.TrySendData(MessageID.PlayerControls, This.whoAmI, -1, null, player.whoAmI);//启用服务端角色时有效
             });
         }
 
@@ -116,7 +130,7 @@ namespace ModTool.ServerHelp
 
             return OnCanTileManipulation.Call(e, () =>
             {
-                NetMessage.SendTileSquare(-1, e.x, e.y, 5);
+                NetMessage.SendTileSquare(This.whoAmI, e.x, e.y, 5);
             });
         }
 
@@ -126,7 +140,7 @@ namespace ModTool.ServerHelp
 
             return OnCanPlaceObject.Call(e, () =>
             {
-                NetMessage.SendTileSquare(-1, e.x, e.y, 5);
+                NetMessage.SendTileSquare(This.whoAmI, e.x, e.y, 5);
             });
         }
 
@@ -136,7 +150,7 @@ namespace ModTool.ServerHelp
 
             return OnCanTileEntityPlacement.Call(e, () =>
             {
-                NetMessage.SendTileSquare(-1, e.x, e.y, 5);
+                NetMessage.SendTileSquare(This.whoAmI, e.x, e.y, 5);
             });
         }
 
@@ -146,7 +160,7 @@ namespace ModTool.ServerHelp
 
             return OnCanSendTileSquare.Call(e, () =>
             {
-                NetMessage.SendTileSquare(-1, e.x, e.y, 5);
+                NetMessage.SendTileSquare(This.whoAmI, e.x, e.y, 5);
             });
         }
 
@@ -156,7 +170,7 @@ namespace ModTool.ServerHelp
 
             return OnCanChestUpdates.Call(e, () =>
             {
-                NetMessage.SendTileSquare(-1, e.x, e.y, 5);
+                NetMessage.SendTileSquare(This.whoAmI, e.x, e.y, 5);
             });
         }
 
@@ -166,7 +180,7 @@ namespace ModTool.ServerHelp
 
             return OnCanHitSwitch.Call(e, () =>
             {
-                NetMessage.SendTileSquare(-1, e.x, e.y, 5);
+                NetMessage.SendTileSquare(This.whoAmI, e.x, e.y, 5);
             });
         }
 
@@ -180,7 +194,7 @@ namespace ModTool.ServerHelp
                 if (num == -1) return;
                 TEItemFrame tEItemFrame = (TEItemFrame)TileEntity.ByID[num];
                 if (tEItemFrame == null) return;
-                NetMessage.SendData(MessageID.TileEntitySharing, This.whoAmI, -1, null, tEItemFrame.ID, e.x, e.y);
+                NetMessage.TrySendData(MessageID.TileEntitySharing, This.whoAmI, -1, null, tEItemFrame.ID, e.x, e.y);
             });
         }
 
@@ -191,19 +205,46 @@ namespace ModTool.ServerHelp
             return OnCanWeaponsRackTryPlacing.Call(e, null);
         }
 
-        private static bool CanNewItem(Player player, MessageBuffer This, int start, int length, int messageType)
+        private static bool CanFoodPlatterTryPlacing(Player player, MessageBuffer This, int start, int length, int messageType)
         {
-            SyncItemEventArgs e = This.SyncItem(player);//
-            if (e.index != Main.item.Length - 1) return true;//客户端生成物品时index是列表最后一个
+            FoodPlatterTryPlacingEventArgs e = This.FoodPlatterTryPlacing(player);//食物盘子放置物品
 
-            return OnCanNewItem.Call(e, null);
+            return OnCanFoodPlatterTryPlacing.Call(e, null);
         }
 
-        //private static bool Can(MessageBuffer This, int start, int length, int messageType)
-        //{
-        //    if (messageType != MessageID.FoodPlatterTryPlacing) return true;//食物拼盘尝试摆放
-        //    if (messageType != MessageID.RequestChestOpen) return true;//请求打开箱子
-        //    if (messageType != MessageID.QuickStackChests) return true;//快速堆叠箱子
-        //}
+        private static bool CanRequestChestOpen(Player player, MessageBuffer This, int start, int length, int messageType)
+        {
+            RequestChestOpenEventArgs e = This.RequestChestOpen(player);//请求打开箱子
+
+            return OnCanRequestChestOpen.Call(e, null);
+        }
+
+        private static bool CanQuickStackChests(Player player, MessageBuffer This, int start, int length, int messageType)
+        {
+            QuickStackChestsEventArgs e = This.QuickStackChests(player);//快速堆叠到箱子
+
+            return OnCanQuickStackChests.Call(e, () =>
+            {
+                if (e.player.inventory?.IndexInRange(e.slot) != true) return;
+
+                NetMessage.TrySendData(MessageID.SyncEquipment, This.whoAmI, -1, null, e.player.whoAmI, e.slot, e.player.inventory[e.slot].prefix);
+            });
+        }
+        
+        private static bool CanPlayerBuffs(Player player, MessageBuffer This, int start, int length, int messageType)
+        {
+            PlayerBuffsEventArgs e = This.PlayerBuffs(player);//玩家buffs
+
+            return OnCanPlayerBuffs.Call(e, () =>
+            {
+                NetMessage.TrySendData(MessageID.PlayerBuffs, This.whoAmI, -1, null, player.whoAmI);//启用服务端角色时有效
+            });
+        }
+
+        //液体
+        //油漆
+        //锁和开锁箱子
+        //放置npc
+        //boss
     }
 }

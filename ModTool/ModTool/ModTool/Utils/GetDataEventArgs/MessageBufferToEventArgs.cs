@@ -39,6 +39,22 @@ namespace ModTool.Utils.GetDataEventArgs
             };
         }
         /// <summary/>
+        public static SyncItemEventArgs SyncItem(this MessageBuffer This, Player player)
+        {
+            SyncItemEventArgs e = new SyncItemEventArgs();
+
+            e.player = player;
+            e.index = This.reader.ReadInt16();
+            e.position = This.reader.ReadVector2();
+            e.velocity = This.reader.ReadVector2();
+            e.stack = This.reader.ReadInt16();
+            e.prefix = This.reader.ReadByte();
+            e.ownIgnore = This.reader.ReadByte();
+            e.netid = This.reader.ReadInt16();
+
+            return e;
+        }
+        /// <summary/>
         public static TogglePVPEventArgs TogglePVP(this MessageBuffer This, Player player)
         {
             int _whoAmI = This.reader.ReadByte();
@@ -168,10 +184,8 @@ namespace ModTool.Utils.GetDataEventArgs
             return e;
         }
         /// <summary/>
-        public static ItemFrameTryPlacingEventArgs ItemFrameTryPlacing(this MessageBuffer This, Player player)
+        public static T ItemTryPlacing<T>(this MessageBuffer This, Player player, T e) where T : ItemTryPlacingEventArgs
         {
-            ItemFrameTryPlacingEventArgs e = new ItemFrameTryPlacingEventArgs();
-
             e.player = player;
             e.x = This.reader.ReadInt16();
             e.y = This.reader.ReadInt16();
@@ -180,34 +194,49 @@ namespace ModTool.Utils.GetDataEventArgs
             e.stack = This.reader.ReadInt16();
 
             return e;
+        }
+        /// <summary/>
+        public static ItemFrameTryPlacingEventArgs ItemFrameTryPlacing(this MessageBuffer This, Player player)
+        {
+            return ItemTryPlacing(This, player, new ItemFrameTryPlacingEventArgs());
         }
         /// <summary/>
         public static WeaponsRackTryPlacingEventArgs WeaponsRackTryPlacing(this MessageBuffer This, Player player)
         {
-            WeaponsRackTryPlacingEventArgs e = new WeaponsRackTryPlacingEventArgs();
+            return ItemTryPlacing(This, player, new WeaponsRackTryPlacingEventArgs());
+        }
+        /// <summary/>
+        public static FoodPlatterTryPlacingEventArgs FoodPlatterTryPlacing(this MessageBuffer This, Player player)
+        {
+            return ItemTryPlacing(This, player, new FoodPlatterTryPlacingEventArgs());
+        }
+        /// <summary/>
+        public static RequestChestOpenEventArgs RequestChestOpen(this MessageBuffer This, Player player)
+        {
+            RequestChestOpenEventArgs e = new RequestChestOpenEventArgs();
 
             e.player = player;
             e.x = This.reader.ReadInt16();
             e.y = This.reader.ReadInt16();
-            e.netid = This.reader.ReadInt16();
-            e.prefix = This.reader.ReadByte();
-            e.stack = This.reader.ReadInt16();
 
             return e;
         }
         /// <summary/>
-        public static SyncItemEventArgs SyncItem(this MessageBuffer This, Player player)
+        public static QuickStackChestsEventArgs QuickStackChests(this MessageBuffer This, Player player)
         {
-            SyncItemEventArgs e = new SyncItemEventArgs();
+            QuickStackChestsEventArgs e = new QuickStackChestsEventArgs();
 
             e.player = player;
-            e.index = This.reader.ReadInt16();
-            e.position = This.reader.ReadVector2();
-            e.velocity = This.reader.ReadVector2();
-            e.stack = This.reader.ReadInt16();
-            e.prefix = This.reader.ReadByte();
-            e.ownIgnore = This.reader.ReadByte();
-            e.netid = This.reader.ReadInt16();
+            e.slot = This.reader.ReadInt16();
+
+            return e;
+        }
+        /// <summary/>
+        public static PlayerBuffsEventArgs PlayerBuffs(this MessageBuffer This, Player player)
+        {
+            PlayerBuffsEventArgs e = new PlayerBuffsEventArgs();
+
+            e.player = player;
 
             return e;
         }
