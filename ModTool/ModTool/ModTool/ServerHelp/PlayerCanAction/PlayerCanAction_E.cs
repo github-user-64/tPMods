@@ -14,13 +14,12 @@ namespace ModTool.ServerHelp
             private readonly List<Handler> list = new List<Handler>();
 
             /// <summary/>
-            public bool Invoke(T args, Action isFalse)
+            public bool Invoke(T args)
             {
                 foreach (Handler i in list)
                 {
                     if (i.Invoke(args) is true) continue;
 
-                    isFalse?.Invoke();
                     return false;
                 }
 
@@ -43,7 +42,15 @@ namespace ModTool.ServerHelp
 
         private static bool Call<T>(this HandlerList<T> h, T args, Action isFalse) where T : GetDataEventArgs
         {
-            return h?.Invoke(args, isFalse) ?? true;
+            if (h?.Invoke(args) == true) return true;
+
+            try
+            {
+                isFalse?.Invoke();
+            }
+            catch { }
+
+            return false;
         }
 
         /// <summary>
@@ -127,12 +134,32 @@ namespace ModTool.ServerHelp
         public static HandlerList<FoodPlatterTryPlacingEventArgs> OnCanFoodPlatterTryPlacing = null;
 
         /// <summary>
+        /// 能否放置和收起液体, 液体炸弹属于射弹不受这个影响, 当有一个返回<see langword="false"/>则剩下的不会再执行
+        /// <para/>方块类
+        /// </summary>
+        public static HandlerList<LiquidUpdateEventArgs> OnCanLiquidUpdate = null;
+
+        /// <summary>
+        /// 能否放置去除方块油漆, 当有一个返回<see langword="false"/>则剩下的不会再执行
+        /// <para/>方块类
+        /// </summary>
+        public static HandlerList<PaintTileEventArgs> OnCanPaintTile = null;
+
+        /// <summary>
+        /// 能否放置去除墙油漆, 当有一个返回<see langword="false"/>则剩下的不会再执行
+        /// <para/>方块类
+        /// </summary>
+        public static HandlerList<PaintWallEventArgs> OnCanPaintWall = null;
+
+        /// <summary>
         /// 能否打开箱子, 当有一个返回<see langword="false"/>则剩下的不会再执行
+        /// <para/>箱子物品类
         /// </summary>
         public static HandlerList<RequestChestOpenEventArgs> OnCanRequestChestOpen = null;
 
         /// <summary>
         /// 能否快速堆叠到箱子, 当有一个返回<see langword="false"/>则剩下的不会再执行
+        /// <para/>箱子物品类
         /// </summary>
         public static HandlerList<QuickStackChestsEventArgs> OnCanQuickStackChests = null;
 

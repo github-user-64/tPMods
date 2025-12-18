@@ -67,7 +67,7 @@ namespace ModTool.Utils.GetDataEventArgs
             };
         }
         /// <summary/>
-        public static ToggleTeamEventArgs ToggleTeam(this MessageBuffer This, Player player)
+        public static ToggleTeamEventArgs Unknown45_ToggleTeam(this MessageBuffer This, Player player)
         {
             int _whoAmI = This.reader.ReadByte();
             int team = This.reader.ReadByte();
@@ -237,6 +237,45 @@ namespace ModTool.Utils.GetDataEventArgs
             PlayerBuffsEventArgs e = new PlayerBuffsEventArgs();
 
             e.player = player;
+
+            return e;
+        }
+        /// <summary/>
+        public static LiquidUpdateEventArgs LiquidUpdate(this MessageBuffer This, Player player)
+        {
+            LiquidUpdateEventArgs e = new LiquidUpdateEventArgs();
+
+            e.player = player;
+            e.x = This.reader.ReadInt16();
+            e.y = This.reader.ReadInt16();
+            e. liquid = This.reader.ReadByte();
+            e. liquidType = This.reader.ReadByte();
+
+            return e;
+        }
+        /// <summary/>
+        public static PaintTileEventArgs Unknown63_PaintTile(this MessageBuffer This, Player player)
+        {
+            PaintTileEventArgs e = new PaintTileEventArgs();
+
+            e.player = player;
+            e.x = This.reader.ReadInt16();
+            e.y = This.reader.ReadInt16();
+            e.color = This.reader.ReadByte();
+            e.coat = This.reader.ReadByte();
+
+            return e;
+        }
+        /// <summary/>
+        public static PaintWallEventArgs Unknown64_PaintWall(this MessageBuffer This, Player player)
+        {
+            PaintWallEventArgs e = new PaintWallEventArgs();
+
+            e.player = player;
+            e.x = This.reader.ReadInt16();
+            e.y = This.reader.ReadInt16();
+            e.color = This.reader.ReadByte();
+            e.coat = This.reader.ReadByte();
 
             return e;
         }

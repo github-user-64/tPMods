@@ -249,4 +249,52 @@ namespace ModTool.Utils.GetDataEventArgs
     {
 
     }
+
+    /// <summary>
+    /// 液体更新
+    /// </summary>
+    public class LiquidUpdateEventArgs : GetDataEventArgs
+    {
+        /// <summary/>
+        public int x;
+        /// <summary/>
+        public int y;
+        /// <summary/>
+        public byte liquid;
+        /// <summary/>
+        public byte liquidType;
+    }
+
+    /// <summary>
+    /// 自定义的, 油漆
+    /// </summary>
+    public abstract class PaintEventArgs : GetDataEventArgs
+    {
+        /// <summary/>
+        public int x;
+        /// <summary/>
+        public int y;
+        /// <summary/>
+        public byte color;
+        /// <summary>
+        /// 0放置1去除?
+        /// </summary>
+        public byte coat;
+    }
+
+    /// <summary>
+    /// 油漆方块
+    /// </summary>
+    public class PaintTileEventArgs : PaintEventArgs
+    {
+
+    }
+
+    /// <summary>
+    /// 油漆墙
+    /// </summary>
+    public class PaintWallEventArgs : PaintEventArgs
+    {
+
+    }
 }

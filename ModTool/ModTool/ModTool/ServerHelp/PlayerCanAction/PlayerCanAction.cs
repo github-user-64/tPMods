@@ -1,11 +1,14 @@
 ﻿using ModTool.Utils;
 using ModTool.Utils.GetDataEventArgs;
+using System;
 using System.Collections.Generic;
 using tContentPatch;
 using Terraria;
 using Terraria.DataStructures;
+using Terraria.GameContent.NetModules;
 using Terraria.GameContent.Tile_Entities;
 using Terraria.ID;
+using Terraria.Net;
 
 namespace ModTool.ServerHelp
 {
@@ -39,15 +42,18 @@ namespace ModTool.ServerHelp
             kv.Add(MessageID.RequestChestOpen, CanRequestChestOpen);
             kv.Add(MessageID.QuickStackChests, CanQuickStackChests);
             kv.Add(MessageID.PlayerBuffs, CanPlayerBuffs);
+            kv.Add(MessageID.LiquidUpdate, CanLiquidUpdate);
+            kv.Add(MessageID.Unknown63, CanPaintTile);
+            kv.Add(MessageID.Unknown64, CanPaintWall);
 
             //Utils.ServerSideCharacter(true);
 
-            //OnCanPlayerBuffs += e =>
-            //{
-            //    if (e.player.inventory[0].type == 0) return true;
-            //    ContentPatch.PrintTry($":");
-            //    return false;
-            //};
+            OnCanPaintTile += e =>
+            {
+                if (e.player.inventory[0].type == 0) return true;
+                ContentPatch.PrintTry($":000");
+                return false;
+            };
         }
 
         private static bool asd(MessageBuffer This, int start, int length, int messageType)
@@ -106,7 +112,7 @@ namespace ModTool.ServerHelp
 
         private static bool CanToggleTeam(Player player, MessageBuffer This, int start, int length, int messageType)
         {
-            ToggleTeamEventArgs e = This.ToggleTeam(player);//切换队伍
+            ToggleTeamEventArgs e = This.Unknown45_ToggleTeam(player);//切换队伍
 
             return OnCanToggleTeam.Call(e, () =>
             {
@@ -241,8 +247,59 @@ namespace ModTool.ServerHelp
             });
         }
 
-        //液体
-        //油漆
+        private static bool CanLiquidUpdate(Player player, MessageBuffer This, int start, int length, int messageType)
+        {
+            LiquidUpdateEventArgs e = This.LiquidUpdate(player);//液体更新
+
+            return OnCanLiquidUpdate.Call(e, () =>
+            {
+                if (WorldGen.InWorld(e.x, e.y) == false) return;
+
+                //NetMessage.TrySendData(MessageID.LiquidUpdate, This.whoAmI, -1, null, e.x, e.y);
+
+                HashSet<int> ints = new HashSet<int>();
+                ints.Add(((e.x & 0xFFFF) << 16) | (e.y & 0xFFFF));
+
+                NetPacket pack = NetLiquidModule.Serialize(ints);
+                NetManager.Instance.SendToClient(pack, This.whoAmI);
+            });
+        }
+
+        private static bool CanPaintTile(Player player, MessageBuffer This, int start, int length, int messageType)
+        {
+            PaintTileEventArgs e = This.Unknown63_PaintTile(player);//油漆方块
+
+            return OnCanPaintTile.Call(e, () =>
+            {
+                if (WorldGen.InWorld(e.x, e.y) == false) return;
+                Tile tile = Main.tile[e.x, e.y];
+                NetMessage.TrySendData(MessageID.Unknown63, This.whoAmI, -1, null, e.x, e.y, tile.color());
+            });
+        }
+
+        private static bool CanPaintWall(Player player, MessageBuffer This, int start, int length, int messageType)
+        {
+            PaintWallEventArgs e = This.Unknown64_PaintWall(player);//油漆墙
+
+            return OnCanPaintWall.Call(e, () =>
+            {
+                if (WorldGen.InWorld(e.x, e.y) == false) return;
+                Tile tile = Main.tile[e.x, e.y];
+                NetMessage.TrySendData(MessageID.Unknown64, This.whoAmI, -1, null, e.x, e.y, tile.wallColor());
+            });
+        }
+
+        //private static bool Can(Player player, MessageBuffer This, int start, int length, int messageType)
+        //{
+        //    PaintWallEventArgs e = This.Unknown64_PaintWall(player);//油漆墙
+
+        //    return OnCanPaintWall.Call(e, () =>
+        //    {
+
+        //    });
+        //}
+
+        //到时候给有什么什么类型的[OnCanXXX]加上特性, 在Call里判断有对应特性的直接转到对应的[OnCan特性]里并直接调用isFalse
         //锁和开锁箱子
         //放置npc
         //boss
