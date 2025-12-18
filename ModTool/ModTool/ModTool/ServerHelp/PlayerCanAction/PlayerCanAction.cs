@@ -1,6 +1,5 @@
 ﻿using ModTool.Utils;
 using ModTool.Utils.GetDataEventArgs;
-using System;
 using System.Collections.Generic;
 using tContentPatch;
 using Terraria;
@@ -48,7 +47,7 @@ namespace ModTool.ServerHelp
 
             //Utils.ServerSideCharacter(true);
 
-            OnCanPaintTile += e =>
+            OnCanNewProjectile += e =>
             {
                 if (e.player.inventory[0].type == 0) return true;
                 ContentPatch.PrintTry($":000");
@@ -208,21 +207,21 @@ namespace ModTool.ServerHelp
         {
             WeaponsRackTryPlacingEventArgs e = This.WeaponsRackTryPlacing(player);//武器架放置物品
 
-            return OnCanWeaponsRackTryPlacing.Call(e, null);
+            return OnCanWeaponsRackTryPlacing.Call(e);
         }
 
         private static bool CanFoodPlatterTryPlacing(Player player, MessageBuffer This, int start, int length, int messageType)
         {
             FoodPlatterTryPlacingEventArgs e = This.FoodPlatterTryPlacing(player);//食物盘子放置物品
 
-            return OnCanFoodPlatterTryPlacing.Call(e, null);
+            return OnCanFoodPlatterTryPlacing.Call(e);
         }
 
         private static bool CanRequestChestOpen(Player player, MessageBuffer This, int start, int length, int messageType)
         {
             RequestChestOpenEventArgs e = This.RequestChestOpen(player);//请求打开箱子
 
-            return OnCanRequestChestOpen.Call(e, null);
+            return OnCanRequestChestOpen.Call(e);
         }
 
         private static bool CanQuickStackChests(Player player, MessageBuffer This, int start, int length, int messageType)
@@ -299,7 +298,8 @@ namespace ModTool.ServerHelp
         //    });
         //}
 
-        //到时候给有什么什么类型的[OnCanXXX]加上特性, 在Call里判断有对应特性的直接转到对应的[OnCan特性]里并直接调用isFalse
+        //20
+        //47
         //锁和开锁箱子
         //放置npc
         //boss

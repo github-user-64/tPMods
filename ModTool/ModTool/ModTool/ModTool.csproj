@@ -112,6 +112,7 @@
     <Compile Include="ServerHelp\a1.cs" />
     <Compile Include="ServerHelp\ClientUUID.cs" />
     <Compile Include="ServerHelp\KickPlay.cs" />
+    <Compile Include="ServerHelp\PlayerCanAction\PlayerCanAction_E_ClassTile.cs" />
     <Compile Include="ServerHelp\PlayerCanAction\PlayerCanAction_E.cs" />
     <Compile Include="Utils\GetDataEventArgs\MessageBufferToEventArgs.cs" />
     <Compile Include="Utils\GetDataEventArgs\EventArgs.cs" />

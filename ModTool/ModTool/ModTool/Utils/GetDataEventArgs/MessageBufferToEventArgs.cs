@@ -183,7 +183,9 @@ namespace ModTool.Utils.GetDataEventArgs
 
             return e;
         }
-        /// <summary/>
+        /// <summary>
+        /// 自定义的
+        /// </summary>
         public static T ItemTryPlacing<T>(this MessageBuffer This, Player player, T e) where T : ItemTryPlacingEventArgs
         {
             e.player = player;

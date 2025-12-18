@@ -85,17 +85,25 @@ namespace ModTool.Utils.GetDataEventArgs
         public Vector2 position;
     }
 
+    #region 方块类
     /// <summary>
-    /// 操作方块
+    /// 自定义, 方块类, 修改图格数据这一类的
     /// </summary>
-    public class TileManipulationEventArgs : GetDataEventArgs
+    public abstract class ClassTileEventArgs : GetDataEventArgs
     {
-        /// <summary/>
-        public byte manipulationType;
         /// <summary/>
         public int x;
         /// <summary/>
         public int y;
+    }
+
+    /// <summary>
+    /// 操作方块
+    /// </summary>
+    public class TileManipulationEventArgs : ClassTileEventArgs
+    {
+        /// <summary/>
+        public byte manipulationType;
         /// <summary/>
         public short tileType;
         /// <summary/>
@@ -105,12 +113,8 @@ namespace ModTool.Utils.GetDataEventArgs
     /// <summary>
     /// 放置对象
     /// </summary>
-    public class PlaceObjectEventArgs : GetDataEventArgs
+    public class PlaceObjectEventArgs : ClassTileEventArgs
     {
-        /// <summary/>
-        public int x;
-        /// <summary/>
-        public int y;
         /// <summary/>
         public short type;
         /// <summary/>
@@ -126,12 +130,8 @@ namespace ModTool.Utils.GetDataEventArgs
     /// <summary>
     /// 放置实体方块
     /// </summary>
-    public class TileEntityPlacementEventArgs : GetDataEventArgs
+    public class TileEntityPlacementEventArgs : ClassTileEventArgs
     {
-        /// <summary/>
-        public int x;
-        /// <summary/>
-        public int y;
         /// <summary/>
         public short type;
     }
@@ -139,12 +139,8 @@ namespace ModTool.Utils.GetDataEventArgs
     /// <summary>
     /// 发送多图格方块的数据?
     /// </summary>
-    public class SendTileSquareEventArgs : GetDataEventArgs
+    public class SendTileSquareEventArgs : ClassTileEventArgs
     {
-        /// <summary/>
-        public int x;
-        /// <summary/>
-        public int y;
         /// <summary/>
         public ushort sizeX;
         /// <summary/>
@@ -156,14 +152,10 @@ namespace ModTool.Utils.GetDataEventArgs
     /// <summary>
     /// 箱子放置破坏
     /// </summary>
-    public class ChestUpdatesEventArgs : GetDataEventArgs
+    public class ChestUpdatesEventArgs : ClassTileEventArgs
     {
         /// <summary/>
         public byte updateType;
-        /// <summary/>
-        public int x;
-        /// <summary/>
-        public int y;
         /// <summary/>
         public int style;
         /// <summary/>
@@ -173,23 +165,16 @@ namespace ModTool.Utils.GetDataEventArgs
     /// <summary>
     /// 点击开关
     /// </summary>
-    public class HitSwitchEventArgs : GetDataEventArgs
+    public class HitSwitchEventArgs : ClassTileEventArgs
     {
-        /// <summary/>
-        public int x;
-        /// <summary/>
-        public int y;
+
     }
 
     /// <summary>
     /// 自定义的, 放置物品
     /// </summary>
-    public abstract class ItemTryPlacingEventArgs : GetDataEventArgs
+    public abstract class ItemTryPlacingEventArgs : ClassTileEventArgs
     {
-        /// <summary/>
-        public short x;
-        /// <summary/>
-        public int y;
         /// <summary/>
         public int netid;
         /// <summary/>
@@ -223,6 +208,47 @@ namespace ModTool.Utils.GetDataEventArgs
     }
 
     /// <summary>
+    /// 液体更新
+    /// </summary>
+    public class LiquidUpdateEventArgs : ClassTileEventArgs
+    {
+        /// <summary/>
+        public byte liquid;
+        /// <summary/>
+        public byte liquidType;
+    }
+
+    /// <summary>
+    /// 自定义的, 油漆
+    /// </summary>
+    public abstract class PaintEventArgs : ClassTileEventArgs
+    {
+        /// <summary/>
+        public byte color;
+        /// <summary>
+        /// 0放置1去除?
+        /// </summary>
+        public byte coat;
+    }
+
+    /// <summary>
+    /// 油漆方块
+    /// </summary>
+    public class PaintTileEventArgs : PaintEventArgs
+    {
+
+    }
+
+    /// <summary>
+    /// 油漆墙
+    /// </summary>
+    public class PaintWallEventArgs : PaintEventArgs
+    {
+
+    }
+    #endregion
+
+    /// <summary>
     /// 请求打开箱子
     /// </summary>
     public class RequestChestOpenEventArgs : GetDataEventArgs
@@ -246,54 +272,6 @@ namespace ModTool.Utils.GetDataEventArgs
     /// 玩家buffs
     /// </summary>
     public class PlayerBuffsEventArgs : GetDataEventArgs
-    {
-
-    }
-
-    /// <summary>
-    /// 液体更新
-    /// </summary>
-    public class LiquidUpdateEventArgs : GetDataEventArgs
-    {
-        /// <summary/>
-        public int x;
-        /// <summary/>
-        public int y;
-        /// <summary/>
-        public byte liquid;
-        /// <summary/>
-        public byte liquidType;
-    }
-
-    /// <summary>
-    /// 自定义的, 油漆
-    /// </summary>
-    public abstract class PaintEventArgs : GetDataEventArgs
-    {
-        /// <summary/>
-        public int x;
-        /// <summary/>
-        public int y;
-        /// <summary/>
-        public byte color;
-        /// <summary>
-        /// 0放置1去除?
-        /// </summary>
-        public byte coat;
-    }
-
-    /// <summary>
-    /// 油漆方块
-    /// </summary>
-    public class PaintTileEventArgs : PaintEventArgs
-    {
-
-    }
-
-    /// <summary>
-    /// 油漆墙
-    /// </summary>
-    public class PaintWallEventArgs : PaintEventArgs
     {
 
     }
