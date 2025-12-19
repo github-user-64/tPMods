@@ -76,6 +76,18 @@ namespace ModTool.ServerHelp
         /// <para/>方块类
         /// </summary>
         public static HandlerList<PaintWallEventArgs> OnCanPaintWall = null;
+
+        /// <summary>
+        /// 能否编辑告示牌, 当有一个返回<see langword="false"/>则剩下的不会再执行
+        /// <para/>方块类
+        /// </summary>
+        public static HandlerList<EditSignEventArgs> OnCanEditSign = null;
+
+        /// <summary>
+        /// 能否上锁开锁, 当有一个返回<see langword="false"/>则剩下的不会再执行
+        /// <para/>方块类
+        /// </summary>
+        public static HandlerList<LockAndUnlockEventArgs> OnCanLockAndUnlock = null;
         #endregion
     }
 }

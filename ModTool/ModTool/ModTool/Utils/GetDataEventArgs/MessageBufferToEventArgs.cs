@@ -145,7 +145,7 @@ namespace ModTool.Utils.GetDataEventArgs
             return e;
         }
         /// <summary/>
-        public static SendTileSquareEventArgs SendTileSquare(this MessageBuffer This, Player player)
+        public static SendTileSquareEventArgs Unknown20_SendTileSquare(this MessageBuffer This, Player player)
         {
             SendTileSquareEventArgs e = new SendTileSquareEventArgs();
 
@@ -278,6 +278,120 @@ namespace ModTool.Utils.GetDataEventArgs
             e.y = This.reader.ReadInt16();
             e.color = This.reader.ReadByte();
             e.coat = This.reader.ReadByte();
+
+            return e;
+        }
+        /// <summary/>
+        public static EditSignEventArgs Unknown47_EditSign(this MessageBuffer This, Player player)
+        {
+            EditSignEventArgs e = new EditSignEventArgs();
+
+            e.player = player;
+            e.signIndex = This.reader.ReadInt16();
+            e.x = This.reader.ReadInt16();
+            e.y = This.reader.ReadInt16();
+            e.text = This.reader.ReadString();
+            e.whoAmI = This.reader.ReadByte();
+            e.bitsByte = This.reader.ReadByte();
+
+            return e;
+        }
+        /// <summary/>
+        public static LockAndUnlockEventArgs LockAndUnlock(this MessageBuffer This, Player player)
+        {
+            LockAndUnlockEventArgs e = new LockAndUnlockEventArgs();
+
+            e.player = player;
+            e.type = This.reader.ReadByte();
+            e.x = This.reader.ReadInt16();
+            e.y = This.reader.ReadInt16();
+
+            return e;
+        }
+        /// <summary/>
+        public static BugCatchingEventArgs BugCatching(this MessageBuffer This, Player player)
+        {
+            BugCatchingEventArgs e = new BugCatchingEventArgs();
+
+            e.player = player;
+            e.npcIndex = This.reader.ReadInt16();
+
+            return e;
+        }
+        /// <summary/>
+        public static BugReleasingEventArgs BugReleasing(this MessageBuffer This, Player player)
+        {
+            BugReleasingEventArgs e = new BugReleasingEventArgs();
+
+            e.player = player;
+            e.x = This.reader.ReadInt32();
+            e.y = This.reader.ReadInt32();
+            e.type = This.reader.ReadInt16();
+            e.style = This.reader.ReadByte();
+
+            return e;
+        }
+        /// <summary/>
+        public static SpawnBossUseLicenseStartEventEventArgs SpawnBossUseLicenseStartEvent(this MessageBuffer This, Player player)
+        {
+            SpawnBossUseLicenseStartEventEventArgs e = new SpawnBossUseLicenseStartEventEventArgs();
+
+            e.player = player;
+            int _whoAmI = This.reader.ReadInt16();//召唤的玩家
+            e.type = This.reader.ReadInt16();
+
+            return e;
+        }
+        /// <summary/>
+        public static RequestTeleportationByServerEventArgs RequestTeleportationByServer(this MessageBuffer This, Player player)
+        {
+            RequestTeleportationByServerEventArgs e = new RequestTeleportationByServerEventArgs();
+
+            e.player = player;
+            e.type = This.reader.ReadByte();
+
+            return e;
+        }
+        /// <summary/>
+        public static TeleportEntityEventArgs TeleportEntity(this MessageBuffer This, Player player)
+        {
+            TeleportEntityEventArgs e = new TeleportEntityEventArgs();
+
+            BitsByte bitsByte = This.reader.ReadByte();
+            int _whoAmI = This.reader.ReadInt16();
+            Vector2 vector = This.reader.ReadVector2();
+            int style = 0;
+            style = This.reader.ReadByte();
+            int type = 0;
+            if (bitsByte[0])
+            {
+                type++;
+            }
+            if (bitsByte[1])
+            {
+                type += 2;
+            }
+            bool flag5 = false;
+            if (bitsByte[2])
+            {
+                flag5 = true;
+            }
+            int extraInfo = 0;
+            if (bitsByte[3])
+            {
+                extraInfo = This.reader.ReadInt32();
+            }
+            if (flag5)
+            {
+                vector = Main.player[This.whoAmI].position;
+            }
+
+            e.player = player;
+            e.bitsByte = bitsByte;
+            e.vector = vector;
+            e.style = style;
+            e.type = type;
+            e.extraInfo = extraInfo;
 
             return e;
         }

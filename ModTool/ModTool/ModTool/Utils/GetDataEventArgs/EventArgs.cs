@@ -246,6 +246,36 @@ namespace ModTool.Utils.GetDataEventArgs
     {
 
     }
+
+    /// <summary>
+    /// 编辑告示牌
+    /// </summary>
+    public class EditSignEventArgs : PaintEventArgs
+    {
+        /// <summary/>
+        public int signIndex;
+        /// <summary/>
+        public string text;
+        /// <summary>
+        /// 应该是用来让发送编辑的客户端处理关闭编辑界面之类的东西
+        /// </summary>
+        public int whoAmI;
+        /// <summary>
+        /// 不知道是啥, 但和<see cref="whoAmI"/>有关
+        /// </summary>
+        public BitsByte bitsByte;
+    }
+
+    /// <summary>
+    /// 上锁开锁
+    /// </summary>
+    public class LockAndUnlockEventArgs : PaintEventArgs
+    {
+        /// <summary>
+        /// 1:开箱子,2:开门,3:锁箱子
+        /// </summary>
+        public int type;
+    }
     #endregion
 
     /// <summary>
@@ -274,5 +304,68 @@ namespace ModTool.Utils.GetDataEventArgs
     public class PlayerBuffsEventArgs : GetDataEventArgs
     {
 
+    }
+
+    /// <summary>
+    /// 抓住动物
+    /// </summary>
+    public class BugCatchingEventArgs : GetDataEventArgs
+    {
+        /// <summary/>
+        public int npcIndex;
+    }
+
+    /// <summary>
+    /// 释放动物
+    /// </summary>
+    public class BugReleasingEventArgs : GetDataEventArgs
+    {
+        /// <summary/>
+        public int x;
+        /// <summary/>
+        public int y;
+        /// <summary/>
+        public int type;
+        /// <summary/>
+        public byte style;
+    }
+
+    /// <summary>
+    /// 生成boss, 使用许可证, 开始事件
+    /// </summary>
+    public class SpawnBossUseLicenseStartEventEventArgs : GetDataEventArgs
+    {
+        /// <summary/>
+        public int type;
+    }
+
+    /// <summary>
+    /// 请求服务器传送
+    /// </summary>
+    public class RequestTeleportationByServerEventArgs : GetDataEventArgs
+    {
+        /// <summary>
+        /// 0:随机,1:魔法海螺,2:恶魔海螺,3:贝壳电话世界重生点
+        /// </summary>
+        public byte type;
+    }
+
+    /// <summary>
+    /// 传送实体, 好乱实在看不懂
+    /// </summary>
+    public class TeleportEntityEventArgs : GetDataEventArgs
+    {
+        /// <summary/>
+        public BitsByte bitsByte;
+        /// <summary/>
+        public Vector2 vector;
+        /// <summary/>
+        public int style;
+        /// <summary>
+        /// 0:传玩家,1:传npc,2:传队伍
+        /// </summary>
+        public int type;
+        /// <summary/>
+        public int extraInfo;
     }
 }

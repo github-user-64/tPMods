@@ -1,4 +1,5 @@
-﻿using ModTool.Utils;
+﻿using Microsoft.Xna.Framework;
+using ModTool.Utils;
 using ModTool.Utils.GetDataEventArgs;
 using System.Collections.Generic;
 using tContentPatch;
@@ -44,13 +45,22 @@ namespace ModTool.ServerHelp
             kv.Add(MessageID.LiquidUpdate, CanLiquidUpdate);
             kv.Add(MessageID.Unknown63, CanPaintTile);
             kv.Add(MessageID.Unknown64, CanPaintWall);
+            kv.Add(MessageID.Unknown47, CanEditSign);
+            kv.Add(MessageID.LockAndUnlock, CanLockAndUnlock);
+            kv.Add(MessageID.BugCatching, CanBugCatching);
+            kv.Add(MessageID.BugReleasing, CanBugReleasing);
+            kv.Add(MessageID.SpawnBossUseLicenseStartEvent, CanSpawnBossUseLicenseStartEvent);
+            kv.Add(MessageID.RequestTeleportationByServer, CanRequestTeleportationByServer);
+            kv.Add(MessageID.TeleportEntity, CanTeleportEntity);
 
             //Utils.ServerSideCharacter(true);
 
-            OnCanNewProjectile += e =>
+            OnCanTeleportEntity += e =>
             {
                 if (e.player.inventory[0].type == 0) return true;
                 ContentPatch.PrintTry($":000");
+                ContentPatch.PrintTry($"类型:{e.type}");
+                ContentPatch.PrintTry($"样式:{e.style}");
                 return false;
             };
         }
@@ -161,11 +171,11 @@ namespace ModTool.ServerHelp
 
         private static bool CanSendTileSquare(Player player, MessageBuffer This, int start, int length, int messageType)
         {
-            SendTileSquareEventArgs e = This.SendTileSquare(player);//发送多图格方块数据
+            SendTileSquareEventArgs e = This.Unknown20_SendTileSquare(player);//发送多图格方块数据
 
             return OnCanSendTileSquare.Call(e, () =>
             {
-                NetMessage.SendTileSquare(This.whoAmI, e.x, e.y, 5);
+                NetMessage.SendTileSquare(This.whoAmI, e.x, e.y, e.sizeX, e.sizeY);
             });
         }
 
@@ -288,20 +298,65 @@ namespace ModTool.ServerHelp
             });
         }
 
-        //private static bool Can(Player player, MessageBuffer This, int start, int length, int messageType)
-        //{
-        //    PaintWallEventArgs e = This.Unknown64_PaintWall(player);//油漆墙
+        private static bool CanEditSign(Player player, MessageBuffer This, int start, int length, int messageType)
+        {
+            EditSignEventArgs e = This.Unknown47_EditSign(player);//编辑告示牌
 
-        //    return OnCanPaintWall.Call(e, () =>
-        //    {
+            return OnCanEditSign.Call(e, () =>
+            {
+                NetMessage.TrySendData(MessageID.Unknown47, This.whoAmI, -1, null, e.signIndex, e.whoAmI);
+            });
+        }
 
-        //    });
-        //}
+        private static bool CanLockAndUnlock(Player player, MessageBuffer This, int start, int length, int messageType)
+        {
+            LockAndUnlockEventArgs e = This.LockAndUnlock(player);//上锁开锁
 
-        //20
-        //47
-        //锁和开锁箱子
-        //放置npc
-        //boss
+            return OnCanLockAndUnlock.Call(e, () =>
+            {
+                NetMessage.SendTileSquare(This.whoAmI, e.x, e.y, 2);
+            });
+        }
+
+        private static bool CanBugCatching(Player player, MessageBuffer This, int start, int length, int messageType)
+        {
+            BugCatchingEventArgs e = This.BugCatching(player);//抓住动物
+
+            return OnCanBugCatching.Call(e);
+        }
+
+        private static bool CanBugReleasing(Player player, MessageBuffer This, int start, int length, int messageType)
+        {
+            BugReleasingEventArgs e = This.BugReleasing(player);//释放动物
+
+            return OnCanBugReleasing.Call(e);
+        }
+
+        private static bool CanSpawnBossUseLicenseStartEvent(Player player, MessageBuffer This, int start, int length, int messageType)
+        {
+            SpawnBossUseLicenseStartEventEventArgs e = This.SpawnBossUseLicenseStartEvent(player);//生成boss, 使用许可证, 开始事件
+
+            return OnCanSpawnBossUseLicenseStartEvent.Call(e);
+        }
+
+        private static bool CanRequestTeleportationByServer(Player player, MessageBuffer This, int start, int length, int messageType)
+        {
+            RequestTeleportationByServerEventArgs e = This.RequestTeleportationByServer(player);//传送(随机,魔法海螺,恶魔海螺,贝壳电话世界重生点)
+
+            return OnCanRequestTeleportationByServer.Call(e);
+        }
+
+        private static bool CanTeleportEntity(Player player, MessageBuffer This, int start, int length, int messageType)
+        {
+            TeleportEntityEventArgs e = This.TeleportEntity(player);//传送实体
+
+            return OnCanTeleportEntity.Call(e, () =>
+            {
+                if (e.type != 0) return;
+
+                Vector2 pos = player.position;
+                NetMessage.TrySendData(MessageID.TeleportEntity, This.whoAmI, -1, null, e.type, e.player.whoAmI, pos.X, pos.Y, e.style, 0, e.extraInfo);
+            });
+        }
     }
 }

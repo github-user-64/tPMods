@@ -99,5 +99,30 @@ namespace ModTool.ServerHelp
         /// <para/>启用服务端角色时有效<see cref="Utils.ServerSideCharacter(bool)"/>
         /// </summary>
         public static HandlerList<PlayerBuffsEventArgs> OnCanPlayerBuffs = null;
+
+        /// <summary>
+        /// 能否抓住动物, 当有一个返回<see langword="false"/>则剩下的不会再执行
+        /// </summary>
+        public static HandlerList<BugCatchingEventArgs> OnCanBugCatching = null;
+
+        /// <summary>
+        /// 能否释放动物, 当有一个返回<see langword="false"/>则剩下的不会再执行
+        /// </summary>
+        public static HandlerList<BugReleasingEventArgs> OnCanBugReleasing = null;
+
+        /// <summary>
+        /// 能否生成boss, 使用许可证, 开始事件, 当有一个返回<see langword="false"/>则剩下的不会再执行
+        /// </summary>
+        public static HandlerList<SpawnBossUseLicenseStartEventEventArgs> OnCanSpawnBossUseLicenseStartEvent = null;
+
+        /// <summary>
+        /// 能否传送(随机,魔法海螺,恶魔海螺,贝壳电话世界重生点), 当有一个返回<see langword="false"/>则剩下的不会再执行
+        /// </summary>
+        public static HandlerList<RequestTeleportationByServerEventArgs> OnCanRequestTeleportationByServer = null;
+
+        /// <summary>
+        /// 能否传送实体, 当有一个返回<see langword="false"/>则剩下的不会再执行
+        /// </summary>
+        public static HandlerList<TeleportEntityEventArgs> OnCanTeleportEntity = null;
     }
 }
