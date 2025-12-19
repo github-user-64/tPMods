@@ -124,5 +124,15 @@ namespace ModTool.ServerHelp
         /// 能否传送实体, 当有一个返回<see langword="false"/>则剩下的不会再执行
         /// </summary>
         public static HandlerList<TeleportEntityEventArgs> OnCanTeleportEntity = null;
+
+        /// <summary>
+        /// 能否伤害npc, 当有一个返回<see langword="false"/>则剩下的不会再执行
+        /// </summary>
+        public static HandlerList<DamageNPCEventArgs> OnCanDamageNPC = null;
+
+        /// <summary>
+        /// 能否伤害玩家, 当有一个返回<see langword="false"/>则剩下的不会再执行
+        /// </summary>
+        public static HandlerList<PlayerHurtV2EventArgs> OnCanPlayerHurtV2 = null;
     }
 }

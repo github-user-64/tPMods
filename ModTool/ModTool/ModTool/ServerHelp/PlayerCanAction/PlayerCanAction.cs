@@ -2,7 +2,6 @@
 using ModTool.Utils;
 using ModTool.Utils.GetDataEventArgs;
 using System.Collections.Generic;
-using tContentPatch;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.GameContent.NetModules;
@@ -52,17 +51,17 @@ namespace ModTool.ServerHelp
             kv.Add(MessageID.SpawnBossUseLicenseStartEvent, CanSpawnBossUseLicenseStartEvent);
             kv.Add(MessageID.RequestTeleportationByServer, CanRequestTeleportationByServer);
             kv.Add(MessageID.TeleportEntity, CanTeleportEntity);
+            kv.Add(MessageID.DamageNPC, CanDamageNPC);
+            kv.Add(MessageID.PlayerHurtV2, CanPlayerHurtV2);
 
             //Utils.ServerSideCharacter(true);
 
-            OnCanTeleportEntity += e =>
-            {
-                if (e.player.inventory[0].type == 0) return true;
-                ContentPatch.PrintTry($":000");
-                ContentPatch.PrintTry($"类型:{e.type}");
-                ContentPatch.PrintTry($"样式:{e.style}");
-                return false;
-            };
+            //OnCanPlayerHurtV2 += e =>
+            //{
+            //    if (e.player.inventory[0].type == 0) return true;
+            //    ContentPatch.PrintTry($":222");
+            //    return false;
+            //};
         }
 
         private static bool asd(MessageBuffer This, int start, int length, int messageType)
@@ -357,6 +356,20 @@ namespace ModTool.ServerHelp
                 Vector2 pos = player.position;
                 NetMessage.TrySendData(MessageID.TeleportEntity, This.whoAmI, -1, null, e.type, e.player.whoAmI, pos.X, pos.Y, e.style, 0, e.extraInfo);
             });
+        }
+
+        private static bool CanDamageNPC(Player player, MessageBuffer This, int start, int length, int messageType)
+        {
+            DamageNPCEventArgs e = This.DamageNPC(player);//伤害npc
+
+            return OnCanDamageNPC.Call(e);
+        }
+
+        private static bool CanPlayerHurtV2(Player player, MessageBuffer This, int start, int length, int messageType)
+        {
+            PlayerHurtV2EventArgs e = This.PlayerHurtV2(player);//伤害玩家
+
+            return OnCanPlayerHurtV2.Call(e);
         }
     }
 }

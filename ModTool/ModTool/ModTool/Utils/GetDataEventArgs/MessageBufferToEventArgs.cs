@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using System.IO;
 using Terraria;
+using Terraria.DataStructures;
 
 namespace ModTool.Utils.GetDataEventArgs
 {
@@ -392,6 +393,45 @@ namespace ModTool.Utils.GetDataEventArgs
             e.style = style;
             e.type = type;
             e.extraInfo = extraInfo;
+
+            return e;
+        }
+        /// <summary/>
+        public static DamageNPCEventArgs DamageNPC(this MessageBuffer This, Player player)
+        {
+            DamageNPCEventArgs e = new DamageNPCEventArgs();
+
+            e.player = player;
+            e.npcIndex = This.reader.ReadInt16();
+            e.damage = This.reader.ReadInt16();
+            e.knokBack = This.reader.ReadSingle();
+            e.hitDirection = This.reader.ReadByte() - 1;
+            e.crit = This.reader.ReadByte();
+
+            return e;
+        }
+        /// <summary/>
+        public static PlayerHurtV2EventArgs PlayerHurtV2(this MessageBuffer This, Player player)
+        {
+            PlayerHurtV2EventArgs e = new PlayerHurtV2EventArgs();
+
+            int playerHurt = This.reader.ReadByte();
+            PlayerDeathReason playerDeathReason = PlayerDeathReason.FromReader(This.reader);
+            int damage = This.reader.ReadInt16();
+            int hitDirection = This.reader.ReadByte() - 1;
+            BitsByte bitsByte = This.reader.ReadByte();
+            bool crit = bitsByte[0];
+            bool pvp = bitsByte[1];
+            int cooldownCounter = This.reader.ReadSByte();
+
+            e.player = player;
+            e.playerHurt = playerHurt;
+            e.playerDeathReason = playerDeathReason;
+            e.damage = damage;
+            e.hitDirection = hitDirection;
+            e.crit = crit;
+            e.pvp = pvp;
+            e.cooldownCounter = cooldownCounter;
 
             return e;
         }

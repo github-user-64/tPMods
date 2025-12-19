@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.DataStructures;
 
 namespace ModTool.Utils.GetDataEventArgs
 {
@@ -367,5 +368,41 @@ namespace ModTool.Utils.GetDataEventArgs
         public int type;
         /// <summary/>
         public int extraInfo;
+    }
+    /// <summary>
+    /// 伤害npc
+    /// </summary>
+    public class DamageNPCEventArgs : GetDataEventArgs
+    {
+        /// <summary/>
+        public int npcIndex;
+        /// <summary/>
+        public int damage;
+        /// <summary/>
+        public float knokBack;
+        /// <summary/>
+        public int hitDirection;
+        /// <summary/>
+        public byte crit;
+    }
+    /// <summary>
+    /// 伤害玩家
+    /// </summary>
+    public class PlayerHurtV2EventArgs : GetDataEventArgs
+    {
+        /// <summary/>
+        public int playerHurt;
+        /// <summary/>
+        public PlayerDeathReason playerDeathReason;
+        /// <summary/>
+        public int damage;
+        /// <summary/>
+        public int hitDirection;
+        /// <summary/>
+        public bool crit;
+        /// <summary/>
+        public bool pvp;
+        /// <summary/>
+        public int cooldownCounter;
     }
 }
