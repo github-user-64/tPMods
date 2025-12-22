@@ -28,8 +28,11 @@ namespace PlayerAccount.Common.FunctionCommand
                 ip.AddRAdd(new CommandString2()).AddRAdd(new CommandString2(true));
                 ip.Runing += args =>
                 {
-                    string ex = AccountHelp.BanDelIP(args[0] as string, args[1] as string);
-                    print?.Invoke(ex ?? "已删除");
+                    string _ip = args[0] as string;
+                    string _po = args[1] as string;
+
+                    string ex = AccountHelp.BanDelIP(_ip, _po);
+                    print?.Invoke(ex ?? $"已删除:{_ip}:{_po}");
                 };
                 SubCommand.Add(ip);
 
@@ -38,8 +41,10 @@ namespace PlayerAccount.Common.FunctionCommand
                 name.AddRAdd(new CommandString());
                 name.Runing += args =>
                 {
-                    string ex = AccountHelp.BanDelName(args[0] as string);
-                    print?.Invoke(ex ?? "已删除");
+                    string n = args[0] as string;
+
+                    string ex = AccountHelp.BanDelName(n);
+                    print?.Invoke(ex ?? $"已删除{n}的封禁");
                 };
                 SubCommand.Add(name);
 
@@ -54,8 +59,10 @@ namespace PlayerAccount.Common.FunctionCommand
                         return;
                     }
 
-                    string ex = AccountHelp.BanDelAccName(ac.GetVal(AccountTag.Name));
-                    print?.Invoke(ex ?? "已删除");
+                    string n = ac.GetVal(AccountTag.Name);
+
+                    string ex = AccountHelp.BanDelAccName(n);
+                    print?.Invoke(ex ?? $"已删除{n}的封禁");
                 };
                 SubCommand.Add(acc);
             }

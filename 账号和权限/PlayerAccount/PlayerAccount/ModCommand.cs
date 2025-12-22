@@ -14,7 +14,7 @@ namespace PlayerAccount
 
             CommandObject root = new CommandObject("pa");
             root.SubCommand.Add(new CommandPrintList(root.SubCommand,
-                "保存账号数据, 更新账号数据, 更新配置, 踢出玩家, 封禁, 账号操作, 发送消息到游戏", ContentPatch.PrintTry));
+                "save:保存账号数据, update:更新账号数据, acc:账号操作, print:发送消息到游戏", ContentPatch.PrintTry));
             list.Add(root);
 
             //保存

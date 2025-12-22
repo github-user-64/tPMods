@@ -22,6 +22,12 @@ namespace PlayerAccount
             public bool BanIP = false;
             [JsonProperty("启用注册")]
             public bool EnableRegister = true;
+            [JsonProperty("启用服务端角色")]
+            public bool EnableServerSideCharacter = true;
+            [JsonProperty("没登录不能操作")]
+            public bool NoLoginNoAction = true;
+            [JsonProperty("非管理不能修改方块")]
+            public bool NoAdminNoTile = false;
         }
 
         public override bool HasUI => false;
@@ -44,6 +50,9 @@ namespace PlayerAccount
                 NeedSave = true;
                 Save();
             }
+
+            //启用服务端角色
+            if (ServerConfig.data.EnableServerSideCharacter) ModTool.ServerHelp.Utils.ServerSideCharacter(true);
         }
 
         public override object GetSaveData() => data;

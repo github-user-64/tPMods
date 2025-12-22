@@ -7,6 +7,9 @@ namespace ModTool.PatchGame.PatchNetMessage_SendData
 {
     internal static class PatchWorldData
     {
+        /// <summary>
+        /// 启用服务端角色
+        /// </summary>
         public static bool ServerSideCharacter = false;
 
         public static void Foo(BinaryWriter writer)

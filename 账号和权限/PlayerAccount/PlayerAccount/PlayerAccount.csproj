@@ -90,10 +90,14 @@
     <Compile Include="Account\AccountHelp.cs" />
     <Compile Include="Account\AccountTag.cs" />
     <Compile Include="Account\DataABackup.cs" />
+    <Compile Include="Common\ActionPermission\NoAdminNoTile.cs" />
+    <Compile Include="Common\ActionPermission\NoLoginNoAction.cs" />
+    <Compile Include="Common\ActionPermission\SendMsgToPlay.cs" />
     <Compile Include="Common\FunctionCommand\addMan.cs" />
     <Compile Include="Common\FunctionCommand\addPlayerAdmin.cs" />
     <Compile Include="Common\FunctionCommand\noChat.cs" />
     <Compile Include="Common\FunctionCommand\openRegister.cs" />
+    <Compile Include="Common\PlayerCanActionClass.cs" />
     <Compile Include="Common\SetChat.cs" />
     <Compile Include="cs1.cs" />
     <Compile Include="ModCommand.cs" />

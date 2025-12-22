@@ -42,7 +42,8 @@ namespace ModTool.ServerHelp
             }
         }
 
-        private static bool Call<T>(this HandlerList<T> h, T args, Action ifFalse = null) where T : GetDataEventArgs
+        /// <summary/>
+        public static bool Call<T>(this HandlerList<T> h, T args, Action ifFalse = null) where T : GetDataEventArgs
         {
             try
             {

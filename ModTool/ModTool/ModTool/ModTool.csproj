@@ -109,7 +109,6 @@
     <Compile Include="AdditionalData\ProjectileAdditionalData.cs" />
     <Compile Include="AdditionalData\PlayerAdditionalData.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ServerHelp\a1.cs" />
     <Compile Include="ServerHelp\ClientUUID.cs" />
     <Compile Include="ServerHelp\KickPlay.cs" />
     <Compile Include="ServerHelp\PlayerCanAction\PlayerCanAction_E_ClassTile.cs" />

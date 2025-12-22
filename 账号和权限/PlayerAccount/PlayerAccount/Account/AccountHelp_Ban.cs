@@ -74,8 +74,9 @@ namespace PlayerAccount.Account
 
                 BanAddIP(player.GetIP(), port);
             }
-            
-            player.GetAccount().SetVal(AccountTag.Ban, msg);
+
+            //player.GetAccount().SetVal(AccountTag.Ban, msg);//不用这个防止在封禁前踢出玩家导致获取不到在线账号
+            GetNameAccount(player.name).SetVal(AccountTag.Ban, msg);
             DataAcc.instance.NeedSaveData();
 
             return null;

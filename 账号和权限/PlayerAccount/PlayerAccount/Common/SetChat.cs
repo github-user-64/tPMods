@@ -45,8 +45,8 @@ namespace PlayerAccount.Common
                 {
                     datas = new List<ChatData>
                     {
-                        new ChatData() { tag = AccountTag.AdminLevel, text = "<{0}>: {1}", color = new Color(0f, 1f, 1f) },
                         new ChatData() { tag = "禁言", text = null },
+                        new ChatData() { tag = AccountTag.AdminLevel, text = "<{0}>: {1}", color = new Color(0f, 1f, 1f) },
                     };
                     Save();
                 }
