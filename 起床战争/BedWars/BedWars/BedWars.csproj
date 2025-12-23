@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{E80B35B3-88DB-4FC0-A106-A659C937EDAC}</ProjectGuid>
+    <ProjectGuid>{2B757F51-47F4-4C8B-834B-C1887C24357D}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ModTool</RootNamespace>
-    <AssemblyName>ModTool</AssemblyName>
+    <RootNamespace>BedWars</RootNamespace>
+    <AssemblyName>BedWars</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
@@ -17,11 +17,10 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>..\..\..\..\tPlainModLoader\tPlainModLoader\tPlainModLoader\bin\Debug\Mods\ModTool\</OutputPath>
+    <OutputPath>..\..\..\..\tPlainModLoader\tPlainModLoader\tPlainModLoader\bin\Debug\Mods\起床战争\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <DocumentationFile>..\..\..\..\tPlainModLoader\tPlainModLoader\tPlainModLoader\bin\Debug\Mods\ModTool\ModTool.xml</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -32,10 +31,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="0Harmony">
-      <HintPath>..\..\..\..\tPlainModLoader\tPlainModLoader\tPlainModLoader\bin\Debug\0Harmony.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
     <Reference Include="CommandHelp">
       <HintPath>..\..\..\..\tPlainModLoader\tPlainModLoader\tPlainModLoader\bin\Debug\CommandHelp.dll</HintPath>
       <Private>False</Private>
@@ -53,6 +48,10 @@
     <Reference Include="Microsoft.Xna.Framework.Graphics, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553, processorArchitecture=x86">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\tPlainModLoader\dll\Microsoft.Xna.Framework.Graphics.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.13.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="ReLogic">
@@ -77,55 +76,25 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AdditionalData\AdditionalData.cs" />
-    <Compile Include="AdditionalData\NPCAdditionalData.cs" />
-    <Compile Include="AdditionalData\ItemAdditionalData.cs" />
-    <Compile Include="Command\CommandGetPlayer.cs" />
-    <Compile Include="Command\CommandString.cs" />
-    <Compile Include="Command\CommandString2.cs" />
-    <Compile Include="Command\Utils.cs" />
-    <Compile Include="Common\UI\UIItemMouseText.cs" />
-    <Compile Include="Common\UI\UIItemSwitch.cs" />
-    <Compile Include="Common\UI\UIItemTextBox.cs" />
-    <Compile Include="Common\UI\UITextBox.cs" />
-    <Compile Include="cs1.cs" />
-    <Compile Include="EntityTag\DrawTagData.cs" />
-    <Compile Include="EntityTag\Entitys.cs" />
-    <Compile Include="EntityTag\EntityTagUtils.cs" />
-    <Compile Include="EntityTag\NPCTag.cs" />
-    <Compile Include="EntityTag\ItemTag.cs" />
-    <Compile Include="EntityTag\ProjectileTag.cs" />
-    <Compile Include="EntityTag\PlayerTag.cs" />
-    <Compile Include="PatchGame\Init.cs" />
-    <Compile Include="PatchGame\PatchNetMessage_SendData\PNetMessage_SendData.cs" />
-    <Compile Include="PatchGame\PatchNetMessage_SendData\PWorldData.cs" />
-    <Compile Include="PatchGame\PNPC.cs" />
-    <Compile Include="PatchGame\PMain.cs" />
-    <Compile Include="PatchGame\PMessageBuffer.cs" />
-    <Compile Include="PatchGame\PNetMessage.cs" />
-    <Compile Include="PatchGame\PItem.cs" />
-    <Compile Include="PatchGame\PWorldFile.cs" />
-    <Compile Include="PatchGame\PProjectile.cs" />
-    <Compile Include="AdditionalData\ProjectileAdditionalData.cs" />
-    <Compile Include="AdditionalData\PlayerAdditionalData.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ServerHelp\ClientUUID.cs" />
-    <Compile Include="ServerHelp\KickPlay.cs" />
-    <Compile Include="ServerHelp\PlayerCanAction\PlayerCanAction_E_ClassTile.cs" />
-    <Compile Include="ServerHelp\PlayerCanAction\PlayerCanAction_E.cs" />
-    <Compile Include="Utils\GetDataEventArgs\MessageBufferToEventArgs.cs" />
-    <Compile Include="Utils\GetDataEventArgs\EventArgs.cs" />
-    <Compile Include="ServerHelp\PlayerCanAction\PlayerCanAction.cs" />
-    <Compile Include="ServerHelp\PrintTo.cs" />
-    <Compile Include="ServerHelp\PlayDataUtils.cs" />
-    <Compile Include="ServerHelp\Utils.cs" />
+    <Compile Include="Common\SpawItem.cs" />
     <Compile Include="ThisMod.cs" />
-    <Compile Include="Command\CommandHRA.cs" />
-    <Compile Include="Command\CommandVariable.cs" />
-    <Compile Include="Utils\DictionaryUtils.cs" />
-    <Compile Include="Utils\GetSetReset.cs" />
-    <Compile Include="Utils\ModSettingBackup.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utils\Utils.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\ModTool\ModTool\ModTool\ModTool.csproj">
+      <Project>{e80b35b3-88db-4fc0-a106-a659c937edac}</Project>
+      <Name>ModTool</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\账号和权限\PlayerAccount\PlayerAccount\PlayerAccount.csproj">
+      <Project>{4f1c3cd3-dcc9-44c5-bcde-070959448b97}</Project>
+      <Name>PlayerAccount</Name>
+      <Private>False</Private>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

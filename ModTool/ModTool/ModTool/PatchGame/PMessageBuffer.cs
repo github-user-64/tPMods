@@ -7,7 +7,7 @@ namespace ModTool.PatchGame
     /// <summary>
     /// 修补<see cref="MessageBuffer"/>
     /// </summary>
-    public class PatchMessageBuffer : tContentPatch.PatchMessageBuffer
+    public class PMessageBuffer : tContentPatch.PatchMessageBuffer
     {
         /// <summary/>
         public delegate bool CanGetDataEvent(MessageBuffer This, int start, int length, int messageType);

@@ -1,0 +1,5 @@
+<Solution>
+  <Project Path="../../ModTool/ModTool/ModTool/ModTool.csproj" Id="e80b35b3-88db-4fc0-a106-a659c937edac" />
+  <Project Path="../../账号和权限/PlayerAccount/PlayerAccount/PlayerAccount.csproj" Id="4f1c3cd3-dcc9-44c5-bcde-070959448b97" />
+  <Project Path="BedWars/BedWars.csproj" Id="2b757f51-47f4-4c8b-834b-c1887c24357d" />
+</Solution>

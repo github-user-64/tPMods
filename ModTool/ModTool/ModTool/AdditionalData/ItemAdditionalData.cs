@@ -13,9 +13,9 @@ namespace ModTool.AdditionalData
         /// <summary/>
         public ItemAdditionalData() : base(Main.item)
         {
-            PatchGame.PatchMain.OnEnterWorldPr += EnterWorldPr;
-            PatchGame.PatchItem.OnNewItemPo += OnNewItemPos;
-            PatchGame.PatchMessageBuffer.OnGetDataPr.Add(OnGetData);
+            PatchGame.PMain.OnEnterWorldPr += EnterWorldPr;
+            PatchGame.PItem.OnNewItemPo += OnNewItemPos;
+            PatchGame.PMessageBuffer.OnGetDataPr.Add(OnGetData);
         }
 
         /// <summary>

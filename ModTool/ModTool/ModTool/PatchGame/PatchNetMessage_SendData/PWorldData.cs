@@ -5,7 +5,7 @@ using Terraria.Social;
 
 namespace ModTool.PatchGame.PatchNetMessage_SendData
 {
-    internal static class PatchWorldData
+    internal static class PWorldData
     {
         /// <summary>
         /// 启用服务端角色

@@ -7,7 +7,7 @@ namespace PlayerAccount.Common
     {
         public override void Load()
         {
-            ModTool.PatchGame.PatchNetMessage.OnSyncConnectedPlayerPo += PatchNetMessage_OnSyncConnectedPlayerPo;
+            ModTool.PatchGame.PNetMessage.OnSyncConnectedPlayerPo += PatchNetMessage_OnSyncConnectedPlayerPo;
         }
 
         private void PatchNetMessage_OnSyncConnectedPlayerPo(int ply)

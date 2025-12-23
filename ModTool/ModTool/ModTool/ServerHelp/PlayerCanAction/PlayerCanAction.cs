@@ -22,7 +22,7 @@ namespace ModTool.ServerHelp
 
         internal static void Init()
         {
-            PatchGame.PatchMessageBuffer.OnCanGetData.Add(asd);
+            PatchGame.PMessageBuffer.OnCanGetData.Add(asd);
 
             kv = new Dictionary<int, CanGetDataEvent>();
             kv.Add(MessageID.SyncProjectile, CanNewProjectile);
@@ -135,7 +135,7 @@ namespace ModTool.ServerHelp
 
             return OnCanControls.Call(e, () =>
             {
-                if (PatchWorldData.ServerSideCharacter == false) return;//启用服务端角色时有效
+                if (PWorldData.ServerSideCharacter == false) return;//启用服务端角色时有效
                 NetMessage.TrySendData(MessageID.PlayerControls, This.whoAmI, -1, null, player.whoAmI);
             });
         }
@@ -253,7 +253,7 @@ namespace ModTool.ServerHelp
 
             return OnCanPlayerBuffs.Call(e, () =>
             {
-                if (PatchWorldData.ServerSideCharacter == false) return;//启用服务端角色时有效
+                if (PWorldData.ServerSideCharacter == false) return;//启用服务端角色时有效
                 NetMessage.TrySendData(MessageID.PlayerBuffs, This.whoAmI, -1, null, player.whoAmI);
             });
         }

@@ -23,7 +23,7 @@ namespace ModTool.ServerHelp
 
         public ClientUUID()
         {
-            PatchGame.PatchMessageBuffer.OnGetDataPo.Add(GetDataPo);
+            PatchGame.PMessageBuffer.OnGetDataPo.Add(GetDataPo);
         }
 
         private void GetDataPo(MessageBuffer This, int start, int length, int messageType)

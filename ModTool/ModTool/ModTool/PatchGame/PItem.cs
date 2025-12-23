@@ -7,13 +7,15 @@ namespace ModTool.PatchGame
     /// <summary>
     /// 修补<see cref="Item"/>
     /// </summary>
-    public class PatchItem : tContentPatch.PatchItem
+    public class PItem : tContentPatch.PatchItem
     {
         /// <summary/>
         public delegate void NewItemEvent(int result, IEntitySource source,
             int X, int Y, int Width, int Height, int Type, int Stack,
             bool noBroadcast, int pfix, bool noGrabDelay, bool reverseLookup);
-        /// <summary>在创建物品后</summary>
+        /// <summary>
+        /// 在创建物品后
+        /// </summary>
         public static event NewItemEvent OnNewItemPo = null;
 
         /// <inheritdoc/>

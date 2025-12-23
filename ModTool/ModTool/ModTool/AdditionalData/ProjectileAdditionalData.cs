@@ -11,8 +11,8 @@ namespace ModTool.AdditionalData
         /// <summary/>
         public ProjectileAdditionalData() : base(Main.projectile)
         {
-            PatchGame.PatchMain.OnEnterWorldPr += EnterWorldPr;
-            PatchGame.PatchProjectile.OnSetDefaultsPo += OnSetDefaultsPos;
+            PatchGame.PMain.OnEnterWorldPr += EnterWorldPr;
+            PatchGame.PProjectile.OnSetDefaultsPo += OnSetDefaultsPos;
         }
 
         /// <summary>

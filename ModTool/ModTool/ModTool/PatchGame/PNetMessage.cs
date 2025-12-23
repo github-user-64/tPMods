@@ -6,7 +6,7 @@ namespace ModTool.PatchGame
     /// <summary>
     /// 修补<see cref="NetMessage"/>
     /// </summary>
-    public class PatchNetMessage : tContentPatch.PatchNetMessage
+    public class PNetMessage : tContentPatch.PatchNetMessage
     {
         /// <summary>服务端在同步已连接玩家前</summary>
         public static event Action<int> OnSyncConnectedPlayerPr = null;

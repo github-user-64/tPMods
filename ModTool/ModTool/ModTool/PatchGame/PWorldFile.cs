@@ -5,7 +5,7 @@ namespace ModTool.PatchGame
     /// <summary>
     /// 修补<see cref="WorldFile"/>
     /// </summary>
-    public class PatchWorldFile : tContentPatch.PatchWorldFile
+    public class PWorldFile : tContentPatch.PatchWorldFile
     {
         /// <summary/>
         public delegate void SaveWorldEvent(bool useCloudSaving, bool resetTime);

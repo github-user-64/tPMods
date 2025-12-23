@@ -6,7 +6,7 @@ using Terraria;
 
 namespace PlayerAccount.Common.ActionPermission
 {
-    internal class SendMsgToPlay : PatchMain
+    internal class SendMsgToPlay : PMain
     {
         private static int[] cd = new int[Main.player.Length];
 
