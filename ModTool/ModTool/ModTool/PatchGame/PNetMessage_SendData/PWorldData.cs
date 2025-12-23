@@ -3,7 +3,7 @@ using Terraria;
 using Terraria.GameContent.Events;
 using Terraria.Social;
 
-namespace ModTool.PatchGame.PatchNetMessage_SendData
+namespace ModTool.PatchGame.PNetMessage_SendData
 {
     internal static class PWorldData
     {

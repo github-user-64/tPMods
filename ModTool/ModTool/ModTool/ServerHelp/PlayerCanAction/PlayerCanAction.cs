@@ -1,5 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
-using ModTool.PatchGame.PatchNetMessage_SendData;
+using ModTool.PatchGame.PNetMessage_SendData;
 using ModTool.Utils;
 using ModTool.Utils.GetDataEventArgs;
 using System.Collections.Generic;

@@ -6,7 +6,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.Localization;
 
-namespace ModTool.PatchGame.PatchNetMessage_SendData
+namespace ModTool.PatchGame.PNetMessage_SendData
 {
     /// <summary>
     /// 修补<see cref="NetMessage.SendData(int, int, int, NetworkText, int, float, float, float, int, int, int)"/>

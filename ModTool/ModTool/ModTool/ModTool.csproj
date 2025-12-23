@@ -97,8 +97,8 @@
     <Compile Include="EntityTag\ProjectileTag.cs" />
     <Compile Include="EntityTag\PlayerTag.cs" />
     <Compile Include="PatchGame\Init.cs" />
-    <Compile Include="PatchGame\PatchNetMessage_SendData\PNetMessage_SendData.cs" />
-    <Compile Include="PatchGame\PatchNetMessage_SendData\PWorldData.cs" />
+    <Compile Include="PatchGame\PNetMessage_SendData\PNetMessage_SendData.cs" />
+    <Compile Include="PatchGame\PNetMessage_SendData\PWorldData.cs" />
     <Compile Include="PatchGame\PNPC.cs" />
     <Compile Include="PatchGame\PMain.cs" />
     <Compile Include="PatchGame\PMessageBuffer.cs" />

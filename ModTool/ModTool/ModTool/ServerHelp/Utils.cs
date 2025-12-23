@@ -10,7 +10,7 @@
         /// </summary>
         public static void ServerSideCharacter(bool enable)
         {
-            PatchGame.PatchNetMessage_SendData.PWorldData.ServerSideCharacter = enable;
+            PatchGame.PNetMessage_SendData.PWorldData.ServerSideCharacter = enable;
         }
     }
 }

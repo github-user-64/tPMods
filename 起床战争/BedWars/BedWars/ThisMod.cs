@@ -9,6 +9,7 @@ namespace BedWars
     internal class ThisMod : Mod
     {
         public static ModObject mo { get; private set; } = null;
+        public static string Dir { get; private set; } = null;
 
         public override void Load()
         {
@@ -17,6 +18,10 @@ namespace BedWars
             ThisMod.mo = mo;
 
             //if (mo == null) throw new Exception($"{nameof(BedWars)}:找不到模组对象");
+
+            //
+
+            Dir = mo.modPath;
 
             //
 
