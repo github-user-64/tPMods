@@ -1,17 +1,16 @@
-﻿using BedWars.Common;
+﻿using BedWars.BedWarsData;
 using System;
-using System.Collections.Generic;
 using System.IO;
-using tContentPatch.Utils;
 
 namespace BedWars.Edit
 {
     public static class MapDataHelp
     {
+        public const string FileNameMapInfo = "地图信息.txt";
         public const string FileNameSpawItem = "生成物品.txt";
 
         /// <summary>
-        /// 读取地图数据
+        /// 读取地图数据, 不会返回<see langword="null"/>但里面的东西会为<see langword="null"/>
         /// </summary>
         /// <exception cref="DirectoryNotFoundException"/>
         public static MapData ReadData(string dir)
@@ -20,38 +19,17 @@ namespace BedWars.Edit
 
             MapData mapData = new MapData();
 
-            if (ReadFileTry(Path.Combine(dir, FileNameSpawItem), ref mapData.SpawItems) == false)
+            if (Utils.Utils.ReadFileTry(Path.Combine(dir, FileNameMapInfo), ref mapData.Info) == false)
             {
-                throw new Exception("生成物品数据读取失败");
+                throw new Exception("地图信息读取失败");
+            }
+
+            if (Utils.Utils.ReadFileTry(Path.Combine(dir, FileNameSpawItem), ref mapData.SpawItems) == false)
+            {
+                throw new Exception("生成物品读取失败");
             }
 
             return mapData;
-        }
-
-        public static bool ReadFileTry<T>(string file, ref T data)
-        {
-            try
-            {
-                data = MyJson1.Get2<T>(file);
-                return true;
-            }
-            catch
-            {
-                return false;
-            }
-        }
-
-        public static bool SaveFileTry<T>(string file, T data, bool indented = false)
-        {
-            try
-            {
-                MyJson1.Save(data, file, indented);
-                return true;
-            }
-            catch
-            {
-                return false;
-            }
         }
 
         /// <exception cref="ArgumentNullException"></exception>
@@ -61,24 +39,15 @@ namespace BedWars.Edit
             if (mapData == null) throw new ArgumentNullException(nameof(mapData));
             if (Directory.Exists(dir) == false) throw new DirectoryNotFoundException();
 
-            if (SaveFileTry(Path.Combine(dir, FileNameSpawItem), mapData.SpawItems, true) == false)
+            if (Utils.Utils.SaveFileTry(Path.Combine(dir, FileNameMapInfo), mapData.Info, true) == false)
             {
-                throw new Exception("生成物品数据保存失败");
+                throw new Exception("地图信息保存失败");
             }
-        }
 
-        /// <summary>
-        /// 检查修复地图数据
-        /// </summary>
-        /// <exception cref="ArgumentNullException"/>
-        public static void CheckData(MapData mapData)
-        {
-            if (mapData == null) throw new ArgumentNullException(nameof(mapData));
-
-            if (mapData.SpawItems == null)
-                mapData.SpawItems = new List<SpawItem.SpawData>();
-            else
-                mapData.SpawItems.RemoveAll(i => i == null);
+            if (Utils.Utils.SaveFileTry(Path.Combine(dir, FileNameSpawItem), mapData.SpawItems, true) == false)
+            {
+                throw new Exception("生成物品保存失败");
+            }
         }
     }
 }

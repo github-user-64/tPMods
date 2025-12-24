@@ -1,4 +1,5 @@
-﻿using BedWars.Common;
+﻿using BedWars.BedWarsData;
+using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
 
@@ -7,15 +8,24 @@ namespace BedWars.Edit
     public static class EditData
     {
         public static MapData Data { get; private set; } = null;
-        public static List<SpawItem.SpawData> DataSpawItems => Data?.SpawItems;
+        public static MapInfoData Info => Data?.Info;
+        public static List<SpawItemData> DataSpawItems => Data?.SpawItems;
 
-        public static string LoadData()
+        public static string LoadData(Action<string> print = null)
         {
             try
             {
-                MapData temp = MapDataHelp.ReadData(ThisMod.Dir);
-                MapDataHelp.CheckData(temp);
+                print?.Invoke("加载数据");
+
+                MapData temp = MapDataHelp.ReadData(ThisMod.DirMapData);
+                if (temp.Info == null) print?.Invoke("地图信息为null");
+                if (temp.SpawItems == null) print?.Invoke("生成物品为null");
+
+                print?.Invoke("检查并修复地图数据");
+                CheckData.Repair(temp);
+
                 Data = temp;
+                print?.Invoke("加载完成");
 
                 return null;
             }
@@ -29,7 +39,7 @@ namespace BedWars.Edit
         {
             try
             {
-                MapDataHelp.SaveData(ThisMod.Dir, Data);
+                MapDataHelp.SaveData(ThisMod.DirMapData, Data);
 
                 return null;
             }
@@ -39,10 +49,17 @@ namespace BedWars.Edit
             }
         }
 
-        public static void NewData()
+        public static void SetDefaultData()
         {
             Data = new MapData();
-            MapDataHelp.CheckData(Data);
+            CheckData.Repair(Data);
+        }
+
+        public static string SetMapPos(Vector2 pos)
+        {
+            if (Data == null) return "地图数据为null";
+
+            return null;
         }
     }
 }
