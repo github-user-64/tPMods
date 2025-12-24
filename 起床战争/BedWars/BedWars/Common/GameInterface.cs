@@ -9,6 +9,7 @@ namespace BedWars.Common
     internal class GameInterface : PatchMain
     {
         public static List<Action> OnDraw => new List<Action>();
+        public static Action OnInitUI = null;
         public static UIState UI { get; private set; } = null;
         private static UserInterface ui = null;
 
@@ -19,6 +20,8 @@ namespace BedWars.Common
                 ui = new UserInterface();
                 UI = new UIState();
                 ui.SetState(UI);
+
+                OnInitUI?.Invoke();
             }
 
             Setup(gameInterfaceLayers, InterfaceScaleType.UI,

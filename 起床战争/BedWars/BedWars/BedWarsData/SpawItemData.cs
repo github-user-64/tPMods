@@ -6,16 +6,13 @@ namespace BedWars.BedWarsData
 {
     public class SpawItemData
     {
+        [Newtonsoft.Json.JsonIgnore]
+        public MapData mapData = null;
         public string name = null;
         /// <summary>
-        /// 生成位置, 相对于<see cref="off"/>
+        /// 在世界里的位置
         /// </summary>
-        public Vector2 pos = Vector2.Zero;
-        /// <summary>
-        /// 加载时由<see cref="Edit.MapInfo.pos"/>赋值
-        /// </summary>
-        [Newtonsoft.Json.JsonIgnore]
-        public Vector2 off = Vector2.Zero;
+        public Point pos = Point.Zero;
         public List<int> types = new List<int>();
         /// <summary>
         /// 如果为<see langword="true"/>则从除了<see cref="types"/>的所有中选择
@@ -27,8 +24,7 @@ namespace BedWars.BedWarsData
         public void Spaw()
         {
             if (maxStack < 1) return;
-            Vector2 pos = this.pos + off;
-            if (Utils.Utils.InWorld(pos, 16) == false) return;
+            if (mapData.InMap(pos) == false) return;
 
             int type = 0;
 
@@ -51,7 +47,7 @@ namespace BedWars.BedWarsData
             if (stack > item.maxStack) stack = item.maxStack;
             else if (stack < 1) stack = 1;
 
-            Item.NewItem(null, pos, Vector2.Zero, type, stack);
+            Item.NewItem(null, pos.X, pos.Y, 0, 0, type, stack);
         }
     }
 }

@@ -7,8 +7,6 @@ namespace BedWars.Common
 {
     public static class SpawItem
     {
-        
-
         internal static void Init()
         {
             PMain.OnDoUpdateInWorldPr += DoUpdateInWorldPr;

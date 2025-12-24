@@ -4,6 +4,7 @@ namespace BedWars.BedWarsData
 {
     public class MapInfoData
     {
-        public Vector2 pos;
+        public Point pos;
+        public Point size;
     }
 }

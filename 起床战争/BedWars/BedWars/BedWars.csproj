@@ -79,11 +79,13 @@
     <Compile Include="BedWarsData\MapInfoData.cs" />
     <Compile Include="BedWarsData\SpawItemData.cs" />
     <Compile Include="Common\SpawItem.cs" />
-    <Compile Include="Edit\CheckData.cs" />
+    <Compile Include="BedWarsData\DataCheck.cs" />
+    <Compile Include="Edit\EditData_File.cs" />
     <Compile Include="Edit\EditData.cs" />
     <Compile Include="BedWarsData\MapData.cs" />
-    <Compile Include="Edit\MapDataHelp.cs" />
+    <Compile Include="BedWarsData\DataFileHelp.cs" />
     <Compile Include="Common\GameInterface.cs" />
+    <Compile Include="Edit\UI\EnableEditSwitch.cs" />
     <Compile Include="ModConfig.cs" />
     <Compile Include="ThisMod.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

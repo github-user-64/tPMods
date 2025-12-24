@@ -1,10 +1,9 @@
-﻿using BedWars.BedWarsData;
-using System;
+﻿using System;
 using System.IO;
 
-namespace BedWars.Edit
+namespace BedWars.BedWarsData
 {
-    public static class MapDataHelp
+    public static class DataFileHelp
     {
         public const string FileNameMapInfo = "地图信息.txt";
         public const string FileNameSpawItem = "生成物品.txt";
