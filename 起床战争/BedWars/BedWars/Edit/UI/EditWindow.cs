@@ -1,4 +1,6 @@
-﻿using Microsoft.Xna.Framework.Graphics;
+﻿using BedWars.Common.UI;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
 using tContentPatch.Content.UI;
 using Terraria;
@@ -12,7 +14,7 @@ namespace BedWars.Edit.UI
 
         public EditWindow(string title, int width, int height) : base(title, width, height)
         {
-            UIWrapPanel ui_wp = new UIWrapPanel();
+            UIWrapPanel2 ui_wp = new UIWrapPanel2();
             ui_wp.Width.Precent = 1;
             ui_wp.ItemMargin = 2;
             ui_wp.Append(BuildItem(new EditItems0(), "Images/Item_1344", "设置"));
@@ -27,6 +29,13 @@ namespace BedWars.Edit.UI
 
             Child.Append(ui_wp);
             Child.Append(ui_con);
+        }
+
+        public override void Update(GameTime gameTime)
+        {
+            if (IsMouseHovering) Main.LocalPlayer.mouseInterface = true;
+
+            base.Update(gameTime);
         }
 
         public UIElement BuildItem(UIElement uie, string ico, string mouseText)

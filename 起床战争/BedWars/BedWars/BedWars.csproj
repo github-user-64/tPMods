@@ -87,9 +87,11 @@
     <Compile Include="BedWarsData\MapData.cs" />
     <Compile Include="BedWarsData\DataFileHelp.cs" />
     <Compile Include="Common\GameInterface.cs" />
+    <Compile Include="Edit\UI\EditItem\SwitchPos.cs" />
     <Compile Include="Edit\UI\EditItems0.cs" />
     <Compile Include="Edit\UI\EditItem\EditMapSize.cs" />
     <Compile Include="Edit\UI\EditItem\EditMapPos.cs" />
+    <Compile Include="Edit\UI\EditItem\UISwitchPos.cs" />
     <Compile Include="Edit\UI\EditWindow.cs" />
     <Compile Include="Edit\UI\EnableEditSwitch.cs" />
     <Compile Include="Edit\UI\Init.cs" />

@@ -6,6 +6,9 @@ namespace BedWars.Edit
 {
     public static partial class EditData
     {
+        /// <summary>
+        /// 会为<see langword="null"/>
+        /// </summary>
         public static MapData Data { get; private set; } = null;
         public static MapInfoData DataInfo => Data?.Info;
         public static List<SpawItemData> DataSpawItems => Data?.SpawItems;

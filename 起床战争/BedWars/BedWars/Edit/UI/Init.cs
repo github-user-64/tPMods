@@ -13,10 +13,14 @@ namespace BedWars.Edit.UI
             };
         }
 
-        private static EditWindow editWindow = null;
+        public static EditWindow editWindow { get; private set; } = null;
         public static void SwitchEditWindow(bool open)
         {
-            if (editWindow == null) editWindow = new EditWindow("地图编辑", 400, 600);
+            if (editWindow == null)
+            {
+                editWindow = new EditWindow("地图编辑", 300, 400);
+                editWindow.Left.Pixels = 0;
+            }
 
             if (open) editWindow.Open(GameInterface.UI);
             else editWindow.Close();

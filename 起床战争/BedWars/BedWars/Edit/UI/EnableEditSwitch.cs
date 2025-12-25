@@ -14,7 +14,7 @@ namespace BedWars.Edit.UI
 {
     internal class EnableEditSwitch : Mod
     {
-        public static bool Enable = false;
+        public static bool Enable => Init.editWindow?.IsOpen == true;
 
         public static UIElement Build()
         {
@@ -25,7 +25,7 @@ namespace BedWars.Edit.UI
             UIState uistate = new UIState();
             uistate.OnUpdate += _ =>
             {
-                if (Main.netMode == 0)//只允许在单人模式出现启用编辑按钮
+                if (Main.netMode == 0 || Main.netMode == 1)//只允许在单人模式出现启用编辑按钮
                 {
                     if (uistate.Children.Count() < 1) uistate.Append(btn);
                     return;
@@ -61,8 +61,7 @@ namespace BedWars.Edit.UI
             };
             btn.OnLeftClick += (e, s) =>
             {
-                Enable = !Enable;
-                Init.SwitchEditWindow(Enable);
+                Init.SwitchEditWindow(!Enable);
                 SoundEngine.PlaySound(SoundID.MenuTick);
             };
             btn.OnRightMouseDown += (e, s) =>

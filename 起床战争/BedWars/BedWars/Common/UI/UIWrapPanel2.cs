@@ -1,4 +1,5 @@
-﻿using tContentPatch.Content.UI;
+﻿using Microsoft.Xna.Framework;
+using tContentPatch.Content.UI;
 
 namespace BedWars.Common.UI
 {
@@ -7,9 +8,9 @@ namespace BedWars.Common.UI
     /// </summary>
     public class UIWrapPanel2 : UIWrapPanel
     {
-        public override void Recalculate()
+        public override void Update(GameTime gameTime)
         {
-            base.Recalculate();
+            base.Update(gameTime);
 
             this.UpdateContainer_Height();
         }

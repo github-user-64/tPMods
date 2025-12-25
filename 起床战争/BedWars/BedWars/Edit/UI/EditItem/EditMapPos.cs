@@ -1,34 +1,22 @@
 ﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using tContentPatch.Content.UI.ModSet;
 using Terraria;
 
 namespace BedWars.Edit.UI.EditItem
 {
-    internal class EditMapPos : UIItemSwitch
+    internal class EditMapPos : UISwitchPos
     {
-        public EditMapPos(string text) : base(null, text)
+        public EditMapPos(string text) : base(text) { }
+
+        public override void SetPos(Point pos)
         {
-            SetVal(false);
-        }
+            string ex = EditData.SetMapPos(pos);
+            if (ex != null)
+            {
+                Main.NewText(ex);
+                return;
+            }
 
-        private Point pos = Point.Zero;
-        public override void Update(GameTime gameTime)
-        {
-            base.Update(gameTime);
-
-            if (GetVal() == false) return;
-
-            pos = Utils.ToTileCoordinates(Main.MouseWorld);
-        }
-
-        public override void Draw(SpriteBatch spriteBatch)
-        {
-            base.Draw(spriteBatch);
-
-            if (GetVal() == false) return;
-
-            Common.DrawUtils.Draw_rectangle(pos, pos, Color.Gainsboro, Color.FloralWhite);
+            CombatText.NewText(new Rectangle(pos.X, pos.Y, 0, 0), Color.LawnGreen, $"设置在{pos.X},{pos.Y}", true, false);
         }
     }
 }

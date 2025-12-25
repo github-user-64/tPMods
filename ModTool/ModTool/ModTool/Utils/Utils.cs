@@ -1,4 +1,7 @@
-﻿using System;
+﻿using Microsoft.Xna.Framework;
+using System;
+using System.Diagnostics;
+using tContentPatch;
 using Terraria;
 
 namespace ModTool.Utils
@@ -8,6 +11,19 @@ namespace ModTool.Utils
     /// </summary>
     public static class Utils
     {
+        private class PMain : PatchMain
+        {
+            public override void DoUpdateInWorldPrefix(Stopwatch sw)
+            {
+                MouseWorld = Main.MouseWorld;
+            }
+        }
+
+        /// <summary>
+        /// 绝对正宗的鼠标在世界位置, 在UI里调用也正常, 仅限进入世界后
+        /// </summary>
+        public static Vector2 MouseWorld { get; private set; } = Main.MouseWorld;
+
         /// <summary>
         /// 获取随机数<see langword="int"/>,
         /// </summary>

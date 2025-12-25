@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Xna.Framework.Graphics;
+using System;
 using System.Collections.Generic;
 using tContentPatch;
 using Terraria;
@@ -8,8 +9,8 @@ namespace BedWars.Common
 {
     internal class GameInterface : PatchMain
     {
-        public static List<Action> OnDraw => new List<Action>();
         public static Action OnInitUI = null;
+        public static List<Action<SpriteBatch>> OnDraw { get; private set; } = null;
         public static UIState UI { get; private set; } = null;
         private static UserInterface ui = null;
 
@@ -17,6 +18,7 @@ namespace BedWars.Common
         {
             if (ui == null)
             {
+                OnDraw = new List<Action<SpriteBatch>>();
                 ui = new UserInterface();
                 UI = new UIState();
                 ui.SetState(UI);
@@ -42,11 +44,11 @@ namespace BedWars.Common
                 "Vanilla: Laser Ruler",
                 "StaticTile.BedWars: Laser Ruler Postfix Game", () =>
                 {
-                    foreach (Action i in OnDraw)
+                    foreach (Action<SpriteBatch> i in OnDraw)
                     {
                         try
                         {
-                            i?.Invoke();
+                            i?.Invoke(Main.spriteBatch);
                         }
                         catch { }
                     }
