@@ -30,7 +30,7 @@ namespace BedWars.BedWarsData
 
             if (exclude)
             {
-                type = Utils.Utils.GetRandItemID(types);
+                type = Common.Utils.GetRandItemID(types);
             }
             else if (types?.Count > 0)
             {

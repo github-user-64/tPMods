@@ -1,10 +1,14 @@
 ﻿using BedWars.Common;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using PlayerAccount.Common.FunctionCommand;
 using ReLogic.Content;
+using System.Linq;
 using tContentPatch;
 using Terraria;
+using Terraria.Audio;
 using Terraria.GameContent.UI.Elements;
+using Terraria.ID;
+using Terraria.UI;
 
 namespace BedWars.Edit.UI
 {
@@ -12,32 +16,67 @@ namespace BedWars.Edit.UI
     {
         public static bool Enable = false;
 
-        public override void Load()
+        public static UIElement Build()
         {
-            GameInterface.OnInitUI += () =>
+            Asset<Texture2D> texture1 = Main.Assets.Request<Texture2D>("Images/UI/DisplaySlots_4", AssetRequestMode.ImmediateLoad);
+            Asset<Texture2D> texture2 = Main.Assets.Request<Texture2D>("Images/UI/DisplaySlots_5", AssetRequestMode.ImmediateLoad);
+
+            UIImageButton btn = new UIImageButton(texture1);
+            UIState uistate = new UIState();
+            uistate.OnUpdate += _ =>
             {
-                Asset<Texture2D> texture1 = Main.Assets.Request<Texture2D>("Images/UI/DisplaySlots_4", AssetRequestMode.ImmediateLoad);
-                Asset<Texture2D> texture2 = Main.Assets.Request<Texture2D>("Images/UI/DisplaySlots_5", AssetRequestMode.ImmediateLoad);
-
-                UIImageButton btn = new UIImageButton(texture1);
-                GameInterface.UI.Append(btn);
-
-                bool drag = false;
-
-                btn.OnUpdate += _ =>
+                if (Main.netMode == 0)//只允许在单人模式出现启用编辑按钮
                 {
-                    btn.SetImage(Enable ? texture2 : texture1);//一直设置应该也没啥消耗
-
-                    a1(ref btn.Left.Pixels, btn.Width.Pixels, Main.screenWidth);
-                    a1(ref btn.Top.Pixels, btn.Height.Pixels, Main.screenHeight);
-                };
-                btn.OnLeftClick += (e, s) => Enable = !Enable;
-
-                //物品栏旁
-                float v = 20f + (10 * 56) * 0.85f;
-                btn.Left.Pixels = v;
-                btn.Top.Pixels = 20;
+                    if (uistate.Children.Count() < 1) uistate.Append(btn);
+                    return;
+                }
+                uistate.RemoveAllChildren();
             };
+            GameInterface.UI.Append(uistate);
+
+            bool drag = false;
+            Vector2 dragOff = Vector2.Zero;
+
+            btn.OnUpdate += _ =>
+            {
+                btn.SetImage(Enable ? texture2 : texture1);//一直设置应该也没啥消耗
+
+                if (drag)
+                {
+                    Vector2 dp = Main.MouseScreen + dragOff;
+                    btn.Left.Pixels = dp.X;
+                    btn.Top.Pixels = dp.Y;
+
+                    if (Main.mouseRight == false) drag = false;
+                }
+
+                a1(ref btn.Left.Pixels, btn.Width.Pixels, Main.screenWidth);
+                a1(ref btn.Top.Pixels, btn.Height.Pixels, Main.screenHeight);
+
+                if (btn.IsMouseHovering)
+                {
+                    Main.LocalPlayer.mouseInterface = true;
+                    Main.instance.MouseText($"{(Enable ? "禁用" : "启用")}地图编辑");
+                }
+            };
+            btn.OnLeftClick += (e, s) =>
+            {
+                Enable = !Enable;
+                Init.SwitchEditWindow(Enable);
+                SoundEngine.PlaySound(SoundID.MenuTick);
+            };
+            btn.OnRightMouseDown += (e, s) =>
+            {
+                dragOff = new Vector2(btn.Left.Pixels, btn.Top.Pixels) - Main.MouseScreen;
+                drag = true;
+            };
+
+            //物品栏旁
+            float v = 20f + (10 * 56) * 0.85f;
+            btn.Left.Pixels = v;
+            btn.Top.Pixels = 20;
+
+            return uistate;
         }
 
         private static void a1(ref float v, float v2, float max)

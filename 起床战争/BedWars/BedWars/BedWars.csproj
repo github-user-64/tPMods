@@ -78,18 +78,25 @@
   <ItemGroup>
     <Compile Include="BedWarsData\MapInfoData.cs" />
     <Compile Include="BedWarsData\SpawItemData.cs" />
+    <Compile Include="Common\DrawUtils.cs" />
     <Compile Include="Common\SpawItem.cs" />
     <Compile Include="BedWarsData\DataCheck.cs" />
+    <Compile Include="Common\UI\UIWrapPanel2.cs" />
     <Compile Include="Edit\EditData_File.cs" />
     <Compile Include="Edit\EditData.cs" />
     <Compile Include="BedWarsData\MapData.cs" />
     <Compile Include="BedWarsData\DataFileHelp.cs" />
     <Compile Include="Common\GameInterface.cs" />
+    <Compile Include="Edit\UI\EditItems0.cs" />
+    <Compile Include="Edit\UI\EditItem\EditMapSize.cs" />
+    <Compile Include="Edit\UI\EditItem\EditMapPos.cs" />
+    <Compile Include="Edit\UI\EditWindow.cs" />
     <Compile Include="Edit\UI\EnableEditSwitch.cs" />
+    <Compile Include="Edit\UI\Init.cs" />
     <Compile Include="ModConfig.cs" />
     <Compile Include="ThisMod.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Utils\Utils.cs" />
+    <Compile Include="Common\Utils.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\ModTool\ModTool\ModTool\ModTool.csproj">

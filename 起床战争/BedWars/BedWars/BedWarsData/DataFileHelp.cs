@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using tContentPatch.Utils;
 
 namespace BedWars.BedWarsData
 {
@@ -18,12 +19,12 @@ namespace BedWars.BedWarsData
 
             MapData mapData = new MapData();
 
-            if (Utils.Utils.ReadFileTry(Path.Combine(dir, FileNameMapInfo), ref mapData.Info) == false)
+            if (ReadFileTry(Path.Combine(dir, FileNameMapInfo), ref mapData.Info) == false)
             {
                 throw new Exception("地图信息读取失败");
             }
 
-            if (Utils.Utils.ReadFileTry(Path.Combine(dir, FileNameSpawItem), ref mapData.SpawItems) == false)
+            if (ReadFileTry(Path.Combine(dir, FileNameSpawItem), ref mapData.SpawItems) == false)
             {
                 throw new Exception("生成物品读取失败");
             }
@@ -38,14 +39,40 @@ namespace BedWars.BedWarsData
             if (mapData == null) throw new ArgumentNullException(nameof(mapData));
             if (Directory.Exists(dir) == false) throw new DirectoryNotFoundException();
 
-            if (Utils.Utils.SaveFileTry(Path.Combine(dir, FileNameMapInfo), mapData.Info, true) == false)
+            if (SaveFileTry(Path.Combine(dir, FileNameMapInfo), mapData.Info, true) == false)
             {
                 throw new Exception("地图信息保存失败");
             }
 
-            if (Utils.Utils.SaveFileTry(Path.Combine(dir, FileNameSpawItem), mapData.SpawItems, true) == false)
+            if (SaveFileTry(Path.Combine(dir, FileNameSpawItem), mapData.SpawItems, true) == false)
             {
                 throw new Exception("生成物品保存失败");
+            }
+        }
+
+        public static bool ReadFileTry<T>(string file, ref T data)
+        {
+            try
+            {
+                data = MyJson1.Get2<T>(file);
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        public static bool SaveFileTry<T>(string file, T data, bool indented = false)
+        {
+            try
+            {
+                MyJson1.Save(data, file, indented);
+                return true;
+            }
+            catch
+            {
+                return false;
             }
         }
     }

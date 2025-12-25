@@ -1,10 +1,9 @@
 ﻿using Microsoft.Xna.Framework;
 using System.Collections.Generic;
-using tContentPatch.Utils;
 using Terraria;
 using Terraria.ID;
 
-namespace BedWars.Utils
+namespace BedWars.Common
 {
     public static class Utils
     {
@@ -40,32 +39,6 @@ namespace BedWars.Utils
                 return false;
             }
             return true;
-        }
-
-        public static bool ReadFileTry<T>(string file, ref T data)
-        {
-            try
-            {
-                data = MyJson1.Get2<T>(file);
-                return true;
-            }
-            catch
-            {
-                return false;
-            }
-        }
-
-        public static bool SaveFileTry<T>(string file, T data, bool indented = false)
-        {
-            try
-            {
-                MyJson1.Save(data, file, indented);
-                return true;
-            }
-            catch
-            {
-                return false;
-            }
         }
     }
 }
