@@ -1,4 +1,5 @@
 ﻿using BedWars.Common.UI;
+using BedWars.Edit.UI.Elements;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
@@ -6,9 +7,9 @@ using tContentPatch.Content.UI;
 using Terraria;
 using Terraria.UI;
 
-namespace BedWars.Edit.UI
+namespace BedWars.Edit.UI.EditWindow
 {
-    internal class EditWindow : UIWindow
+    internal class EditWindow : UIWindowEditControl, IEditControl
     {
         private UIElement ui_con = null;
 
@@ -19,7 +20,6 @@ namespace BedWars.Edit.UI
             ui_wp.ItemMargin = 2;
             ui_wp.Append(BuildItem(new EditItems0(), "Images/Item_1344", "设置"));
             ui_wp.Append(BuildItem(new EditItems1(), "Images/Inventory_Tick_On", "显示数据"));
-            ui_wp.Append(BuildItem(new EditItems2(), "Images/Item_27", "生成物品"));
 
             ui_con = new UIElement();
             ui_con.Width.Precent = 1;
@@ -52,7 +52,15 @@ namespace BedWars.Edit.UI
                 uie.OnOpen();
             };
 
+            if (uie is IEditControl ec) AddEditControl(ec);
+
             return rb;
+        }
+
+        public override void OnEditNoEnable()
+        {
+            base.OnEditNoEnable();
+            Close();
         }
     }
 }

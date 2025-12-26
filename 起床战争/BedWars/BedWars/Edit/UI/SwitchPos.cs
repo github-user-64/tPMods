@@ -2,7 +2,7 @@
 using System;
 using Terraria;
 
-namespace BedWars.Edit.UI.EditItem_EditData
+namespace BedWars.Edit.UI
 {
     internal class SwitchPos
     {

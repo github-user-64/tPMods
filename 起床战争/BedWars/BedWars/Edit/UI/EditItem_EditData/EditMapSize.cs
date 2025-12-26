@@ -1,9 +1,10 @@
-﻿using Microsoft.Xna.Framework;
+﻿using BedWars.Edit.UI.Elements;
+using Microsoft.Xna.Framework;
 using Terraria;
 
 namespace BedWars.Edit.UI.EditItem_EditData
 {
-    internal class EditMapSize : UISwitchPos
+    internal class EditMapSize : UIItemSwitchPos
     {
         public EditMapSize(string text) : base(text) { }
 

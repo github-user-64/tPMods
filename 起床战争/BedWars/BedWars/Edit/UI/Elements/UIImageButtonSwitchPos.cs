@@ -1,21 +1,16 @@
 ﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using tContentPatch.Content.UI.ModSet;
+using System;
 using Terraria;
 
-namespace BedWars.Edit.UI.EditItem_EditData
+namespace BedWars.Edit.UI.Elements
 {
-    internal abstract class UISwitchPos : UIItemSwitch
+    internal class UIImageButtonSwitchPos : UIImageButton
     {
+        public Action<Point> OnSetPos = null;
         private SwitchPos sp = new SwitchPos();
-        private bool isDraw = false;
 
-        public UISwitchPos(string text) : base(null, text)
+        public UIImageButtonSwitchPos(int size, string text, string image) : base(size, text, image)
         {
-            SetVal(false);
-
-            OnValUpdate += v => sp.Enable = v;
-
             sp.OnSet += v => SetPos(v);
             sp.OnNoSet += () =>
             {
@@ -25,31 +20,23 @@ namespace BedWars.Edit.UI.EditItem_EditData
             Common.GameInterface.OnDraw.Add(_ =>
             {
                 if (sp.Enable == false) return;
-                if (isDraw == false) return;
-                isDraw = false;
 
                 DrawSwitchPos(sp.pos);
             });
+
+            OnLeftClick += (e, s) => sp.Enable = true;
         }
 
         public override void Update(GameTime gameTime)
         {
             base.Update(gameTime);
-            
+
             sp.Update();
-            SetVal(sp.Enable);
-        }
-
-        public override void Draw(SpriteBatch spriteBatch)
-        {
-            base.Draw(spriteBatch);
-
-            isDraw = true;
         }
 
         public virtual void SetPos(Point pos)
         {
-
+            OnSetPos?.Invoke(pos);
         }
 
         public virtual void DrawSwitchPos(Point pos)
@@ -57,6 +44,13 @@ namespace BedWars.Edit.UI.EditItem_EditData
             Common.DrawUtils.Draw_rectangle(pos, pos, Color.LawnGreen * 0.9f, Color.LawnGreen * 0.2f, 2);
 
             Utils.DrawBorderString(Main.spriteBatch, $"{pos.X},{pos.Y}", Main.MouseScreen + new Vector2(0, 22), Color.LawnGreen);
+        }
+
+        public void OnEditEnable() { }
+
+        public void OnEditNoEnable()
+        {
+            sp.Enable = false;
         }
     }
 }

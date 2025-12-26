@@ -83,8 +83,8 @@ namespace BedWars.BedWarsData
             if (mapData?.Info == null) return false;
             if (pos.X < mapData.Info.pos.X) return false;
             if (pos.Y < mapData.Info.pos.Y) return false;
-            if (pos.X > mapData.Info.pos.X + mapData.Info.size.X) return false;
-            if (pos.Y > mapData.Info.pos.Y + mapData.Info.size.Y) return false;
+            if (pos.X > mapData.Info.pos.X + mapData.Info.size.X - 1) return false;
+            if (pos.Y > mapData.Info.pos.Y + mapData.Info.size.Y - 1) return false;
 
             return true;
         }

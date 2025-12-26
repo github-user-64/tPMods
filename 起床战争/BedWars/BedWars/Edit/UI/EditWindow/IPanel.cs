@@ -1,4 +1,4 @@
-﻿namespace BedWars.Edit.UI
+﻿namespace BedWars.Edit.UI.EditWindow
 {
     internal interface IPanel
     {

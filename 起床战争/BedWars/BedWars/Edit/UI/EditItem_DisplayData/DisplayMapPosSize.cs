@@ -16,6 +16,7 @@ namespace BedWars.Edit.UI.EditItem_DisplayData
         private void DrawMapPosSize(SpriteBatch spriteBatch)
         {
             if (GetVal() == false) return;
+            if (Init.Enable == false) return;
             MapData data = EditData.instance.Data;
             if (data == null) return;
 

@@ -14,8 +14,6 @@ namespace BedWars.Edit.UI
 {
     internal class EnableEditSwitch : Mod
     {
-        public static bool Enable => Init.editWindow?.IsOpen == true;
-
         public static UIElement Build()
         {
             Asset<Texture2D> texture1 = Main.Assets.Request<Texture2D>("Images/UI/DisplaySlots_4", AssetRequestMode.ImmediateLoad);
@@ -40,7 +38,7 @@ namespace BedWars.Edit.UI
 
             btn.OnUpdate += _ =>
             {
-                btn.SetImage(Enable ? texture2 : texture1);//一直设置应该也没啥消耗
+                btn.SetImage(Init.Enable ? texture2 : texture1);//一直设置应该也没啥消耗
 
                 if (drag)
                 {
@@ -57,12 +55,12 @@ namespace BedWars.Edit.UI
                 if (btn.IsMouseHovering)
                 {
                     Main.LocalPlayer.mouseInterface = true;
-                    Main.instance.MouseText($"{(Enable ? "禁用" : "启用")}地图编辑");
+                    Main.instance.MouseText($"{(Init.Enable ? "禁用" : "启用")}地图编辑");
                 }
             };
             btn.OnLeftClick += (e, s) =>
             {
-                Init.SwitchEditWindow(!Enable);
+                Init.Enable = !Init.Enable;
                 SoundEngine.PlaySound(SoundID.MenuTick);
             };
             btn.OnRightMouseDown += (e, s) =>
