@@ -84,10 +84,12 @@
     <Compile Include="Command\CommandString.cs" />
     <Compile Include="Command\CommandString2.cs" />
     <Compile Include="Command\Utils.cs" />
+    <Compile Include="Common\UI\UIItemTextButton.cs" />
     <Compile Include="Common\UI\UIItemMouseText.cs" />
     <Compile Include="Common\UI\UIItemSwitch.cs" />
     <Compile Include="Common\UI\UIItemTextBox.cs" />
     <Compile Include="Common\UI\UITextBox.cs" />
+    <Compile Include="Common\UI\UITextButton.cs" />
     <Compile Include="cs1.cs" />
     <Compile Include="EntityTag\DrawTagData.cs" />
     <Compile Include="EntityTag\Entitys.cs" />

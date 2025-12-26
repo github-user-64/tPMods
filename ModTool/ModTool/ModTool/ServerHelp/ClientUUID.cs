@@ -44,6 +44,7 @@ namespace ModTool.ServerHelp
         public override bool SetData(int index, string val) => false;
         //不允许设置值
         protected override void ClearDataItem(int index) { }
+        public override bool UpdateDataItem(int index, bool clearOld = false) => false;
 
         public override void ServerDisconnectedPlayer(int ply)
         {

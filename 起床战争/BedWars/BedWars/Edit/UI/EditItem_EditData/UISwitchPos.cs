@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using tContentPatch.Content.UI.ModSet;
 using Terraria;
 
-namespace BedWars.Edit.UI.EditItem
+namespace BedWars.Edit.UI.EditItem_EditData
 {
     internal abstract class UISwitchPos : UIItemSwitch
     {
@@ -56,7 +56,7 @@ namespace BedWars.Edit.UI.EditItem
         {
             Common.DrawUtils.Draw_rectangle(pos, pos, Color.LawnGreen * 0.9f, Color.LawnGreen * 0.2f, 2);
 
-            Utils.DrawBorderString(Main.spriteBatch, $"{pos.X},{pos.Y}", Main.MouseScreen + new Vector2(0, 20), Color.LawnGreen);
+            Utils.DrawBorderString(Main.spriteBatch, $"{pos.X},{pos.Y}", Main.MouseScreen + new Vector2(0, 22), Color.LawnGreen);
         }
     }
 }

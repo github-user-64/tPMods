@@ -31,8 +31,10 @@ namespace BedWars.Common
 
         public static void Draw_rectangle(Point startTile, Point endTile, Color borderColor, Color backgroundColor, int width = 0)
         {
-            startTile = new Point(Math.Min(startTile.X, endTile.X), Math.Min(startTile.Y, endTile.Y));
-            endTile = new Point(Math.Max(startTile.X, endTile.X), Math.Max(startTile.Y, endTile.Y));
+            Point p1 = new Point(Math.Min(startTile.X, endTile.X), Math.Min(startTile.Y, endTile.Y));
+            Point p2 = new Point(Math.Max(startTile.X, endTile.X), Math.Max(startTile.Y, endTile.Y));
+            startTile = p1;
+            endTile = p2;
 
             endTile.X += 1;
             endTile.Y += 1;

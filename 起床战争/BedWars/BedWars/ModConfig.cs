@@ -15,21 +15,42 @@ namespace BedWars
         public override bool HasUI => false;
         public override Type DataType => typeof(Data);
         public override string FilePath => "模组配置.txt";
+        private static ModConfig instance = null;
         private Data data = null;
 
         public override void Load(object v)
         {
-            if (v is Data data == false)
+            instance = this;
+
+            if (v is Data data)
             {
-                data = new Data();
+                this.data = data;
+            }
+            else
+            {
+                this.data = new Data();
                 NeedSave = true;
                 Save();
             }
 
-            this.data = data;
             ThisMod.LoadModConfig(this.data);
         }
 
         public override object GetSaveData() => data;
+
+        public static bool Update()
+        {
+            try
+            {
+                if (instance == null) return false;
+
+                instance.Load(instance.Read());
+
+                return true;
+            }
+            catch { }
+
+            return false;
+        }
     }
 }

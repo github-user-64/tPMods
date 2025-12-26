@@ -87,14 +87,22 @@
     <Compile Include="BedWarsData\MapData.cs" />
     <Compile Include="BedWarsData\DataFileHelp.cs" />
     <Compile Include="Common\GameInterface.cs" />
-    <Compile Include="Edit\UI\EditItem\SwitchPos.cs" />
+    <Compile Include="Edit\UI\EditItems2.cs" />
+    <Compile Include="Edit\UI\EditItems1.cs" />
+    <Compile Include="Edit\UI\EditItem_DisplayData\DisplayMapPosSize.cs" />
+    <Compile Include="Edit\UI\EditItem_File\UpdateModConfig.cs" />
+    <Compile Include="Edit\UI\EditItem_File\MapSave.cs" />
+    <Compile Include="Edit\UI\EditItem_File\MapLoad.cs" />
+    <Compile Include="Edit\UI\EditItem_File\MapNew.cs" />
+    <Compile Include="Edit\UI\EditItem_EditData\SwitchPos.cs" />
     <Compile Include="Edit\UI\EditItems0.cs" />
-    <Compile Include="Edit\UI\EditItem\EditMapSize.cs" />
-    <Compile Include="Edit\UI\EditItem\EditMapPos.cs" />
-    <Compile Include="Edit\UI\EditItem\UISwitchPos.cs" />
+    <Compile Include="Edit\UI\EditItem_EditData\EditMapSize.cs" />
+    <Compile Include="Edit\UI\EditItem_EditData\EditMapPos.cs" />
+    <Compile Include="Edit\UI\EditItem_EditData\UISwitchPos.cs" />
     <Compile Include="Edit\UI\EditWindow.cs" />
     <Compile Include="Edit\UI\EnableEditSwitch.cs" />
     <Compile Include="Edit\UI\Init.cs" />
+    <Compile Include="Edit\UI\IPanel.cs" />
     <Compile Include="ModConfig.cs" />
     <Compile Include="ThisMod.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -115,5 +123,6 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

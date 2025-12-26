@@ -4,16 +4,19 @@ using System.Collections.Generic;
 
 namespace BedWars.Edit
 {
-    public static partial class EditData
+    public partial class EditData
     {
+        public static readonly EditData instance = new EditData();
+
+        public string DirMapData => ThisMod.DirMapData;
         /// <summary>
         /// 会为<see langword="null"/>
         /// </summary>
-        public static MapData Data { get; private set; } = null;
-        public static MapInfoData DataInfo => Data?.Info;
-        public static List<SpawItemData> DataSpawItems => Data?.SpawItems;
+        public MapData Data { get; private set; } = null;
+        public MapInfoData DataInfo => Data?.Info;
+        public List<SpawItemData> DataSpawItems => Data?.SpawItems;
 
-        public static string SetMapPos(Point pos)
+        public string SetMapPos(Point pos)
         {
             if (Data == null) return "地图数据为null";
             if (DataCheck.InWorld_MapInfoPos(pos) == false) return "地图位置超出世界";
@@ -31,7 +34,7 @@ namespace BedWars.Edit
             return null;
         }
 
-        public static string SetMapSize(Point size)
+        public string SetMapSize(Point size)
         {
             if (Data == null) return "地图数据为null";
             if (DataCheck.InWorld_MapInfoSize(Data.Info.pos, size) == false) return "地图大小超出世界";
@@ -45,7 +48,7 @@ namespace BedWars.Edit
             return null;
         }
 
-        public static string AddSpawItem(Point pos)
+        public string AddSpawItem(Point pos)
         {
             if (Data == null) return "地图数据为null";
             if (Data.InMap(pos) == false) return "生成物品超出地图";
@@ -57,7 +60,7 @@ namespace BedWars.Edit
             return null;
         }
 
-        public static string DelSpawItem(SpawItemData data)
+        public string DelSpawItem(SpawItemData data)
         {
             if (Data == null) return "地图数据为null";
 

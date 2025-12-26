@@ -5,9 +5,9 @@ using System.IO;
 
 namespace BedWars.Edit
 {
-    public static partial class EditData
+    public partial class EditData
     {
-        public static string LoadData(MapData temp, Action<string> print = null)
+        public string LoadData(MapData temp, Action<string> print = null)
         {
             try
             {
@@ -15,7 +15,7 @@ namespace BedWars.Edit
                 if (temp.SpawItems == null) print?.Invoke("生成物品为null");
 
                 print?.Invoke("检查并修复数据");
-                DataCheck.Repair(Data);
+                DataCheck.Repair(temp);
                 DataCheck.CheckMapData(temp, true);
 
                 Data = temp;
@@ -29,13 +29,13 @@ namespace BedWars.Edit
             }
         }
 
-        public static string LoadData(Action<string> print = null)
+        public string LoadData(Action<string> print = null)
         {
             try
             {
                 print?.Invoke("加载数据");
 
-                MapData temp = DataFileHelp.ReadData(ThisMod.DirMapData);
+                MapData temp = DataFileHelp.ReadData(DirMapData);
                 
                 return LoadData(temp, print);
             }
@@ -45,12 +45,12 @@ namespace BedWars.Edit
             }
         }
 
-        public static string SaveData()
+        public string SaveData()
         {
             try
             {
-                Directory.CreateDirectory(ThisMod.DirMapData);
-                DataFileHelp.SaveData(ThisMod.DirMapData, Data);
+                Directory.CreateDirectory(DirMapData);
+                DataFileHelp.SaveData(DirMapData, Data);
 
                 return null;
             }
@@ -60,13 +60,13 @@ namespace BedWars.Edit
             }
         }
 
-        public static string ResetData()
+        public string ResetData()
         {
             MapData temp = new MapData();
             temp.Info = new MapInfoData();
             temp.Info.size = new Point(2, 2);
 
-            return LoadData(temp);
+            return LoadData(temp, null);
         }
     }
 }
