@@ -37,7 +37,7 @@ namespace BedWars.Edit.UI.EditItem_DisplayData
                     textP = Main.LocalPlayer.Center + v;
                 }
 
-                Utils.DrawBorderString(spriteBatch, text, textP - Main.screenPosition, Color.Green, anchorx: 0.5f, anchory: 0.25f);
+                Utils.DrawBorderString(spriteBatch, text, textP - Main.screenPosition, Color.Green, anchorx: 0.25f, anchory: 0.25f);
             }
         }
     }

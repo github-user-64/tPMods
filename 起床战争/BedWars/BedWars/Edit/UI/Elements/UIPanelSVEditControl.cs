@@ -9,6 +9,9 @@ namespace BedWars.Edit.UI.Elements
 
         public UIPanelSVEditControl()
         {
+            sv.Width.Precent = 1;
+            sv.Height.Precent = 1;
+
             Append(sv);
         }
 

@@ -20,7 +20,7 @@ namespace BedWars.Edit.UI.EditWindow
             ui_wp.ItemMargin = 2;
             ui_wp.Append(BuildPanel(new EditPanel0(), "Images/Item_1344", "设置"));
             ui_wp.Append(BuildPanel(new EditPanel1(), "Images/Inventory_Tick_On", "显示数据"));
-            ui_wp.Append(BuildPanel(new EditPanel1(), "Images/Item_27", "编辑生成物品"));
+            ui_wp.Append(BuildPanel(new EditPanel2(), "Images/Item_27", "编辑生成物品"));
 
             ui_con = new UIElement();
             ui_con.Width.Precent = 1;

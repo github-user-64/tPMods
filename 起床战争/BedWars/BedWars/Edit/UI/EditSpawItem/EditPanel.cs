@@ -1,4 +1,6 @@
-﻿using BedWars.Edit.UI.Elements;
+﻿using BedWars.BedWarsData;
+using BedWars.Edit.UI.Elements;
+using System.Collections.Generic;
 using tContentPatch.Content.UI;
 using Terraria;
 using Terraria.ID;
@@ -44,12 +46,23 @@ namespace BedWars.Edit.UI.EditSpawItem
             sv.Width.Precent = 1;
             sv.Height.Set(-sp.Height.Pixels - 2, 1);
             sv.VAlign = 1;
+            sv.ItemMargin = 4;
             Append(sv);
         }
 
-        private void UpdateData()
+        public void UpdateData()
         {
+            sv.ClearChild();
 
+            List<SpawItemData> sis = EditData.instance.DataSpawItems;
+            if (sis == null) return;
+
+            foreach (SpawItemData si in sis)
+            {
+                EditItem ui = new EditItem(si);
+
+                sv.AddChild(ui);
+            }
         }
     }
 }
