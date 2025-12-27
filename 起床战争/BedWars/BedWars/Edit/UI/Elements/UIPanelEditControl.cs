@@ -1,15 +1,11 @@
 ﻿using System.Collections.Generic;
-using tContentPatch.Content.UI;
+using Terraria.UI;
 
 namespace BedWars.Edit.UI.Elements
 {
-    internal class UIWindowEditControl : UIWindow, IEditControl
+    internal class UIPanelEditControl : UIState, IEditControl
     {
         private readonly List<IEditControl> ecs = new List<IEditControl>();
-
-        public UIWindowEditControl(string title, int width, int height) : base(title, width, height)
-        {
-        }
 
         protected void AddEditControl(IEditControl ec)
         {

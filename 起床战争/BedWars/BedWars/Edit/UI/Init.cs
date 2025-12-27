@@ -1,5 +1,4 @@
 ﻿using BedWars.Common;
-using BedWars.Edit.UI.EditWindow;
 using tContentPatch;
 using tContentPatch.Content.UI;
 
@@ -8,7 +7,6 @@ namespace BedWars.Edit.UI
     internal class Init : Mod
     {
         public static EditWindow.EditWindow editWindow { get; private set; } = null;
-        public static EditWindowSpawItem.EditWindow editWindow_SpawItem { get; private set; } = null;
         private static bool enable = false;
         public static bool Enable
         {
@@ -26,8 +24,6 @@ namespace BedWars.Edit.UI
                 editWindow.Left.Pixels = 0;
                 editWindow.OnOpen += () => SetEnable(true);
                 editWindow.OnClose += () => SetEnable(false);
-
-                editWindow_SpawItem = new EditWindowSpawItem.EditWindow("编辑生成物品", 400, 400);
             };
         }
 
@@ -39,14 +35,12 @@ namespace BedWars.Edit.UI
             if (enable)
             {
                 editWindow.OnEditEnable();
-                editWindow_SpawItem.OnEditEnable();
 
                 SwitchEditWindow(true);
             }
             else
             {
                 editWindow.OnEditNoEnable();
-                editWindow_SpawItem.OnEditNoEnable();
             }
         }
 
@@ -66,11 +60,6 @@ namespace BedWars.Edit.UI
         public static void SwitchEditWindow(bool open)
         {
             SwitchWindow(editWindow, open);
-        }
-
-        public static void SwitchEditWindow_SpawItem(bool open)
-        {
-            SwitchWindow(editWindow_SpawItem, open);
         }
     }
 }

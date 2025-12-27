@@ -1,4 +1,4 @@
-﻿namespace BedWars.Edit
+﻿namespace BedWars.Edit.UI
 {
     internal interface IEditControl
     {

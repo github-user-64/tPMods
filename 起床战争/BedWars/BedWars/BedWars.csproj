@@ -87,12 +87,14 @@
     <Compile Include="BedWarsData\MapData.cs" />
     <Compile Include="BedWarsData\DataFileHelp.cs" />
     <Compile Include="Common\GameInterface.cs" />
-    <Compile Include="Edit\IEditControl.cs" />
+    <Compile Include="Edit\UI\EditWindow\EditPanel2.cs" />
+    <Compile Include="Edit\UI\Elements\UIPanelSVEditControl.cs" />
+    <Compile Include="Edit\UI\Elements\UIPanelEditControl.cs" />
+    <Compile Include="Edit\UI\IEditControl.cs" />
     <Compile Include="Edit\UI\EditItem_DisplayData\DisplaySpawItem.cs" />
-    <Compile Include="Edit\UI\EditItem_Other\OpenWindowEditSpawItem.cs" />
-    <Compile Include="Edit\UI\EditWindowSpawItem\EditWindow.cs" />
+    <Compile Include="Edit\UI\EditSpawItem\EditPanel.cs" />
     <Compile Include="Edit\UI\Elements\UIButton.cs" />
-    <Compile Include="Edit\UI\EditWindow\EditItems1.cs" />
+    <Compile Include="Edit\UI\EditWindow\EditPanel1.cs" />
     <Compile Include="Edit\UI\EditItem_DisplayData\DisplayMapPosSize.cs" />
     <Compile Include="Edit\UI\EditItem_File\UpdateModConfig.cs" />
     <Compile Include="Edit\UI\EditItem_File\MapSave.cs" />
@@ -100,7 +102,7 @@
     <Compile Include="Edit\UI\EditItem_File\MapNew.cs" />
     <Compile Include="Edit\UI\Elements\UIImageButtonSwitchPos.cs" />
     <Compile Include="Edit\UI\SwitchPos.cs" />
-    <Compile Include="Edit\UI\EditWindow\EditItems0.cs" />
+    <Compile Include="Edit\UI\EditWindow\EditPanel0.cs" />
     <Compile Include="Edit\UI\EditItem_EditData\EditMapSize.cs" />
     <Compile Include="Edit\UI\EditItem_EditData\EditMapPos.cs" />
     <Compile Include="Edit\UI\Elements\UIItemSwitchPos.cs" />
@@ -108,7 +110,6 @@
     <Compile Include="Edit\UI\EnableEditSwitch.cs" />
     <Compile Include="Edit\UI\Init.cs" />
     <Compile Include="Edit\UI\EditWindow\IPanel.cs" />
-    <Compile Include="Edit\UI\Elements\UIEditItems.cs" />
     <Compile Include="Edit\UI\Elements\UIWindowEditControl.cs" />
     <Compile Include="ModConfig.cs" />
     <Compile Include="ThisMod.cs" />

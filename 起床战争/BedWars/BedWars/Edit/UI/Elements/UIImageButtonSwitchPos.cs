@@ -4,7 +4,7 @@ using Terraria;
 
 namespace BedWars.Edit.UI.Elements
 {
-    internal class UIImageButtonSwitchPos : UIImageButton
+    internal class UIImageButtonSwitchPos : UIImageButton, IEditControl
     {
         public Action<Point> OnSetPos = null;
         private SwitchPos sp = new SwitchPos();
