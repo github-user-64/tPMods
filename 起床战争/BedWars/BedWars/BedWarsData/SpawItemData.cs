@@ -9,9 +9,6 @@ namespace BedWars.BedWarsData
         [Newtonsoft.Json.JsonIgnore]
         public MapData mapData = null;
         public string name = null;
-        /// <summary>
-        /// 在世界里的位置
-        /// </summary>
         public Point pos = Point.Zero;
         public List<int> types = new List<int>();
         /// <summary>
@@ -47,7 +44,7 @@ namespace BedWars.BedWarsData
             if (stack > item.maxStack) stack = item.maxStack;
             else if (stack < 1) stack = 1;
 
-            Item.NewItem(null, pos.X, pos.Y, 0, 0, type, stack);
+            Item.NewItem(null, pos.ToWorldCoordinates(), Vector2.Zero, type, stack);
         }
     }
 }

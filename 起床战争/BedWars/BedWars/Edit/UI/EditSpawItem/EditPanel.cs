@@ -55,12 +55,14 @@ namespace BedWars.Edit.UI.EditSpawItem
         {
             sv.ClearChild();
 
+            Common.SpawItem.SpawDatas.Clear();
+
             List<SpawItemData> sis = EditData.instance.DataSpawItems;
             if (sis == null) return;
 
             foreach (SpawItemData si in sis)
             {
-                EditItemSP ui = new EditItemSP(si, OnItemOpen);
+                EditItemSP ui = new EditItemSP(si, UpdateData, OnItemOpen);
 
                 sv.AddChild(ui);
             }

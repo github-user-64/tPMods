@@ -17,9 +17,9 @@ namespace BedWars.Common.UI
             MinWidth.Pixels = 20;
             IsAutoUpdateSize = true;
 
-            Close();
-
             OnLeftClick += (e, s) => Open();
+
+            SetUI(GetUIClose());
         }
 
         public virtual UIElement GetUIOpen()

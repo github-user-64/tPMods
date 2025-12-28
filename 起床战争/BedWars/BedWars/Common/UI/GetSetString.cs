@@ -31,8 +31,8 @@ namespace BedWars.Common.UI
         {
             func = v =>
             {
-                int.TryParse(v, out int rv);
-                return rv;
+                if (int.TryParse(v, out int rv)) return rv;
+                return Get();
             };
         }
     }

@@ -11,6 +11,8 @@ namespace BedWars.Edit.UI.EditItem_DisplayData
         public DisplaySpawItem(string text) : base(null, text)
         {
             Common.GameInterface.OnDraw.Add(DrawMapPosSize);
+
+            SetVal(true);
         }
 
         private void DrawMapPosSize(SpriteBatch spriteBatch)
@@ -37,7 +39,7 @@ namespace BedWars.Edit.UI.EditItem_DisplayData
                     textP = Main.LocalPlayer.Center + v;
                 }
 
-                Utils.DrawBorderString(spriteBatch, text, textP - Main.screenPosition, Color.Green, anchorx: 0.25f, anchory: 0.25f);
+                Utils.DrawBorderString(spriteBatch, text, textP - Main.screenPosition, Color.Green, anchorx: 0.5f, anchory: 0f);
             }
         }
     }

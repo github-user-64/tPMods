@@ -7,7 +7,7 @@ using Terraria.Audio;
 using Terraria.GameContent.UI.Elements;
 using Terraria.ID;
 
-namespace BedWars.Edit.UI.Elements
+namespace BedWars.Common.UI
 {
     internal class UIImageButton : UIImage
     {

@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using BedWars.Common.UI;
+using Microsoft.Xna.Framework;
 using System;
 using Terraria;
 

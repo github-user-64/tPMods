@@ -18,6 +18,8 @@ namespace BedWars.Edit
                 DataCheck.Repair(temp);
                 DataCheck.CheckMapData(temp, true);
 
+                DataCheck.SetMapData_SpawItem(temp);
+
                 Data = temp;
                 print?.Invoke("加载完成");
 

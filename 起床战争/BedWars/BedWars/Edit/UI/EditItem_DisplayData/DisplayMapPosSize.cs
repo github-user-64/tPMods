@@ -11,6 +11,8 @@ namespace BedWars.Edit.UI.EditItem_DisplayData
         public DisplayMapPosSize(string text) : base(null, text)
         {
             Common.GameInterface.OnDraw.Add(DrawMapPosSize);
+
+            SetVal(true);
         }
 
         private void DrawMapPosSize(SpriteBatch spriteBatch)

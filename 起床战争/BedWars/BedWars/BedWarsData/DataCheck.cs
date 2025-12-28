@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using Terraria;
+using static PlayerAccount.Common.FunctionCommand.accAction;
 
 namespace BedWars.BedWarsData
 {
@@ -87,6 +88,11 @@ namespace BedWars.BedWarsData
             if (pos.Y > mapData.Info.pos.Y + mapData.Info.size.Y - 1) return false;
 
             return true;
+        }
+
+        public static void SetMapData_SpawItem(this MapData mapData)
+        {
+            mapData.SpawItems.ForEach(i => i.mapData = mapData);
         }
     }
 }

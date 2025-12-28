@@ -54,6 +54,7 @@ namespace BedWars.Edit
             if (Data.InMap(pos) == false) return "生成物品超出地图";
 
             SpawItemData temp = new SpawItemData();
+            temp.mapData = Data;
             temp.pos = pos;
             Data.SpawItems.Add(temp);
 
