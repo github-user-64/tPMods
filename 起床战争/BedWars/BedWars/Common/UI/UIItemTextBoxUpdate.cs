@@ -6,18 +6,16 @@ using tContentPatch.Content.UI;
 
 namespace BedWars.Common.UI
 {
-    internal class UIItemTextBoxUpdate : UIItemMouseText
+    internal class UIItemTextBoxUpdate<T> : UIItemMouseText
     {
-        public Func<string> GetV = null;
-        public Action<string> SetV = null;
         public UITextBox tb { get; protected set; } = null;
+        private GetSetString<T> gss = null;
 
-        public UIItemTextBoxUpdate(Func<string> GetV, Action<string> SetV,
+        public UIItemTextBoxUpdate(GetSetString<T> gss,
             string text_default = "", int Text_MaxLength = -1, Texture2D ico = null, string text = null) :
             base(ico, text)
         {
-            this.GetV = GetV;
-            this.SetV = SetV;
+            this.gss = gss;
 
             tb = new UITextBox(text_default);
             tb.Width.Precent = 0.5f;
@@ -27,8 +25,8 @@ namespace BedWars.Common.UI
             tb.Text_MaxLength = Text_MaxLength;
             tb.OnLostFocus += () =>
             {
-                if (GetV != null && GetV() == tb.Text) return;
-                SetV?.Invoke(tb.Text);
+                if (gss.GetS() == tb.Text) return;
+                gss.SetS(tb.Text);
             };
             Append(tb);
         }
@@ -39,7 +37,7 @@ namespace BedWars.Common.UI
 
             if (tb.Focus) return;
 
-            if (GetV != null) tb.SetText(GetV());
+            tb.SetText(gss.GetS());
         }
     }
 }

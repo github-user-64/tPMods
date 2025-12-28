@@ -1,6 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using System;
 using tContentPatch.Content.UI.ModSet;
 using Terraria;
 
@@ -8,21 +7,19 @@ namespace BedWars.Common.UI
 {
     internal class UIItemSwitchUpdate : UIItemSwitch
     {
-        public Func<bool> GetV = null;
-        public Action<bool> SetV = null;
         public string MouseText = null;
+        private GetSetStringBool gss = null;
 
-        public UIItemSwitchUpdate(Func<bool> GetV, Action<bool> SetV,
+        public UIItemSwitchUpdate(GetSetStringBool gss,
             Texture2D ico = null, string text = null) :
             base(ico, text)
         {
-            this.GetV = GetV;
-            this.SetV = SetV;
+            this.gss = gss;
 
             OnValUpdate += v =>
             {
-                if (GetV != null && GetV() == v) return;
-                SetV?.Invoke(v);
+                if (gss.Get() == v) return;
+                gss.Set(v);
             };
         }
 
@@ -32,7 +29,7 @@ namespace BedWars.Common.UI
 
             if (IsMouseHovering && MouseText != null) Main.instance.MouseText(MouseText);
 
-            if (GetV != null) SetVal(GetV());
+            SetVal(gss.Get());
         }
     }
 }

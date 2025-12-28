@@ -1,4 +1,5 @@
 ﻿using BedWars.BedWarsData;
+using BedWars.Common.UI;
 using BedWars.Edit.UI.Elements;
 using System.Collections.Generic;
 using tContentPatch.Content.UI;
@@ -59,10 +60,17 @@ namespace BedWars.Edit.UI.EditSpawItem
 
             foreach (SpawItemData si in sis)
             {
-                EditItem ui = new EditItem(si);
+                EditItemSP ui = new EditItemSP(si, OnItemOpen);
 
                 sv.AddChild(ui);
             }
+        }
+
+        private UIFold _openitem = null;
+        private void OnItemOpen(UIFold ui)
+        {
+            _openitem?.Close();
+            _openitem = ui;
         }
     }
 }

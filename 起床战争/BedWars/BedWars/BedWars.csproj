@@ -81,6 +81,8 @@
     <Compile Include="Common\DrawUtils.cs" />
     <Compile Include="Common\SpawItem.cs" />
     <Compile Include="BedWarsData\DataCheck.cs" />
+    <Compile Include="Common\UI\GetSetString.cs" />
+    <Compile Include="Common\UI\UIFold.cs" />
     <Compile Include="Common\UI\UIItemSwitchUpdate.cs" />
     <Compile Include="Common\UI\UIItemTextBoxUpdate.cs" />
     <Compile Include="Common\UI\UIWrapPanel2.cs" />
