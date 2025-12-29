@@ -22,12 +22,11 @@ namespace BedWars.Edit
             {
                 if (temp.Info == null) print?.Invoke("地图信息为null");
                 if (temp.SpawItems == null) print?.Invoke("生成物品为null");
+                if (temp.Teams == null) print?.Invoke("队伍信息为null");
 
-                print?.Invoke("检查并修复数据");
+                print?.Invoke("检查数据");
                 DataCheck.Repair(temp);
-                DataCheck.CheckMapData(temp, true);
-
-                DataCheck.SetMapData_SpawItem(temp);
+                DataCheck.CheckMapData(temp);
 
                 Data = temp;
                 print?.Invoke("加载完成");

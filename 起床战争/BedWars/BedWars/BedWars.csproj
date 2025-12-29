@@ -31,6 +31,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="0Harmony">
+      <HintPath>..\..\..\..\tPlainModLoader\tPlainModLoader\tPlainModLoader\bin\Debug\0Harmony.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
     <Reference Include="CommandHelp">
       <HintPath>..\..\..\..\tPlainModLoader\tPlainModLoader\tPlainModLoader\bin\Debug\CommandHelp.dll</HintPath>
       <Private>False</Private>
@@ -76,6 +80,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BedWarsData\CanTileData.cs" />
+    <Compile Include="BedWarsData\ICheck.cs" />
     <Compile Include="BedWarsData\MapInfoData.cs" />
     <Compile Include="BedWarsData\SpawItemData.cs" />
     <Compile Include="BedWarsData\TeamData.cs" />
@@ -97,6 +103,7 @@
     <Compile Include="Edit\UI\EditSpawItem\EditItemType.cs" />
     <Compile Include="Edit\UI\EditSpawItem\EditItemTypeItem.cs" />
     <Compile Include="Edit\UI\EditWindow\EditPanel2.cs" />
+    <Compile Include="Edit\UI\EditWindow\EditPanel3.cs" />
     <Compile Include="Edit\UI\Elements\UIPanelSVEditControl.cs" />
     <Compile Include="Edit\UI\Elements\UIPanelEditControl.cs" />
     <Compile Include="Edit\UI\IEditControl.cs" />
@@ -121,6 +128,8 @@
     <Compile Include="Edit\UI\EditWindow\IPanel.cs" />
     <Compile Include="Edit\UI\Elements\UIWindowEditControl.cs" />
     <Compile Include="ModConfig.cs" />
+    <Compile Include="Run\GameRun.cs" />
+    <Compile Include="Run\PatchNPC.cs" />
     <Compile Include="ThisMod.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Common\Utils.cs" />

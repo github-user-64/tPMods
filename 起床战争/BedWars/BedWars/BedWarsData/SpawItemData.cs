@@ -1,10 +1,11 @@
 ﻿using Microsoft.Xna.Framework;
+using System;
 using System.Collections.Generic;
 using Terraria;
 
 namespace BedWars.BedWarsData
 {
-    public class SpawItemData
+    public class SpawItemData : ICheck
     {
         [Newtonsoft.Json.JsonIgnore]
         public MapData mapData = null;
@@ -45,6 +46,16 @@ namespace BedWars.BedWarsData
             else if (stack < 1) stack = 1;
 
             Item.NewItem(null, pos.ToWorldCoordinates(), Vector2.Zero, type, stack);
+        }
+
+        public void Check(MapData mapData)
+        {
+            if (mapData.InMap(pos) == false) throw new Exception("生成物品超出地图");
+        }
+
+        public static void SetMapData(MapData mapData)
+        {
+            mapData.SpawItems.ForEach(i => i.mapData = mapData);
         }
     }
 }

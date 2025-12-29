@@ -15,11 +15,13 @@ namespace BedWars.Edit
         public MapData Data { get; private set; } = null;
         public MapInfoData DataInfo => Data?.Info;
         public List<SpawItemData> DataSpawItems => Data?.SpawItems;
+        public List<TeamData> DataTeams => Data?.Teams;
+        public List<CanTileData> DataCanTiles => Data?.CanTileDatas;
 
         public string SetMapPos(Point pos)
         {
             if (Data == null) return "地图数据为null";
-            if (DataCheck.InWorld_MapInfoPos(pos) == false) return "地图位置超出世界";
+            if (DataCheck.InWorld(pos) == false) return "地图位置超出世界";
 
             int offX = pos.X - DataInfo.pos.X;
             int offY = pos.Y - DataInfo.pos.Y;
@@ -37,7 +39,7 @@ namespace BedWars.Edit
         public string SetMapSize(Point size)
         {
             if (Data == null) return "地图数据为null";
-            if (DataCheck.InWorld_MapInfoSize(Data.Info.pos, size) == false) return "地图大小超出世界";
+            if (DataCheck.InWorldSize(Data.Info.pos, size) == false) return "地图大小超出世界";
             if (size.X < 2) return "大小不能小于2";
             if (size.Y < 2) return "大小不能小于2";
 

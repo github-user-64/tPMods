@@ -2,7 +2,6 @@
 using System;
 using System.Collections.Generic;
 using Terraria;
-using static PlayerAccount.Common.FunctionCommand.accAction;
 
 namespace BedWars.BedWarsData
 {
@@ -19,6 +18,8 @@ namespace BedWars.BedWarsData
             if (mapData.Info == null) mapData.Info = new MapInfoData();
 
             CheckList(ref mapData.SpawItems);
+            CheckList(ref mapData.Teams);
+            CheckList(ref mapData.CanTileDatas);
         }
 
         private static void CheckList<T>(ref List<T> list)
@@ -27,56 +28,20 @@ namespace BedWars.BedWarsData
             else list.RemoveAll(i => i == null);
         }
 
-        /// <exception cref="Exception"/>
-        public static void CheckMapData(this MapData mapData, bool repair)
-        {
-            mapData.CheckMapInfo(repair);
-            mapData.CheckSpawItem(repair);
-        }
-
-        public static bool InWorld_MapInfoPos(Point pos)
+        public static bool InWorld(Point pos)
         {
             return WorldGen.InWorld(pos.X, pos.Y, 2);
         }
 
-        public static bool InWorld_MapInfoSize(Point pos, Point size)
+        public static bool InWorldSize(Point pos, Point size)
         {
             return WorldGen.InWorld(pos.X + size.X, pos.Y + size.Y, 2);
         }
 
         /// <exception cref="Exception"/>
-        public static void CheckMapInfo(this MapData mapData, bool repair)
+        public static void CheckMapData(MapData mapData)
         {
-            if (InWorld_MapInfoPos(mapData.Info.pos) == false)
-            {
-                if (!repair) throw new Exception("地图位置超出世界");
-
-                mapData.Info.pos = new Point(Main.spawnTileX, Main.spawnTileY);
-            }
-
-            if (mapData.Info.size.X < 2) throw new Exception("地图大小不能小于2");
-            if (mapData.Info.size.Y < 2) throw new Exception("地图大小不能小于2");
-
-            if (InWorld_MapInfoSize(mapData.Info.pos, mapData.Info.size) == false)
-            {
-                throw new Exception("地图大小超出世界");
-            }
-        }
-
-        /// <exception cref="Exception"/>
-        public static void CheckSpawItem(this MapData mapData, bool repair)
-        {
-            List<SpawItemData> del = new List<SpawItemData>();
-
-            foreach (SpawItemData i in mapData.SpawItems)
-            {
-                if (mapData.InMap(i.pos)) continue;
-                if (!repair) throw new Exception("生成物品超出地图");
-
-                del.Add(i);
-            }
-
-            del.ForEach(i => mapData.SpawItems.Remove(i));
+            mapData.Check();
         }
 
         public static bool InMap(this MapData mapData, Point pos)
@@ -88,11 +53,6 @@ namespace BedWars.BedWarsData
             if (pos.Y > mapData.Info.pos.Y + mapData.Info.size.Y - 1) return false;
 
             return true;
-        }
-
-        public static void SetMapData_SpawItem(this MapData mapData)
-        {
-            mapData.SpawItems.ForEach(i => i.mapData = mapData);
         }
     }
 }
