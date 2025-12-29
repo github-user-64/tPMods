@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
 using System;
+using System.Collections.Generic;
 using tContentPatch.Content.UI;
 using tContentPatch.Content.UI.ModSet;
 using Terraria;
@@ -48,6 +49,7 @@ namespace BedWars.Edit.UI.EditSpawItem
         private UIStackPanel ui_open = null;
         private EditItemType types = null;
         private UIState ui_close = null;
+        private Terraria.GameContent.UI.Elements.UIText ui_close_name = null;
         private GetSetStringBool gss_exclude = null;
         private GetSetStringString gss_name = null;
         private GetSetStringInt gss_stack = null;
@@ -163,17 +165,18 @@ namespace BedWars.Edit.UI.EditSpawItem
             if (ui_close != null) return ui_close;
 
             ui_close = new UIState();
-            ui_close.Height.Set(25, 0);
+            ui_close.Height.Set(20, 0);
 
-            Terraria.GameContent.UI.Elements.UIText name = new Terraria.GameContent.UI.Elements.UIText(string.Empty);
-            name.Width.Pixels = 20;
-            name.Height.Pixels = ui_close.Height.Pixels - 2;
-            name.VAlign = 0.5f;
-            name.TextOriginY = 0.5f;
-            name.OnUpdate += _ => name.SetText(gss_name.Get() ?? string.Empty);
-            ui_close.Append(name);
+            ui_close_name = new Terraria.GameContent.UI.Elements.UIText(string.Empty);
+            ui_close_name.Width.Set(-ui_close.Height.Pixels, 1);
+            ui_close_name.Height.Pixels = ui_close.Height.Pixels;
+            ui_close_name.VAlign = 0.5f;
+            ui_close_name.TextOriginY = 0.5f;
+            ui_close_name.TextOriginX = 0;
+            ui_close_name.OnUpdate += _ => ui_close_name.SetText(gss_name.Get() ?? string.Empty);
+            ui_close.Append(ui_close_name);
 
-            UIImageButton del = new UIImageButton(ui_close.Height.Pixels - 2, "删除", "Images/UI/Cursor_6");
+            UIImageButton del = new UIImageButton(ui_close.Height.Pixels, "删除", "Images/UI/Cursor_6");
             del.HAlign = 1;
             del.VAlign = 0.5f;
             del.OnClick += () =>
@@ -184,6 +187,37 @@ namespace BedWars.Edit.UI.EditSpawItem
             ui_close.Append(del);
 
             return ui_close;
+        }
+
+        public override void Update(GameTime gameTime)
+        {
+            base.Update(gameTime);
+
+            if (IsOpen) return;
+            if (ui_close_name.IsMouseHovering == false) return;
+
+            List<string> ss = new List<string>();
+            int index = -1;
+            int oneLen = 10;
+
+            for (int i = 0; i < data.types.Count; ++i)
+            {
+                if (i % oneLen == 0)
+                {
+                    ss.Add(string.Empty);
+                    ++index;
+                }
+                else if (i + 1 >= oneLen * 2)
+                {
+                    ss[index] += "...";
+                    break;
+                }
+
+                ss[index] += $"[i:{data.types[i]}]";
+            }
+
+            if (index < 0) return;
+            tContentPatch.Content.DrawTip.SetDraw(ss.ToArray());
         }
     }
 }

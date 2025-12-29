@@ -1,15 +1,24 @@
 ﻿using BedWars.BedWarsData;
-using ModTool.PatchGame;
 using System.Collections.Generic;
+using System.Diagnostics;
+using tContentPatch;
 using Terraria;
 
 namespace BedWars.Common
 {
     public static class SpawItem
     {
-        internal static void Init()
+        private class sad : PatchMain
         {
-            PMain.OnDoUpdateInWorldPr += DoUpdateInWorldPr;
+            public override void DoUpdateInWorldPrefix(Stopwatch sw)
+            {
+                DoUpdateInWorldPr();
+            }
+
+            public override void OnEnterWorldPrefix()
+            {
+                SpawDatas.Clear();
+            }
         }
 
         /// <summary>

@@ -2,11 +2,20 @@
 using Microsoft.Xna.Framework;
 using System;
 using System.IO;
+using tContentPatch;
 
 namespace BedWars.Edit
 {
     public partial class EditData
     {
+        private class asd : PatchMain
+        {
+            public override void OnEnterWorldPrefix()
+            {
+                instance.Data = null;
+            }
+        }
+
         public string LoadData(MapData temp, Action<string> print = null)
         {
             try

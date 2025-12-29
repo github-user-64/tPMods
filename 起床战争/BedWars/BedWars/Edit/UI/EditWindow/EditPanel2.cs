@@ -6,5 +6,10 @@
         {
             UpdateData();
         }
+
+        public override void OnEditEnable()
+        {
+            UpdateData();
+        }
     }
 }

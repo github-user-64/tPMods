@@ -78,6 +78,7 @@
   <ItemGroup>
     <Compile Include="BedWarsData\MapInfoData.cs" />
     <Compile Include="BedWarsData\SpawItemData.cs" />
+    <Compile Include="BedWarsData\TeamData.cs" />
     <Compile Include="Common\DrawUtils.cs" />
     <Compile Include="Common\SpawItem.cs" />
     <Compile Include="BedWarsData\DataCheck.cs" />
@@ -91,6 +92,7 @@
     <Compile Include="BedWarsData\MapData.cs" />
     <Compile Include="BedWarsData\DataFileHelp.cs" />
     <Compile Include="Common\GameInterface.cs" />
+    <Compile Include="Edit\UI\EditItem_EditData\TpMapPos.cs" />
     <Compile Include="Edit\UI\EditSpawItem\EditItem.cs" />
     <Compile Include="Edit\UI\EditSpawItem\EditItemType.cs" />
     <Compile Include="Edit\UI\EditSpawItem\EditItemTypeItem.cs" />

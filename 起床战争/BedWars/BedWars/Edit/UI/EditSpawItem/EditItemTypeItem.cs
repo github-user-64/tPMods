@@ -66,7 +66,7 @@ namespace BedWars.Edit.UI.EditSpawItem
             {
                 Item item = new Item();
                 item.SetDefaults(type);
-                Main.instance.MouseText($"[i:{type}]{item.Name}");
+                tContentPatch.Content.DrawTip.SetDraw($"[i:{type}]{item.Name}");
             }
 
             if (tb.Focus == false) tb.SetText(type.ToString());

@@ -6,6 +6,14 @@ namespace BedWars.Edit.UI
 {
     internal class Init : Mod
     {
+        public class asd : PatchMain
+        {
+            public override void OnEnterWorldPrefix()
+            {
+                Enable = false;
+            }
+        }
+
         public static EditWindow.EditWindow editWindow { get; private set; } = null;
         private static bool enable = false;
         public static bool Enable

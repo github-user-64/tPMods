@@ -26,10 +26,6 @@ namespace BedWars
 
             Dir = mo.modPath;
             LoadModConfig(new ModConfig.Data());
-
-            //
-
-            SpawItem.Init();
         }
 
         public static void LoadModConfig(ModConfig.Data data)
