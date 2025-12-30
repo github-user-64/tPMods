@@ -4,7 +4,6 @@ using Microsoft.Xna.Framework.Graphics;
 using ModTool.Common.UI;
 using ReLogic.Content;
 using Terraria;
-using static PlayerAccount.Common.FunctionCommand.accAction;
 
 namespace BedWars.Edit.UI.EditItem_EditData
 {

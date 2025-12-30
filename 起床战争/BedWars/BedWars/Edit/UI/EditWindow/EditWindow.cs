@@ -18,10 +18,11 @@ namespace BedWars.Edit.UI.EditWindow
             UIWrapPanel2 ui_wp = new UIWrapPanel2();
             ui_wp.Width.Precent = 1;
             ui_wp.ItemMargin = 2;
-            ui_wp.Append(BuildPanel(new EditPanel0(), "Images/Item_1344", "设置"));
-            ui_wp.Append(BuildPanel(new EditPanel1(), "Images/Inventory_Tick_On", "显示数据"));
-            ui_wp.Append(BuildPanel(new EditPanel2(), "Images/Item_27", "编辑生成物品"));
-            ui_wp.Append(BuildPanel(new EditPanel3(), "Images/House_Banner_1", "编辑队伍"));
+            ui_wp.Append(BuildPanel(new EditPanel0(), "Images/UI/Camera_6", "文件"));
+            ui_wp.Append(BuildPanel(new EditPanel1(), "Images/Item_1344", "设置"));
+            ui_wp.Append(BuildPanel(new EditPanel2(), "Images/Inventory_Tick_On", "显示数据"));
+            ui_wp.Append(BuildPanel(new EditPanel3(), "Images/Item_27", "编辑生成物品"));
+            ui_wp.Append(BuildPanel(new EditPanel4(), "Images/House_Banner_1", "编辑队伍"));
 
             ui_con = new UIElement();
             ui_con.Width.Precent = 1;
@@ -42,26 +43,27 @@ namespace BedWars.Edit.UI.EditWindow
             base.Update(gameTime);
         }
 
-        public UIElement BuildPanel<T>(T uie, string ico, string mouseText) where T : UIElement, IPanel
+        public UIElement BuildPanel<T>(T ui, string ico, string mouseText) where T : UIElement, IPanel, IEditControl
         {
             Asset<Texture2D> texture1 = Main.Assets.Request<Texture2D>(ico, AssetRequestMode.ImmediateLoad);
             UIRadioButton rb = new UIRadioButton(texture1.Value, 20, 20);
             rb.MouseHoveringText = mouseText;
             rb.OnChecked += () =>
             {
+                foreach (UIElement i in ui_con.Children) i.Deactivate();
                 ui_con.RemoveAllChildren();
-                ui_con.Append(uie);
-                uie.OnOpen();
+                ui_con.Append(ui);
+                ui.OnOpen();
             };
 
-            if (uie is IEditControl ec) AddEditControl(ec);
+            AddEditControl(ui);
 
             return rb;
         }
 
-        public override void OnEditNoEnable()
+        public override void OnEditEnableNo()
         {
-            base.OnEditNoEnable();
+            base.OnEditEnableNo();
             Close();
         }
     }

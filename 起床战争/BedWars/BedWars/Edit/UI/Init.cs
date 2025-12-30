@@ -48,7 +48,7 @@ namespace BedWars.Edit.UI
             }
             else
             {
-                editWindow.OnEditNoEnable();
+                editWindow.OnEditEnableNo();
             }
         }
 

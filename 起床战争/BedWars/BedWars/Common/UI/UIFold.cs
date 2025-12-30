@@ -34,6 +34,7 @@ namespace BedWars.Common.UI
 
         public virtual void SetUI(UIElement ui)
         {
+            Elements.ForEach(i => i.Deactivate());
             RemoveAllChildren();
 
             if (ui != null) Append(ui);

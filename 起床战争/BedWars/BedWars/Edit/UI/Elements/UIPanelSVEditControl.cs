@@ -3,7 +3,7 @@ using Terraria.UI;
 
 namespace BedWars.Edit.UI.Elements
 {
-    internal class UIPanelSVEditControl : UIPanelEditControl, IEditControl
+    internal class UIPanelSVEditControl : UIPanelEditControl
     {
         private readonly UIScrollViewer2 sv = new UIScrollViewer2();
 

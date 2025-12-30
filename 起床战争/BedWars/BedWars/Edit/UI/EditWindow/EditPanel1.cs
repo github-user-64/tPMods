@@ -1,4 +1,4 @@
-﻿using BedWars.Edit.UI.EditItem_DisplayData;
+﻿using BedWars.Edit.UI.EditItem_EditData;
 using BedWars.Edit.UI.Elements;
 
 namespace BedWars.Edit.UI.EditWindow
@@ -7,8 +7,9 @@ namespace BedWars.Edit.UI.EditWindow
     {
         public EditPanel1()
         {
-            AddItem(new DisplayMapPosSize("显示地图位置大小"));
-            AddItem(new DisplaySpawItem("显示生成物品位置"));
+            AddItem(new TpMapPos("传送", "传送到地图位置"));
+            AddItem(new EditMapPos("设置地图位置"));
+            AddItem(new EditMapSize("设置地图大小"));
         }
 
         public void OnOpen() { }

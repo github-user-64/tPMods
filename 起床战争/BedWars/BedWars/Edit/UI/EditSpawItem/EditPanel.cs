@@ -51,9 +51,10 @@ namespace BedWars.Edit.UI.EditSpawItem
             Append(sv);
         }
 
+        private List<EditItemSP> eisp = new List<EditItemSP>();
         public void UpdateData()
         {
-            sv.ClearChild();
+            ClearItem();
 
             Common.SpawItem.SpawDatas.Clear();
 
@@ -63,9 +64,30 @@ namespace BedWars.Edit.UI.EditSpawItem
             foreach (SpawItemData si in sis)
             {
                 EditItemSP ui = new EditItemSP(si, UpdateData, OnItemOpen);
+                eisp.Add(ui);
 
                 sv.AddChild(ui);
             }
+        }
+
+        public override void OnEditEnable()
+        {
+            base.OnEditEnable();
+            UpdateData();
+        }
+
+        public override void OnEditEnableNo()
+        {
+            base.OnEditEnableNo();
+            ClearItem();
+        }
+
+        private void ClearItem()
+        {
+            sv.ClearChild();
+
+            eisp.ForEach(i => i.Deactivate());
+            eisp.Clear();
         }
 
         private UIFold _openitem = null;

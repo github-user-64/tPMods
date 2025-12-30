@@ -5,16 +5,11 @@ namespace BedWars.Edit.UI.Elements
 {
     internal class UIPanelEditControl : UIState, IEditControl
     {
-        private readonly List<IEditControl> ecs = new List<IEditControl>();
+        protected readonly List<IEditControl> ecs = new List<IEditControl>();
 
         protected void AddEditControl(IEditControl ec)
         {
             ecs.Add(ec);
-        }
-
-        protected void ClearEditControl()
-        {
-            ecs.Clear();
         }
 
         public virtual void OnEditEnable()
@@ -22,9 +17,9 @@ namespace BedWars.Edit.UI.Elements
             ecs.ForEach(i => i.OnEditEnable());
         }
 
-        public virtual void OnEditNoEnable()
+        public virtual void OnEditEnableNo()
         {
-            ecs.ForEach(i => i.OnEditNoEnable());
+            ecs.ForEach(i => i.OnEditEnableNo());
         }
     }
 }

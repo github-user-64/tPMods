@@ -5,7 +5,7 @@ namespace BedWars.Edit.UI.Elements
 {
     internal class UIWindowEditControl : UIWindow, IEditControl
     {
-        private readonly List<IEditControl> ecs = new List<IEditControl>();
+        protected readonly List<IEditControl> ecs = new List<IEditControl>();
 
         public UIWindowEditControl(string title, int width, int height) : base(title, width, height)
         {
@@ -16,19 +16,14 @@ namespace BedWars.Edit.UI.Elements
             ecs.Add(ec);
         }
 
-        protected void ClearEditControl()
-        {
-            ecs.Clear();
-        }
-
-        public virtual void OnEditEnable()
+        public void OnEditEnable()
         {
             ecs.ForEach(i => i.OnEditEnable());
         }
 
-        public virtual void OnEditNoEnable()
+        public virtual void OnEditEnableNo()
         {
-            ecs.ForEach(i => i.OnEditNoEnable());
+            ecs.ForEach(i => i.OnEditEnableNo());
         }
     }
 }

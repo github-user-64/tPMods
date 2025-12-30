@@ -49,8 +49,14 @@ namespace BedWars.Edit.UI.Elements
 
         public void OnEditEnable() { }
 
-        public void OnEditNoEnable()
+        public void OnEditEnableNo()
         {
+            sp.Enable = false;
+        }
+
+        public override void OnDeactivate()
+        {
+            base.OnDeactivate();
             sp.Enable = false;
         }
     }

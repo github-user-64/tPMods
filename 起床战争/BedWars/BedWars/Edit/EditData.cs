@@ -71,5 +71,15 @@ namespace BedWars.Edit
 
             return null;
         }
+
+        public string SpawItemSetPos(SpawItemData data, Point pos)
+        {
+            if (Data == null) return "地图数据为null";
+            if (Data.InMap(pos) == false) return "生成物品超出地图";
+
+            data.pos = pos;
+
+            return null;
+        }
     }
 }

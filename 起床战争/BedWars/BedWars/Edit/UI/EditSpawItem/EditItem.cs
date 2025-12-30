@@ -1,5 +1,6 @@
 ﻿using BedWars.BedWarsData;
 using BedWars.Common.UI;
+using BedWars.Edit.UI.Elements;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
@@ -117,7 +118,7 @@ namespace BedWars.Edit.UI.EditSpawItem
             sp.Horizontal = true;
             ui_open.Append(sp);
 
-            UIImageButton del = new UIImageButton(sp.Height.Pixels - 2, "删除", "Images/UI/Cursor_6");
+            UIImageButton del = new UIImageButton(sp.Height.Pixels, "删除", "Images/UI/Cursor_6");
             del.VAlign = 0.5f;
             del.OnClick += () =>
             {
@@ -126,7 +127,7 @@ namespace BedWars.Edit.UI.EditSpawItem
             };
             sp.Append(del);
 
-            UIImageButton tp = new UIImageButton(sp.Height.Pixels - 2, "传送到此", "Images/UI/SpawnPoint");
+            UIImageButton tp = new UIImageButton(sp.Height.Pixels, "传送到此", "Images/UI/SpawnPoint");
             tp.VAlign = 0.5f;
             tp.OnClick += () =>
             {
@@ -140,7 +141,15 @@ namespace BedWars.Edit.UI.EditSpawItem
             };
             sp.Append(tp);
 
-            UIImageButton addType = new UIImageButton(sp.Height.Pixels - 2, "添加物品类型,右键删除", "Images/Item_27");
+            UIImageButtonSwitchPos setPos = new UIImageButtonSwitchPos((int)sp.Height.Pixels, "设置位置", "Images/UI/Cursor_9");
+            setPos.OnSetPos = v =>
+            {
+                string ex = EditData.instance.SpawItemSetPos(data, v);
+                if (ex != null) Main.NewText(ex);
+            };
+            sp.Append(setPos);
+
+            UIImageButton addType = new UIImageButton(sp.Height.Pixels, "添加物品类型,右键删除", "Images/Item_27");
             addType.VAlign = 0.5f;
             addType.OnClick += () => types.AddType();
             sp.Append(addType);

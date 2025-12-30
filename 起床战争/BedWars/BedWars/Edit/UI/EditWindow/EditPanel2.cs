@@ -1,15 +1,16 @@
-﻿namespace BedWars.Edit.UI.EditWindow
+﻿using BedWars.Edit.UI.EditItem_DisplayData;
+using BedWars.Edit.UI.Elements;
+
+namespace BedWars.Edit.UI.EditWindow
 {
-    internal class EditPanel2 : EditSpawItem.EditPanel, IPanel
+    internal class EditPanel2 : UIPanelSVEditControl, IPanel
     {
-        public void OnOpen()
+        public EditPanel2()
         {
-            UpdateData();
+            AddItem(new DisplayMapPosSize("显示地图位置大小"));
+            AddItem(new DisplaySpawItem("显示生成物品位置"));
         }
 
-        public override void OnEditEnable()
-        {
-            UpdateData();
-        }
+        public void OnOpen() { }
     }
 }

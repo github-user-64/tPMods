@@ -1,6 +1,6 @@
 ﻿namespace BedWars.Edit.UI.EditWindow
 {
-    internal class EditPanel3 : EditSpawItem.EditPanel, IPanel
+    internal class EditPanel4 : EditTeam.EditPanel, IPanel
     {
         public void OnOpen()
         {

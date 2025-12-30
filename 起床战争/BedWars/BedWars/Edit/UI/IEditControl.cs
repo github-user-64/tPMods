@@ -3,6 +3,6 @@
     internal interface IEditControl
     {
         void OnEditEnable();
-        void OnEditNoEnable();
+        void OnEditEnableNo();
     }
 }
