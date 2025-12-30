@@ -29,8 +29,8 @@ namespace BedWars.Edit.UI.EditItem_DisplayData
 
             string text = "地图位置";
 
-            Vector2 textP = new Point(data.Info.pos.X - 1, data.Info.pos.Y - 1).ToWorldCoordinates();
-            textP += data.Info.size.ToWorldCoordinates() / 2;
+            Vector2 textP = data.Info.pos.ToWorldCoordinates();
+            textP += data.Info.size.ToWorldCoordinates(-8, -8) / 2;
             Vector2 v = textP - Main.LocalPlayer.Center;
             if (v.Length() > 200)
             {
@@ -38,7 +38,7 @@ namespace BedWars.Edit.UI.EditItem_DisplayData
                 textP = Main.LocalPlayer.Center + v;
             }
 
-            Utils.DrawBorderString(spriteBatch, text, textP - Main.screenPosition, Color.Green, anchorx: 0.5f, anchory: 0.25f);
+            Utils.DrawBorderString(spriteBatch, text, textP - Main.screenPosition, Color.Green, anchorx: 0.5f, anchory: 0.5f);
         }
     }
 }

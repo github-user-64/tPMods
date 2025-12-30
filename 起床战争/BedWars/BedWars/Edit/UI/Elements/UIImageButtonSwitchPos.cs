@@ -5,7 +5,7 @@ using Terraria;
 
 namespace BedWars.Edit.UI.Elements
 {
-    internal class UIImageButtonSwitchPos : UIImageButton, IEditControl
+    internal class UIImageButtonSwitchPos : UIImageButton
     {
         public Action<Point> OnSetPos = null;
         private SwitchPos sp = new SwitchPos();
@@ -47,17 +47,10 @@ namespace BedWars.Edit.UI.Elements
             Utils.DrawBorderString(Main.spriteBatch, $"{pos.X},{pos.Y}", Main.MouseScreen + new Vector2(0, 22), Color.LawnGreen);
         }
 
-        public void OnEditEnable() { }
-
-        public void OnEditEnableNo()
-        {
-            sp.Enable = false;
-        }
-
         public override void OnDeactivate()
         {
-            base.OnDeactivate();
             sp.Enable = false;
+            base.OnDeactivate();
         }
     }
 }

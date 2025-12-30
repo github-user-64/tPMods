@@ -1,5 +1,4 @@
 ﻿using Microsoft.Xna.Framework;
-using System;
 
 namespace BedWars.BedWarsData
 {
@@ -9,24 +8,13 @@ namespace BedWars.BedWarsData
     public class CanTileData : ICheck
     {
         /// <summary>
-        /// 相对于<see cref="MapInfoData.pos"/>
+        /// 相对位置
         /// </summary>
-        public int x;
-        /// <summary>
-        /// 相对于<see cref="MapInfoData.pos"/>
-        /// </summary>
-        public int y;
+        public Point pos;
 
         public void Check(MapData mapData)
         {
-            Point pos = mapData.Info.pos;
-            pos.X += x;
-            pos.Y += y;
-
-            if (mapData.InMap(pos) == false)
-            {
-                throw new Exception($"能交互图格超出地图:{pos.X},{pos.Y}");
-            }
+            //应该没差,只是用来判断这个位置能否交互方块而已
         }
     }
 }

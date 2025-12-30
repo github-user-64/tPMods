@@ -24,14 +24,17 @@ namespace BedWars.Edit.UI.EditItem_DisplayData
 
             foreach (SpawItemData i in data.SpawItems)
             {
-                Common.DrawUtils.Draw_rectangle(i.pos, i.pos, Color.LawnGreen * 0.9f, Color.LawnGreen * 0.2f, 1);
+                Point pos = data.Info.pos;
+                pos.X += i.pos.X;
+                pos.Y += i.pos.Y;
+
+                Common.DrawUtils.Draw_rectangle(pos, pos, Color.LawnGreen * 0.9f, Color.LawnGreen * 0.2f, 1);
 
                 string text = i.name;
                 if (text == null) continue; 
                 if (text == string.Empty) continue; 
 
-                Vector2 textP = i.pos.ToWorldCoordinates();
-                textP -= new Vector2(16) / 2;
+                Vector2 textP = pos.ToWorldCoordinates();
                 Vector2 v = textP - Main.LocalPlayer.Center;
                 if (v.Length() > 300)
                 {

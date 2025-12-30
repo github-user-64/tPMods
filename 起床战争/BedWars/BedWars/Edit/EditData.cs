@@ -1,6 +1,7 @@
 ﻿using BedWars.BedWarsData;
 using Microsoft.Xna.Framework;
 using System.Collections.Generic;
+using static PlayerAccount.Common.FunctionCommand.accAction;
 
 namespace BedWars.Edit
 {
@@ -22,16 +23,9 @@ namespace BedWars.Edit
         {
             if (Data == null) return "地图数据为null";
             if (DataCheck.InWorld(pos) == false) return "地图位置超出世界";
+            if (DataCheck.InWorldSize(pos, Data.Info.size) == false) return "地图大小超出世界";
 
-            int offX = pos.X - DataInfo.pos.X;
-            int offY = pos.Y - DataInfo.pos.Y;
             DataInfo.pos = pos;
-
-            DataSpawItems.ForEach(i =>
-            {
-                i.pos.X += offX;
-                i.pos.Y += offY;
-            });
 
             return null;
         }
@@ -45,39 +39,23 @@ namespace BedWars.Edit
 
             DataInfo.size = size;
 
-            _ = DataSpawItems.RemoveAll(i => Data.InMap(i.pos) == false);
+            _ = DataSpawItems.RemoveAll(i => Data.InMapRelative(i.pos) == false);
+            _ = DataCanTiles.RemoveAll(i => Data.InMapRelative(i.pos) == false);
 
             return null;
         }
 
-        public string AddSpawItem(Point pos)
+        /// <summary>
+        /// <paramref name="pos"/>为世界位置, <paramref name="pos"/>转为相对位置, 成功返回<see langword="null"/>
+        /// </summary>
+        public string CheckPos(ref Point pos)
         {
-            if (Data == null) return "地图数据为null";
-            if (Data.InMap(pos) == false) return "生成物品超出地图";
+            if (DataInfo == null) return "地图数据为null";
 
-            SpawItemData temp = new SpawItemData();
-            temp.mapData = Data;
-            temp.pos = pos;
-            Data.SpawItems.Add(temp);
+            pos.X -= DataInfo.pos.X;
+            pos.Y -= DataInfo.pos.Y;
 
-            return null;
-        }
-
-        public string DelSpawItem(SpawItemData data)
-        {
-            if (Data == null) return "地图数据为null";
-
-            Data.SpawItems.Remove(data);
-
-            return null;
-        }
-
-        public string SpawItemSetPos(SpawItemData data, Point pos)
-        {
-            if (Data == null) return "地图数据为null";
-            if (Data.InMap(pos) == false) return "生成物品超出地图";
-
-            data.pos = pos;
+            if (Data.InMapRelative(pos) == false) return "超出地图";
 
             return null;
         }

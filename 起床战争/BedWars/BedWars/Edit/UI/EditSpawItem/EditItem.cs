@@ -13,30 +13,6 @@ using Terraria.UI;
 
 namespace BedWars.Edit.UI.EditSpawItem
 {
-    internal class EditItemSP : Terraria.GameContent.UI.Elements.UIPanel
-    {
-        private EditItem ei = null;
-
-        public EditItemSP(SpawItemData data, Action OnDataUpdate, Action<UIFold> OnOpen)
-        {
-            Width.Precent = 1;
-            BackgroundColor = new Color(63, 82, 151) * 0.7f;
-            BorderColor = new Color(43, 60, 120);
-            SetPadding(6);
-
-            ei = new EditItem(data, OnDataUpdate, OnOpen);
-            ei.Width.Precent = 1;
-            Append(ei);
-        }
-
-        public override void Update(GameTime gameTime)
-        {
-            base.Update(gameTime);
-
-            Height.Pixels = ei.Height.Pixels + PaddingTop + PaddingBottom;
-        }
-    }
-
     // 实在想不到有啥好的方法同步ui和数据
     internal class EditItem : UIFold
     {
@@ -47,14 +23,15 @@ namespace BedWars.Edit.UI.EditSpawItem
 
         private Action OnDataUpdate = null;
         private SpawItemData data = null;
-        private UIStackPanel ui_open = null;
-        private EditItemType types = null;
-        private UIState ui_close = null;
-        private Terraria.GameContent.UI.Elements.UIText ui_close_name = null;
         private GetSetStringBool gss_exclude = null;
         private GetSetStringString gss_name = null;
         private GetSetStringInt gss_stack = null;
         private GetSetStringInt gss_cd = null;
+        //
+        private UIStackPanel ui_open = null;
+        private EditItemType types = null;
+        private UIState ui_close = null;
+        private Terraria.GameContent.UI.Elements.UIText ui_close_name = null;
 
         public EditItem(SpawItemData data, Action OnDataUpdate, Action<UIFold> OnOpen) : base(OnOpen)
         {
@@ -65,6 +42,8 @@ namespace BedWars.Edit.UI.EditSpawItem
             gss_name = new GetSetStringString(() => data.name, v => data.name = v);
             gss_stack = new GetSetStringInt(() => data.maxStack, v => data.maxStack = v);
             gss_cd = new GetSetStringInt(() => data.cd, v => data.cd = v);
+
+            Width.Precent = 1;
         }
 
         public UIElement GetUI1<T>(string t1, Asset<Texture2D> ico, GetSetString<T> gss)
@@ -131,7 +110,7 @@ namespace BedWars.Edit.UI.EditSpawItem
             tp.VAlign = 0.5f;
             tp.OnClick += () =>
             {
-                Vector2 pos = data.pos.ToWorldCoordinates();
+                Vector2 pos = data.mapData.Info.pos.ToWorldCoordinates(0, 0) + data.pos.ToWorldCoordinates();
                 if (WorldGen.InWorld(data.pos.X, data.pos.Y) == false)
                 {
                     Main.NewText($"超出世界:{pos.X},{pos.Y}");
@@ -144,7 +123,7 @@ namespace BedWars.Edit.UI.EditSpawItem
             UIImageButtonSwitchPos setPos = new UIImageButtonSwitchPos((int)sp.Height.Pixels, "设置位置", "Images/UI/Cursor_9");
             setPos.OnSetPos = v =>
             {
-                string ex = EditData.instance.SpawItemSetPos(data, v);
+                string ex = EditData.instance.SetSpawItemPos(data, v);
                 if (ex != null) Main.NewText(ex);
             };
             sp.Append(setPos);
@@ -227,6 +206,12 @@ namespace BedWars.Edit.UI.EditSpawItem
 
             if (index < 0) return;
             tContentPatch.Content.DrawTip.SetDraw(ss.ToArray());
+        }
+
+        public override void OnDeactivate()
+        {
+            base.OnDeactivate();
+            Common.SpawItem.SpawDatas.Remove(data);
         }
     }
 }

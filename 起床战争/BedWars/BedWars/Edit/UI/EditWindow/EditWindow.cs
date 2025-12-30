@@ -13,7 +13,7 @@ namespace BedWars.Edit.UI.EditWindow
     {
         private UIElement ui_con = null;
 
-        public EditWindow(string title, int width, int height) : base(title, width, height)
+        public EditWindow(UIElement P, string title, int width, int height) : base(P, title, width, height)
         {
             UIWrapPanel2 ui_wp = new UIWrapPanel2();
             ui_wp.Width.Precent = 1;
@@ -43,7 +43,7 @@ namespace BedWars.Edit.UI.EditWindow
             base.Update(gameTime);
         }
 
-        public UIElement BuildPanel<T>(T ui, string ico, string mouseText) where T : UIElement, IPanel, IEditControl
+        public UIElement BuildPanel<T>(T ui, string ico, string mouseText) where T : UIElement, IPanel
         {
             Asset<Texture2D> texture1 = Main.Assets.Request<Texture2D>(ico, AssetRequestMode.ImmediateLoad);
             UIRadioButton rb = new UIRadioButton(texture1.Value, 20, 20);
@@ -56,15 +56,19 @@ namespace BedWars.Edit.UI.EditWindow
                 ui.OnOpen();
             };
 
-            AddEditControl(ui);
-
             return rb;
         }
 
-        public override void OnEditEnableNo()
+        public override void Open(UIElement windowParent)
         {
-            base.OnEditEnableNo();
-            Close();
+            base.Open(windowParent);
+            if (Init.Enable == false) Init.Enable = true;
+        }
+
+        public override void Close()
+        {
+            base.Close();
+            if (Init.Enable == true) Init.Enable = false;
         }
     }
 }

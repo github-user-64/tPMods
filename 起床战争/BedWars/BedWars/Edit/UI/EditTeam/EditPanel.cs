@@ -1,38 +1,46 @@
-﻿using BedWars.Edit.UI.Elements;
-using tContentPatch.Content.UI;
+﻿using BedWars.BedWarsData;
+using BedWars.Common.UI;
+using BedWars.Edit.UI.Elements;
+using System.Collections.Generic;
+using Terraria;
 
 namespace BedWars.Edit.UI.EditTeam
 {
-    internal class EditPanel : UIPanelEditControl
+    internal class EditPanel : UIEditPanel
     {
-        private UIScrollViewer2 sv = null;
-
         public EditPanel()
         {
-            UIStackPanel sp = new UIStackPanel();
-            sp.Width.Precent = 1;
-            sp.Height.Pixels = 20;
-            sp.Horizontal = true;
-            sp.ItemMargin = 6;
-            Append(sp);
+            UIImageButton btn1 = new UIImageButton(sp.Height.Pixels, "添加队伍", "Images/UI/Cursor_7");
+            btn1.OnLeftClick += (e, s) =>
+            {
+                string ex = EditData.instance.AddTeam();
+                if (ex != null) Main.NewText(ex);
 
-            sv = new UIScrollViewer2();
-            sv.Width.Precent = 1;
-            sv.Height.Set(-sp.Height.Pixels - 2, 1);
-            sv.VAlign = 1;
-            sv.ItemMargin = 4;
-            Append(sv);
+                UpdateData();
+            };
+            sp.Append(btn1);
         }
 
         public void UpdateData()
         {
+            sv.ClearChild();
 
+            List<TeamData> datas = EditData.instance.DataTeams;
+            if (datas == null) return;
+
+            foreach (var i in datas)
+            {
+                EditItem ui = new EditItem(i, UpdateData, OnItemOpen);
+
+                sv.AddChild(new UIFoldPanel(ui));
+            }
         }
 
-        public override void OnEditEnable()
+        private UIFold _openitem = null;
+        private void OnItemOpen(UIFold ui)
         {
-            base.OnEditEnable();
-            UpdateData();
+            _openitem?.Close();
+            _openitem = ui;
         }
     }
 }

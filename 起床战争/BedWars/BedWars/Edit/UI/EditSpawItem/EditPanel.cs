@@ -2,25 +2,15 @@
 using BedWars.Common.UI;
 using BedWars.Edit.UI.Elements;
 using System.Collections.Generic;
-using tContentPatch.Content.UI;
 using Terraria;
 using Terraria.ID;
 
 namespace BedWars.Edit.UI.EditSpawItem
 {
-    internal class EditPanel : UIPanelEditControl
+    internal class EditPanel : UIEditPanel
     {
-        private UIScrollViewer2 sv = null;
-
         public EditPanel()
         {
-            UIStackPanel sp = new UIStackPanel();
-            sp.Width.Precent = 1;
-            sp.Height.Pixels = 20;
-            sp.Horizontal = true;
-            sp.ItemMargin = 6;
-            Append(sp);
-
             UIImageButton btn1 = new UIImageButton(sp.Height.Pixels, "清除掉落物", "Images/UI/Cursor_6");
             btn1.OnLeftClick += (e, s) =>
             {
@@ -41,53 +31,23 @@ namespace BedWars.Edit.UI.EditSpawItem
                 UpdateData();
             };
             sp.Append(btn2);
-            AddEditControl(btn2);
-
-            sv = new UIScrollViewer2();
-            sv.Width.Precent = 1;
-            sv.Height.Set(-sp.Height.Pixels - 2, 1);
-            sv.VAlign = 1;
-            sv.ItemMargin = 4;
-            Append(sv);
         }
 
-        private List<EditItemSP> eisp = new List<EditItemSP>();
         public void UpdateData()
-        {
-            ClearItem();
-
-            Common.SpawItem.SpawDatas.Clear();
-
-            List<SpawItemData> sis = EditData.instance.DataSpawItems;
-            if (sis == null) return;
-
-            foreach (SpawItemData si in sis)
-            {
-                EditItemSP ui = new EditItemSP(si, UpdateData, OnItemOpen);
-                eisp.Add(ui);
-
-                sv.AddChild(ui);
-            }
-        }
-
-        public override void OnEditEnable()
-        {
-            base.OnEditEnable();
-            UpdateData();
-        }
-
-        public override void OnEditEnableNo()
-        {
-            base.OnEditEnableNo();
-            ClearItem();
-        }
-
-        private void ClearItem()
         {
             sv.ClearChild();
 
-            eisp.ForEach(i => i.Deactivate());
-            eisp.Clear();
+            Common.SpawItem.SpawDatas.Clear();
+
+            List<SpawItemData> datas = EditData.instance.DataSpawItems;
+            if (datas == null) return;
+
+            foreach (var i in datas)
+            {
+                EditItem ui = new EditItem(i, UpdateData, OnItemOpen);
+
+                sv.AddChild(new UIFoldPanel(ui));
+            }
         }
 
         private UIFold _openitem = null;

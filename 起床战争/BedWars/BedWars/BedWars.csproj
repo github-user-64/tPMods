@@ -90,9 +90,13 @@
     <Compile Include="BedWarsData\DataCheck.cs" />
     <Compile Include="Common\UI\GetSetString.cs" />
     <Compile Include="Common\UI\UIFold.cs" />
+    <Compile Include="Common\UI\UIFoldPanel.cs" />
     <Compile Include="Common\UI\UIItemSwitchUpdate.cs" />
     <Compile Include="Common\UI\UIItemTextBoxUpdate.cs" />
+    <Compile Include="Common\UI\UIItemValueSliderUpdate.cs" />
     <Compile Include="Common\UI\UIWrapPanel2.cs" />
+    <Compile Include="Edit\EditData_Team.cs" />
+    <Compile Include="Edit\EditData_SpawItem.cs" />
     <Compile Include="Edit\EditData_File.cs" />
     <Compile Include="Edit\EditData.cs" />
     <Compile Include="BedWarsData\MapData.cs" />
@@ -103,11 +107,11 @@
     <Compile Include="Edit\UI\EditSpawItem\EditItemType.cs" />
     <Compile Include="Edit\UI\EditSpawItem\EditItemTypeItem.cs" />
     <Compile Include="Edit\UI\EditTeam\EditPanel.cs" />
+    <Compile Include="Edit\UI\EditTeam\EditItem.cs" />
     <Compile Include="Edit\UI\EditWindow\EditPanel0.cs" />
     <Compile Include="Edit\UI\EditWindow\EditPanel3.cs" />
     <Compile Include="Edit\UI\EditWindow\EditPanel4.cs" />
-    <Compile Include="Edit\UI\Elements\UIPanelSVEditControl.cs" />
-    <Compile Include="Edit\UI\Elements\UIPanelEditControl.cs" />
+    <Compile Include="Edit\UI\Elements\UIEditPanel.cs" />
     <Compile Include="Edit\UI\IEditControl.cs" />
     <Compile Include="Edit\UI\EditItem_DisplayData\DisplaySpawItem.cs" />
     <Compile Include="Edit\UI\EditSpawItem\EditPanel.cs" />

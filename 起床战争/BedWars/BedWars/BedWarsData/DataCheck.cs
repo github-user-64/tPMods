@@ -54,5 +54,19 @@ namespace BedWars.BedWarsData
 
             return true;
         }
+
+        /// <summary>
+        /// 相对位置
+        /// </summary>
+        public static bool InMapRelative(this MapData mapData, Point pos)
+        {
+            if (mapData?.Info == null) return false;
+            if (pos.X < 0) return false;
+            if (pos.Y < 0) return false;
+            if (pos.X > mapData.Info.size.X - 1) return false;
+            if (pos.Y > mapData.Info.size.Y - 1) return false;
+
+            return true;
+        }
     }
 }

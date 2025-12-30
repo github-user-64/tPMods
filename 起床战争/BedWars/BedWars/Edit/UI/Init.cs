@@ -1,6 +1,5 @@
 ﻿using BedWars.Common;
 using tContentPatch;
-using tContentPatch.Content.UI;
 
 namespace BedWars.Edit.UI
 {
@@ -28,10 +27,8 @@ namespace BedWars.Edit.UI
             {
                 GameInterface.UI.Append(EnableEditSwitch.Build());
 
-                editWindow = new EditWindow.EditWindow("地图编辑", 300, 400);
+                editWindow = new EditWindow.EditWindow(GameInterface.UI, "地图编辑", 330, 400);
                 editWindow.Left.Pixels = 0;
-                editWindow.OnOpen += () => SetEnable(true);
-                editWindow.OnClose += () => SetEnable(false);
             };
         }
 
@@ -43,31 +40,10 @@ namespace BedWars.Edit.UI
             if (enable)
             {
                 editWindow.OnEditEnable();
-
-                SwitchEditWindow(true);
-            }
-            else
-            {
-                editWindow.OnEditEnableNo();
-            }
-        }
-
-        private static void SwitchWindow(UIWindow ui, bool open)
-        {
-            if (ui == null) return;
-
-            if (open)
-            {
-                if (ui.IsOpen == false) ui.Open(GameInterface.UI);
                 return;
             }
 
-            if (ui.IsOpen == true) ui.Close();
-        }
-
-        public static void SwitchEditWindow(bool open)
-        {
-            SwitchWindow(editWindow, open);
+            editWindow.OnEditEnableNo();
         }
     }
 }

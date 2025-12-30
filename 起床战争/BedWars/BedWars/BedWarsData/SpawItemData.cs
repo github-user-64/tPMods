@@ -10,6 +10,9 @@ namespace BedWars.BedWarsData
         [Newtonsoft.Json.JsonIgnore]
         public MapData mapData = null;
         public string name = null;
+        /// <summary>
+        /// 相对位置
+        /// </summary>
         public Point pos = Point.Zero;
         public List<int> types = new List<int>();
         /// <summary>
@@ -22,7 +25,7 @@ namespace BedWars.BedWarsData
         public void Spaw()
         {
             if (maxStack < 1) return;
-            if (mapData.InMap(pos) == false) return;
+            if (mapData.InMapRelative(pos) == false) return;
 
             int type = 0;
 
@@ -45,12 +48,15 @@ namespace BedWars.BedWarsData
             if (stack > item.maxStack) stack = item.maxStack;
             else if (stack < 1) stack = 1;
 
-            Item.NewItem(null, pos.ToWorldCoordinates(), Vector2.Zero, type, stack);
+            int x = pos.X + mapData.Info.pos.X;
+            int y = pos.Y + mapData.Info.pos.Y;
+
+            Item.NewItem(null, new Point(x, y).ToWorldCoordinates(), Vector2.Zero, type, stack);
         }
 
         public void Check(MapData mapData)
         {
-            if (mapData.InMap(pos) == false) throw new Exception("生成物品超出地图");
+            if (mapData.InMapRelative(pos) == false) throw new Exception("生成物品超出地图");
         }
 
         public static void SetMapData(MapData mapData)
