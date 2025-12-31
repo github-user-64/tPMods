@@ -1,32 +1,42 @@
 ﻿using BedWars.BedWarsData;
 using BedWars.Common.UI;
+using BedWars.Edit.UI.Elements;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
 using System;
 using tContentPatch.Content.UI;
 using Terraria;
-using Terraria.GameContent.UI.Elements;
 using Terraria.UI;
 
 namespace BedWars.Edit.UI.EditTeam
 {
     internal class EditItem : UIFold
     {
-        private static Asset<Texture2D> ico1 = Main.Assets.Request<Texture2D>("Images/Buff_18", AssetRequestMode.ImmediateLoad);
+        private static Asset<Texture2D> ico1 = Main.Assets.Request<Texture2D>("Images/Buff_135", AssetRequestMode.ImmediateLoad);
+        private static Asset<Texture2D> ico2 = Main.Assets.Request<Texture2D>("Images/UI/Workshop/Tags", AssetRequestMode.ImmediateLoad);
+        private static Asset<Texture2D> ico3 = Main.Assets.Request<Texture2D>("Images/UI/CharCreation/ColorSkin", AssetRequestMode.ImmediateLoad);
 
         private Action OnDataUpdate = null;
         private TeamData data = null;
+        private GetSetStringBool gss_canSpaw = null;
         private GetSetStringInt gss_team = null;
+        private GetSetStringString gss_name = null;
+        private GetSetStringInt gss_maxPlay = null;
         //
         private UIStackPanel ui_open = null;
         private UIState ui_close = null;
+        private Terraria.GameContent.UI.Elements.UIText ui_close_name = null;
 
         public EditItem(TeamData data, Action OnDataUpdate, Action<UIFold> OnOpen) : base(OnOpen)
         {
             this.data = data;
             this.OnDataUpdate = OnDataUpdate;
 
+            gss_canSpaw = new GetSetStringBool(() => data.canSpaw, v => data.canSpaw = v);
             gss_team = new GetSetStringInt(() => data.team, v => data.team = v);
+            gss_name = new GetSetStringString(() => data.name, v => data.name = v);
+            gss_maxPlay = new GetSetStringInt(() => data.maxPlay, v => data.maxPlay = v);
 
             Width.Precent = 1;
         }
@@ -39,6 +49,10 @@ namespace BedWars.Edit.UI.EditTeam
             ui_open.Width.Precent = 1;
             ui_open.ItemMargin = 2;
             ui_open.IsAutoUpdateSize = true;
+
+            UIItemSwitchUpdate canSpaw = new UIItemSwitchUpdate(gss_canSpaw, ico1.Value, "能否重生");
+            canSpaw.MouseText = "该队伍的玩家能否重生";
+            ui_open.Append(canSpaw);
 
             UIItemValueSliderUpdate team = new UIItemValueSliderUpdate(gss_team, 0, 5, text: "队伍");
             team.MouseText = "该队伍玩家的队伍";
@@ -54,6 +68,50 @@ namespace BedWars.Edit.UI.EditTeam
             };
             ui_open.Append(team);
 
+            ui_open.Append(Build1.ItemTextBoxUpdate("名称", ico2, gss_name));
+
+            ui_open.Append(Build1.ItemTextBoxUpdate("最大玩家数量", ico3, gss_maxPlay));
+
+            UIStackPanel sp = new UIStackPanel();
+            sp.Width.Precent = 1;
+            sp.Height.Pixels = 25;
+            sp.ItemMargin = 4;
+            sp.Horizontal = true;
+            ui_open.Append(sp);
+
+            UIImageButton del = new UIImageButton(sp.Height.Pixels, "删除", "Images/UI/Cursor_6");
+            del.VAlign = 0.5f;
+            del.OnClick += () =>
+            {
+                EditData.instance.DelTeam(data);
+                OnDataUpdate?.Invoke();
+            };
+            sp.Append(del);
+
+            UIImageButtonSwitchPos setSpawTilePos = new UIImageButtonSwitchPos((int)sp.Height.Pixels, "重生方块位置,右键传送", "Images/UI/SpawnBed");
+            setSpawTilePos.OnSetPos = v =>
+            {
+                string ex = EditData.instance.SetTeamSpawTilePos(data, v);
+                if (ex != null) Main.NewText(ex);
+            };
+            setSpawTilePos.OnRightClick += (e, s) =>
+            {
+                tp(data.spawTilePos);
+            };
+            sp.Append(setSpawTilePos);
+
+            UIImageButtonSwitchPos setSpawPos = new UIImageButtonSwitchPos((int)sp.Height.Pixels, "玩家重生位置,右键传送", "Images/UI/SpawnPoint");
+            setSpawPos.OnSetPos = v =>
+            {
+                string ex = EditData.instance.SetTeamSpawPos(data, v);
+                if (ex != null) Main.NewText(ex);
+            };
+            setSpawPos.OnRightClick += (e, s) =>
+            {
+                tp(data.spawPos);
+            };
+            sp.Append(setSpawPos);
+
             return ui_open;
         }
 
@@ -64,26 +122,40 @@ namespace BedWars.Edit.UI.EditTeam
             ui_close = new UIState();
             ui_close.Height.Set(20, 0);
 
-            //ui_close_name = new Terraria.GameContent.UI.Elements.UIText(string.Empty);
-            //ui_close_name.Width.Set(-ui_close.Height.Pixels, 1);
-            //ui_close_name.Height.Pixels = ui_close.Height.Pixels;
-            //ui_close_name.VAlign = 0.5f;
-            //ui_close_name.TextOriginY = 0.5f;
-            //ui_close_name.TextOriginX = 0;
-            //ui_close_name.OnUpdate += _ => ui_close_name.SetText(gss_name.Get() ?? string.Empty);
-            //ui_close.Append(ui_close_name);
+            ui_close_name = new Terraria.GameContent.UI.Elements.UIText(string.Empty);
+            ui_close_name.Width.Set(-ui_close.Height.Pixels, 1);
+            ui_close_name.Height.Pixels = ui_close.Height.Pixels;
+            ui_close_name.VAlign = 0.5f;
+            ui_close_name.TextOriginY = 0.5f;
+            ui_close_name.TextOriginX = 0;
+            ui_close_name.OnUpdate += _ => ui_close_name.SetText(gss_name.Get() ?? string.Empty);
+            ui_close.Append(ui_close_name);
 
-            //UIImageButton del = new UIImageButton(ui_close.Height.Pixels, "删除", "Images/UI/Cursor_6");
-            //del.HAlign = 1;
-            //del.VAlign = 0.5f;
-            //del.OnClick += () =>
-            //{
-            //    EditData.instance.DelSpawItem(data);
-            //    OnDataUpdate?.Invoke();
-            //};
-            //ui_close.Append(del);
+            UIImageButton del = new UIImageButton(ui_close.Height.Pixels, "删除", "Images/UI/Cursor_6");
+            del.HAlign = 1;
+            del.VAlign = 0.5f;
+            del.OnClick += () =>
+            {
+                EditData.instance.DelTeam(data);
+                OnDataUpdate?.Invoke();
+            };
+            ui_close.Append(del);
 
             return ui_close;
+        }
+
+        private void tp(Point pos)
+        {
+            pos.X += data.mapData.Info.pos.X;
+            pos.Y += data.mapData.Info.pos.Y;
+
+            if (WorldGen.InWorld(pos.X, pos.Y) == false)
+            {
+                Main.NewText($"超出世界:{pos.X},{pos.Y}");
+                return;
+            }
+
+            Main.LocalPlayer.Center = pos.ToWorldCoordinates();
         }
     }
 }

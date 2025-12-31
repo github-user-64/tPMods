@@ -17,6 +17,15 @@ namespace BedWars.Edit
             return null;
         }
 
+        public string DelTeam(TeamData data)
+        {
+            if (Data == null) return "地图数据为null";
+
+            DataTeams.Remove(data);
+
+            return null;
+        }
+
         /// <summary>
         /// <paramref name="pos"/>为世界位置
         /// </summary>
@@ -24,7 +33,7 @@ namespace BedWars.Edit
         {
             if (CheckPos(ref pos) is string ex) return ex;
 
-            data.spawTilePos.X = pos.X;
+            data.spawTilePos = pos;
 
             return null;
         }
@@ -36,7 +45,7 @@ namespace BedWars.Edit
         {
             if (CheckPos(ref pos) is string ex) return ex;
 
-            data.spawPos.X = pos.X;
+            data.spawPos = pos;
 
             return null;
         }

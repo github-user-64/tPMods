@@ -35,9 +35,8 @@ namespace BedWars.Edit.UI.EditSpawItem
 
         public void UpdateData()
         {
+            sv.Deactivate();
             sv.ClearChild();
-
-            Common.SpawItem.SpawDatas.Clear();
 
             List<SpawItemData> datas = EditData.instance.DataSpawItems;
             if (datas == null) return;

@@ -95,6 +95,7 @@
     <Compile Include="Common\UI\UIItemTextBoxUpdate.cs" />
     <Compile Include="Common\UI\UIItemValueSliderUpdate.cs" />
     <Compile Include="Common\UI\UIWrapPanel2.cs" />
+    <Compile Include="Edit\EditData_CanTile.cs" />
     <Compile Include="Edit\EditData_Team.cs" />
     <Compile Include="Edit\EditData_SpawItem.cs" />
     <Compile Include="Edit\EditData_File.cs" />
@@ -102,6 +103,8 @@
     <Compile Include="BedWarsData\MapData.cs" />
     <Compile Include="BedWarsData\DataFileHelp.cs" />
     <Compile Include="Common\GameInterface.cs" />
+    <Compile Include="Edit\UI\EditItem_DisplayData\DisplayTeam.cs" />
+    <Compile Include="Edit\UI\EditItem_DisplayData\DrawUtils.cs" />
     <Compile Include="Edit\UI\EditItem_EditData\TpMapPos.cs" />
     <Compile Include="Edit\UI\EditSpawItem\EditItem.cs" />
     <Compile Include="Edit\UI\EditSpawItem\EditItemType.cs" />
@@ -111,6 +114,7 @@
     <Compile Include="Edit\UI\EditWindow\EditPanel0.cs" />
     <Compile Include="Edit\UI\EditWindow\EditPanel3.cs" />
     <Compile Include="Edit\UI\EditWindow\EditPanel4.cs" />
+    <Compile Include="Edit\UI\Elements\Build1.cs" />
     <Compile Include="Edit\UI\Elements\UIEditPanel.cs" />
     <Compile Include="Edit\UI\IEditControl.cs" />
     <Compile Include="Edit\UI\EditItem_DisplayData\DisplaySpawItem.cs" />

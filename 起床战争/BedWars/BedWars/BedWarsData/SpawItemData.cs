@@ -58,10 +58,5 @@ namespace BedWars.BedWarsData
         {
             if (mapData.InMapRelative(pos) == false) throw new Exception("生成物品超出地图");
         }
-
-        public static void SetMapData(MapData mapData)
-        {
-            mapData.SpawItems.ForEach(i => i.mapData = mapData);
-        }
     }
 }

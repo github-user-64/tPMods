@@ -5,25 +5,27 @@ using tContentPatch.Content.UI.ModSet;
 
 namespace BedWars.Edit.UI.EditItem_DisplayData
 {
-    internal class DisplaySpawItem : UIItemSwitch
+    internal class DisplayTeam : UIItemSwitch
     {
-        public DisplaySpawItem(string text) : base(null, text)
+        public DisplayTeam(string text) : base(null, text)
         {
-            Common.GameInterface.OnDraw.Add(DrawMapPosSize);
+            Common.GameInterface.OnDraw.Add(DrawTeam);
 
             SetVal(true);
         }
 
-        private void DrawMapPosSize(SpriteBatch spriteBatch)
+        private void DrawTeam(SpriteBatch spriteBatch)
         {
             if (GetVal() == false) return;
             if (Init.Enable == false) return;
             MapData data = EditData.instance.Data;
             if (data == null) return;
 
-            foreach (var i in data.SpawItems)
+            foreach (var i in data.Teams)
             {
-                DrawUtils.Draw(data.Info.pos, i.pos, Color.LawnGreen, i.name, 400);
+                DrawUtils.Draw(data.Info.pos, i.spawTilePos, Color.BlueViolet, $"{i.name}队方块", 300 - 25);
+
+                DrawUtils.Draw(data.Info.pos, i.spawPos, Color.LightBlue, $"{i.name}队位置", 300);
             }
         }
     }

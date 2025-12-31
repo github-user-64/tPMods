@@ -40,6 +40,7 @@ namespace BedWars.Edit
             DataInfo.size = size;
 
             _ = DataSpawItems.RemoveAll(i => Data.InMapRelative(i.pos) == false);
+            _ = DataTeams.RemoveAll(i => Data.InMapRelative(i.spawTilePos) == false || Data.InMapRelative(i.spawPos) == false);
             _ = DataCanTiles.RemoveAll(i => Data.InMapRelative(i.pos) == false);
 
             return null;

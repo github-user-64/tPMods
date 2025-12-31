@@ -20,6 +20,9 @@ namespace BedWars.BedWarsData
             CheckList(ref mapData.SpawItems);
             CheckList(ref mapData.Teams);
             CheckList(ref mapData.CanTileDatas);
+
+            mapData.SpawItems.ForEach(i => i.mapData = mapData);
+            mapData.Teams.ForEach(i => i.mapData = mapData);
         }
 
         private static void CheckList<T>(ref List<T> list)

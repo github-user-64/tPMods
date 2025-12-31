@@ -46,16 +46,6 @@ namespace BedWars.Edit.UI.EditSpawItem
             Width.Precent = 1;
         }
 
-        public UIElement GetUI1<T>(string t1, Asset<Texture2D> ico, GetSetString<T> gss)
-        {
-            UIItemTextBoxUpdate<T> ui = new UIItemTextBoxUpdate<T>(gss, t1, -1, ico.Value);
-            ui.Height.Set(25, 0);
-            ui.tb.Width.Set(-25 - 2, 1);
-            ui.MouseText = t1;
-
-            return ui;
-        }
-
         public override UIElement GetUIOpen()
         {
             if (ui_open != null) return ui_open;
@@ -79,16 +69,16 @@ namespace BedWars.Edit.UI.EditSpawItem
             };
             ui_open.Append(test);
 
-            UIItemSwitchUpdate exclude = new UIItemSwitchUpdate(gss_exclude, ico1.Value);
+            UIItemSwitchUpdate exclude = new UIItemSwitchUpdate(gss_exclude, ico1.Value, "排除类型");
             exclude.Height.Set(30, 0);
             exclude.MouseText = "排除类型";
             ui_open.Append(exclude);
 
-            ui_open.Append(GetUI1("名称", ico4, gss_name));
+            ui_open.Append(Build1.ItemTextBoxUpdate("名称", ico4, gss_name));
 
-            ui_open.Append(GetUI1("最大物品数量", ico2, gss_stack));
+            ui_open.Append(Build1.ItemTextBoxUpdate("最大物品数量", ico2, gss_stack));
 
-            ui_open.Append(GetUI1("生成间隔", ico3, gss_cd));
+            ui_open.Append(Build1.ItemTextBoxUpdate("生成间隔", ico3, gss_cd));
 
             UIStackPanel sp = new UIStackPanel();
             sp.Width.Precent = 1;
@@ -110,13 +100,17 @@ namespace BedWars.Edit.UI.EditSpawItem
             tp.VAlign = 0.5f;
             tp.OnClick += () =>
             {
-                Vector2 pos = data.mapData.Info.pos.ToWorldCoordinates(0, 0) + data.pos.ToWorldCoordinates();
-                if (WorldGen.InWorld(data.pos.X, data.pos.Y) == false)
+                Point pos = data.mapData.Info.pos;
+                pos.X += data.pos.X;
+                pos.Y += data.pos.Y;
+
+                if (WorldGen.InWorld(pos.X, pos.Y) == false)
                 {
                     Main.NewText($"超出世界:{pos.X},{pos.Y}");
                     return;
                 }
-                Main.LocalPlayer.Center = pos;
+
+                Main.LocalPlayer.Center = pos.ToWorldCoordinates();
             };
             sp.Append(tp);
 

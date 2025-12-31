@@ -12,6 +12,7 @@ namespace BedWars.Edit.UI.EditWindow
 
             AddChild(new DisplayMapPosSize("显示地图位置大小"));
             AddChild(new DisplaySpawItem("显示生成物品位置"));
+            AddChild(new DisplayTeam("显示队伍位置"));
         }
 
         public void OnOpen() { }

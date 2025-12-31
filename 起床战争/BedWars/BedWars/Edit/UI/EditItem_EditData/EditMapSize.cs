@@ -27,6 +27,13 @@ namespace BedWars.Edit.UI.EditItem_EditData
             CombatText.NewText(new Rectangle(pos.X * 16, pos.Y * 16, 0, 0), Color.LawnGreen, text, false, false);
         }
 
+        public override void Update(GameTime gameTime)
+        {
+            base.Update(gameTime);
+
+            if (IsMouseHovering) Main.instance.MouseText("设置后会删除超出范围的其它设置");
+        }
+
         public override void DrawSwitchPos(Point pos)
         {
             Point p = EditData.instance.DataInfo?.pos ?? pos;

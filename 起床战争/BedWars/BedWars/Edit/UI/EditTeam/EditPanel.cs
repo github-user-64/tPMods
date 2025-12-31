@@ -23,6 +23,7 @@ namespace BedWars.Edit.UI.EditTeam
 
         public void UpdateData()
         {
+            sv.Deactivate();
             sv.ClearChild();
 
             List<TeamData> datas = EditData.instance.DataTeams;

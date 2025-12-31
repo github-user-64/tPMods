@@ -13,7 +13,6 @@ namespace BedWars.BedWarsData
         {
             Info.Check(this);
             SpawItems.ForEach(i => i.Check(this));
-            SpawItemData.SetMapData(this);
             Teams.ForEach(i => i.Check(this));
             CanTileDatas.ForEach(i => i.Check(this));
         }

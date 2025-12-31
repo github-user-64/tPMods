@@ -16,7 +16,7 @@ namespace BedWars.Edit
             temp.mapData = Data;
             temp.pos = pos;
 
-            Data.SpawItems.Add(temp);
+            DataSpawItems.Add(temp);
 
             return null;
         }
@@ -25,7 +25,7 @@ namespace BedWars.Edit
         {
             if (Data == null) return "地图数据为null";
 
-            Data.SpawItems.Remove(data);
+            DataSpawItems.Remove(data);
 
             return null;
         }
