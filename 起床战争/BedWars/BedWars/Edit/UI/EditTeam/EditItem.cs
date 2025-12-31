@@ -83,7 +83,7 @@ namespace BedWars.Edit.UI.EditTeam
             del.VAlign = 0.5f;
             del.OnClick += () =>
             {
-                EditData.instance.DelTeam(data);
+                EditData.instance.TeamDel(data);
                 OnDataUpdate?.Invoke();
             };
             sp.Append(del);
@@ -91,7 +91,7 @@ namespace BedWars.Edit.UI.EditTeam
             UIImageButtonSwitchPos setSpawTilePos = new UIImageButtonSwitchPos((int)sp.Height.Pixels, "重生方块位置,右键传送", "Images/UI/SpawnBed");
             setSpawTilePos.OnSetPos = v =>
             {
-                string ex = EditData.instance.SetTeamSpawTilePos(data, v);
+                string ex = EditData.instance.TeamSpawTileSetPos(data, v);
                 if (ex != null) Main.NewText(ex);
             };
             setSpawTilePos.OnRightClick += (e, s) =>
@@ -103,7 +103,7 @@ namespace BedWars.Edit.UI.EditTeam
             UIImageButtonSwitchPos setSpawPos = new UIImageButtonSwitchPos((int)sp.Height.Pixels, "玩家重生位置,右键传送", "Images/UI/SpawnPoint");
             setSpawPos.OnSetPos = v =>
             {
-                string ex = EditData.instance.SetTeamSpawPos(data, v);
+                string ex = EditData.instance.TeamSpawSetPos(data, v);
                 if (ex != null) Main.NewText(ex);
             };
             setSpawPos.OnRightClick += (e, s) =>
@@ -136,7 +136,7 @@ namespace BedWars.Edit.UI.EditTeam
             del.VAlign = 0.5f;
             del.OnClick += () =>
             {
-                EditData.instance.DelTeam(data);
+                EditData.instance.TeamDel(data);
                 OnDataUpdate?.Invoke();
             };
             ui_close.Append(del);

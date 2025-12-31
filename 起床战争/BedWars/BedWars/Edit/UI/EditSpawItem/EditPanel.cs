@@ -25,7 +25,7 @@ namespace BedWars.Edit.UI.EditSpawItem
             UIImageButtonSwitchPos btn2 = new UIImageButtonSwitchPos((int)sp.Height.Pixels, "添加生成", "Images/UI/Cursor_7");
             btn2.OnSetPos = v =>
             {
-                string ex = EditData.instance.AddSpawItem(v);
+                string ex = EditData.instance.SpawItemAdd(v);
                 if (ex != null) Main.NewText(ex);
 
                 UpdateData();

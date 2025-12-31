@@ -91,7 +91,7 @@ namespace BedWars.Edit.UI.EditSpawItem
             del.VAlign = 0.5f;
             del.OnClick += () =>
             {
-                EditData.instance.DelSpawItem(data);
+                EditData.instance.SpawItemDel(data);
                 OnDataUpdate?.Invoke();
             };
             sp.Append(del);
@@ -117,7 +117,7 @@ namespace BedWars.Edit.UI.EditSpawItem
             UIImageButtonSwitchPos setPos = new UIImageButtonSwitchPos((int)sp.Height.Pixels, "设置位置", "Images/UI/Cursor_9");
             setPos.OnSetPos = v =>
             {
-                string ex = EditData.instance.SetSpawItemPos(data, v);
+                string ex = EditData.instance.SpawItemSetPos(data, v);
                 if (ex != null) Main.NewText(ex);
             };
             sp.Append(setPos);
@@ -163,7 +163,7 @@ namespace BedWars.Edit.UI.EditSpawItem
             del.VAlign = 0.5f;
             del.OnClick += () =>
             {
-                EditData.instance.DelSpawItem(data);
+                EditData.instance.SpawItemDel(data);
                 OnDataUpdate?.Invoke();
             };
             ui_close.Append(del);

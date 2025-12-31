@@ -53,7 +53,7 @@ namespace BedWars.Run
         public MapInfoData DataInfo => Data?.Info;
         public List<SpawItemData> DataSpawItems => Data?.SpawItems;
         public List<TeamData> DataTeams => Data?.Teams;
-        public List<CanTileData> DataCanTiles => Data?.CanTileDatas;
+        public List<List<TileData>> DataTile => Data?.Tile;
 
         private class asd : Mod
         {

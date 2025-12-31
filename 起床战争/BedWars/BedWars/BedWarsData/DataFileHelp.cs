@@ -9,7 +9,7 @@ namespace BedWars.BedWarsData
         public const string FileNameMapInfo = "地图信息.txt";
         public const string FileNameSpawItem = "生成物品.txt";
         public const string FileNameTeam = "队伍信息.txt";
-        public const string FileNameCanTile = "可交互图格.txt";
+        public const string FileNameTile = "图格.txt";
 
         /// <summary>
         /// 读取地图数据, 不会返回<see langword="null"/>但里面的东西会为<see langword="null"/>
@@ -36,9 +36,9 @@ namespace BedWars.BedWarsData
                 throw new Exception("队伍信息读取失败");
             }
 
-            if (ReadFileTry(Path.Combine(dir, FileNameCanTile), ref mapData.CanTileDatas) == false)
+            if (ReadFileTry(Path.Combine(dir, FileNameTile), ref mapData.Tile) == false)
             {
-                throw new Exception("可交互图格读取失败");
+                throw new Exception("图格读取失败");
             }
 
             return mapData;
@@ -66,9 +66,9 @@ namespace BedWars.BedWarsData
                 throw new Exception("队伍信息保存失败");
             }
 
-            if (SaveFileTry(Path.Combine(dir, FileNameCanTile), mapData.CanTileDatas, true) == false)
+            if (SaveFileTry(Path.Combine(dir, FileNameTile), mapData.Teams, false) == false)
             {
-                throw new Exception("可交互图格保存失败");
+                throw new Exception("图格保存失败");
             }
         }
 

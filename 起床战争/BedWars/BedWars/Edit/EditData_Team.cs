@@ -5,7 +5,7 @@ namespace BedWars.Edit
 {
     public partial class EditData
     {
-        public string AddTeam()
+        public string TeamAdd()
         {
             if (Data == null) return "地图数据为null";
 
@@ -17,7 +17,7 @@ namespace BedWars.Edit
             return null;
         }
 
-        public string DelTeam(TeamData data)
+        public string TeamDel(TeamData data)
         {
             if (Data == null) return "地图数据为null";
 
@@ -29,7 +29,7 @@ namespace BedWars.Edit
         /// <summary>
         /// <paramref name="pos"/>为世界位置
         /// </summary>
-        public string SetTeamSpawTilePos(TeamData data, Point pos)
+        public string TeamSpawTileSetPos(TeamData data, Point pos)
         {
             if (CheckPos(ref pos) is string ex) return ex;
 
@@ -41,7 +41,7 @@ namespace BedWars.Edit
         /// <summary>
         /// <paramref name="pos"/>为世界位置
         /// </summary>
-        public string SetTeamSpawPos(TeamData data, Point pos)
+        public string TeamSpawSetPos(TeamData data, Point pos)
         {
             if (CheckPos(ref pos) is string ex) return ex;
 

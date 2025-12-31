@@ -13,7 +13,7 @@ namespace BedWars.Edit.UI.EditTeam
             UIImageButton btn1 = new UIImageButton(sp.Height.Pixels, "添加队伍", "Images/UI/Cursor_7");
             btn1.OnLeftClick += (e, s) =>
             {
-                string ex = EditData.instance.AddTeam();
+                string ex = EditData.instance.TeamAdd();
                 if (ex != null) Main.NewText(ex);
 
                 UpdateData();

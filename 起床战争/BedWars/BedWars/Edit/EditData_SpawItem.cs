@@ -8,7 +8,7 @@ namespace BedWars.Edit
         /// <summary>
         /// <paramref name="pos"/>为世界位置
         /// </summary>
-        public string AddSpawItem(Point pos)
+        public string SpawItemAdd(Point pos)
         {
             if (CheckPos(ref pos) is string ex) return ex;
 
@@ -21,7 +21,7 @@ namespace BedWars.Edit
             return null;
         }
 
-        public string DelSpawItem(SpawItemData data)
+        public string SpawItemDel(SpawItemData data)
         {
             if (Data == null) return "地图数据为null";
 
@@ -33,7 +33,7 @@ namespace BedWars.Edit
         /// <summary>
         /// <paramref name="pos"/>为世界位置
         /// </summary>
-        public string SetSpawItemPos(SpawItemData data, Point pos)
+        public string SpawItemSetPos(SpawItemData data, Point pos)
         {
             if (CheckPos(ref pos) is string ex) return ex;
 

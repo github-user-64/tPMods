@@ -1,7 +1,6 @@
 ﻿using BedWars.BedWarsData;
 using Microsoft.Xna.Framework;
 using System.Collections.Generic;
-using static PlayerAccount.Common.FunctionCommand.accAction;
 
 namespace BedWars.Edit
 {
@@ -17,7 +16,7 @@ namespace BedWars.Edit
         public MapInfoData DataInfo => Data?.Info;
         public List<SpawItemData> DataSpawItems => Data?.SpawItems;
         public List<TeamData> DataTeams => Data?.Teams;
-        public List<CanTileData> DataCanTiles => Data?.CanTileDatas;
+        public List<List<TileData>> DataTile => Data?.Tile;
 
         public string SetMapPos(Point pos)
         {
@@ -41,7 +40,8 @@ namespace BedWars.Edit
 
             _ = DataSpawItems.RemoveAll(i => Data.InMapRelative(i.pos) == false);
             _ = DataTeams.RemoveAll(i => Data.InMapRelative(i.spawTilePos) == false || Data.InMapRelative(i.spawPos) == false);
-            _ = DataCanTiles.RemoveAll(i => Data.InMapRelative(i.pos) == false);
+
+            DataCheck.RepairTile(Data);
 
             return null;
         }

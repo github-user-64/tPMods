@@ -80,11 +80,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BedWarsData\CanTileData.cs" />
     <Compile Include="BedWarsData\ICheck.cs" />
     <Compile Include="BedWarsData\MapInfoData.cs" />
     <Compile Include="BedWarsData\SpawItemData.cs" />
     <Compile Include="BedWarsData\TeamData.cs" />
+    <Compile Include="BedWarsData\TileData.cs" />
     <Compile Include="Common\DrawUtils.cs" />
     <Compile Include="Common\SpawItem.cs" />
     <Compile Include="BedWarsData\DataCheck.cs" />
@@ -95,7 +95,7 @@
     <Compile Include="Common\UI\UIItemTextBoxUpdate.cs" />
     <Compile Include="Common\UI\UIItemValueSliderUpdate.cs" />
     <Compile Include="Common\UI\UIWrapPanel2.cs" />
-    <Compile Include="Edit\EditData_CanTile.cs" />
+    <Compile Include="Edit\EditData_Tile.cs" />
     <Compile Include="Edit\EditData_Team.cs" />
     <Compile Include="Edit\EditData_SpawItem.cs" />
     <Compile Include="Edit\EditData_File.cs" />
