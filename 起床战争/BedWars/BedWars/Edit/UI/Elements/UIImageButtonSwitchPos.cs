@@ -1,5 +1,6 @@
 ﻿using BedWars.Common.UI;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using System;
 using Terraria;
 
@@ -18,13 +19,6 @@ namespace BedWars.Edit.UI.Elements
                 CombatText.NewText(Main.LocalPlayer.getRect(), Color.Red, "取消选择", true, false);
             };
 
-            Common.GameInterface.OnDraw.Add(_ =>
-            {
-                if (sp.Enable == false) return;
-
-                DrawSwitchPos(sp.pos);
-            });
-
             OnLeftClick += (e, s) => sp.Enable = true;
         }
 
@@ -40,7 +34,14 @@ namespace BedWars.Edit.UI.Elements
             OnSetPos?.Invoke(pos);
         }
 
-        public virtual void DrawSwitchPos(Point pos)
+        private void DrawSwitchPos(SpriteBatch spriteBatch)
+        {
+            if (sp.Enable == false) return;
+
+            OnDrawSwitchPos(sp.pos);
+        }
+
+        public virtual void OnDrawSwitchPos(Point pos)
         {
             Common.DrawUtils.Draw_rectangle(pos, pos, Color.LawnGreen * 0.9f, Color.LawnGreen * 0.2f, 2);
 
@@ -50,7 +51,16 @@ namespace BedWars.Edit.UI.Elements
         public override void OnDeactivate()
         {
             sp.Enable = false;
+            Common.GameInterface.OnDraw.Remove(DrawSwitchPos);
+
             base.OnDeactivate();
+        }
+
+        public override void OnActivate()
+        {
+            base.OnActivate();
+
+            Common.GameInterface.OnDraw.Add(DrawSwitchPos);
         }
     }
 }

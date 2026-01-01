@@ -23,6 +23,7 @@ namespace BedWars.Edit.UI.EditWindow
             ui_wp.Append(BuildPanel(new EditPanel2(), "Images/Inventory_Tick_On", "显示数据"));
             ui_wp.Append(BuildPanel(new EditPanel3(), "Images/Item_27", "编辑生成物品"));
             ui_wp.Append(BuildPanel(new EditPanel4(), "Images/House_Banner_1", "编辑队伍"));
+            ui_wp.Append(BuildPanel(new EditPanel5(), "Images/Item_2", "图格数据"));
 
             ui_con = new UIElement();
             ui_con.Width.Precent = 1;
@@ -43,7 +44,7 @@ namespace BedWars.Edit.UI.EditWindow
             base.Update(gameTime);
         }
 
-        public UIElement BuildPanel<T>(T ui, string ico, string mouseText) where T : UIElement, IPanel
+        public UIElement BuildPanel(UIElement ui, string ico, string mouseText)
         {
             Asset<Texture2D> texture1 = Main.Assets.Request<Texture2D>(ico, AssetRequestMode.ImmediateLoad);
             UIRadioButton rb = new UIRadioButton(texture1.Value, 20, 20);
@@ -52,8 +53,9 @@ namespace BedWars.Edit.UI.EditWindow
             {
                 foreach (UIElement i in ui_con.Children) i.Deactivate();
                 ui_con.RemoveAllChildren();
+
                 ui_con.Append(ui);
-                ui.OnOpen();
+                ui.Activate();
             };
 
             return rb;

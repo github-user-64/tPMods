@@ -66,7 +66,7 @@ namespace BedWars.BedWarsData
                 throw new Exception("队伍信息保存失败");
             }
 
-            if (SaveFileTry(Path.Combine(dir, FileNameTile), mapData.Teams, false) == false)
+            if (SaveFileTry(Path.Combine(dir, FileNameTile), mapData.Tile, false) == false)
             {
                 throw new Exception("图格保存失败");
             }

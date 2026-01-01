@@ -34,7 +34,7 @@ namespace BedWars.Edit.UI.EditItem_EditData
             if (IsMouseHovering) Main.instance.MouseText("设置后会删除超出范围的其它设置");
         }
 
-        public override void DrawSwitchPos(Point pos)
+        public override void OnDrawSwitchPos(Point pos)
         {
             Point p = EditData.instance.DataInfo?.pos ?? pos;
             Point size = new Point(pos.X - p.X + 1, pos.Y - p.Y + 1);

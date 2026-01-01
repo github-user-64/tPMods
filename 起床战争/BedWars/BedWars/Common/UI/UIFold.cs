@@ -37,7 +37,9 @@ namespace BedWars.Common.UI
             Elements.ForEach(i => i.Deactivate());
             RemoveAllChildren();
 
-            if (ui != null) Append(ui);
+            if (ui == null) return;
+            Append(ui);
+            ui.Activate();
         }
 
         public virtual void Open()

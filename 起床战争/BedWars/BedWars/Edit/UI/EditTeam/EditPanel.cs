@@ -37,6 +37,13 @@ namespace BedWars.Edit.UI.EditTeam
             }
         }
 
+        public override void OnActivate()
+        {
+            base.OnActivate();
+
+            UpdateData();
+        }
+
         private UIFold _openitem = null;
         private void OnItemOpen(UIFold ui)
         {

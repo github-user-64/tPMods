@@ -36,5 +36,11 @@ namespace BedWars.Edit.UI.Elements
             Deactivate();
             base.Close();
         }
+
+        public override void Open(UIElement windowParent)
+        {
+            base.Open(windowParent);
+            Activate();
+        }
     }
 }

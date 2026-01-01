@@ -25,7 +25,7 @@ namespace BedWars.Edit.UI.EditItem_DisplayData
             {
                 DrawUtils.Draw(data.Info.pos, i.spawTilePos, Color.BlueViolet, $"{i.name}队方块", 300 - 25);
 
-                DrawUtils.Draw(data.Info.pos, i.spawPos, Color.LightBlue, $"{i.name}队位置", 300);
+                DrawUtils.Draw(data.Info.pos, i.spawPos, Color.LightBlue, $"{i.name}队重生", 300);
             }
         }
     }

@@ -1,0 +1,50 @@
+﻿using BedWars.BedWarsData;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using tContentPatch.Content.UI.ModSet;
+using Terraria;
+
+namespace BedWars.Edit.UI.EditItem_DisplayData
+{
+    /// <summary>
+    /// 绘制可交互图格
+    /// </summary>
+    internal class DisplayCanActionTile : UIItemSwitch
+    {
+        private static readonly Color drawc = Color.DarkRed * 0.5f;
+
+        public DisplayCanActionTile(string text) : base(null, text)
+        {
+            Common.GameInterface.OnDraw.Add(DrawTeam);
+        }
+
+        private void DrawTeam(SpriteBatch spriteBatch)
+        {
+            if (GetVal() == false) return;
+            if (Init.Enable == false) return;
+            MapData data = EditData.instance.Data;
+            if (data == null) return;
+
+            for (int y = 0; y < data.Info.size.Y; ++y)
+            {
+                for (int x = 0; x < data.Info.size.X; ++x)
+                {
+                    if (data.Tile[y][x].canAction == false) continue;
+
+                    Point pos = new Point(data.Info.pos.X, data.Info.pos.Y);
+                    pos.X += x;
+                    pos.Y += y;
+
+                    Common.DrawUtils.Draw_rectangle(pos, pos, drawc, drawc);
+                }
+            }
+        }
+
+        public override void Update(GameTime gameTime)
+        {
+            base.Update(gameTime);
+
+            if (IsMouseHovering) Main.instance.MouseText("意味着这里的图格玩家可以放置破坏交互");
+        }
+    }
+}

@@ -49,6 +49,13 @@ namespace BedWars.Edit.UI.EditSpawItem
             }
         }
 
+        public override void OnActivate()
+        {
+            base.OnActivate();
+
+            UpdateData();
+        }
+
         private UIFold _openitem = null;
         private void OnItemOpen(UIFold ui)
         {

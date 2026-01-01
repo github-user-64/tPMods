@@ -8,27 +8,24 @@ namespace BedWars.Edit
     public partial class EditData
     {
         /// <summary>
-        /// 遍历在地图里的方块, 参数都是在地图中的位置
+        /// 遍历在地图里的方块, 参数是在地图中的位置
         /// </summary>
-        protected void ForMapTile(int startx, int starty, int endx, int endy, Action<TileData, Tile> action)
+        protected void ForMapTile(int startx, int starty, int width, int height, Action<TileData, Tile> action)
         {
-            if (startx < endx) return;
-            if (starty < endy) return;
+            if (width < 1) return;
+            if (height < 1) return;
 
-            int sizex = endx - startx + 1;
-            int sizey = endy - starty + 1;
+            Rectangle mapSize = new Rectangle(0, 0, DataInfo.size.X, DataInfo.size.Y);
+            Rectangle forSize = new Rectangle(startx, starty, width, height);
+            Rectangle rect = Rectangle.Intersect(mapSize, forSize);
+            if (rect.IsEmpty) return;
 
-            if (sizex < 1) return;
-            if (sizey < 1) return;
-
-            for (int y = starty; y < sizey; ++y)
+            for (int y = rect.Y; y < rect.Height; ++y)
             {
-                for (int x = startx; x < sizex; ++x)
+                for (int x = rect.X; x < rect.Width; ++x)
                 {
                     int tilex = DataInfo.pos.X + x;
                     int tiley = DataInfo.pos.Y + y;
-
-                    if (DataCheck.InWorld(tilex, tiley) == false) continue;
 
                     Tile tile = Main.tile[tilex, tiley];
 
@@ -43,7 +40,7 @@ namespace BedWars.Edit
         {
             if (Data == null) return "地图数据为null";
 
-            ForMapTile(0, 0, DataInfo.size.X - 1, DataInfo.size.Y - 1, (data, tile) =>
+            ForMapTile(0, 0, DataInfo.size.X, DataInfo.size.Y, (data, tile) =>
             {
                 if (tile == null) return;
 
@@ -57,7 +54,7 @@ namespace BedWars.Edit
         {
             if (Data == null) return "地图数据为null";
 
-            ForMapTile(0, 0, DataInfo.size.X - 1, DataInfo.size.Y - 1, (data, tile) =>
+            ForMapTile(0, 0, DataInfo.size.X, DataInfo.size.Y, (data, tile) =>
             {
                 if (tile == null) return;
 
@@ -68,28 +65,19 @@ namespace BedWars.Edit
         }
 
         /// <summary>
-        /// 超出地图部分会跳过, 两个参数都是世界位置
+        /// 超出地图部分会跳过, 参数是世界位置
         /// </summary>
-        public string TileCanActionSet(Point pos, Point sizePos, bool canAction)
+        public string TileCanActionSet(Rectangle rect, bool canAction)
         {
             if (Data == null) return "地图数据为null";
 
-            if (pos.X < sizePos.X) return null;
-            if (pos.Y < sizePos.Y) return null;
+            rect.X -= DataInfo.pos.X;
+            rect.Y -= DataInfo.pos.Y;
 
-            bool inmapPos = Data.InMap(pos);
-            bool inmapSize = Data.InMap(sizePos);
-
-            if (inmapPos == false && inmapSize == false) return null;
-
-            if (inmapPos == false)
+            ForMapTile(rect.X, rect.Y, rect.Width, rect.Height, (data, tile) =>
             {
-
-            }
-            else if (inmapSize == false)
-            {
-                
-            }
+                data.canAction = canAction;
+            });
 
             return null;
         }
