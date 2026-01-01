@@ -11,14 +11,14 @@ namespace BedWars.Edit.UI.EditItem_DisplayData
     /// </summary>
     internal class DisplayCanActionTile : UIItemSwitch
     {
-        private static readonly Color drawc = Color.DarkRed * 0.5f;
+        private static readonly Color drawc = Color.DarkBlue * 0.5f;
 
         public DisplayCanActionTile(string text) : base(null, text)
         {
-            Common.GameInterface.OnDraw.Add(DrawTeam);
+            Common.GameInterface.OnDraw.Add(DrawTile);
         }
 
-        private void DrawTeam(SpriteBatch spriteBatch)
+        private void DrawTile(SpriteBatch spriteBatch)
         {
             if (GetVal() == false) return;
             if (Init.Enable == false) return;

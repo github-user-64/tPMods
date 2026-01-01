@@ -1,7 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ModTool.Common.UI;
-using System;
 using tContentPatch.Content.UI;
 
 namespace BedWars.Common.UI

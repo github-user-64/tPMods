@@ -1,0 +1,50 @@
+﻿using BedWars.Common.UI;
+using Microsoft.Xna.Framework;
+using Terraria;
+
+namespace BedWars.Edit.UI.EditItem_EditData
+{
+    internal class EditTime : UIItemTextBoxUpdate<double>
+    {
+        private static GetSetStringDouble gss = new GetSetStringDouble(GetV, SetV);
+
+        public EditTime(string text) : base(gss, null, -1, null, text)
+        {
+            Height.Set(25, 0);
+            tb.Width.Set(0, 0.5f);
+            MouseText = "不小于0则维持时间. 0是4点,3600=1时";
+        }
+
+        public override void Update(GameTime gameTime)
+        {
+            base.Update(gameTime);
+
+            if (EditData.instance.DataInfo == null) return;
+
+            Common.GameAction.Time = EditData.instance.DataInfo.time;
+        }
+
+        public override void OnDeactivate()
+        {
+            Common.GameAction.Time = -1;
+
+            base.OnDeactivate();
+        }
+
+        private static double GetV()
+        {
+            return EditData.instance.DataInfo?.time ?? default;
+        }
+
+        private static void SetV(double v)
+        {
+            if (EditData.instance.DataInfo == null)
+            {
+                Main.NewText("数据为null");
+                return;
+            }
+
+            EditData.instance.DataInfo.time = v;
+        }
+    }
+}

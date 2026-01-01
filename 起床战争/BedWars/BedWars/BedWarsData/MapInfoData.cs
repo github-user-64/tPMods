@@ -7,6 +7,13 @@ namespace BedWars.BedWarsData
     {
         public Point pos;
         public Point size;
+        public int startGameMinPlay = 2;//开始游戏所需最小玩家数
+        //游戏1分钟等于1秒
+        //游戏1时=60秒
+        //游戏60tick等于1秒
+        //游戏1时=60*60=3600tick
+        //0是4点,3600=1时
+        public double time = 3600 * (12 - 4);//维持时间, 小于0不维持
 
         public void Check(MapData mapData)
         {

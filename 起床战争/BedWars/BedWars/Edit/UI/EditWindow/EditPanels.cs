@@ -2,6 +2,7 @@
 using BedWars.Edit.UI.EditItem_EditData;
 using BedWars.Edit.UI.EditItem_File;
 using tContentPatch.Content.UI;
+using Terraria.GameContent.UI.Elements;
 
 namespace BedWars.Edit.UI.EditWindow
 {
@@ -26,9 +27,10 @@ namespace BedWars.Edit.UI.EditWindow
             Width.Precent = 1;
             Height.Precent = 1;
 
-            AddChild(new TpMapPos("传送", "传送到地图位置"));
-            AddChild(new EditMapPos("设置地图位置"));
-            AddChild(new EditMapSize("设置地图大小"));
+            AddChild(new DisplayMapPosSize("显示地图位置大小"));
+            AddChild(new DisplaySpawItem("显示生成物品位置"));
+            AddChild(new DisplayTeam("显示队伍位置"));
+            AddChild(new DisplayCanActionTile("显示可交互图格"));
         }
     }
 
@@ -39,26 +41,17 @@ namespace BedWars.Edit.UI.EditWindow
             Width.Precent = 1;
             Height.Precent = 1;
 
-            AddChild(new DisplayMapPosSize("显示地图位置大小"));
-            AddChild(new DisplaySpawItem("显示生成物品位置"));
-            AddChild(new DisplayTeam("显示队伍位置"));
-            AddChild(new DisplayCanActionTile("显示可交互图格"));
+            AddChild(new TpMapPos("传送", "传送到地图位置"));
+            AddChild(new EditMapPos("设置地图位置"));
+            AddChild(new EditMapSize("设置地图大小"));
+            AddChild(new EditStartGameMinPlay("开始所需玩家"));
+            AddChild(new EditTime("维持时间"));
         }
     }
 
-    internal class EditPanel3 : EditSpawItem.EditPanel
+    internal class EditPanel3 : UIScrollViewer2
     {
-
-    }
-
-    internal class EditPanel4 : EditTeam.EditPanel
-    {
-
-    }
-
-    internal class EditPanel5 : UIScrollViewer2
-    {
-        public EditPanel5()
+        public EditPanel3()
         {
             Width.Precent = 1;
             Height.Precent = 1;
@@ -67,6 +60,22 @@ namespace BedWars.Edit.UI.EditWindow
             AddChild(new EditPlaceTile("放置", null, "放置图格"));
             AddChild(new EditTileCanAction("添加可交互方块"));
             AddChild(new EditTileNoCanAction("删除可交互方块"));
+
+            UIText text = new UIText("玩家能对可交互位置的方块:破坏,放置,交互\n可交互方块的显示是默认关闭的\n别搞太多可交互方块", 0.7f);
+            text.Width.Precent = 1;
+            text.MarginTop = 10;
+            text.TextOriginX = 0;
+            AddChild(text);
         }
+    }
+
+    internal class EditPanel4 : EditSpawItem.EditPanel
+    {
+
+    }
+
+    internal class EditPanel5 : EditTeam.EditPanel
+    {
+
     }
 }

@@ -32,7 +32,19 @@ namespace BedWars.Common.UI
             func = v =>
             {
                 if (int.TryParse(v, out int rv)) return rv;
-                return Get();
+                return this.Get();
+            };
+        }
+    }
+
+    internal class GetSetStringDouble : GetSetString<double>
+    {
+        public GetSetStringDouble(Func<double> Get, Action<double> Set) : base(Get, Set)
+        {
+            func = v =>
+            {
+                if (double.TryParse(v, out double rv)) return rv;
+                return this.Get();
             };
         }
     }

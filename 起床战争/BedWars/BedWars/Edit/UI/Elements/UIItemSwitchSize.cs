@@ -37,7 +37,7 @@ namespace BedWars.Edit.UI.Elements
             {
                 if (GetVal() == false) return;
                 if (Main.LocalPlayer.mouseInterface) return;
-                if (Main.mouseLeft == false) return;
+                if ((Main.mouseLeft && Main.mouseLeftRelease) == false) return;
 
                 Point pos = ModTool.Utils.Utils.MouseWorld.ToTileCoordinates();
                 size.X = pos.X;
@@ -49,7 +49,7 @@ namespace BedWars.Edit.UI.Elements
 
             UpdateSize();
 
-            if (Main.mouseRight)
+            if (Main.mouseRight && Main.mouseRightRelease)
             {
                 Switching = false;
                 CombatText.NewText(Main.LocalPlayer.getRect(), Color.Red, "取消选择", true, false);
@@ -63,8 +63,14 @@ namespace BedWars.Edit.UI.Elements
 
         private void SetSize()
         {
-            size.Width -= size.X + 1;
-            size.Height -= size.Y + 1;
+            Point startTileP = new Point(Math.Min(size.X, size.Width), Math.Min(size.Y, size.Height));
+            Point endTileP = new Point(Math.Max(size.X, size.Width), Math.Max(size.Y, size.Height));
+
+            size.X = startTileP.X;
+            size.Y = startTileP.Y;
+
+            size.Width = endTileP.X - size.X + 1;
+            size.Height = endTileP.Y - size.Y + 1;
 
             OnSetSize?.Invoke(size);
         }

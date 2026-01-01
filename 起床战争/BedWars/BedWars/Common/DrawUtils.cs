@@ -34,10 +34,14 @@ namespace BedWars.Common
             Point startTileP = new Point(Math.Min(startTileX, endTileX), Math.Min(startTileY, endTileY));
             Point endTileP = new Point(Math.Max(startTileX, endTileX), Math.Max(startTileY, endTileY));
 
+            //
+
             Vector2 start = Terraria.Utils.ToWorldCoordinates(startTileP, 0, 0);
             Vector2 end = Terraria.Utils.ToWorldCoordinates(endTileP, 16, 16);
             start -= Main.screenPosition;
             end -= Main.screenPosition;
+
+            //
 
             Rectangle drawSize = new Rectangle((int)start.X, (int)start.Y, (int)(end.X - start.X), (int)(end.Y - start.Y));
 
@@ -48,9 +52,11 @@ namespace BedWars.Common
             if (drawRect.IsEmpty) return;
 
             //
+
             Rectangle rect = drawRect;
             AddSize(ref rect, -width);
             Main.spriteBatch.Draw(TextureAssets.MagicPixel.Value, rect, backgroundColor);
+
             //
 
             if (width < 1) return;

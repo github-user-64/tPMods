@@ -26,7 +26,7 @@ namespace BedWars.Edit.UI.EditItem_EditData
 
             OnSetSize += r =>
             {
-                EditData.instance.TileCanActionSet(r, true);
+                EditData.instance.TileCanActionSet(r, false);
             };
         }
     }

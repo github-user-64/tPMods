@@ -60,12 +60,12 @@ namespace BedWars.Edit.UI.EditSpawItem
             {
                 if (v == false)
                 {
-                    Common.SpawItem.SpawDatas.Remove(data);
+                    Common.GameAction.SpawItem.Remove(data);
                     return;
                 }
 
-                if (Common.SpawItem.SpawDatas.Contains(data)) return;
-                Common.SpawItem.SpawDatas.Add(data);
+                if (Common.GameAction.SpawItem.Contains(data)) return;
+                Common.GameAction.SpawItem.Add(data);
             };
             ui_open.Append(test);
 
@@ -205,7 +205,7 @@ namespace BedWars.Edit.UI.EditSpawItem
         public override void OnDeactivate()
         {
             base.OnDeactivate();
-            Common.SpawItem.SpawDatas.Remove(data);
+            Common.GameAction.SpawItem.Remove(data);
         }
     }
 }

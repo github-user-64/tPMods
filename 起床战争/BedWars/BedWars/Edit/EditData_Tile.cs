@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework;
 using System;
 using Terraria;
+using Terraria.ID;
 
 namespace BedWars.Edit
 {
@@ -10,19 +11,22 @@ namespace BedWars.Edit
         /// <summary>
         /// 遍历在地图里的方块, 参数是在地图中的位置
         /// </summary>
-        protected void ForMapTile(int startx, int starty, int width, int height, Action<TileData, Tile> action)
+        protected void ForMapTile(int startMapX, int startMapY, int width, int height, Action<TileData, Tile, int, int> action)
         {
             if (width < 1) return;
             if (height < 1) return;
 
             Rectangle mapSize = new Rectangle(0, 0, DataInfo.size.X, DataInfo.size.Y);
-            Rectangle forSize = new Rectangle(startx, starty, width, height);
+            Rectangle forSize = new Rectangle(startMapX, startMapY, width, height);
             Rectangle rect = Rectangle.Intersect(mapSize, forSize);
             if (rect.IsEmpty) return;
 
-            for (int y = rect.Y; y < rect.Height; ++y)
+            int xlen = rect.X + rect.Width;
+            int ylen = rect.Y + rect.Height;
+
+            for (int y = rect.Y; y < ylen; ++y)
             {
-                for (int x = rect.X; x < rect.Width; ++x)
+                for (int x = rect.X; x < xlen; ++x)
                 {
                     int tilex = DataInfo.pos.X + x;
                     int tiley = DataInfo.pos.Y + y;
@@ -31,7 +35,7 @@ namespace BedWars.Edit
 
                     TileData data = DataTile[y][x];
 
-                    action(data, tile);
+                    action(data, tile, tilex, tiley);
                 }
             }
         }
@@ -40,7 +44,7 @@ namespace BedWars.Edit
         {
             if (Data == null) return "地图数据为null";
 
-            ForMapTile(0, 0, DataInfo.size.X, DataInfo.size.Y, (data, tile) =>
+            ForMapTile(0, 0, DataInfo.size.X, DataInfo.size.Y, (data, tile, x, y) =>
             {
                 if (tile == null) return;
 
@@ -54,11 +58,13 @@ namespace BedWars.Edit
         {
             if (Data == null) return "地图数据为null";
 
-            ForMapTile(0, 0, DataInfo.size.X, DataInfo.size.Y, (data, tile) =>
+            ForMapTile(0, 0, DataInfo.size.X, DataInfo.size.Y, (data, tile, x, y) =>
             {
                 if (tile == null) return;
 
                 TileData.Place(data, tile);
+
+                if (data.wall > WallID.None) WorldGen.SquareWallFrame(x, y);//没这个墙壁会乱糟糟的
             });
 
             return null;
@@ -74,7 +80,7 @@ namespace BedWars.Edit
             rect.X -= DataInfo.pos.X;
             rect.Y -= DataInfo.pos.Y;
 
-            ForMapTile(rect.X, rect.Y, rect.Width, rect.Height, (data, tile) =>
+            ForMapTile(rect.X, rect.Y, rect.Width, rect.Height, (data, tile, x, y) =>
             {
                 data.canAction = canAction;
             });
