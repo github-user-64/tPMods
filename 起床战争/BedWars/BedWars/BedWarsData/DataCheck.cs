@@ -15,21 +15,22 @@ namespace BedWars.BedWarsData
         {
             if (mapData == null) throw new ArgumentNullException(nameof(mapData));
 
-            if (mapData.Info == null) mapData.Info = new MapInfoData();
+            mapData.Repair();
+        }
 
-            CheckList(ref mapData.SpawItems);
-            mapData.SpawItems.ForEach(i => i.mapData = mapData);
-            
-            CheckList(ref mapData.Teams);
-            mapData.Teams.ForEach(i => i.mapData = mapData);
+        /// <exception cref="ArgumentNullException"/>
+        /// <exception cref="Exception"/>
+        public static void CheckMapData(MapData mapData)
+        {
+            if (mapData == null) throw new ArgumentNullException(nameof(mapData));
 
-            RepairTile(mapData);
+            mapData.Check();
         }
 
         /// <summary>
         /// 将列表中的<see langword="null"/>用新建的对象填满
         /// </summary>
-        private static void FillList<T>(List<T> list) where T : new()
+        public static void FillList<T>(List<T> list) where T : new()
         {
             for (int i = 0; i < list.Count; ++i)
             {
@@ -40,7 +41,7 @@ namespace BedWars.BedWarsData
         /// <summary>
         /// 删除<see langword="null"/>
         /// </summary>
-        private static void CheckList<T>(ref List<T> list)
+        public static void RepairList<T>(ref List<T> list)
         {
             if (list == null) list = new List<T>();
             else list.RemoveAll(i => i == null);
@@ -49,7 +50,7 @@ namespace BedWars.BedWarsData
         /// <summary>
         /// 将列表用对象填满
         /// </summary>
-        private static void CheckList<T>(ref List<T> list, int xcount) where T : new()
+        public static void RepairList<T>(ref List<T> list, int xcount) where T : new()
         {
             if (list == null) list = new List<T>();
 
@@ -81,19 +82,11 @@ namespace BedWars.BedWarsData
         /// <summary>
         /// 将列表用对象填满
         /// </summary>
-        private static void CheckList<T>(ref List<List<T>> list, int xcount, int ycount) where T : new()
+        public static void RepairList<T>(ref List<List<T>> list, int xcount, int ycount) where T : new()
         {
-            CheckList(ref list, ycount);
+            RepairList(ref list, ycount);
 
-            list.ForEach(i => CheckList(ref i, xcount));
-        }
-
-        /// <summary>
-        /// <see cref="MapData.Tile"/>超出大小的就删除, 小于就添加, 填满<see langword="null"/>
-        /// </summary>
-        public static void RepairTile(MapData mapData)
-        {
-            CheckList(ref mapData.Tile, mapData.Info.size.X, mapData.Info.size.Y);
+            list.ForEach(i => RepairList(ref i, xcount));
         }
 
         public static bool InWorld(Point pos)
@@ -109,12 +102,6 @@ namespace BedWars.BedWarsData
         public static bool InWorldSize(Point pos, Point size)
         {
             return WorldGen.InWorld(pos.X + size.X, pos.Y + size.Y, 2);
-        }
-
-        /// <exception cref="Exception"/>
-        public static void CheckMapData(MapData mapData)
-        {
-            mapData.Check();
         }
 
         public static bool InMap(this MapData mapData, Point pos)

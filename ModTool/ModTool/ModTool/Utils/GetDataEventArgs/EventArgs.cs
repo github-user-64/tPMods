@@ -284,9 +284,13 @@ namespace ModTool.Utils.GetDataEventArgs
     /// </summary>
     public class RequestChestOpenEventArgs : GetDataEventArgs
     {
-        /// <summary/>
+        /// <summary>
+        /// 箱子图格的左上角x
+        /// </summary>
         public int x;
-        /// <summary/>
+        /// <summary>
+        /// 箱子图格的左上角y
+        /// </summary>
         public int y;
     }
 

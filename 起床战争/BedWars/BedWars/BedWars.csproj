@@ -80,11 +80,13 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BedWarsData\Data\ChestData.cs" />
     <Compile Include="BedWarsData\ICheck.cs" />
-    <Compile Include="BedWarsData\MapInfoData.cs" />
-    <Compile Include="BedWarsData\SpawItemData.cs" />
-    <Compile Include="BedWarsData\TeamData.cs" />
-    <Compile Include="BedWarsData\TileData.cs" />
+    <Compile Include="BedWarsData\Data\ItemData.cs" />
+    <Compile Include="BedWarsData\Data\MapInfoData.cs" />
+    <Compile Include="BedWarsData\Data\SpawItemData.cs" />
+    <Compile Include="BedWarsData\Data\TeamData.cs" />
+    <Compile Include="BedWarsData\Data\TileData.cs" />
     <Compile Include="Common\DrawUtils.cs" />
     <Compile Include="Common\GameAction.cs" />
     <Compile Include="BedWarsData\DataCheck.cs" />
@@ -100,7 +102,7 @@
     <Compile Include="Edit\EditData_SpawItem.cs" />
     <Compile Include="Edit\EditData_File.cs" />
     <Compile Include="Edit\EditData.cs" />
-    <Compile Include="BedWarsData\MapData.cs" />
+    <Compile Include="BedWarsData\Data\MapData.cs" />
     <Compile Include="BedWarsData\DataFileHelp.cs" />
     <Compile Include="Common\GameInterface.cs" />
     <Compile Include="Edit\UI\EditItem_DisplayData\DisplayCanActionTile.cs" />

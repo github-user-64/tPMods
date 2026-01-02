@@ -10,6 +10,7 @@ namespace BedWars.BedWarsData
         public const string FileNameSpawItem = "生成物品.txt";
         public const string FileNameTeam = "队伍信息.txt";
         public const string FileNameTile = "图格.txt";
+        public const string FileNameChest = "箱子.txt";
 
         /// <summary>
         /// 读取地图数据, 不会返回<see langword="null"/>但里面的东西会为<see langword="null"/>
@@ -41,6 +42,11 @@ namespace BedWars.BedWarsData
                 throw new Exception("图格读取失败");
             }
 
+            if (ReadFileTry(Path.Combine(dir, FileNameChest), ref mapData.Tile) == false)
+            {
+                throw new Exception("箱子读取失败");
+            }
+
             return mapData;
         }
 
@@ -69,6 +75,11 @@ namespace BedWars.BedWarsData
             if (SaveFileTry(Path.Combine(dir, FileNameTile), mapData.Tile, false) == false)
             {
                 throw new Exception("图格保存失败");
+            }
+
+            if (SaveFileTry(Path.Combine(dir, FileNameChest), mapData.Tile, true) == false)
+            {
+                throw new Exception("箱子保存失败");
             }
         }
 

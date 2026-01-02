@@ -41,7 +41,7 @@ namespace BedWars.Edit
             _ = DataSpawItems.RemoveAll(i => Data.InMapRelative(i.pos) == false);
             _ = DataTeams.RemoveAll(i => Data.InMapRelative(i.spawTilePos) == false || Data.InMapRelative(i.spawPos) == false);
 
-            DataCheck.RepairTile(Data);
+            Data.RepairTile();
 
             return null;
         }
