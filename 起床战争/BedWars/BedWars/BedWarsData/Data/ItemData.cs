@@ -13,18 +13,33 @@ namespace BedWars.BedWarsData
 
         }
 
-        public static void Copy(ItemData data, Item item)
+        /// <summary>
+        /// 复制物品, 如果参数为空, 则重置数据
+        /// </summary>
+        public void Copy(Item item = null)
         {
-            data.type = item.type;
-            data.stack = item.stack;
-            data.prefix = item.prefix;
+            if (item == null)
+            {
+                type = 0;
+                stack = 0;
+                prefix = 0;
+                return;
+            }
+            type = item.type;
+            stack = item.stack;
+            prefix = item.prefix;
         }
 
-        public static void Paste(ItemData data, Item item)
+        /// <summary>
+        /// 粘贴物品, 如果参数为空则跳过
+        /// </summary>
+        public void Paste(Item item = null)
         {
-            item.type = data.type;
-            item.stack = data.stack;
-            item.prefix = data.prefix;
+            if (item == null) return;
+            item.SetDefaults(type);
+            //item.type = type;
+            item.stack = stack;
+            item.prefix = prefix;
         }
     }
 }

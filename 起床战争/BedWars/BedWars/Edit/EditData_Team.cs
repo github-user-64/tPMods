@@ -10,7 +10,6 @@ namespace BedWars.Edit
             if (Data == null) return "地图数据为null";
 
             TeamData team = new TeamData();
-            team.mapData = Data;
 
             DataTeams.Add(team);
 

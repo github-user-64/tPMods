@@ -5,8 +5,6 @@ namespace BedWars.BedWarsData
 {
     public class TeamData : ICheck
     {
-        [Newtonsoft.Json.JsonIgnore]
-        public MapData mapData = null;
         public string name = null;
         /// <summary>
         /// 该队伍最大玩家数量

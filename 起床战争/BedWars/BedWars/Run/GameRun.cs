@@ -54,6 +54,8 @@ namespace BedWars.Run
         public List<SpawItemData> DataSpawItems => Data?.SpawItems;
         public List<TeamData> DataTeams => Data?.Teams;
         public List<List<TileData>> DataTile => Data?.Tile;
+        public List<ChestData> DataChests => Data?.Chests;
+        public List<SignData> DataSigns => Data?.Signs;
 
         private class asd : Mod
         {

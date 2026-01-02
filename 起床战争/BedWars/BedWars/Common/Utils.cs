@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using System;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;
@@ -42,33 +43,77 @@ namespace BedWars.Common
         }
 
         /// <summary>
-        /// 获取范围内的箱子, 位置是世界位置
+        /// 获取范围内的项
         /// </summary>
-        public static List<(Chest, int)> GetChests(Point pos, Point size)
+        public static List<(T, int)> GetInRange<T>(Point pos, Point size, T[] arr, Func<T, Point> getp)
         {
-            List<(Chest, int)> chests = new List<(Chest, int)>();
+            List<(T, int)> list = new List<(T, int)>();
 
-            if (size.X < 1) return chests;
-            if (size.Y < 1) return chests;
+            if (size.X < 1) return list;
+            if (size.Y < 1) return list;
             int endx = pos.X + size.X - 1;
             int endy = pos.Y + size.Y - 1;
 
-            for (int i = 0; i < Main.chest.Length; ++i)
+            for (int i = 0; i < arr.Length; ++i)
             {
-                Chest c = Main.chest[i];
+                T item = arr[i];
 
-                if (c == null) continue;
-                if (c.bankChest) continue;//是类似猪猪存钱罐的东西
+                if (item == null) continue;
+                Point p = getp(item);
 
-                if (c.x < pos.X) continue;
-                if (c.y < pos.Y) continue;
-                if (c.x > endx) continue;
-                if (c.y > endy) continue;
+                if (p.X < pos.X) continue;
+                if (p.Y < pos.Y) continue;
+                if (p.X > endx) continue;
+                if (p.Y > endy) continue;
 
-                chests.Add((c, i));
+                list.Add((item, i));
             }
 
-            return chests;
+            return list;
+        }
+
+        /// <summary>
+        /// 获取范围内的箱子, 位置是世界位置
+        /// </summary>
+        public static List<(Chest, int)> GetInRangeChest(Point pos, Point size)
+        {
+            return GetInRange(pos, size, Main.chest, i => new Point(i.x, i.y));
+        }
+
+        /// <summary>
+        /// 获取范围内的告示牌, 位置是世界位置
+        /// </summary>
+        public static List<(Sign, int)> GetInRangeSign(Point pos, Point size)
+        {
+            return GetInRange(pos, size, Main.sign, i => new Point(i.x, i.y));
+        }
+
+        /// <summary>
+        /// 清除范围内的箱子, 位置是世界位置
+        /// </summary>
+        public static void ClearInRangeChest(Point pos, Point size)
+        {
+            List<(Chest, int)> list = GetInRangeChest(pos, size);
+
+            list.ForEach(i =>
+            {
+                int x = i.Item1.x;
+                int y = i.Item1.y;
+                Chest.DestroyChestDirect(x, y, i.Item2);
+            });
+        }
+
+        /// <summary>
+        /// 清除范围内的告示牌, 位置是世界位置
+        /// </summary>
+        public static void ClearInRangeSign(Point pos, Point size)
+        {
+            List<(Sign, int)> list = GetInRangeSign(pos, size);
+
+            list.ForEach(i =>
+            {
+                Sign.KillSign(i.Item1.x, i.Item1.y);
+            });
         }
 
         ///// <summary>

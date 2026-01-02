@@ -17,11 +17,11 @@ namespace BedWars.Common
 
             public override void OnEnterWorldPrefix()
             {
-                Time = -1;
-                SpawItem.Clear();
+                Reset();
             }
         }
 
+        public static MapData mapData = null;
         /// <summary>
         /// 不要往里塞<see langword="null"/>
         /// </summary>
@@ -31,10 +31,19 @@ namespace BedWars.Common
         /// </summary>
         public static double Time = -1;
 
+        public static void Reset()
+        {
+            mapData = null;
+            Time = -1;
+            SpawItem.Clear();
+        }
+
         private static void DoUpdateInWorldPr()
         {
             try
             {
+                if (GameAction.mapData is MapData mapData == false) return;//防止后面被设置为null
+
                 if (Time > -1)
                 {
                     Main.time = Time;
@@ -44,7 +53,7 @@ namespace BedWars.Common
                 {
                     if (data.cd > 0 && Main.GameUpdateCount % data.cd != 0) continue;
 
-                    data.Spaw();
+                    data.Spaw(mapData);
                 }
             }
             catch { }

@@ -32,6 +32,8 @@ namespace BedWars.Edit
                 Data = temp;
                 print?.Invoke("加载完成");
 
+                Common.GameAction.mapData = Data;
+
                 return null;
             }
             catch (Exception ex)

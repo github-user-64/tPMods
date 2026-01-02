@@ -7,8 +7,6 @@ namespace BedWars.BedWarsData
 {
     public class SpawItemData : ICheck
     {
-        [Newtonsoft.Json.JsonIgnore]
-        public MapData mapData = null;
         public string name = null;
         /// <summary>
         /// 相对位置
@@ -22,7 +20,7 @@ namespace BedWars.BedWarsData
         public int maxStack = 1;
         public int cd = 30;
 
-        public void Spaw()
+        public void Spaw(MapData mapData)
         {
             if (maxStack < 1) return;
             if (mapData.InMapRelative(pos) == false) return;

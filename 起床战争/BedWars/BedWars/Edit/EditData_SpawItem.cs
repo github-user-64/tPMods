@@ -13,7 +13,6 @@ namespace BedWars.Edit
             if (CheckPos(ref pos) is string ex) return ex;
 
             SpawItemData temp = new SpawItemData();
-            temp.mapData = Data;
             temp.pos = pos;
 
             DataSpawItems.Add(temp);

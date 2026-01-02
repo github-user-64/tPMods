@@ -80,6 +80,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BedWarsData\Data\SignData.cs" />
     <Compile Include="BedWarsData\Data\ChestData.cs" />
     <Compile Include="BedWarsData\ICheck.cs" />
     <Compile Include="BedWarsData\Data\ItemData.cs" />
@@ -97,6 +98,8 @@
     <Compile Include="Common\UI\UIItemTextBoxUpdate.cs" />
     <Compile Include="Common\UI\UIItemValueSliderUpdate.cs" />
     <Compile Include="Common\UI\UIWrapPanel2.cs" />
+    <Compile Include="Edit\EditData_Sign.cs" />
+    <Compile Include="Edit\EditData_Chest.cs" />
     <Compile Include="Edit\EditData_Tile.cs" />
     <Compile Include="Edit\EditData_Team.cs" />
     <Compile Include="Edit\EditData_SpawItem.cs" />
@@ -108,6 +111,8 @@
     <Compile Include="Edit\UI\EditItem_DisplayData\DisplayCanActionTile.cs" />
     <Compile Include="Edit\UI\EditItem_DisplayData\DisplayTeam.cs" />
     <Compile Include="Edit\UI\EditItem_DisplayData\DrawUtils.cs" />
+    <Compile Include="Edit\UI\EditItem_EditData\EditCopyData.cs" />
+    <Compile Include="Edit\UI\EditItem_EditData\EditPasteData.cs" />
     <Compile Include="Edit\UI\EditItem_EditData\EditPlaceTile.cs" />
     <Compile Include="Edit\UI\EditItem_EditData\EditCopyTile.cs" />
     <Compile Include="Edit\UI\EditItem_EditData\EditTime.cs" />

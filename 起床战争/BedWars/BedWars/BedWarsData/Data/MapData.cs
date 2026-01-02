@@ -11,6 +11,7 @@ namespace BedWars.BedWarsData
         public List<TeamData> Teams = null;
         public List<List<TileData>> Tile = null;
         public List<ChestData> Chests = null;
+        public List<SignData> Signs = null;
 
         /// <exception cref="Exception"/>
         public void Check()
@@ -20,6 +21,7 @@ namespace BedWars.BedWarsData
             Teams.ForEach(i => i.Check(this));
             Tile.ForEach(i => i.ForEach(j => j.Check(this)));
             Chests.ForEach(i => i.Check(this));
+            Signs.ForEach(i => i.Check(this));
         }
 
         /// <summary>
@@ -30,14 +32,16 @@ namespace BedWars.BedWarsData
             if (Info == null) Info = new MapInfoData();
 
             DataCheck.RepairList(ref SpawItems);
-            SpawItems.ForEach(i => i.mapData = this);
 
             DataCheck.RepairList(ref Teams);
-            Teams.ForEach(i => i.mapData = this);
 
             DataCheck.RepairList(ref Chests);
-            Chests.ForEach(i => i.mapData = this);
-            RepairChest();
+            Chests.ForEach(i =>
+            {
+                DataCheck.RepairList(ref i.item, Chest.maxItems);
+            });
+
+            DataCheck.RepairList(ref Signs);
 
             RepairTile();
         }
@@ -48,14 +52,6 @@ namespace BedWars.BedWarsData
         public void RepairTile()
         {
             DataCheck.RepairList(ref Tile, Info.size.X, Info.size.Y);
-        }
-
-        public void RepairChest()
-        {
-            Chests.ForEach(i =>
-            {
-                DataCheck.RepairList(ref i.item, Chest.maxItems);
-            });
         }
     }
 }

@@ -11,6 +11,7 @@ namespace BedWars.BedWarsData
         public const string FileNameTeam = "队伍信息.txt";
         public const string FileNameTile = "图格.txt";
         public const string FileNameChest = "箱子.txt";
+        public const string FileNameSign = "告示牌.txt";
 
         /// <summary>
         /// 读取地图数据, 不会返回<see langword="null"/>但里面的东西会为<see langword="null"/>
@@ -42,9 +43,14 @@ namespace BedWars.BedWarsData
                 throw new Exception("图格读取失败");
             }
 
-            if (ReadFileTry(Path.Combine(dir, FileNameChest), ref mapData.Tile) == false)
+            if (ReadFileTry(Path.Combine(dir, FileNameChest), ref mapData.Chests) == false)
             {
                 throw new Exception("箱子读取失败");
+            }
+
+            if (ReadFileTry(Path.Combine(dir, FileNameSign), ref mapData.Signs) == false)
+            {
+                throw new Exception("告示牌读取失败");
             }
 
             return mapData;
@@ -77,9 +83,14 @@ namespace BedWars.BedWarsData
                 throw new Exception("图格保存失败");
             }
 
-            if (SaveFileTry(Path.Combine(dir, FileNameChest), mapData.Tile, true) == false)
+            if (SaveFileTry(Path.Combine(dir, FileNameChest), mapData.Chests, true) == false)
             {
                 throw new Exception("箱子保存失败");
+            }
+
+            if (SaveFileTry(Path.Combine(dir, FileNameSign), mapData.Signs, true) == false)
+            {
+                throw new Exception("告示牌保存失败");
             }
         }
 

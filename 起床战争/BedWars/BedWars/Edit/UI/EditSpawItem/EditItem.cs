@@ -22,6 +22,7 @@ namespace BedWars.Edit.UI.EditSpawItem
         private static Asset<Texture2D> ico4 = Main.Assets.Request<Texture2D>("Images/UI/Workshop/Tags", AssetRequestMode.ImmediateLoad);
 
         private Action OnDataUpdate = null;
+        private MapData mapData = null;
         private SpawItemData data = null;
         private GetSetStringBool gss_exclude = null;
         private GetSetStringString gss_name = null;
@@ -33,8 +34,9 @@ namespace BedWars.Edit.UI.EditSpawItem
         private UIState ui_close = null;
         private Terraria.GameContent.UI.Elements.UIText ui_close_name = null;
 
-        public EditItem(SpawItemData data, Action OnDataUpdate, Action<UIFold> OnOpen) : base(OnOpen)
+        public EditItem(MapData mapData, SpawItemData data, Action OnDataUpdate, Action<UIFold> OnOpen) : base(OnOpen)
         {
+            this.mapData = mapData;
             this.data = data;
             this.OnDataUpdate = OnDataUpdate;
 
@@ -100,7 +102,7 @@ namespace BedWars.Edit.UI.EditSpawItem
             tp.VAlign = 0.5f;
             tp.OnClick += () =>
             {
-                Point pos = data.mapData.Info.pos;
+                Point pos = mapData.Info.pos;
                 pos.X += data.pos.X;
                 pos.Y += data.pos.Y;
 

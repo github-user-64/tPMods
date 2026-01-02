@@ -1,7 +1,10 @@
 ﻿using BedWars.Edit.UI.EditItem_DisplayData;
 using BedWars.Edit.UI.EditItem_EditData;
 using BedWars.Edit.UI.EditItem_File;
+using Microsoft.Xna.Framework.Graphics;
+using ReLogic.Content;
 using tContentPatch.Content.UI;
+using Terraria;
 using Terraria.GameContent.UI.Elements;
 
 namespace BedWars.Edit.UI.EditWindow
@@ -56,8 +59,13 @@ namespace BedWars.Edit.UI.EditWindow
             Width.Precent = 1;
             Height.Precent = 1;
 
-            AddChild(new EditCopyTile("复制", null, "复制图格数据"));
-            AddChild(new EditPlaceTile("放置", null, "放置图格"));
+            var ico1 = Main.Assets.Request<Texture2D>("Images/Item_2", AssetRequestMode.ImmediateLoad).Value;
+            var ico2 = Main.Assets.Request<Texture2D>("Images/Item_306", AssetRequestMode.ImmediateLoad).Value;
+
+            AddChild(new EditCopyTile("复制", ico1, "复制图格数据"));
+            AddChild(new EditPlaceTile("放置", ico1, "放置图格"));
+            AddChild(new EditCopyData("复制", ico2, "复制方块数据"));
+            AddChild(new EditPasteData("粘贴", ico2, "粘贴方块数据"));
             AddChild(new EditTileCanAction("添加可交互方块"));
             AddChild(new EditTileNoCanAction("删除可交互方块"));
 

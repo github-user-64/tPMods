@@ -17,6 +17,8 @@ namespace BedWars.Edit
         public List<SpawItemData> DataSpawItems => Data?.SpawItems;
         public List<TeamData> DataTeams => Data?.Teams;
         public List<List<TileData>> DataTile => Data?.Tile;
+        public List<ChestData> DataChests => Data?.Chests;
+        public List<SignData> DataSigns => Data?.Signs;
 
         public string SetMapPos(Point pos)
         {
@@ -40,6 +42,7 @@ namespace BedWars.Edit
 
             _ = DataSpawItems.RemoveAll(i => Data.InMapRelative(i.pos) == false);
             _ = DataTeams.RemoveAll(i => Data.InMapRelative(i.spawTilePos) == false || Data.InMapRelative(i.spawPos) == false);
+            _ = DataChests.RemoveAll(i => Data.InMapRelative(i.x, i.y) == false);
 
             Data.RepairTile();
 

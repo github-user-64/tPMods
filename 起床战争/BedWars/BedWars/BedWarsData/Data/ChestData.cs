@@ -6,8 +6,6 @@ namespace BedWars.BedWarsData
 {
     public class ChestData : ICheck
     {
-        [Newtonsoft.Json.JsonIgnore]
-        public MapData mapData = null;
         /// <summary>
         /// <see cref="Chest.MaxNameLength"/>
         /// </summary>
@@ -35,28 +33,50 @@ namespace BedWars.BedWarsData
             }
         }
 
-        public static void Copy(ChestData data, Chest chest)
+        public void Copy(MapData mapData, Chest chest)
         {
-            data.name = chest.name;
-            data.x = chest.x - data.mapData.Info.pos.X;
-            data.y = chest.y - data.mapData.Info.pos.Y;
+            name = chest.name;
+            x = chest.x - mapData.Info.pos.X;
+            y = chest.y - mapData.Info.pos.Y;
 
-            if (data.item == null) return;
             for (int i = 0; i < Chest.maxItems; ++i)
             {
-                ItemData.Copy(data.item[i], chest.item[i]);
+                item[i].Copy(chest.item[i]);
             }
         }
 
-        public static void Paste(ChestData data, Chest chest)
+        /// <summary>
+        /// 创建箱子
+        /// </summary>
+        public void Paste(MapData mapData)
         {
-            chest.name = data.name;
-            chest.x = data.x + data.mapData.Info.pos.X;
-            chest.y = data.y + data.mapData.Info.pos.Y;
+            if (mapData.InMapRelative(x, y) == false) return;
+
+            int tilex = mapData.Info.pos.X + x;
+            int tiley = mapData.Info.pos.Y + y;
+
+            int index = Chest.CreateChest(tilex, tiley);
+            if (index < 0) return;
+
+            Chest chest = Main.chest[index];
+
+            if (chest == null)//如果是在单人就不用考虑这个
+            {
+                chest = new Chest();
+                Main.chest[index] = chest;
+                chest.x = tilex;
+                chest.y = tiley;
+                for (int i = 0; i < chest.item.Length; ++i)
+                {
+                    chest.item[i] = new Item();
+                }
+            }
+
+            chest.name = name;
 
             for (int i = 0; i < Chest.maxItems; ++i)
             {
-                ItemData.Paste(data.item[i], chest.item[i]);
+                item[i].Paste(chest.item[i]);
             }
         }
     }

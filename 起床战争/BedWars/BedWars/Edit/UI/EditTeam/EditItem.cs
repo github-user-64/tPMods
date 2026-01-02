@@ -18,6 +18,7 @@ namespace BedWars.Edit.UI.EditTeam
         private static Asset<Texture2D> ico3 = Main.Assets.Request<Texture2D>("Images/UI/CharCreation/ColorSkin", AssetRequestMode.ImmediateLoad);
 
         private Action OnDataUpdate = null;
+        private MapData mapData = null;
         private TeamData data = null;
         private GetSetStringBool gss_canSpaw = null;
         private GetSetStringInt gss_team = null;
@@ -28,8 +29,9 @@ namespace BedWars.Edit.UI.EditTeam
         private UIState ui_close = null;
         private Terraria.GameContent.UI.Elements.UIText ui_close_name = null;
 
-        public EditItem(TeamData data, Action OnDataUpdate, Action<UIFold> OnOpen) : base(OnOpen)
+        public EditItem(MapData mapData, TeamData data, Action OnDataUpdate, Action<UIFold> OnOpen) : base(OnOpen)
         {
+            this.mapData = mapData;
             this.data = data;
             this.OnDataUpdate = OnDataUpdate;
 
@@ -146,8 +148,8 @@ namespace BedWars.Edit.UI.EditTeam
 
         private void tp(Point pos)
         {
-            pos.X += data.mapData.Info.pos.X;
-            pos.Y += data.mapData.Info.pos.Y;
+            pos.X += mapData.Info.pos.X;
+            pos.Y += mapData.Info.pos.Y;
 
             if (WorldGen.InWorld(pos.X, pos.Y) == false)
             {
