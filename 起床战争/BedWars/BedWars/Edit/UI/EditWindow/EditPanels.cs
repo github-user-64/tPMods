@@ -20,6 +20,15 @@ namespace BedWars.Edit.UI.EditWindow
             AddChild(new MapNew("新建", "新建地图"));
             AddChild(new MapLoad("加载", "加载地图"));
             AddChild(new MapSave("保存", "保存地图"));
+
+            string t = "[c/aaffaa:进入游戏后需要重新加载]"
+                + "\n[c/aaffaa:退出后不会保存所以记得][c/ff1111:保存][c/aaffaa:哦:p]";
+
+            UIText text = new UIText(t, 0.7f);
+            text.Width.Precent = 1;
+            text.MarginTop = 10;
+            text.TextOriginX = 0;
+            AddChild(text);
         }
     }
 
@@ -59,17 +68,21 @@ namespace BedWars.Edit.UI.EditWindow
             Width.Precent = 1;
             Height.Precent = 1;
 
-            var ico1 = Main.Assets.Request<Texture2D>("Images/Item_2", AssetRequestMode.ImmediateLoad).Value;
-            var ico2 = Main.Assets.Request<Texture2D>("Images/Item_306", AssetRequestMode.ImmediateLoad).Value;
+            var ico1 = Main.Assets.Request<Texture2D>("Images/Item_30", AssetRequestMode.ImmediateLoad).Value;
+            var ico2 = Main.Assets.Request<Texture2D>("Images/Item_171", AssetRequestMode.ImmediateLoad).Value;
 
-            AddChild(new EditCopyTile("复制", ico1, "复制图格数据"));
+            AddChild(new EditCopyTile("复制", ico1, "复制图格"));
             AddChild(new EditPlaceTile("放置", ico1, "放置图格"));
             AddChild(new EditCopyData("复制", ico2, "复制方块数据"));
             AddChild(new EditPasteData("粘贴", ico2, "粘贴方块数据"));
             AddChild(new EditTileCanAction("添加可交互方块"));
             AddChild(new EditTileNoCanAction("删除可交互方块"));
 
-            UIText text = new UIText("玩家能对可交互位置的方块:破坏,放置,交互\n可交互方块的显示是默认关闭的\n别搞太多可交互方块", 0.7f);
+            string t = "[c/aaffaa:可交互位置的方块能被:破坏,放置,交互]"
+                + "\n[c/aaffaa:可交互方块的显示是默认关闭的]"
+                + "\n[c/aaffaa:别搞太多可交互方块]";
+
+            UIText text = new UIText(t, 0.7f);
             text.Width.Precent = 1;
             text.MarginTop = 10;
             text.TextOriginX = 0;
