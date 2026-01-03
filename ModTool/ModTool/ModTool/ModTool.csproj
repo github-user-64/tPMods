@@ -106,7 +106,6 @@
     <Compile Include="PatchGame\PMessageBuffer.cs" />
     <Compile Include="PatchGame\PNetMessage.cs" />
     <Compile Include="PatchGame\PItem.cs" />
-    <Compile Include="PatchGame\PWorldFile.cs" />
     <Compile Include="PatchGame\PProjectile.cs" />
     <Compile Include="AdditionalData\ProjectileAdditionalData.cs" />
     <Compile Include="AdditionalData\PlayerAdditionalData.cs" />

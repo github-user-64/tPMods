@@ -1,4 +1,5 @@
 ﻿using ModTool.AdditionalData;
+using System;
 using Terraria;
 using Terraria.ID;
 
@@ -6,20 +7,10 @@ namespace ModTool.ServerHelp
 {
     internal class ClientUUID : PlayerAdditionalData<string>
     {
-        #region
-        private static ClientUUID instance = null;
-
-        internal static void Init()
-        {
-            instance = new ClientUUID();
-        }
-
-        internal static string GetUUID(Player player)
-        {
-            if (instance == null) return null;
-            return instance.GetData(player.whoAmI);
-        }
-        #endregion
+        /// <summary>
+        /// 在收到uuid时
+        /// </summary>
+        public Action<int> OnGotUUID = null;
 
         public ClientUUID()
         {
@@ -42,17 +33,7 @@ namespace ModTool.ServerHelp
 
         //不允许设置值
         public override bool SetData(int index, string val) => false;
-        //不允许设置值
-        protected override void ClearDataItem(int index) { }
         public override bool UpdateDataItem(int index, bool clearOld = false) => false;
-
-        public override void ServerDisconnectedPlayer(int ply)
-        {
-            if (IndexInRange(ply) == false) return;
-
-            data[ply] = null;
-            hasData[ply] = false;
-        }
 
         private void SetUUIDData(int index, string val)
         {
@@ -60,6 +41,8 @@ namespace ModTool.ServerHelp
 
             data[index] = val;
             hasData[index] = true;
+
+            OnGotUUID?.Invoke(index);
         }
     }
 }

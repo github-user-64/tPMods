@@ -13,9 +13,21 @@ namespace ModTool.AdditionalData
         {
             PatchGame.PMain.OnEnterWorldPr += EnterWorldPr;
             PatchGame.PNetMessage.OnSyncConnectedPlayerPr += ServerConnectedPlayer;
-            PatchGame.PNetMessage.OnSyncDisconnectedPlayerPr += ServerDisconnectedPlayer;
+            PatchGame.PNetMessage.OnSyncOnePlayerDisconnectedPr += ServerDisconnectedPlayer;
             PatchGame.PMessageBuffer.OnPlayerConnecting += ClientGotConnect;
             PatchGame.PMessageBuffer.OnPlayerDisconnecting += ClientGotDisconnect;
+        }
+
+        /// <inheritdoc/>
+        public override void OnNew()
+        {
+            for (int i = 0; i < Main.player.Length; ++i)
+            {
+                Player p = CheckPlayer(i);
+                if (p == null) continue;
+
+                UpdateDataItem(i, false);
+            }
         }
 
         /// <summary>

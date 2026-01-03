@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using tContentPatch;
+using Terraria;
 
 namespace PlayerAccount.Common
 {
@@ -7,14 +8,27 @@ namespace PlayerAccount.Common
     {
         public override void Load()
         {
-            ModTool.PatchGame.PNetMessage.OnSyncConnectedPlayerPo += PatchNetMessage_OnSyncConnectedPlayerPo;
+            ModTool.PatchGame.PNetMessage.OnSyncConnectedPlayerPo += ply =>
+            {
+                OnEnter(ply, true);
+            };
         }
 
-        private void PatchNetMessage_OnSyncConnectedPlayerPo(int ply)
+        public override void Loaded()
+        {
+            for (int i = 0; i < Main.player.Length; ++i)
+            {
+                if (Main.player[i]?.active != true) continue;
+
+                OnEnter(i, false);
+            }
+        }
+
+        private void OnEnter(int ply, bool autoLogin)
         {
             bool logined = false;
 
-            if (ServerConfig.data.AutoLogin == true)
+            if (ServerConfig.data.AutoLogin == true && autoLogin)
             {
                 logined = AutoLogin.Login(ply);
             }

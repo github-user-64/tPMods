@@ -21,7 +21,7 @@ namespace ModTool
 
             //
 
-            ClientUUID.Init();
+            PlayDataUtils.Init();
             EntityTag.Entitys.Init();
             PlayerCanAction.Init();
         }

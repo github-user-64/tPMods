@@ -1,4 +1,5 @@
-﻿using Terraria;
+﻿using System;
+using Terraria;
 using Terraria.Net;
 
 namespace ModTool.ServerHelp
@@ -8,6 +9,13 @@ namespace ModTool.ServerHelp
     /// </summary>
     public static class PlayDataUtils
     {
+        private static ClientUUID instance = null;
+
+        internal static void Init()
+        {
+            instance = new ClientUUID();
+        }
+
         /// <summary>
         /// 获取数据正常的玩家, 不存在返回<see langword="null"/>
         /// </summary>
@@ -95,8 +103,10 @@ namespace ModTool.ServerHelp
         public static string GetUUID(this Player player)
         {
             if (Main.netMode != 2) return null;
+            if (player == null) return null;
+            if (instance == null) return null;
 
-            return ClientUUID.GetUUID(player);
+            return instance.GetData(player.whoAmI);
         }
     }
 }

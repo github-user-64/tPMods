@@ -12,10 +12,10 @@ namespace ModTool.PatchGame
         public static event Action<int> OnSyncConnectedPlayerPr = null;
         /// <summary>服务端在同步已连接玩家后</summary>
         public static event Action<int> OnSyncConnectedPlayerPo = null;
-        /// <summary>服务端在同步断开连接玩家前</summary>
-        public static event Action<int> OnSyncDisconnectedPlayerPr = null;
-        /// <summary>服务端在同步断开连接玩家后</summary>
-        public static event Action<int> OnSyncDisconnectedPlayerPo = null;
+        /// <summary>服务端在同步玩家断开连接前</summary>
+        public static event Action<int> OnSyncOnePlayerDisconnectedPr = null;
+        /// <summary>服务端在同步玩家断开连接后</summary>
+        public static event Action<int> OnSyncOnePlayerDisconnectedPo = null;
 
         /// <inheritdoc/>
         public override void SyncConnectedPlayerPrefix(int plr)
@@ -30,15 +30,21 @@ namespace ModTool.PatchGame
         }
 
         /// <inheritdoc/>
-        public override void SyncDisconnectedPlayerPrefix(int plr)
+        public override void SyncOnePlayerPrefix(int plr, int toWho, int fromWho)
         {
-            OnSyncDisconnectedPlayerPr?.Invoke(plr);
+            if (Main.player?.IndexInRange(plr) != true) return;
+            if (Main.player[plr].active == true) return;
+
+            OnSyncOnePlayerDisconnectedPr?.Invoke(plr);
         }
 
         /// <inheritdoc/>
-        public override void SyncDisconnectedPlayerPostfix(int plr)
+        public override void SyncOnePlayerPostfix(int plr, int toWho, int fromWho)
         {
-            OnSyncDisconnectedPlayerPo?.Invoke(plr);
+            if (Main.player?.IndexInRange(plr) != true) return;
+            if (Main.player[plr].active == true) return;
+
+            OnSyncOnePlayerDisconnectedPo?.Invoke(plr);
         }
     }
 }

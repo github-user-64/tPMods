@@ -23,9 +23,9 @@ namespace PlayerAccount
             [JsonProperty("启用注册")]
             public bool EnableRegister = true;
             [JsonProperty("启用服务端角色")]
-            public bool EnableServerSideCharacter = true;
+            public bool EnableServerSideCharacter = false;
             [JsonProperty("没登录不能操作")]
-            public bool NoLoginNoAction = true;
+            public bool NoLoginNoAction = false;
             [JsonProperty("非管理不能修改方块")]
             public bool NoAdminNoTile = false;
         }

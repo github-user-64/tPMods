@@ -15,6 +15,17 @@ namespace ModTool.AdditionalData
             PatchGame.PNPC.OnSetDefaultsPo += OnSetDefaultsPos;
         }
 
+        /// <inheritdoc/>
+        public override void OnNew()
+        {
+            for (int i = 0; i < Main.npc.Length; ++i)
+            {
+                if (Main.npc[i]?.active != true) continue;
+
+                UpdateDataItem(i, false);
+            }
+        }
+
         /// <summary>
         /// 单人和客户端进入游戏前
         /// </summary>

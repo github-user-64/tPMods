@@ -18,6 +18,17 @@ namespace ModTool.AdditionalData
             PatchGame.PMessageBuffer.OnGetDataPr.Add(OnGetData);
         }
 
+        /// <inheritdoc/>
+        public override void OnNew()
+        {
+            for (int  i = 0; i < Main.item.Length; ++i)
+            {
+                if (Main.item[i]?.active != true) continue;
+
+                UpdateDataItem(i, false);
+            }
+        }
+
         /// <summary>
         /// 单人和客户端进入游戏前
         /// </summary>

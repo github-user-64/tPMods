@@ -9,7 +9,7 @@ namespace PlayerAccount.Common
     /// <summary>
     /// 自动登录
     /// </summary>
-    internal class AutoLogin
+    internal static class AutoLogin
     {
         public static bool Login(int ply)
         {

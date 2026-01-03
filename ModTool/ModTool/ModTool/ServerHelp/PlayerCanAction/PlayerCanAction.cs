@@ -76,7 +76,9 @@ namespace ModTool.ServerHelp
             CanGetDataEvent foo = kv.GetVal(messageType, null);
             if (foo == null) return true;
 
-            return foo(player, This, start, length, messageType);
+            bool v = foo(player, This, start, length, messageType);
+
+            return v;
         }
 
         private static bool CanNewProjectile(Player player, MessageBuffer This, int start, int length, int messageType)

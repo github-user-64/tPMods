@@ -21,7 +21,7 @@ namespace PlayerAccount.Common.FunctionCommand
             {
                 SubCommand.Add(new CommandPrintList(SubCommand, "发送到全部, 发送到玩家", print));
 
-                CommandObject a = new CommandObject("a");
+                CommandObject a = new CommandObject("all");
                 a.SubCommand.Add(new CommandString2());
                 SubCommand.Add(a);
 

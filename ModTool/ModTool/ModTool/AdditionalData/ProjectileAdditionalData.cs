@@ -11,14 +11,27 @@ namespace ModTool.AdditionalData
         /// <summary/>
         public ProjectileAdditionalData() : base(Main.projectile)
         {
-            PatchGame.PMain.OnEnterWorldPr += EnterWorldPr;
+            PatchGame.PMain.OnEnterWorldPr += OnEnterWorldPr;
             PatchGame.PProjectile.OnSetDefaultsPo += OnSetDefaultsPos;
+
+            OnNew();
+        }
+
+        /// <inheritdoc/>
+        public override void OnNew()
+        {
+            for (int i = 0; i < Main.projectile.Length; ++i)
+            {
+                if (Main.projectile[i]?.active != true) continue;
+
+                UpdateDataItem(i, false);
+            }
         }
 
         /// <summary>
         /// 单人和客户端进入游戏前
         /// </summary>
-        public virtual void EnterWorldPr()
+        public virtual void OnEnterWorldPr()
         {
             ClearData();
         }

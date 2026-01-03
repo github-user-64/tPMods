@@ -7,8 +7,6 @@ namespace PlayerAccount.Account
     {
         //不允许设置值
         public override bool SetData(int index, Dictionary<string, string> val) => false;
-        //不允许设置值
-        protected override void ClearData() { }
         public override bool UpdateDataItem(int index, bool clearOld = false) => false;
 
         public bool SetAccount(Player player, Dictionary<string, string> acc)

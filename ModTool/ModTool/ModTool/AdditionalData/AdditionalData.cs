@@ -20,7 +20,14 @@ namespace ModTool.AdditionalData
 
             data = new T[array.Length];
             hasData = new bool[data.Length];
+
+            OnNew();
         }
+
+        /// <summary>
+        /// 在这个对象创建时
+        /// </summary>
+        public virtual void OnNew() { }
 
         /// <summary>
         /// 是否有数据
@@ -60,11 +67,7 @@ namespace ModTool.AdditionalData
         /// </summary>
         protected virtual void ClearData()
         {
-            ForData(i =>
-            {
-                data[i] = default;
-                hasData[i] = false;
-            });
+            ForData(i => ClearDataItem(i));
         }
 
         /// <summary>

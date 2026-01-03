@@ -1,4 +1,8 @@
-﻿namespace ModTool.ServerHelp
+﻿using ModTool.PatchGame.PNetMessage_SendData;
+using Terraria;
+using Terraria.ID;
+
+namespace ModTool.ServerHelp
 {
     /// <summary>
     /// 杂项
@@ -10,7 +14,11 @@
         /// </summary>
         public static void ServerSideCharacter(bool enable)
         {
-            PatchGame.PNetMessage_SendData.PWorldData.ServerSideCharacter = enable;
+            if (enable == PWorldData.ServerSideCharacter) return;
+
+            PWorldData.ServerSideCharacter = enable;
+
+            NetMessage.TrySendData(MessageID.WorldData);
         }
     }
 }
