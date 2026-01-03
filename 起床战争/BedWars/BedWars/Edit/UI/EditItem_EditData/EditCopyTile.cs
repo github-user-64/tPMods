@@ -12,7 +12,7 @@ namespace BedWars.Edit.UI.EditItem_EditData
             {
                 string ex = EditData.instance.TileCopy();
 
-                Main.NewText(ex ?? "复制完成");
+                Main.NewText(ex ?? "复制图格完成");
             };
         }
     }

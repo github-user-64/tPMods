@@ -12,7 +12,7 @@ namespace BedWars.Edit.UI.EditItem_EditData
         {
             Height.Set(25, 0);
             tb.Width.Set(0, 0.5f);
-            MouseText = "不小于0则维持时间. 0是4点,3600=1时";
+            MouseText = "不小于0则维持时间. 3600=1时";
         }
 
         public override void Update(GameTime gameTime)
@@ -22,6 +22,7 @@ namespace BedWars.Edit.UI.EditItem_EditData
             if (EditData.instance.DataInfo == null) return;
 
             Common.GameAction.Time = EditData.instance.DataInfo.time;
+            Common.GameAction.DayTime = EditData.instance.DataInfo.dayTime;
         }
 
         public override void OnDeactivate()

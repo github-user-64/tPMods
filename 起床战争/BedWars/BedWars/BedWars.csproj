@@ -115,6 +115,7 @@
     <Compile Include="Edit\UI\EditItem_EditData\EditPasteData.cs" />
     <Compile Include="Edit\UI\EditItem_EditData\EditPlaceTile.cs" />
     <Compile Include="Edit\UI\EditItem_EditData\EditCopyTile.cs" />
+    <Compile Include="Edit\UI\EditItem_EditData\EditDayTime.cs" />
     <Compile Include="Edit\UI\EditItem_EditData\EditTime.cs" />
     <Compile Include="Edit\UI\EditItem_EditData\EditStartGameMinPlay.cs" />
     <Compile Include="Edit\UI\EditItem_EditData\EditTileCanAction.cs" />

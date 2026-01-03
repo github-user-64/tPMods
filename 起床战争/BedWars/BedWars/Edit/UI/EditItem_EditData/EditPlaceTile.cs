@@ -12,7 +12,7 @@ namespace BedWars.Edit.UI.EditItem_EditData
             {
                 string ex = EditData.instance.TilePlace();
                 
-                Main.NewText(ex ?? "放置完成");
+                Main.NewText(ex ?? "放置图格完成");
             };
         }
     }

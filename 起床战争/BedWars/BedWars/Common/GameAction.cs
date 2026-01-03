@@ -1,4 +1,5 @@
 ﻿using BedWars.BedWarsData;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using tContentPatch;
@@ -30,11 +31,16 @@ namespace BedWars.Common
         /// 维持时间, 小于0不维持
         /// </summary>
         public static double Time = -1;
+        /// <summary>
+        /// 是白天, 4:30到7:30
+        /// </summary>
+        public static bool DayTime = true;
 
         public static void Reset()
         {
             mapData = null;
             Time = -1;
+            DayTime = true;
             SpawItem.Clear();
         }
 
@@ -47,6 +53,7 @@ namespace BedWars.Common
                 if (Time > -1)
                 {
                     Main.time = Time;
+                    Main.dayTime = DayTime;
                 }
 
                 foreach (SpawItemData data in SpawItem)

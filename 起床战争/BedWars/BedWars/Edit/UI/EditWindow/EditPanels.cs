@@ -6,6 +6,7 @@ using ReLogic.Content;
 using tContentPatch.Content.UI;
 using Terraria;
 using Terraria.GameContent.UI.Elements;
+using Terraria.UI;
 
 namespace BedWars.Edit.UI.EditWindow
 {
@@ -58,6 +59,7 @@ namespace BedWars.Edit.UI.EditWindow
             AddChild(new EditMapSize("设置地图大小"));
             AddChild(new EditStartGameMinPlay("开始所需玩家"));
             AddChild(new EditTime("维持时间"));
+            AddChild(new EditDayTime("白天"));
         }
     }
 
@@ -98,5 +100,14 @@ namespace BedWars.Edit.UI.EditWindow
     internal class EditPanel5 : EditTeam.EditPanel
     {
 
+    }
+
+    internal class EditPanel6 : UIScrollViewer2
+    {
+        public EditPanel6()
+        {
+            Width.Precent = 1;
+            Height.Precent = 1;
+        }
     }
 }

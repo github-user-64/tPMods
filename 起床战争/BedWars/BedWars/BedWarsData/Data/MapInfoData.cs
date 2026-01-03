@@ -12,8 +12,10 @@ namespace BedWars.BedWarsData
         //游戏1时=60秒
         //游戏60tick等于1秒
         //游戏1时=60*60=3600tick
-        //0是4点,3600=1时
+        //3600=1时
         public double time = 3600 * (12 - 4);//维持时间, 小于0不维持
+        //白天, 4:30到7:30
+        public bool dayTime = true;
 
         public void Check(MapData mapData)
         {

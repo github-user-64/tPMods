@@ -28,7 +28,7 @@ namespace BedWars.Edit.UI.EditItem_EditData
                     return;
                 }
 
-                Main.NewText("粘贴完成");
+                Main.NewText("粘贴数据完成");
             };
         }
 
