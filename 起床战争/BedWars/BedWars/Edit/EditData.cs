@@ -19,6 +19,7 @@ namespace BedWars.Edit
         public List<List<TileData>> DataTile => Data?.Tile;
         public List<ChestData> DataChests => Data?.Chests;
         public List<SignData> DataSigns => Data?.Signs;
+        public InventoryData DataInventory => Data?.Inventory;
 
         public string SetMapPos(Point pos)
         {

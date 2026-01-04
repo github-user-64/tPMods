@@ -12,6 +12,7 @@ namespace BedWars.BedWarsData
         public List<List<TileData>> Tile = null;
         public List<ChestData> Chests = null;
         public List<SignData> Signs = null;
+        public InventoryData Inventory = null;
 
         /// <exception cref="Exception"/>
         public void Check()
@@ -22,6 +23,7 @@ namespace BedWars.BedWarsData
             Tile.ForEach(i => i.ForEach(j => j.Check(this)));
             Chests.ForEach(i => i.Check(this));
             Signs.ForEach(i => i.Check(this));
+            Inventory.Check(this);
         }
 
         /// <summary>
@@ -42,6 +44,11 @@ namespace BedWars.BedWarsData
             });
 
             DataCheck.RepairList(ref Signs);
+
+            if (Inventory == null) Inventory = new InventoryData();
+            DataCheck.RepairList(ref Inventory.inventory, InventoryData.inventoryLen);
+            DataCheck.RepairList(ref Inventory.armor, InventoryData.armorLen);
+            DataCheck.RepairList(ref Inventory.dye, InventoryData.dyeLen);
 
             RepairTile();
         }

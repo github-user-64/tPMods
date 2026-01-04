@@ -67,6 +67,9 @@ namespace BedWars.Edit
                 if (data.wall > WallID.None) WorldGen.SquareWallFrame(x, y);//没这个墙壁会乱糟糟的
             });
 
+            Common.Utils.ClearInRangeChest(DataInfo.pos, DataInfo.size);//清除箱子
+            Common.Utils.ClearInRangeSign(DataInfo.pos, DataInfo.size);//清除告示牌
+
             return null;
         }
 

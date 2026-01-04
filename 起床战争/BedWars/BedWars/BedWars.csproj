@@ -82,6 +82,7 @@
   <ItemGroup>
     <Compile Include="BedWarsData\Data\SignData.cs" />
     <Compile Include="BedWarsData\Data\ChestData.cs" />
+    <Compile Include="BedWarsData\Data\InventoryData.cs" />
     <Compile Include="BedWarsData\ICheck.cs" />
     <Compile Include="BedWarsData\Data\ItemData.cs" />
     <Compile Include="BedWarsData\Data\MapInfoData.cs" />
@@ -98,6 +99,7 @@
     <Compile Include="Common\UI\UIItemTextBoxUpdate.cs" />
     <Compile Include="Common\UI\UIItemValueSliderUpdate.cs" />
     <Compile Include="Common\UI\UIWrapPanel2.cs" />
+    <Compile Include="Edit\EditData_Inventory.cs" />
     <Compile Include="Edit\EditData_Sign.cs" />
     <Compile Include="Edit\EditData_Chest.cs" />
     <Compile Include="Edit\EditData_Tile.cs" />
@@ -111,14 +113,12 @@
     <Compile Include="Edit\UI\EditItem_DisplayData\DisplayCanActionTile.cs" />
     <Compile Include="Edit\UI\EditItem_DisplayData\DisplayTeam.cs" />
     <Compile Include="Edit\UI\EditItem_DisplayData\DrawUtils.cs" />
-    <Compile Include="Edit\UI\EditItem_EditData\EditCopyData.cs" />
-    <Compile Include="Edit\UI\EditItem_EditData\EditPasteData.cs" />
-    <Compile Include="Edit\UI\EditItem_EditData\EditPlaceTile.cs" />
-    <Compile Include="Edit\UI\EditItem_EditData\EditCopyTile.cs" />
-    <Compile Include="Edit\UI\EditItem_EditData\EditDayTime.cs" />
-    <Compile Include="Edit\UI\EditItem_EditData\EditTime.cs" />
+    <Compile Include="Edit\UI\EditItem_EditData\EditClassTileData.cs" />
+    <Compile Include="Edit\UI\EditItem_EditData\EditClassInventoryData.cs" />
+    <Compile Include="Edit\UI\EditItem_EditData\EditClassTile.cs" />
+    <Compile Include="Edit\UI\EditItem_EditData\EditClassTime.cs" />
     <Compile Include="Edit\UI\EditItem_EditData\EditStartGameMinPlay.cs" />
-    <Compile Include="Edit\UI\EditItem_EditData\EditTileCanAction.cs" />
+    <Compile Include="Edit\UI\EditItem_EditData\EditClassTileCanAction.cs" />
     <Compile Include="Edit\UI\EditItem_EditData\TpMapPos.cs" />
     <Compile Include="Edit\UI\EditSpawItem\EditItem.cs" />
     <Compile Include="Edit\UI\EditSpawItem\EditItemType.cs" />

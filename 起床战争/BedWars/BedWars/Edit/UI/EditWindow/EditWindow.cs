@@ -15,10 +15,12 @@ namespace BedWars.Edit.UI.EditWindow
 
         public EditWindow(UIElement P, string title, int width, int height) : base(P, title, width, height)
         {
+            UIRadioButton oneRb = null;
+
             UIWrapPanel2 ui_wp = new UIWrapPanel2();
             ui_wp.Width.Precent = 1;
             ui_wp.ItemMargin = 2;
-            ui_wp.Append(BuildPanel(new EditPanel0(), "Images/UI/Camera_6", "文件"));
+            ui_wp.Append(oneRb = BuildPanel(new EditPanel0(), "Images/UI/Camera_6", "文件"));
             ui_wp.Append(BuildPanel(new EditPanel1(), "Images/Inventory_Tick_On", "显示数据"));
             ui_wp.Append(BuildPanel(new EditPanel2(), "Images/Item_1344", "设置"));
             ui_wp.Append(BuildPanel(new EditPanel3(), "Images/Item_2", "图格数据"));
@@ -36,6 +38,8 @@ namespace BedWars.Edit.UI.EditWindow
 
             Child.Append(ui_wp);
             Child.Append(ui_con);
+
+            oneRb.IsChecked = true;
         }
 
         public override void Update(GameTime gameTime)
@@ -45,7 +49,7 @@ namespace BedWars.Edit.UI.EditWindow
             base.Update(gameTime);
         }
 
-        public UIElement BuildPanel(UIElement ui, string ico, string mouseText)
+        public UIRadioButton BuildPanel(UIElement ui, string ico, string mouseText)
         {
             Asset<Texture2D> texture1 = Main.Assets.Request<Texture2D>(ico, AssetRequestMode.ImmediateLoad);
             UIRadioButton rb = new UIRadioButton(texture1.Value, 20, 20);

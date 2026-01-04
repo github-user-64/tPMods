@@ -1,5 +1,6 @@
 ﻿using BedWars.Edit.UI.Elements;
 using Microsoft.Xna.Framework;
+using Terraria;
 
 namespace BedWars.Edit.UI.EditItem_EditData
 {
@@ -12,7 +13,9 @@ namespace BedWars.Edit.UI.EditItem_EditData
 
             OnSetSize += r =>
             {
-                EditData.instance.TileCanActionSet(r, true);
+                string ex = EditData.instance.TileCanActionSet(r, true);
+
+                if (ex != null) Main.NewText(ex);
             };
         }
     }
@@ -26,7 +29,9 @@ namespace BedWars.Edit.UI.EditItem_EditData
 
             OnSetSize += r =>
             {
-                EditData.instance.TileCanActionSet(r, false);
+                string ex = EditData.instance.TileCanActionSet(r, false);
+
+                if (ex != null) Main.NewText(ex);
             };
         }
     }

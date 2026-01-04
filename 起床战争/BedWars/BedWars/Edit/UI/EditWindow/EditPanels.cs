@@ -6,7 +6,6 @@ using ReLogic.Content;
 using tContentPatch.Content.UI;
 using Terraria;
 using Terraria.GameContent.UI.Elements;
-using Terraria.UI;
 
 namespace BedWars.Edit.UI.EditWindow
 {
@@ -75,8 +74,8 @@ namespace BedWars.Edit.UI.EditWindow
 
             AddChild(new EditCopyTile("复制", ico1, "复制图格"));
             AddChild(new EditPlaceTile("放置", ico1, "放置图格"));
-            AddChild(new EditCopyData("复制", ico2, "复制方块数据"));
-            AddChild(new EditPasteData("粘贴", ico2, "粘贴方块数据"));
+            AddChild(new EditCopyTileData("复制", ico2, "复制方块数据"));
+            AddChild(new EditPasteTileData("粘贴", ico2, "粘贴方块数据"));
             AddChild(new EditTileCanAction("添加可交互方块"));
             AddChild(new EditTileNoCanAction("删除可交互方块"));
 
@@ -108,6 +107,10 @@ namespace BedWars.Edit.UI.EditWindow
         {
             Width.Precent = 1;
             Height.Precent = 1;
+
+            AddChild(new EditCopyInventoryData("复制", null, "复制物品栏"));
+            AddChild(new EditPasteInventoryData("粘贴", null, "粘贴物品栏"));
+            AddChild(new EditResetInventoryData("恢复", null, "恢复物品栏"));
         }
     }
 }

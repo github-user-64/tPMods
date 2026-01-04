@@ -12,6 +12,7 @@ namespace BedWars.BedWarsData
         public const string FileNameTile = "图格.txt";
         public const string FileNameChest = "箱子.txt";
         public const string FileNameSign = "告示牌.txt";
+        public const string FileNameInventory = "物品栏.txt";
 
         /// <summary>
         /// 读取地图数据, 不会返回<see langword="null"/>但里面的东西会为<see langword="null"/>
@@ -53,6 +54,11 @@ namespace BedWars.BedWarsData
                 throw new Exception("告示牌读取失败");
             }
 
+            if (ReadFileTry(Path.Combine(dir, FileNameInventory), ref mapData.Inventory) == false)
+            {
+                throw new Exception("物品栏读取失败");
+            }
+
             return mapData;
         }
 
@@ -91,6 +97,11 @@ namespace BedWars.BedWarsData
             if (SaveFileTry(Path.Combine(dir, FileNameSign), mapData.Signs, true) == false)
             {
                 throw new Exception("告示牌保存失败");
+            }
+
+            if (SaveFileTry(Path.Combine(dir, FileNameInventory), mapData.Inventory, true) == false)
+            {
+                throw new Exception("物品栏保存失败");
             }
         }
 
