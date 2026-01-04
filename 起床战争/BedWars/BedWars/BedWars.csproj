@@ -149,7 +149,11 @@
     <Compile Include="Edit\UI\Elements\UIWindowEditControl.cs" />
     <Compile Include="ModConfig.cs" />
     <Compile Include="Run\GameRun.cs" />
+    <Compile Include="Run\IGameControl.cs" />
+    <Compile Include="Run\ThisIsWhat.cs" />
+    <Compile Include="Run\IStateAction.cs" />
     <Compile Include="Run\PatchNPC.cs" />
+    <Compile Include="Run\SMapInit\SMapInit.cs" />
     <Compile Include="ThisMod.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Common\Utils.cs" />

@@ -14,10 +14,6 @@ namespace PlayerAccount.Account
     public static partial class AccountHelp
     {
         /// <summary>
-        /// 在线玩家账号
-        /// </summary>
-        private static PlayerAccount playerAccount = null;
-        /// <summary>
         /// 登录密码错误时
         /// </summary>
         public static event Action<Player> OnLoginPasswdError = null;
@@ -29,6 +25,14 @@ namespace PlayerAccount.Account
         /// 在登录成功时
         /// </summary>
         public static event Action<Player> OnLogined = null;
+        /// <summary>
+        /// 在账号更新时
+        /// </summary>
+        public static event Action OnUpdateAccount = null;
+        /// <summary>
+        /// 在线玩家账号
+        /// </summary>
+        private static PlayerAccount playerAccount = null;
 
         internal static void Init()
         {
@@ -204,6 +208,8 @@ namespace PlayerAccount.Account
                 playerAccount.SetAccount(player, newAcc);
                 PrintTo.PrintToPlay(i, "你的账号已变更", new Color(0f, 1f, 1f));
             }
+
+            OnUpdateAccount?.Invoke();
         }
     }
 }

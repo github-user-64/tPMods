@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using ModTool.ServerHelp;
 using ModTool.Utils;
 using PlayerAccount.Account;
 using tContentPatch;
@@ -12,7 +13,7 @@ namespace PlayerAccount.Common.ActionPermission
     {
         public override void Load()
         {
-            PlayerCanActionClass.OnCanTile += e =>
+            PlayerCanAction.RegisterClassOnTile(e =>
             {
                 if (ServerConfig.data.NoAdminNoTile == false) return true;
 
@@ -20,7 +21,7 @@ namespace PlayerAccount.Common.ActionPermission
                 if (ok == false) SendMsgToPlay.Send(e.player, "你没有权限修改方块", Color.Red);
 
                 return ok;
-            };
+            });
         }
     }
 }

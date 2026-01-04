@@ -89,5 +89,28 @@ namespace ModTool.ServerHelp
         /// </summary>
         public static HandlerList<LockAndUnlockEventArgs> OnCanLockAndUnlock = null;
         #endregion
+
+        /// <summary>
+        /// 批量注册, 能否操作方块
+        /// </summary>
+        public static void RegisterClassOnTile(HandlerList<ClassTileEventArgs>.Handler action)
+        {
+            if (action == null) return;
+
+            OnCanTileManipulation += e => action(e);
+            OnCanPlaceObject += e => action(e);
+            OnCanTileEntityPlacement += e => action(e);
+            OnCanSendTileSquare += e => action(e);
+            OnCanChestUpdates += e => action(e);
+            OnCanHitSwitch += e => action(e);
+            OnCanItemFrameTryPlacing += e => action(e);
+            OnCanWeaponsRackTryPlacing += e => action(e);
+            OnCanFoodPlatterTryPlacing += e => action(e);
+            OnCanLiquidUpdate += e => action(e);
+            OnCanPaintTile += e => action(e);
+            OnCanPaintWall += e => action(e);
+            OnCanEditSign += e => action(e);
+            OnCanLockAndUnlock += e => action(e);
+        }
     }
 }

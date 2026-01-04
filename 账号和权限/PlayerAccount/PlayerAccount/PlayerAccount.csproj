@@ -97,7 +97,6 @@
     <Compile Include="Common\FunctionCommand\addPlayerAdmin.cs" />
     <Compile Include="Common\FunctionCommand\noChat.cs" />
     <Compile Include="Common\FunctionCommand\openRegister.cs" />
-    <Compile Include="Common\PlayerCanActionClass.cs" />
     <Compile Include="Common\SetChat.cs" />
     <Compile Include="cs1.cs" />
     <Compile Include="ModCommand.cs" />

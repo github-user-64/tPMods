@@ -15,7 +15,7 @@ namespace PlayerAccount.Common.ActionPermission
     {
         public override void Initialize()
         {
-            PlayerCanActionClass.OnCanTile += CanActionNoMsg;
+            PlayerCanAction.RegisterClassOnTile(CanActionNoMsg);
 
             PlayerCanAction.OnCanNewProjectile += CanActionNoMsg;
             PlayerCanAction.OnCanNewItem += CanAction;
