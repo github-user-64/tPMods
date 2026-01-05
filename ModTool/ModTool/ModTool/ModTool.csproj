@@ -84,6 +84,7 @@
     <Compile Include="Command\CommandString.cs" />
     <Compile Include="Command\CommandString2.cs" />
     <Compile Include="Command\Utils.cs" />
+    <Compile Include="Common\ModifyShop.cs" />
     <Compile Include="Common\UI\UIItemTextButton.cs" />
     <Compile Include="Common\UI\UIItemMouseText.cs" />
     <Compile Include="Common\UI\UIItemSwitch.cs" />
@@ -100,6 +101,7 @@
     <Compile Include="EntityTag\PlayerTag.cs" />
     <Compile Include="PatchGame\Init.cs" />
     <Compile Include="PatchGame\PNetMessage_SendData\PNetMessage_SendData.cs" />
+    <Compile Include="PatchGame\PNetMessage_SendData\PShopOverride.cs" />
     <Compile Include="PatchGame\PNetMessage_SendData\PWorldData.cs" />
     <Compile Include="PatchGame\PNPC.cs" />
     <Compile Include="PatchGame\PMain.cs" />

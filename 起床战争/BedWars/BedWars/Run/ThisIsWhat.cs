@@ -46,6 +46,7 @@ namespace BedWars.Run
 
                 control.LoadTry(s =>
                 {
+                    s = $"起床战争:{s}";
                     tContentPatch.Utils.Log.Add(s);
                     ContentPatch.PrintTry(s);
                 });

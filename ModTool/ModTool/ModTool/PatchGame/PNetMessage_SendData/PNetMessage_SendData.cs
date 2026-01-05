@@ -12,7 +12,7 @@ namespace ModTool.PatchGame.PNetMessage_SendData
     /// 修补<see cref="NetMessage.SendData(int, int, int, NetworkText, int, float, float, float, int, int, int)"/>
     /// </summary>
     [HarmonyPatch(typeof(NetMessage))]
-    internal class PNetMessage_SendData : tContentPatch.PatchNetMessage
+    internal static class PNetMessage_SendData
     {
         [HarmonyPatch("SendData")]
         [HarmonyPrefix]
@@ -44,6 +44,7 @@ namespace ModTool.PatchGame.PNetMessage_SendData
                 switch (msgType)
                 {
                     case MessageID.WorldData: PWorldData.Foo(writer); break;
+                    case MessageID.ShopOverride: PShopOverride.Foo(writer, number, number2, number3, number4, number5, number6); break;
                     default: return true;
                 }
 

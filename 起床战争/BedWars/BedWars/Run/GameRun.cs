@@ -56,7 +56,7 @@ namespace BedWars.Run
 
         public static readonly GameRun instance = new GameRun();
 
-        protected  Dictionary<int, IStateAction> States = null;
+        protected IStateAction[] States = null;
         public IStateAction NowState { get; protected set; } = null;
         public int NowStateType { get; protected set; } = StateNone;
         public bool IsLoaded { get; protected set; } = false;
@@ -72,7 +72,7 @@ namespace BedWars.Run
 
         public void SetState(int key)
         {
-            if (States.HasKey(key) == false) return;
+            if (States?.IndexInRange(key) != true) return;
 
             NowState?.OnEnd();
             NowState = null;
@@ -97,35 +97,35 @@ namespace BedWars.Run
                     return;
                 }
 
-                print?.Invoke($"起床战争:地图目录:{ThisMod.DirMapData}");
-                print?.Invoke("起床战争:加载地图数据");
+                print?.Invoke($"地图目录:{ThisMod.DirMapData}");
+                print?.Invoke("加载地图数据");
                 MapData temp = DataFileHelp.ReadData(ThisMod.DirMapData);
 
-                print?.Invoke("起床战争:检查数据");
+                print?.Invoke("检查数据");
                 DataCheck.Repair(temp);
                 DataCheck.CheckMapData(temp);
 
                 ModTool.ServerHelp.Utils.ServerSideCharacter(true);
 
-                States = new Dictionary<int, IStateAction>
+                States = new IStateAction[]
                 {
-                    { StateNone, null },
-                    { StateMapInit, new SMapInit() }
+                    null,
+                    new SMapInit(),
                 };
 
                 Data = temp;
 
                 IsLoaded = true;
 
-                print?.Invoke("起床战争:加载完成");
+                print?.Invoke("加载完成");
 
                 Init();
-                print?.Invoke("起床战争:初始化完成");
+                print?.Invoke("初始化完成");
             }
             catch (Exception ex)
             {
                 IsLoaded = false;
-                print?.Invoke($"起床战争:加载失败:{ex.Message}");
+                print?.Invoke($"加载失败:{ex.Message}");
             }
         }
 
