@@ -59,13 +59,13 @@ namespace ModTool.Common
         }
 
         /// <summary>
-        /// <paramref name="talkNPC"/>是玩家正在对话的npc索引(会超出<see cref="Main.npc"/>)
+        /// <paramref name="npc"/>是玩家正在对话的npc(会为<see langword="null"/>)
         /// </summary>
         /// <returns>如果有进行修改就返回<see langword="true"/></returns>
-        public delegate bool Modify(ItemData[] items, int talkNPC, Player player);
+        public delegate bool Modify(ItemData[] items, NPC npc, Player player);
         private static readonly List<Modify> setupShop = new List<Modify>();
         /// <summary>
-        /// talkNPC是玩家正在对话的npc索引(会超出<see cref="Main.npc"/>)
+        /// npc是玩家正在对话的npc(会为<see langword="null"/>)
         /// </summary>
         /// <returns>如果有进行修改就返回<see langword="true"/></returns>
         public static event Modify SetupShop
@@ -78,20 +78,24 @@ namespace ModTool.Common
             remove => setupShop.Remove(value);
         }
 
-        private static bool Update(ItemData[] data, Player player)
+        private static ItemData[] Update(Player player, Chest shop = null)
         {
+            NPC npc = null;
+            if (Main.npc.IndexInRange(player.talkNPC)) npc = Main.npc[player.talkNPC];
+
             bool hasModify = false;
+            ItemData[] data = ShopToItemDatas(shop);
 
             setupShop.ForEach(i =>
             {
                 try
                 {
-                    hasModify |= i(data, player.talkNPC, player);
+                    hasModify |= i(data, npc, player);
                 }
                 catch { }
             });
 
-            return hasModify;
+            return hasModify ? data : null;
         }
 
         private class PatcSetupShop : PatchChest
@@ -100,10 +104,8 @@ namespace ModTool.Common
             {
                 if (Main.netMode != 0 && Main.netMode != 1) return;//没必要加
 
-                ItemData[] data = ShopToItemDatas(This);
-
-                bool hasModify = Update(data, Main.LocalPlayer);
-                if (hasModify == false) return;
+                ItemData[] data = Update(Main.LocalPlayer, This);
+                if (data == null) return;
 
                 for (int i = 0; i < Chest.maxItems; ++i)
                 {
@@ -115,33 +117,87 @@ namespace ModTool.Common
 
         private class PatcServer : PatchMain
         {
+            private class PatchMsg : PatchMessageBuffer
+            {
+                public override void GetDataPrefix(MessageBuffer This, int start, int length, int messageType)
+                {
+                    if (messageType != MessageID.SyncTalkNPC) return;
+                    if (Main.netMode != 2) return;
+
+                    if (updatas.Count > 60) return;
+
+                    _ = This.reader.ReadByte();
+                    int whoAmI = This.whoAmI;
+                    int npcIndex = This.reader.ReadInt16();
+
+                    if (Main.npc.IndexInRange(npcIndex) != true) return;
+                    if (updatas.Contains(whoAmI)) return;
+                    //玩家和npc对话时
+                    updatas.Add(whoAmI);
+                }
+            }
+
+            private class SyncData
+            {
+                public int whoAmI;
+                public ItemData[] data;
+
+                public SyncData(int whoAmI, ItemData[] data)
+                {
+                    this.whoAmI = whoAmI;
+                    this.data = data;
+                }
+            }
+            private static List<int> updatas = new List<int>();
+            private static List<SyncData> datas = new List<SyncData>();
+            private static int cd = 60;
+            private static int index = -1;
+
             public override void UpdatePrefix(GameTime gameTime)
             {
                 if (Main.netMode != 2) return;
-                if (Main.GameUpdateCount % 30 != 0) return;//定期刷新
-
-                for (int i = 0; i < Main.player.Length; ++i)
+                if (updatas.Count < 1)//没有需要同步的玩家
                 {
-                    Player player = Main.player[i];
-                    if (player?.active != true) continue;
-
-                    Chest shop = GetNPCChest(player.talkNPC);
-                    if (shop == null) continue;
-
-                    ItemData[] data = ShopToItemDatas(shop);
-
-                    bool hasModify = Update(data, player);
-                    if (hasModify == false) continue;
-
-                    SyncShopToPlay(data, player);
+                    datas.Clear();
+                    return;
                 }
+
+                //直接获取商店数据, 需要同步就发送就行了
+                //弄这么多只是为了防止有一堆玩家打开商店但只有1个玩家的商店需要同步, 导致同步的间隔变长
+                //但基本用不上
+                //我真的多此一举了吗?
+
+                if (datas.Count < 1)//没有在发送的数据
+                {
+                    updatas.RemoveAll(i =>
+                    {
+                        Player player = Main.player[i];
+                        if (player?.active != true) return true;//删除
+                        if (Main.npc.IndexInRange(player.talkNPC) != true) return true;//删除没和npc对话玩家
+
+                        ItemData[] data = Update(player, GetNPCChest(player.talkNPC));
+                        if (data != null) datas.Add(new SyncData(i, data));//有数据需要同步
+
+                        return false;
+                    });
+
+                    cd = datas.Count < 1 ? 30 : 30 / datas.Count;
+                    if (cd < 1) cd = 1;
+                    index = 0;
+                }
+
+                if (datas.Count < 1) return;//没有需要发送的数据
+                if (Main.GameUpdateCount % cd != 0) return;
+
+                SyncShopToPlay(datas[index].data, datas[index].whoAmI);
+                if (++index >= datas.Count) datas.Clear();//发送到最后一个数据时清空
             }
         }
 
         /// <summary>
-        /// 商店物品转数据列表
+        /// 商店物品转数据列表, <paramref name="shop"/>为<see langword="null"/>返回空数组
         /// </summary>
-        public static ItemData[] ShopToItemDatas(Chest shop)
+        public static ItemData[] ShopToItemDatas(Chest shop = null)
         {
             ItemData[] items = new ItemData[Chest.maxItems];
             if (shop == null) return items;
@@ -158,15 +214,18 @@ namespace ModTool.Common
         /// <summary>
         /// 同步商店物品到玩家
         /// </summary>
-        public static void SyncShopToPlay(ItemData[] shop, Player player)
+        public static void SyncShopToPlay(ItemData[] shop, int whoAmI)
         {
-            if (player?.active != true) return;
+            if (Main.player.IndexInRange(whoAmI) != true) return;
+            if (Main.player[whoAmI]?.active != true) return;
+
+            ContentPatch.PrintTry(Main.player[whoAmI].name);//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
             for (int i = 0; i < shop.Length; i++)
             {
                 ItemData item = shop[i];
 
-                NetMessage.TrySendData(MessageID.ShopOverride, player.whoAmI, -1, null,
+                NetMessage.TrySendData(MessageID.ShopOverride, whoAmI, -1, null,
                     i,
                     item.type,
                     item.stack,

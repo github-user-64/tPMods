@@ -14,10 +14,10 @@ namespace ModTool.ServerHelp
 
         public ClientUUID()
         {
-            PatchGame.PMessageBuffer.OnGetDataPo.Add(GetDataPo);
+            PatchGame.PMessageBuffer.OnGetDataPr.Add(GetData);
         }
 
-        private void GetDataPo(MessageBuffer This, int start, int length, int messageType)
+        private void GetData(MessageBuffer This, int start, int length, int messageType)
         {
             if (messageType != MessageID.Unknown68) return;
             if (Main.netMode != 2) return;
