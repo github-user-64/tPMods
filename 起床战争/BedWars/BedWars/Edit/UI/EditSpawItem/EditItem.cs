@@ -32,7 +32,6 @@ namespace BedWars.Edit.UI.EditSpawItem
         private UIStackPanel ui_open = null;
         private EditItemType types = null;
         private UIState ui_close = null;
-        private Terraria.GameContent.UI.Elements.UIText ui_close_name = null;
 
         public EditItem(MapData mapData, SpawItemData data, Action OnDataUpdate, Action<UIFold> OnOpen) : base(OnOpen)
         {
@@ -98,29 +97,15 @@ namespace BedWars.Edit.UI.EditSpawItem
             };
             sp.Append(del);
 
-            UIImageButton tp = new UIImageButton(sp.Height.Pixels, "传送到此", "Images/UI/SpawnPoint");
-            tp.VAlign = 0.5f;
-            tp.OnClick += () =>
-            {
-                Point pos = mapData.Info.pos;
-                pos.X += data.pos.X;
-                pos.Y += data.pos.Y;
-
-                if (WorldGen.InWorld(pos.X, pos.Y) == false)
-                {
-                    Main.NewText($"超出世界:{pos.X},{pos.Y}");
-                    return;
-                }
-
-                Main.LocalPlayer.Center = pos.ToWorldCoordinates();
-            };
-            sp.Append(tp);
-
-            UIImageButtonSwitchPos setPos = new UIImageButtonSwitchPos((int)sp.Height.Pixels, "设置位置", "Images/UI/Cursor_9");
+            UIImageButtonSwitchPos setPos = new UIImageButtonSwitchPos((int)sp.Height.Pixels, "生成位置,右键传送", "Images/UI/SpawnPoint");
             setPos.OnSetPos = v =>
             {
                 string ex = EditData.instance.SpawItemSetPos(data, v);
                 if (ex != null) Main.NewText(ex);
+            };
+            setPos.OnRightClick += (e, s) =>
+            {
+                EditData.instance.Tp(data.pos);
             };
             sp.Append(setPos);
 
@@ -146,40 +131,17 @@ namespace BedWars.Edit.UI.EditSpawItem
 
         public override UIElement GetUIClose()
         {
-            if (ui_close != null) return ui_close;
-
-            ui_close = new UIState();
-            ui_close.Height.Set(20, 0);
-
-            ui_close_name = new Terraria.GameContent.UI.Elements.UIText(string.Empty);
-            ui_close_name.Width.Set(-ui_close.Height.Pixels, 1);
-            ui_close_name.Height.Pixels = ui_close.Height.Pixels;
-            ui_close_name.VAlign = 0.5f;
-            ui_close_name.TextOriginY = 0.5f;
-            ui_close_name.TextOriginX = 0;
-            ui_close_name.OnUpdate += _ => ui_close_name.SetText(gss_name.Get() ?? string.Empty);
-            ui_close.Append(ui_close_name);
-
-            UIImageButton del = new UIImageButton(ui_close.Height.Pixels, "删除", "Images/UI/Cursor_6");
-            del.HAlign = 1;
-            del.VAlign = 0.5f;
-            del.OnClick += () =>
+            if (ui_close == null) ui_close = Build1.FoldCloseUI(gss_name, () =>
             {
                 EditData.instance.SpawItemDel(data);
                 OnDataUpdate?.Invoke();
-            };
-            ui_close.Append(del);
+            }, SetItemTip);
 
             return ui_close;
         }
 
-        public override void Update(GameTime gameTime)
+        public void SetItemTip()
         {
-            base.Update(gameTime);
-
-            if (IsOpen) return;
-            if (ui_close_name.IsMouseHovering == false) return;
-
             List<string> ss = new List<string>();
             int index = -1;
             int oneLen = 10;

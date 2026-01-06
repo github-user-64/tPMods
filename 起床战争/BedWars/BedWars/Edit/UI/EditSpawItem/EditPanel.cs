@@ -46,6 +46,7 @@ namespace BedWars.Edit.UI.EditSpawItem
                 EditItem ui = new EditItem(EditData.instance.Data, i, UpdateData, OnItemOpen);
 
                 sv.AddChild(new UIFoldPanel(ui));
+                ui.Activate();
             }
         }
 

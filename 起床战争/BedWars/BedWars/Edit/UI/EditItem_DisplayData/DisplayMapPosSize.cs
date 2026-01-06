@@ -1,6 +1,7 @@
 ﻿using BedWars.BedWarsData;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System;
 using tContentPatch.Content.UI.ModSet;
 using Terraria;
 
@@ -32,9 +33,10 @@ namespace BedWars.Edit.UI.EditItem_DisplayData
             Vector2 textP = data.Info.pos.ToWorldCoordinates();
             textP += data.Info.size.ToWorldCoordinates(-8, -8) / 2;
             Vector2 v = textP - Main.LocalPlayer.Center;
-            if (v.Length() > 200)
+            float dis = Math.Min(Main.screenWidth, Main.screenHeight) / 2f * 1f - 50;
+            if (v.Length() > dis)
             {
-                v = Vector2.Normalize(v) * 200;
+                v = Vector2.Normalize(v) * dis;
                 textP = Main.LocalPlayer.Center + v;
             }
 

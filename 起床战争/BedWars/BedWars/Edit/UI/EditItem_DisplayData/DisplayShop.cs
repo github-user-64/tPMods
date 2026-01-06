@@ -7,9 +7,9 @@ using Terraria;
 
 namespace BedWars.Edit.UI.EditItem_DisplayData
 {
-    internal class DisplayTeam : UIItemSwitch
+    internal class DisplayShop : UIItemSwitch
     {
-        public DisplayTeam(string text) : base(null, text)
+        public DisplayShop(string text) : base(null, text)
         {
             Common.GameInterface.OnDraw.Add(DrawTeam);
 
@@ -23,14 +23,11 @@ namespace BedWars.Edit.UI.EditItem_DisplayData
             MapData data = EditData.instance.Data;
             if (data == null) return;
 
-            float dis = Math.Min(Main.screenWidth, Main.screenHeight) / 2f * 0.9f - 50;
-            float dis2 = Math.Min(Main.screenWidth, Main.screenHeight) / 2f * 0.8f - 50;
+            float dis = Math.Min(Main.screenWidth, Main.screenHeight) / 2f * 0.6f - 50;
 
-            foreach (var i in data.Teams)
+            foreach (var i in data.Shops)
             {
-                DrawUtils.Draw(data.Info.pos, i.spawTilePos, Color.BlueViolet, $"{i.name}队方块", dis);
-
-                DrawUtils.Draw(data.Info.pos, i.spawPos, Color.Wheat, $"{i.name}队重生", dis2);
+                DrawUtils.Draw(data.Info.pos, i.pos, Color.Pink, $"{i.name}商店", dis);
             }
         }
     }

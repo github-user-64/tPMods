@@ -80,6 +80,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BedWarsData\Data\ShopData.cs" />
     <Compile Include="BedWarsData\Data\SignData.cs" />
     <Compile Include="BedWarsData\Data\ChestData.cs" />
     <Compile Include="BedWarsData\Data\InventoryData.cs" />
@@ -100,6 +101,7 @@
     <Compile Include="Common\UI\UIItemValueSliderUpdate.cs" />
     <Compile Include="Common\UI\UIWrapPanel2.cs" />
     <Compile Include="Edit\EditData_Inventory.cs" />
+    <Compile Include="Edit\EditData_Shop.cs" />
     <Compile Include="Edit\EditData_Sign.cs" />
     <Compile Include="Edit\EditData_Chest.cs" />
     <Compile Include="Edit\EditData_Tile.cs" />
@@ -111,6 +113,7 @@
     <Compile Include="BedWarsData\DataFileHelp.cs" />
     <Compile Include="Common\GameInterface.cs" />
     <Compile Include="Edit\UI\EditItem_DisplayData\DisplayCanActionTile.cs" />
+    <Compile Include="Edit\UI\EditItem_DisplayData\DisplayShop.cs" />
     <Compile Include="Edit\UI\EditItem_DisplayData\DisplayTeam.cs" />
     <Compile Include="Edit\UI\EditItem_DisplayData\DrawUtils.cs" />
     <Compile Include="Edit\UI\EditItem_EditData\EditClassTileData.cs" />
@@ -120,11 +123,13 @@
     <Compile Include="Edit\UI\EditItem_EditData\EditStartGameMinPlay.cs" />
     <Compile Include="Edit\UI\EditItem_EditData\EditClassTileCanAction.cs" />
     <Compile Include="Edit\UI\EditItem_EditData\TpMapPos.cs" />
+    <Compile Include="Edit\UI\EditShop\EditItem.cs" />
     <Compile Include="Edit\UI\EditSpawItem\EditItem.cs" />
     <Compile Include="Edit\UI\EditSpawItem\EditItemType.cs" />
     <Compile Include="Edit\UI\EditSpawItem\EditItemTypeItem.cs" />
-    <Compile Include="Edit\UI\EditTeam\EditPanel.cs" />
+    <Compile Include="Edit\UI\EditShop\EditPanel.cs" />
     <Compile Include="Edit\UI\EditTeam\EditItem.cs" />
+    <Compile Include="Edit\UI\EditTeam\EditPanel.cs" />
     <Compile Include="Edit\UI\EditWindow\EditPanels.cs" />
     <Compile Include="Edit\UI\Elements\Build1.cs" />
     <Compile Include="Edit\UI\Elements\UIEditPanel.cs" />

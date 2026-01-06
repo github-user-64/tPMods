@@ -18,7 +18,10 @@ namespace BedWars.Common.UI
             IsAutoUpdateSize = true;
 
             OnLeftClick += (e, s) => Open();
+        }
 
+        public override void OnInitialize()
+        {
             SetUI(GetUIClose());
         }
 

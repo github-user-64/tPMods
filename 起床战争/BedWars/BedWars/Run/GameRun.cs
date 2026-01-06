@@ -69,6 +69,7 @@ namespace BedWars.Run
         public List<ChestData> DataChests => Data?.Chests;
         public List<SignData> DataSigns => Data?.Signs;
         public InventoryData DataInventory => Data?.Inventory;
+        public List<ShopData> DataShops => Data?.Shops;
 
         public void SetState(int key)
         {

@@ -43,6 +43,7 @@ namespace BedWars.Edit.UI.EditWindow
             AddChild(new DisplaySpawItem("显示生成物品位置"));
             AddChild(new DisplayTeam("显示队伍位置"));
             AddChild(new DisplayCanActionTile("显示可交互图格"));
+            AddChild(new DisplayShop("显示商店位置"));
         }
     }
 
@@ -112,5 +113,10 @@ namespace BedWars.Edit.UI.EditWindow
             AddChild(new EditPasteInventoryData("粘贴", null, "粘贴物品栏"));
             AddChild(new EditResetInventoryData("恢复", null, "恢复物品栏"));
         }
+    }
+
+    internal class EditPanel7 : EditShop.EditPanel
+    {
+
     }
 }

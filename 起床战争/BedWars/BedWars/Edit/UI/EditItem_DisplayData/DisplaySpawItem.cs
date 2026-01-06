@@ -1,7 +1,9 @@
 ﻿using BedWars.BedWarsData;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System;
 using tContentPatch.Content.UI.ModSet;
+using Terraria;
 
 namespace BedWars.Edit.UI.EditItem_DisplayData
 {
@@ -21,9 +23,11 @@ namespace BedWars.Edit.UI.EditItem_DisplayData
             MapData data = EditData.instance.Data;
             if (data == null) return;
 
+            float dis = Math.Min(Main.screenWidth, Main.screenHeight) / 2f * 0.7f - 50;
+
             foreach (var i in data.SpawItems)
             {
-                DrawUtils.Draw(data.Info.pos, i.pos, Color.LawnGreen, i.name, 400);
+                DrawUtils.Draw(data.Info.pos, i.pos, Color.LawnGreen, i.name, dis);
             }
         }
     }

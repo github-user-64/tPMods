@@ -27,7 +27,6 @@ namespace BedWars.Edit.UI.EditTeam
         //
         private UIStackPanel ui_open = null;
         private UIState ui_close = null;
-        private Terraria.GameContent.UI.Elements.UIText ui_close_name = null;
 
         public EditItem(MapData mapData, TeamData data, Action OnDataUpdate, Action<UIFold> OnOpen) : base(OnOpen)
         {
@@ -98,7 +97,7 @@ namespace BedWars.Edit.UI.EditTeam
             };
             setSpawTilePos.OnRightClick += (e, s) =>
             {
-                tp(data.spawTilePos);
+                EditData.instance.Tp(data.spawTilePos);
             };
             sp.Append(setSpawTilePos);
 
@@ -110,7 +109,7 @@ namespace BedWars.Edit.UI.EditTeam
             };
             setSpawPos.OnRightClick += (e, s) =>
             {
-                tp(data.spawPos);
+                EditData.instance.Tp(data.spawPos);
             };
             sp.Append(setSpawPos);
 
@@ -119,45 +118,13 @@ namespace BedWars.Edit.UI.EditTeam
 
         public override UIElement GetUIClose()
         {
-            if (ui_close != null) return ui_close;
-
-            ui_close = new UIState();
-            ui_close.Height.Set(20, 0);
-
-            ui_close_name = new Terraria.GameContent.UI.Elements.UIText(string.Empty);
-            ui_close_name.Width.Set(-ui_close.Height.Pixels, 1);
-            ui_close_name.Height.Pixels = ui_close.Height.Pixels;
-            ui_close_name.VAlign = 0.5f;
-            ui_close_name.TextOriginY = 0.5f;
-            ui_close_name.TextOriginX = 0;
-            ui_close_name.OnUpdate += _ => ui_close_name.SetText(gss_name.Get() ?? string.Empty);
-            ui_close.Append(ui_close_name);
-
-            UIImageButton del = new UIImageButton(ui_close.Height.Pixels, "删除", "Images/UI/Cursor_6");
-            del.HAlign = 1;
-            del.VAlign = 0.5f;
-            del.OnClick += () =>
+            if (ui_close == null) ui_close = Build1.FoldCloseUI(gss_name, () =>
             {
                 EditData.instance.TeamDel(data);
                 OnDataUpdate?.Invoke();
-            };
-            ui_close.Append(del);
+            });
 
             return ui_close;
-        }
-
-        private void tp(Point pos)
-        {
-            pos.X += mapData.Info.pos.X;
-            pos.Y += mapData.Info.pos.Y;
-
-            if (WorldGen.InWorld(pos.X, pos.Y) == false)
-            {
-                Main.NewText($"超出世界:{pos.X},{pos.Y}");
-                return;
-            }
-
-            Main.LocalPlayer.Center = pos.ToWorldCoordinates();
         }
     }
 }

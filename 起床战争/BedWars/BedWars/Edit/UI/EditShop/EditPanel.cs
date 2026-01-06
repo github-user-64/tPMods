@@ -4,16 +4,16 @@ using BedWars.Edit.UI.Elements;
 using System.Collections.Generic;
 using Terraria;
 
-namespace BedWars.Edit.UI.EditTeam
+namespace BedWars.Edit.UI.EditShop
 {
     internal class EditPanel : UIEditPanel
     {
         public EditPanel()
         {
-            UIImageButton btn1 = new UIImageButton(sp.Height.Pixels, "添加队伍", "Images/UI/Cursor_7");
-            btn1.OnLeftClick += (e, s) =>
+            UIImageButtonSwitchPos btn1 = new UIImageButtonSwitchPos((int)sp.Height.Pixels, "添加商店", "Images/UI/Cursor_7");
+            btn1.OnSetPos = v =>
             {
-                string ex = EditData.instance.TeamAdd();
+                string ex = EditData.instance.ShopAdd(v);
                 if (ex != null) Main.NewText(ex);
 
                 UpdateData();
@@ -26,7 +26,7 @@ namespace BedWars.Edit.UI.EditTeam
             sv.Deactivate();
             sv.ClearChild();
 
-            List<TeamData> datas = EditData.instance.DataTeams;
+            List<ShopData> datas = EditData.instance.DataShops;
             if (datas == null) return;
 
             foreach (var i in datas)

@@ -5,7 +5,7 @@ namespace BedWars.Edit.UI.EditItem_DisplayData
 {
     internal static class DrawUtils
     {
-        public static void Draw(Point pos, Point posAdd, Color color, string text = null, int textDis = 0)
+        public static void Draw(Point pos, Point posAdd, Color color, string text = null, float textDis = 0)
         {
             pos.X += posAdd.X;
             pos.Y += posAdd.Y;

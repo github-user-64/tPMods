@@ -1,6 +1,7 @@
 ﻿using BedWars.BedWarsData;
 using Microsoft.Xna.Framework;
 using System.Collections.Generic;
+using Terraria;
 
 namespace BedWars.Edit
 {
@@ -20,6 +21,7 @@ namespace BedWars.Edit
         public List<ChestData> DataChests => Data?.Chests;
         public List<SignData> DataSigns => Data?.Signs;
         public InventoryData DataInventory => Data?.Inventory;
+        public List<ShopData> DataShops => Data?.Shops;
 
         public string SetMapPos(Point pos)
         {
@@ -45,6 +47,7 @@ namespace BedWars.Edit
             _ = DataTeams.RemoveAll(i => Data.InMapRelative(i.spawTilePos) == false || Data.InMapRelative(i.spawPos) == false);
             _ = DataChests.RemoveAll(i => Data.InMapRelative(i.x, i.y) == false);
             _ = DataSigns.RemoveAll(i => Data.InMapRelative(i.x, i.y) == false);
+            _ = DataShops.RemoveAll(i => Data.InMapRelative(i.pos) == false);
 
             Data.RepairTile();
 
@@ -64,6 +67,29 @@ namespace BedWars.Edit
             if (Data.InMapRelative(pos) == false) return "超出地图";
 
             return null;
+        }
+
+        /// <summary>
+        /// <paramref name="pos"/>为相对位置
+        /// </summary>
+        public void Tp(Point pos)
+        {
+            if (DataInfo == null)
+            {
+                Main.NewText("地图数据为null");
+                return;
+            }
+
+            pos.X += DataInfo.pos.X;
+            pos.Y += DataInfo.pos.Y;
+
+            if (WorldGen.InWorld(pos.X, pos.Y) == false)
+            {
+                Main.NewText($"超出世界:{pos.X},{pos.Y}");
+                return;
+            }
+
+            Main.LocalPlayer.Center = pos.ToWorldCoordinates();
         }
     }
 }
