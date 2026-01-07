@@ -78,6 +78,10 @@ namespace ModTool.Common
             remove => setupShop.Remove(value);
         }
 
+        /// <summary>
+        /// <paramref name="shop"/>为<see langword="null"/>代表空商店
+        /// </summary>
+        /// <returns>返回修改后的商店, 没修改返回<see langword="null"/></returns>
         private static ItemData[] Update(Player player, Chest shop = null)
         {
             NPC npc = null;
@@ -124,78 +128,73 @@ namespace ModTool.Common
                     if (messageType != MessageID.SyncTalkNPC) return;
                     if (Main.netMode != 2) return;
 
-                    if (updatas.Count > 60) return;
+                    if (updatas.Count > 60) updatas.RemoveRange(0, 30);
 
                     _ = This.reader.ReadByte();
                     int whoAmI = This.whoAmI;
                     int npcIndex = This.reader.ReadInt16();
 
-                    if (Main.npc.IndexInRange(npcIndex) != true) return;
-                    if (updatas.Contains(whoAmI)) return;
-                    //玩家和npc对话时
-                    updatas.Add(whoAmI);
+                    if (Main.npc.IndexInRange(npcIndex) != true) return;//玩家没在和npc对话
+                    if (updatas.Exists(i => i.whoAmI == whoAmI)) return;
+
+                    updatas.Add(new data(whoAmI));
                 }
             }
 
-            private class SyncData
+            private class data
             {
-                public int whoAmI;
-                public ItemData[] data;
-
-                public SyncData(int whoAmI, ItemData[] data)
+                public data(int whoAmI)
                 {
                     this.whoAmI = whoAmI;
-                    this.data = data;
+                }
+
+                public int whoAmI = -1;
+                public int talkNPC = -1;
+                public ItemData[] shop = null;
+
+                public bool Check()
+                {
+                    if (Main.player.IndexInRange(whoAmI) != true) return true;
+                    Player player = Main.player[whoAmI];
+                    if (player?.active != true) return true;
+
+                    talkNPC = player.talkNPC;
+
+                    if (Main.npc.IndexInRange(talkNPC) != true) return true;
+                    NPC npc = Main.npc[talkNPC];
+                    if (npc?.active != true) return true;
+
+                    shop = Update(player, GetNPCChest(talkNPC));
+                    return false;
                 }
             }
-            private static List<int> updatas = new List<int>();
-            private static List<SyncData> datas = new List<SyncData>();
-            private static int cd = 60;
+
+            private static List<data> updatas = new List<data>();
             private static int index = -1;
 
             public override void UpdatePrefix(GameTime gameTime)
             {
                 if (Main.netMode != 2) return;
-                if (updatas.Count < 1)//没有需要同步的玩家
+                if (updatas.Count < 1) return;
+
+                if (index < 0 || index >= Chest.maxItems)
                 {
-                    datas.Clear();
-                    return;
-                }
-
-                //直接获取商店数据, 需要同步就发送就行了
-                //弄这么多只是为了防止有一堆玩家打开商店但只有1个玩家的商店需要同步, 导致同步的间隔变长
-                //但基本用不上
-                //我真的多此一举了吗?
-
-                if (datas.Count < 1)//没有在发送的数据
-                {
-                    updatas.RemoveAll(i =>
-                    {
-                        Player player = Main.player[i];
-                        if (player?.active != true) return true;//删除
-                        if (Main.npc.IndexInRange(player.talkNPC) != true) return true;//删除没和npc对话玩家
-
-                        ItemData[] data = Update(player, GetNPCChest(player.talkNPC));
-                        if (data != null) datas.Add(new SyncData(i, data));//有数据需要同步
-
-                        return false;
-                    });
-
-                    cd = datas.Count < 1 ? 30 : 30 / datas.Count;
-                    if (cd < 1) cd = 1;
                     index = 0;
+                    updatas.RemoveAll(i => i.Check());
                 }
 
-                if (datas.Count < 1) return;//没有需要发送的数据
-                if (Main.GameUpdateCount % cd != 0) return;
+                updatas.ForEach(i =>
+                {
+                    if (i.shop == null) return;
+                    SyncShopToPlay(i.shop[index], index, i.whoAmI);
+                });
 
-                SyncShopToPlay(datas[index].data, datas[index].whoAmI);
-                if (++index >= datas.Count) datas.Clear();//发送到最后一个数据时清空
+                ++index;
             }
         }
 
         /// <summary>
-        /// 商店物品转数据列表, <paramref name="shop"/>为<see langword="null"/>返回空数组
+        /// 商店物品转数据列表, <paramref name="shop"/>为<see langword="null"/>返回正常长度的空数组
         /// </summary>
         public static ItemData[] ShopToItemDatas(Chest shop = null)
         {
@@ -216,23 +215,19 @@ namespace ModTool.Common
         /// </summary>
         public static void SyncShopToPlay(ItemData[] shop, int whoAmI)
         {
-            if (Main.player.IndexInRange(whoAmI) != true) return;
-            if (Main.player[whoAmI]?.active != true) return;
-
-            ContentPatch.PrintTry(Main.player[whoAmI].name);//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-
             for (int i = 0; i < shop.Length; i++)
             {
-                ItemData item = shop[i];
-
-                NetMessage.TrySendData(MessageID.ShopOverride, whoAmI, -1, null,
-                    i,
-                    item.type,
-                    item.stack,
-                    item.prefix,
-                    item.value,
-                    item.buyOnce);
+                SyncShopToPlay(shop[i], i, whoAmI);
             }
+        }
+
+        /// <summary>
+        /// 同步商店物品到玩家
+        /// </summary>
+        public static void SyncShopToPlay(ItemData item, int index, int whoAmI)
+        {
+            NetMessage.TrySendData(MessageID.ShopOverride, whoAmI, -1, null,
+                index, item.type, item.stack, item.prefix, item.value, item.buyOnce);
         }
 
         /// <summary>
