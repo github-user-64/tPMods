@@ -6,13 +6,13 @@ namespace BedWars.Edit.UI.EditItem_EditData
 {
     internal class EditTime : UIItemTextBoxUpdate<double>
     {
-        private static GetSetStringDouble gss = new GetSetStringDouble(GetV, SetV);
-
-        public EditTime(string text) : base(gss, null, -1, null, text)
+        public EditTime(string text) : base(null, "时间", -1, null, text)
         {
             Height.Set(25, 0);
             tb.Width.Set(0, 0.5f);
             MouseText = "不小于0则维持时间. 3600=1时";
+
+            gss = new GetSetStringDouble(GetV, SetV);
         }
 
         public override void Update(GameTime gameTime)
@@ -51,11 +51,11 @@ namespace BedWars.Edit.UI.EditItem_EditData
 
     internal class EditDayTime : UIItemSwitchUpdate
     {
-        private static GetSetStringBool gss = new GetSetStringBool(GetV, SetV);
-
-        public EditDayTime(string text) : base(gss, null, text)
+        public EditDayTime(string text) : base(null, null, text)
         {
             MouseText = "是白天, 4:30到7:30";
+
+            gss = new GetSetStringBool(GetV, SetV);
         }
 
         private static bool GetV()

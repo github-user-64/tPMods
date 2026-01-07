@@ -8,9 +8,9 @@ namespace BedWars.Common.UI
     internal class UIItemSwitchUpdate : UIItemSwitch
     {
         public string MouseText = null;
-        private GetSetStringBool gss = null;
+        public GetSetStringBool gss = null;
 
-        public UIItemSwitchUpdate(GetSetStringBool gss,
+        public UIItemSwitchUpdate(GetSetStringBool gss = null,
             Texture2D ico = null, string text = null) :
             base(ico, text)
         {
@@ -18,8 +18,9 @@ namespace BedWars.Common.UI
 
             OnValUpdate += v =>
             {
-                if (gss.Get() == v) return;
-                gss.Set(v);
+                if (this.gss == null) return;
+                if (this.gss.Get() == v) return;
+                this.gss.Set(v);
             };
         }
 
@@ -29,7 +30,7 @@ namespace BedWars.Common.UI
 
             if (IsMouseHovering && MouseText != null) Main.instance.MouseText(MouseText);
 
-            SetVal(gss.Get());
+            SetVal(gss?.Get() ?? false);
         }
     }
 }

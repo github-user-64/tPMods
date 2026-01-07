@@ -1,6 +1,6 @@
-﻿using BedWars.BedWarsData;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using ModTool.Common;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,21 +14,26 @@ namespace BedWars.Edit.UI.EditShop
 {
     internal class EditShopItemSlot : UIPanel
     {
-        public Action<int> OnChecked = null;
+        public Action<ModifyShop.ItemData> OnChecked = null;
         public bool IsChecked { get; protected set; } = false;
-        private ShopData data = null;
-        private int index = -1;
+        private ModifyShop.ItemData data = null;
         private Item item = null;
 
-        public EditShopItemSlot(ShopData data, int index)
+        public EditShopItemSlot(ModifyShop.ItemData data = null)
         {
-            this.data = data;
-            this.index = index;
-
             item = new Item();
+
+            SetData(data);
 
             SetPadding(6);
             BackgroundColor = BorderColor = new Color(43, 60, 120);
+        }
+
+        public void SetData(ModifyShop.ItemData data = null)
+        {
+            this.data = data;
+
+            UpdateItem();
         }
 
         public override void LeftClick(UIMouseEvent evt)
@@ -40,7 +45,7 @@ namespace BedWars.Edit.UI.EditShop
 
             IsChecked = true;
 
-            OnChecked?.Invoke(index);
+            OnChecked?.Invoke(data);
 
             SoundEngine.PlaySound(SoundID.MenuTick);
         }
@@ -51,44 +56,62 @@ namespace BedWars.Edit.UI.EditShop
 
             BorderColor = IsChecked ? new Color(255, 215, 0) : BackgroundColor;
 
-            if (IsMouseHovering) UpdateMouseHovering();
+            UpdateData();
+            UpdateItem();
 
-            data.item[index].Paste(ref item);
-
-            if (IsMouseHovering == false) return;
-
-            List<string> ss = new List<string>();
-            
-            ss.Add(item.HoverName);
-            ss.Add($"id:{item.type}");
-            int[] vs = EditShopItems.GetVal(item.value);
-            ss.Add($"[c/FFD700:价格][i:74]{vs[3]}[i:73]{vs[2]}[i:72]{vs[1]}[i:71]{vs[0]}");
-            ss.Add("[c/aaffaa:用物品点击复制到商店,右键移除]");
-
-            tContentPatch.Content.DrawTip.SetDraw(ss.ToArray());
+            if (IsMouseHovering) UpdateTip();
         }
 
-        private void UpdateMouseHovering()
+        private void UpdateItem()
         {
+            if (data == null) item.SetDefaults(ItemID.None);
+            else data.Paste(ref item);
+        }
+
+        private void UpdateData()
+        {
+            if (IsMouseHovering == false) return;
+            if (data == null) return;
             Item hi = Main.LocalPlayer.HeldItem;
 
             if (Main.mouseLeft && Main.mouseLeftRelease && hi != null && hi.type != ItemID.None)
             {
-                data.item[index].Copy(hi.Clone());
+                data.Copy(hi.Clone());
 
                 SoundEngine.PlaySound(SoundID.Coins);
             }
             else if (Main.mouseRight && Main.mouseRightRelease)
             {
-                data.item[index].Copy();
+                data.Copy();
 
                 SoundEngine.PlaySound(SoundID.Grab);
             }
         }
 
+        private void UpdateTip()
+        {
+            if (data == null)
+            {
+                tContentPatch.Content.DrawTip.SetDraw("空空如也");
+                return;
+            }
+
+            List<string> ss = new List<string>();
+
+            ss.Add(item.HoverName);
+            ss.Add($"id:{item.type}");
+            int[] vs = EditShopItems.GetVal(item.value);
+            ss.Add($"[c/FFD700:价格][i:71]{vs[0]}[i:72]{vs[1]}[i:73]{vs[2]}[i:74]{vs[3]}");
+            ss.Add("[c/aaffaa:用物品点击复制到商店,右键移除]");
+
+            tContentPatch.Content.DrawTip.SetDraw(ss.ToArray());
+        }
+
         protected override void DrawSelf(SpriteBatch spriteBatch)
         {
             base.DrawSelf(spriteBatch);
+
+            if (data == null) return;
 
             CalculatedStyle rect = GetInnerDimensions();
             Vector2 center = new Vector2(rect.X + rect.Width / 2, rect.Y + rect.Height / 2);

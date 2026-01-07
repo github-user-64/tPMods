@@ -8,9 +8,10 @@ namespace BedWars.Common.UI
     internal class UIItemValueSliderUpdate : UIItemValueSlider
     {
         public string MouseText = null;
-        private GetSetStringInt gss = null;
+        public GetSetStringInt gss = null;
 
-        public UIItemValueSliderUpdate(GetSetStringInt gss, int min, int max, Texture2D ico = null, string text = null) : base(min, max, ico, text)
+        public UIItemValueSliderUpdate(
+            GetSetStringInt gss = null, int min = 0, int max = 0, Texture2D ico = null, string text = null) : base(min, max, ico, text)
         {
             build(gss);
         }
@@ -21,8 +22,9 @@ namespace BedWars.Common.UI
 
             OnValUpdate += v =>
             {
-                if (gss.Get() == v) return;
-                gss.Set((int)v);
+                if (this.gss == null) return;
+                if (this.gss.Get() == v) return;
+                this.gss.Set((int)v);
             };
         }
 
@@ -32,7 +34,7 @@ namespace BedWars.Common.UI
 
             if (IsMouseHovering && MouseText != null) Main.instance.MouseText(MouseText);
 
-            SetVal(gss.Get());
+            SetVal(gss?.Get() ?? default);
         }
     }
 }

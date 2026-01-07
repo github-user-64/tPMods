@@ -1,7 +1,6 @@
 ﻿using BedWars.BedWarsData;
 using BedWars.Common.UI;
 using BedWars.Edit.UI.Elements;
-using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
 using System;

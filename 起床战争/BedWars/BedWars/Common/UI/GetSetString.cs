@@ -37,6 +37,18 @@ namespace BedWars.Common.UI
         }
     }
 
+    internal class GetSetStringByte : GetSetString<byte>
+    {
+        public GetSetStringByte(Func<byte> Get, Action<byte> Set) : base(Get, Set)
+        {
+            func = v =>
+            {
+                if (byte.TryParse(v, out byte rv)) return rv;
+                return this.Get();
+            };
+        }
+    }
+
     internal class GetSetStringDouble : GetSetString<double>
     {
         public GetSetStringDouble(Func<double> Get, Action<double> Set) : base(Get, Set)

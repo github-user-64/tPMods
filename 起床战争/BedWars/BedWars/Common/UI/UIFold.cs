@@ -21,6 +21,8 @@ namespace BedWars.Common.UI
 
             OnLeftClick += (e, s) =>
             {
+                if (IsOpen) return;
+
                 SoundEngine.PlaySound(SoundID.MenuTick);
                 Open();
             };

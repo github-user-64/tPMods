@@ -5,13 +5,13 @@ namespace BedWars.Edit.UI.EditItem_EditData
 {
     internal class EditStartGameMinPlay : UIItemTextBoxUpdate<int>
     {
-        private static GetSetStringInt gss = new GetSetStringInt(GetV, SetV);
-
-        public EditStartGameMinPlay(string text) : base(gss, null, -1, null, text)
+        public EditStartGameMinPlay(string text) : base(null, "玩家数量", -1, null, text)
         {
             Height.Set(25, 0);
             tb.Width.Set(0, 0.5f);
             MouseText = "开始游戏所需最小玩家数";
+
+            gss = new GetSetStringInt(GetV, SetV);
         }
 
         private static int GetV()
