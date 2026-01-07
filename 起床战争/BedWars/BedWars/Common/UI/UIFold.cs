@@ -1,5 +1,7 @@
 ﻿using System;
 using tContentPatch.Content.UI;
+using Terraria.Audio;
+using Terraria.ID;
 using Terraria.UI;
 
 namespace BedWars.Common.UI
@@ -17,7 +19,11 @@ namespace BedWars.Common.UI
             MinWidth.Pixels = 20;
             IsAutoUpdateSize = true;
 
-            OnLeftClick += (e, s) => Open();
+            OnLeftClick += (e, s) =>
+            {
+                SoundEngine.PlaySound(SoundID.MenuTick);
+                Open();
+            };
         }
 
         public override void OnInitialize()

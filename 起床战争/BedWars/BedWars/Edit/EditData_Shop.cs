@@ -1,5 +1,6 @@
 ﻿using BedWars.BedWarsData;
 using Microsoft.Xna.Framework;
+using Terraria;
 
 namespace BedWars.Edit
 {
@@ -14,6 +15,7 @@ namespace BedWars.Edit
 
             ShopData temp = new ShopData();
             temp.pos = pos;
+            DataCheck.RepairList(ref temp.item, Chest.maxItems);
 
             DataShops.Add(temp);
 

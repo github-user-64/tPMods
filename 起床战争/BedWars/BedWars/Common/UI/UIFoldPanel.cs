@@ -25,6 +25,9 @@ namespace BedWars.Common.UI
 
             Height.Pixels = f.Height.Pixels + PaddingTop + PaddingBottom;
             Width.Pixels = f.Width.Pixels + PaddingLeft + PaddingRight;
+
+            if (IsMouseHovering && f.IsOpen == false) BorderColor = new Color(123, 123, 200);
+            else BorderColor = new Color(43, 60, 120);
         }
     }
 }

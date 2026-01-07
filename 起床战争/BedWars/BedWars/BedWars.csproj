@@ -124,6 +124,8 @@
     <Compile Include="Edit\UI\EditItem_EditData\EditClassTileCanAction.cs" />
     <Compile Include="Edit\UI\EditItem_EditData\TpMapPos.cs" />
     <Compile Include="Edit\UI\EditShop\EditItem.cs" />
+    <Compile Include="Edit\UI\EditShop\EditShopItems.cs" />
+    <Compile Include="Edit\UI\EditShop\EditShopItemSlot.cs" />
     <Compile Include="Edit\UI\EditSpawItem\EditItem.cs" />
     <Compile Include="Edit\UI\EditSpawItem\EditItemType.cs" />
     <Compile Include="Edit\UI\EditSpawItem\EditItemTypeItem.cs" />

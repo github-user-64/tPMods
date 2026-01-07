@@ -13,7 +13,7 @@ namespace ModTool.Common
     public static class ModifyShop
     {
         /// <summary/>
-        public struct ItemData
+        public class ItemData
         {
             /// <summary/>
             public int type;
@@ -26,7 +26,9 @@ namespace ModTool.Common
             /// <summary/>
             public byte buyOnce;
 
-            /// <summary/>
+            /// <summary>
+            /// 为空则清空
+            /// </summary>
             public void Copy(Item item = null)
             {
                 if (item == null)
@@ -46,7 +48,9 @@ namespace ModTool.Common
                 buyOnce = Convert.ToByte(item.buyOnce);//一次性?
             }
 
-            /// <summary/>
+            /// <summary>
+            /// 为空则创建
+            /// </summary>
             public void Paste(ref Item item)
             {
                 if (item == null) item = new Item();
@@ -199,6 +203,8 @@ namespace ModTool.Common
         public static ItemData[] ShopToItemDatas(Chest shop = null)
         {
             ItemData[] items = new ItemData[Chest.maxItems];
+            for (int i = 0; i < items.Length; ++i) items[i] = new ItemData();
+
             if (shop == null) return items;
             if (shop.item == null) return items;
 

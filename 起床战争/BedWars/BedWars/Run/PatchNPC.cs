@@ -12,10 +12,8 @@ namespace BedWars.Run
 
         [HarmonyPatch("NewNPC")]
         [HarmonyPrefix]
-        private static bool NewNPC(IEntitySource source, int X, int Y, int Type, int Start, float ai0, float ai1, float ai2, float ai3, int Target)
+        internal static bool NewNPC(IEntitySource source, int X, int Y, int Type, int Start, float ai0, float ai1, float ai2, float ai3, int Target)
         {
-            if (Main.netMode != 2) return true;
-
             return CanNewNPC;
         }
 

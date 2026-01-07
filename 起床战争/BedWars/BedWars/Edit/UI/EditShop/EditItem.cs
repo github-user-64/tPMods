@@ -1,7 +1,6 @@
 ﻿using BedWars.BedWarsData;
 using BedWars.Common.UI;
 using BedWars.Edit.UI.Elements;
-using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
 using System;
@@ -72,6 +71,8 @@ namespace BedWars.Edit.UI.EditShop
                 EditData.instance.Tp(data.pos);
             };
             sp.Append(setPos);
+
+            ui_open.Append(new EditShopItems(data));
 
             return ui_open;
         }
