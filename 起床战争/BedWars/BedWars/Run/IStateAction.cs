@@ -31,7 +31,10 @@ namespace BedWars.Run
         /// </summary>
         public virtual bool PlayCanAction(GetDataEventArgs e)
         {
-            return e is ControlsEventArgs;
+            if (e is ControlsEventArgs ce == false) return false;//不是控制
+            if (ce.ghost != ce.player.ghost) return false;//修改了幽灵状态
+
+            return true;
         }
 
         /// <summary>

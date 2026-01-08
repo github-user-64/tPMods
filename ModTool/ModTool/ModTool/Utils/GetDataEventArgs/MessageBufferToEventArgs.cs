@@ -99,6 +99,7 @@ namespace ModTool.Utils.GetDataEventArgs
             e.controlRight = bs0[3];
             e.controlJump = bs0[4];
             e.controlUseItem = bs0[5];
+            e.ghost = bs1[6];
             e.position = position;
 
             return e;

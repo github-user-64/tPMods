@@ -84,6 +84,8 @@ namespace ModTool.Utils.GetDataEventArgs
         public bool controlUseItem;
         /// <summary/>
         public Vector2 position;
+        /// <summary/>
+        public bool ghost;
     }
 
     #region 方块类
