@@ -5,13 +5,13 @@ using Terraria;
 
 namespace BedWars.Edit.UI.EditItem_EditData
 {
-    internal class EditMapPos : UIItemSwitchPos
+    internal class EditMapSpawPos : UIItemSwitchPos
     {
-        public EditMapPos(string text) : base(text) { }
+        public EditMapSpawPos(string text) : base(text) { }
 
         public override void SetPos(Point pos)
         {
-            string ex = EditData.instance.SetMapPos(pos);
+            string ex = EditData.instance.SetMapSpawPos(pos);
             if (ex != null)
             {
                 Main.NewText(ex);
@@ -30,14 +30,13 @@ namespace BedWars.Edit.UI.EditItem_EditData
             if (IsMouseHovering == false) return;
             if (EditData.instance.DataInfo is MapInfoData info == false) return;
 
-            Vector2 pos = info.pos.ToWorldCoordinates();
-            pos += info.size.ToWorldCoordinates() / 2;
+            Point point = new Point(info.pos.X + info.spawPos.X, info.pos.Y + info.spawPos.Y);
+            Vector2 pos = point.ToWorldCoordinates();
 
             Main.instance.MouseText($"右键传送{pos.X}, {pos.Y}");
 
             if ((Main.mouseRight && Main.mouseRightRelease) == false) return;
 
-            Point point = pos.ToTileCoordinates();
             if (WorldGen.InWorld(point.X, point.Y) == false)
             {
                 Main.NewText($"超出世界:{pos.X},{pos.Y}");

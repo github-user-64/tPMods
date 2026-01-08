@@ -50,6 +50,13 @@ namespace BedWars.Run
                     tContentPatch.Utils.Log.Add(s);
                     ContentPatch.PrintTry(s);
                 });
+
+                foreach (Player i in Main.player)
+                {
+                    if (i?.active != true) continue;
+
+                    control.OnPlayJoinGame(i);
+                }
             }
         }
 

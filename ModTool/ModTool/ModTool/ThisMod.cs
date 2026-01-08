@@ -13,10 +13,7 @@ namespace ModTool
 
         public override void Load()
         {
-            ModObject mo = ContentPatch.GetModObjects()?.FirstOrDefault(i => i.assembly == Assembly.GetExecutingAssembly());
-            
-            ThisMod.mo = mo;
-
+            mo = ContentPatch.GetModObjects()?.FirstOrDefault(i => i.assembly == Assembly.GetExecutingAssembly());
             if (mo == null) throw new Exception($"{nameof(ModTool)}:找不到模组对象");
 
             //

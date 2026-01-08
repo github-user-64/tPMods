@@ -40,6 +40,7 @@ namespace BedWars.Edit.UI.EditWindow
             Height.Precent = 1;
 
             AddChild(new DisplayMapPosSize("显示地图位置大小"));
+            AddChild(new DisplayMapSpawPos("显示地图重生点"));
             AddChild(new DisplaySpawItem("显示生成物品位置"));
             AddChild(new DisplayTeam("显示队伍位置"));
             AddChild(new DisplayCanActionTile("显示可交互图格"));
@@ -54,9 +55,9 @@ namespace BedWars.Edit.UI.EditWindow
             Width.Precent = 1;
             Height.Precent = 1;
 
-            AddChild(new TpMapPos("传送", "传送到地图位置"));
             AddChild(new EditMapPos("设置地图位置"));
             AddChild(new EditMapSize("设置地图大小"));
+            AddChild(new EditMapSpawPos("设置重生点"));
             AddChild(new EditStartGameMinPlay("开始所需玩家"));
             AddChild(new EditTime("维持时间"));
             AddChild(new EditDayTime("白天"));

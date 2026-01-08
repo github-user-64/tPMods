@@ -42,6 +42,8 @@ namespace BedWars.Edit
             if (size.Y < 2) return "大小不能小于2";
 
             DataInfo.size = size;
+            if (DataInfo.spawPos.X >= size.X) DataInfo.spawPos.X = size.X - 1;
+            if (DataInfo.spawPos.Y >= size.Y) DataInfo.spawPos.Y = size.Y - 1;
 
             _ = DataSpawItems.RemoveAll(i => Data.InMapRelative(i.pos) == false);
             _ = DataTeams.RemoveAll(i => Data.InMapRelative(i.spawTilePos) == false || Data.InMapRelative(i.spawPos) == false);
@@ -50,6 +52,18 @@ namespace BedWars.Edit
             _ = DataShops.RemoveAll(i => Data.InMapRelative(i.pos) == false);
 
             Data.RepairTile();
+
+            return null;
+        }
+
+        /// <summary>
+        /// <paramref name="pos"/>为世界位置
+        /// </summary>
+        public string SetMapSpawPos(Point pos)
+        {
+            if (CheckPos(ref pos) is string ex) return ex;
+
+            DataInfo.spawPos = pos;
 
             return null;
         }

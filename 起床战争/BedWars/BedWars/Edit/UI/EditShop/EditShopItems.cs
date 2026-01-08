@@ -6,8 +6,6 @@ using ReLogic.Content;
 using tContentPatch.Content.UI;
 using tContentPatch.Content.UI.ModSet;
 using Terraria;
-using Terraria.GameContent.UI.Elements;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace BedWars.Edit.UI.EditShop
 {
@@ -47,14 +45,14 @@ namespace BedWars.Edit.UI.EditShop
             sp1.Append(editIco);
 
             editType = new UIItemTextBoxUpdate<int>(null, "物品类型", ico: ico1.Value);
-            editType.Width.Set(123, 0);
+            editType.Width.Set(129, 0);
             editType.Height.Set(sp1.Height.Pixels, 0);
             editType.tb.Width.Set(-sp1.Height.Pixels, 1);
             editType.MouseText = "物品type";
             sp1.Append(editType);
 
             editPrefix = new UIItemTextBoxUpdate<byte>(null, "物品前缀", ico: ico2.Value);
-            editPrefix.Width.Set(123, 0);
+            editPrefix.Width.Set(129, 0);
             editPrefix.Height.Set(sp1.Height.Pixels, 0);
             editPrefix.tb.Width.Set(-sp1.Height.Pixels, 1);
             editPrefix.MouseText = "物品前缀";

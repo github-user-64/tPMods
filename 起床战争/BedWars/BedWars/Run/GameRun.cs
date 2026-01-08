@@ -1,9 +1,8 @@
 ﻿using BedWars.BedWarsData;
-using ModTool.Utils;
+using Microsoft.Xna.Framework;
 using ModTool.Utils.GetDataEventArgs;
 using System;
 using System.Collections.Generic;
-using tContentPatch;
 using Terraria;
 using Terraria.ID;
 
@@ -12,7 +11,7 @@ namespace BedWars.Run
     //加载地图数据在服务端加载模组完成后
     //运行状态分为:没有,初始化地图,准备游戏,游戏中,游戏结束
     //
-    //设为幽灵状态:设为幽灵,无队伍,禁用pvp,设置到进入游戏位置,清空背包
+    //设为幽灵状态:重生,设为幽灵,无队伍,禁用pvp,设置到进入游戏位置,清空背包
     //
     //没有:完全不做任何处理
     //-除此之外的状态:不生成任何npc,维持时间,给玩家添加创意震撼buff
@@ -133,8 +132,13 @@ namespace BedWars.Run
         private void Init()
         {
             PatchNPC.CanNewNPC = false;
+            Common.GameAction.mapData = Data;
             Common.GameAction.DayTime = DataInfo.dayTime;
             Common.GameAction.Time = DataInfo.time;
+
+            Main.spawnTileX = DataInfo.pos.X + DataInfo.spawPos.X;
+            Main.spawnTileY = DataInfo.pos.Y + DataInfo.spawPos.Y;
+            NetMessage.TrySendData(MessageID.WorldData);//防止已经有玩家加入
 
             SetState(StateMapInit);
         }
@@ -174,9 +178,35 @@ namespace BedWars.Run
             }
         }
 
+        /// <summary>
+        /// 设为幽灵状态:重生,设为幽灵,无队伍,禁用pvp,设置到进入游戏位置,清空背包
+        /// </summary>
+        public void SetPlayGhost(Player player)
+        {
+            Point pos = new Point(DataInfo.pos.X + DataInfo.spawPos.X, DataInfo.pos.Y + DataInfo.spawPos.Y);
+
+            player.SpawnX = pos.X;
+            player.SpawnY = pos.Y;
+            player.respawnTimer = 0;
+            //单独发给玩家也可以, 玩家会重新发数据回来
+            NetMessage.TrySendData(MessageID.PlayerSpawn, player.whoAmI, -1, null, player.whoAmI, (float)PlayerSpawnContext.SpawningIntoWorld);
+
+            player.ghost = true;
+            player.Center = pos.ToWorldCoordinates();
+            NetMessage.TrySendData(MessageID.PlayerControls);
+            player.team = 0;
+            NetMessage.TrySendData(MessageID.Unknown45);
+            player.hostile = false;
+            NetMessage.TrySendData(MessageID.TogglePVP);
+
+            //清空背包
+        }
+
         void IGameControl.OnPlayJoinGame(Player player)
         {
             if (IsLoaded == false) return;
+
+            SetPlayGhost(player);
 
             NowState?.OnPlayJoinGame(player);
         }
@@ -199,7 +229,9 @@ namespace BedWars.Run
         {
             if (IsLoaded == false) return true;
 
-            if (NowState == null) return true;
+            if (NowStateType == StateNone) return true;
+            if (NowState == null) return false;
+
             return NowState.PlayCanActionTile(e);
         }
 
@@ -207,7 +239,10 @@ namespace BedWars.Run
         {
             if (IsLoaded == false) return true;
 
-            if (NowState == null) return true;
+            if (e is ControlsEventArgs) return true;
+            if (NowStateType == StateNone) return true;
+            if (NowState == null) return false;
+
             return NowState.PlayCanAction(e);
         }
     }

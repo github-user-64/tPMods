@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using ModTool.ServerHelp;
 using tContentPatch;
 using Terraria;
 
@@ -35,13 +36,14 @@ namespace PlayerAccount.Common
             
             if (ServerConfig.data.EnterServerMsg is string msg)
             {
-                ModTool.ServerHelp.PrintTo.PrintToPlay(ply, msg, Color.White);
+                PrintTo.PrintToPlay(ply, msg, Color.White);
             }
 
             if (logined == false)
             {
-                ModTool.ServerHelp.PrintTo.PrintToPlay(ply, "注册账号输入/register [c/aaffaa:密码]", Color.Yellow);
-                ModTool.ServerHelp.PrintTo.PrintToPlay(ply, "登录输入/login [c/aaffaa:密码]", Color.Yellow);
+                if (ServerConfig.data.NoLoginNoAction) PrintTo.PrintToPlayAll("登录前不能操作", Color.Red);
+                PrintTo.PrintToPlay(ply, "注册账号输入/register [c/aaffaa:密码]", Color.Yellow);
+                PrintTo.PrintToPlay(ply, "登录输入/login [c/aaffaa:密码]", Color.Yellow);
             }
         }
     }
