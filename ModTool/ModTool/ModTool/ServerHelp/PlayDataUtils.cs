@@ -21,7 +21,7 @@ namespace ModTool.ServerHelp
         /// </summary>
         public static Player GetPlay(int index)
         {
-            if (Main.netMode != 2) return null;
+            if (Main.dedServ == false) return null;
             if (Main.player?.IndexInRange(index) != true) return null;
 
             Player player = Main.player[index];
@@ -46,7 +46,7 @@ namespace ModTool.ServerHelp
         /// </summary>
         public static RemoteClient GetClient(this Player player)
         {
-            if (Main.netMode != 2) return null;
+            if (Main.dedServ == false) return null;
 
             if (player == null) return null;
             //if (player.active == false) return null;
@@ -102,7 +102,7 @@ namespace ModTool.ServerHelp
         /// </summary>
         public static string GetUUID(this Player player)
         {
-            if (Main.netMode != 2) return null;
+            if (Main.dedServ == false) return null;
             if (player == null) return null;
             if (instance == null) return null;
 

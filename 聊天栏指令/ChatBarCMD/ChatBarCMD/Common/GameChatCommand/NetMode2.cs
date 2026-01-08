@@ -39,7 +39,7 @@ namespace ChatBarCMD.Common.GameChatCommand
         public static bool CanUse()
         {
             if (Enable.val == false) return false;
-            return Main.netMode == 2;
+            return Main.dedServ;
         }
 
         /// <summary>

@@ -20,7 +20,7 @@ namespace ModTool.ServerHelp
         private void GetData(MessageBuffer This, int start, int length, int messageType)
         {
             if (messageType != MessageID.Unknown68) return;
-            if (Main.netMode != 2) return;
+            if (Main.dedServ == false) return;
             //当服务端收到客户端发送的uuid
 
             int index = This.whoAmI;

@@ -19,7 +19,7 @@ namespace ChatBarCMD.Common.GameChatCommand
         {
             if (message == null) return true;
 
-            if (Main.netMode == 2)//服务端收到聊天时
+            if (Main.dedServ)//服务端收到聊天时
             {
                 return NetMode2.OnGot(message.Text, clientId);
             }

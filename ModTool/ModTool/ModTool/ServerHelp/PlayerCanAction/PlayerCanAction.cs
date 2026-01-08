@@ -67,7 +67,7 @@ namespace ModTool.ServerHelp
 
         private static bool asd(MessageBuffer This, int start, int length, int messageType)
         {
-            if (Main.netMode != 2) return true;
+            if (Main.dedServ == false) return true;
 
             if (Main.player.IndexInRange(This.whoAmI) != true) return true;
             Player player = Main.player[This.whoAmI];

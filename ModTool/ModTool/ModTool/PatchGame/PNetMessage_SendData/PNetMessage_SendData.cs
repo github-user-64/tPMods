@@ -20,13 +20,13 @@ namespace ModTool.PatchGame.PNetMessage_SendData
             int number = 0, float number2 = 0f, float number3 = 0f, float number4 = 0f, int number5 = 0, int number6 = 0, int number7 = 0)
         {
             //if (Main.netMode == 0) return true;
-            if (Main.netMode != 2) return true;
+            if (Main.dedServ == false) return true;
             if (msgType == 21 && (Main.item[number].shimmerTime > 0f || Main.item[number].shimmered)) msgType = 145;
 
             if (text == null) text = NetworkText.Empty;
 
             int num = 256;
-            if (Main.netMode == 2 && remoteClient >= 0) num = remoteClient;
+            if (Main.dedServ && remoteClient >= 0) num = remoteClient;
 
             lock (NetMessage.buffer[num])
             {

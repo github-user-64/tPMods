@@ -1,7 +1,5 @@
 ﻿using BedWars.BedWarsData;
 using Microsoft.Xna.Framework;
-using ModTool.Utils.GetDataEventArgs;
-using System;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;
@@ -48,7 +46,7 @@ namespace BedWars.Run
     //-有玩家死亡时:生成玩家到队伍
     //-一段时间后进入初始化地图
     //
-    internal class GameRun : IGameControl
+    public partial class GameRun : IGameControl
     {
         public const int StateNone = 0;
         public const int StateMapInit = 1;
@@ -59,6 +57,7 @@ namespace BedWars.Run
         public IStateAction NowState { get; protected set; } = null;
         public int NowStateType { get; protected set; } = StateNone;
         public bool IsLoaded { get; protected set; } = false;
+        public bool IsInited { get; protected set; } = false;
         //
         public MapData Data { get; protected set; } = null;
         public MapInfoData DataInfo => Data?.Info;
@@ -82,59 +81,12 @@ namespace BedWars.Run
             NowState?.OnStart();
         }
 
-        void IGameControl.LoadTry(Action<string> print)
-        {
-            try
-            {
-                if (Main.netMode != 2)
-                {
-                    print?.Invoke("不是服务端");
-                    return;
-                }
-                if (IsLoaded)
-                {
-                    print?.Invoke("已加载");
-                    return;
-                }
-
-                print?.Invoke($"地图目录:{ThisMod.DirMapData}");
-                print?.Invoke("加载地图数据");
-                MapData temp = DataFileHelp.ReadData(ThisMod.DirMapData);
-
-                print?.Invoke("检查数据");
-                DataCheck.Repair(temp);
-                DataCheck.CheckMapData(temp);
-
-                ModTool.ServerHelp.Utils.ServerSideCharacter(true);
-
-                States = new IStateAction[]
-                {
-                    null,
-                    new SMapInit(),
-                };
-
-                Data = temp;
-
-                IsLoaded = true;
-
-                print?.Invoke("加载完成");
-
-                Init();
-                print?.Invoke("初始化完成");
-            }
-            catch (Exception ex)
-            {
-                IsLoaded = false;
-                print?.Invoke($"加载失败:{ex.Message}");
-            }
-        }
-
         private void Init()
         {
-            PatchNPC.CanNewNPC = false;
+            PatchNPC.CanNewNPC = false;//不生成任何npc
             Common.GameAction.mapData = Data;
-            Common.GameAction.DayTime = DataInfo.dayTime;
-            Common.GameAction.Time = DataInfo.time;
+            Common.GameAction.DayTime = DataInfo.dayTime;//维持时间
+            Common.GameAction.Time = DataInfo.time;//维持时间
 
             Main.spawnTileX = DataInfo.pos.X + DataInfo.spawPos.X;
             Main.spawnTileY = DataInfo.pos.Y + DataInfo.spawPos.Y;
@@ -150,20 +102,15 @@ namespace BedWars.Run
         //--未登录玩家不可交互
         //--玩家进入时设为幽灵状态
         //--不能设置队伍,pvp,幽灵状态
-        void IGameControl.Update()
+        private void Update(uint time)
         {
-            if (IsLoaded == false) return;
-            if (NowStateType == StateNone) return;
-
-            uint time = Main.GameUpdateCount;
-
             if (time % 60 * 10 == 0)//同步时间
             {
                 NetMessage.TrySendData(MessageID.SetTime);
             }
 
             int buffTime = 60 * 8;
-            if (time % buffTime == 0)//添加创意震撼buff
+            if (time % buffTime == 0)//给玩家添加创意震撼buff
             {
                 if (NowState == null || NowState.CanAddBuffNoBuilding())
                 {
@@ -200,50 +147,6 @@ namespace BedWars.Run
             NetMessage.TrySendData(MessageID.TogglePVP);
 
             //清空背包
-        }
-
-        void IGameControl.OnPlayJoinGame(Player player)
-        {
-            if (IsLoaded == false) return;
-
-            SetPlayGhost(player);
-
-            NowState?.OnPlayJoinGame(player);
-        }
-
-        void IGameControl.OnPlayLeftGame(int plr)
-        {
-            if (IsLoaded == false) return;
-
-            NowState?.OnPlayLeftGame(plr);
-        }
-
-        void IGameControl.OnPlayLogin(Player player)
-        {
-            if (IsLoaded == false) return;
-
-            NowState?.OnPlayLogin(player);
-        }
-
-        bool IGameControl.PlayCanActionTile(ClassTileEventArgs e)
-        {
-            if (IsLoaded == false) return true;
-
-            if (NowStateType == StateNone) return true;
-            if (NowState == null) return false;
-
-            return NowState.PlayCanActionTile(e);
-        }
-
-        bool IGameControl.PlayCanAction(GetDataEventArgs e)
-        {
-            if (IsLoaded == false) return true;
-
-            if (e is ControlsEventArgs) return true;
-            if (NowStateType == StateNone) return true;
-            if (NowState == null) return false;
-
-            return NowState.PlayCanAction(e);
         }
     }
 }

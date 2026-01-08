@@ -11,7 +11,7 @@ namespace PlayerAccount.Common
     {
         public override void SaveWorldPostfix(bool useCloudSaving, bool resetTime)
         {
-            if (Main.netMode != 2) return;
+            if (Main.dedServ == false) return;
 
             string msg = AccountFileHelp.BackupSaveData();
 

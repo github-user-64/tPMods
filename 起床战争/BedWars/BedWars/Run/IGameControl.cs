@@ -8,9 +8,11 @@ namespace BedWars.Run
     {
         void LoadTry(Action<string> print = null);
 
+        void InitTry(Action<string> print = null);
+
         void OnPlayJoinGame(Player player);
 
-        void OnPlayLeftGame(int plr);
+        void OnPlayLeftGame(Player player);
 
         void OnPlayLogin(Player player);
 

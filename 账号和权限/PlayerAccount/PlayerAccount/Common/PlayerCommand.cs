@@ -62,7 +62,7 @@ namespace PlayerAccount.Common
 
         private List<CommandObject> GetCMD(Player player, Dictionary<string, string> account, Action<string> print)
         {
-            if (Main.netMode != 2) return null;
+            if (Main.dedServ == false) return null;
 
             List<CommandObject> cos = new List<CommandObject>();
 

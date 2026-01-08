@@ -81,7 +81,7 @@ namespace PlayerAccount.Common.ActionPermission
 
         public override void UpdatePrefix(Player This, int playerI)
         {
-            if (Main.netMode != 2) return;
+            if (Main.dedServ == false) return;
             if (CanAction(This, false) == true) return;
 
             RestrictPos(This);

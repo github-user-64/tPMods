@@ -35,7 +35,7 @@ namespace PlayerAccount.Common
         private void OnSyncPlayer(MessageBuffer This, int start, int length, int messageType)
         {
             if (messageType != MessageID.SyncPlayer) return;
-            if (Main.netMode != 2) return;
+            if (Main.dedServ == false) return;
 
             This.reader.ReadByte();
             This.reader.ReadByte();
@@ -48,7 +48,7 @@ namespace PlayerAccount.Common
         private void OnUUID(MessageBuffer This, int start, int length, int messageType)
         {
             if (messageType != MessageID.Unknown68) return;
-            if (Main.netMode != 2) return;
+            if (Main.dedServ == false) return;
 
              string uuid = This.reader.ReadString();
 
@@ -57,7 +57,7 @@ namespace PlayerAccount.Common
 
         private void OnSyncConnectedPlayerPr(int ply)
         {
-            if (Main.netMode != 2) return;
+            if (Main.dedServ == false) return;
             if (Main.player?.IndexInRange(ply) != true) return;
 
             if (ServerConfig.data.BanIP == false) return; 

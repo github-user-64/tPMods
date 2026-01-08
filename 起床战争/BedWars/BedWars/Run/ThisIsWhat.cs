@@ -2,6 +2,7 @@
 using System.Diagnostics;
 using tContentPatch;
 using Terraria;
+using Terraria.IO;
 
 namespace BedWars.Run
 {
@@ -12,7 +13,6 @@ namespace BedWars.Run
         private static Player GetPlay(int plr)
         {
             if (Main.player?.IndexInRange(plr) != true) return null;
-            if (Main.player[plr]?.active != true) return null;
             return Main.player[plr];
         }
 
@@ -20,6 +20,12 @@ namespace BedWars.Run
         {
             public override void Loaded()
             {
+                if (Main.dedServ == false)
+                {
+                    Print("不是服务端,不加载游戏");
+                    return;
+                }
+                
                 tContentPatch.Utils.Log.Add("起床战争:注册事件");
 
                 PlayerCanAction.RegisterClassOnTile(control.PlayCanActionTile);
@@ -42,33 +48,55 @@ namespace BedWars.Run
 
                 PlayerAccount.Account.AccountHelp.OnLogined += control.OnPlayLogin;
 
+                WorldFile.OnWorldLoad += () =>
+                {
+                    Print("世界加载完成,开始加载");
+                    LoadGame();
+                    InitGame();
+                    tContentPatch.Utils.Log.SaveTry();
+                };
+
                 tContentPatch.Utils.Log.Add("起床战争:注册完成");
 
-                control.LoadTry(s =>
-                {
-                    s = $"起床战争:{s}";
-                    tContentPatch.Utils.Log.Add(s);
-                    ContentPatch.PrintTry(s);
-                });
+                Print("加载");
+                LoadGame();
 
-                foreach (Player i in Main.player)
+                if (WorldGen.loadSuccess == false || WorldGen.loadFailed == true)
+                {
+                    return;
+                }
+                //世界文件已加载
+
+                Print("世界已加载,开始初始化");
+                InitGame();
+
+                foreach (Player i in Main.player)//防止已经有玩家加入
                 {
                     if (i?.active != true) continue;
 
                     control.OnPlayJoinGame(i);
                 }
             }
-        }
 
-        private class a2 : PatchMain
-        {
-            public override void DoUpdateInWorldPrefix(Stopwatch sw)
+            private static void LoadGame()
             {
-                control.Update();
+                control?.LoadTry(Print);
+            }
+
+            private static void InitGame()
+            {
+                control?.InitTry(Print);
+            }
+
+            private static void Print(string s)
+            {
+                s = $"起床战争:{s}";
+                tContentPatch.Utils.Log.Add(s);
+                ContentPatch.PrintTry(s);
             }
         }
 
-        private class a3 : PatchNetMessage
+        private class a2 : PatchNetMessage
         {
             public override void SyncConnectedPlayerPrefix(int plr)
             {
@@ -79,7 +107,18 @@ namespace BedWars.Run
 
             public override void SyncOnePlayerPostfix(int plr, int toWho, int fromWho)
             {
-                control.OnPlayLeftGame(plr);
+                if (GetPlay(plr) is Player player == false) return;
+                if (player.active == true) return;//是同步离线
+
+                control.OnPlayLeftGame(player);
+            }
+        }
+
+        private class a3 : PatchMain
+        {
+            public override void DoUpdateInWorldPrefix(Stopwatch sw)
+            {
+                control.Update();
             }
         }
     }

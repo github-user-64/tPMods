@@ -158,7 +158,8 @@
     <Compile Include="Edit\UI\Init.cs" />
     <Compile Include="Edit\UI\Elements\UIWindowEditControl.cs" />
     <Compile Include="ModConfig.cs" />
-    <Compile Include="Run\GameRun.cs" />
+    <Compile Include="Run\GameRun\GameRun_IGameControl.cs" />
+    <Compile Include="Run\GameRun\GameRun.cs" />
     <Compile Include="Run\IGameControl.cs" />
     <Compile Include="Run\ThisIsWhat.cs" />
     <Compile Include="Run\IStateAction.cs" />

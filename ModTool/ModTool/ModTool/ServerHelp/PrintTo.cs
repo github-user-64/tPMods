@@ -29,7 +29,7 @@ namespace ModTool.ServerHelp
         /// </summary>
         public static void PrintToPlay(int clientId, string text, Color color)
         {
-            if (Main.netMode != 2) return;
+            if (Main.dedServ == false) return;
 
             SendData(clientId, StrintToPacket(text, color), ChatHelper.OnlySendToPlayersWhoAreLoggedIn);
         }
@@ -39,7 +39,7 @@ namespace ModTool.ServerHelp
         /// </summary>
         public static void PrintToPlayAll(string text, Color color, int ignoreClient = -1)
         {
-            if (Main.netMode != 2) return;
+            if (Main.dedServ == false) return;
 
             NetPacket packet = StrintToPacket(text, color);
 
@@ -56,7 +56,7 @@ namespace ModTool.ServerHelp
         /// </summary>
         public static void SendData(int clientId, NetPacket packet, Func<int, bool> canSend = null)
         {
-            if (Main.netMode != 2) return;
+            if (Main.dedServ == false) return;
 
             if (Netplay.Clients?.IndexInRange(clientId) != true) return;
             if (Netplay.Clients[clientId].IsConnected() == false) return;
@@ -70,7 +70,7 @@ namespace ModTool.ServerHelp
         /// </summary>
         public static void SendData(ISocket socket, NetPacket packet)
         {
-            if (Main.netMode != 2) return;
+            if (Main.dedServ == false) return;
 
             packet.ShrinkToFit();
             try

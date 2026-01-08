@@ -130,7 +130,7 @@ namespace ModTool.Common
                 public override void GetDataPrefix(MessageBuffer This, int start, int length, int messageType)
                 {
                     if (messageType != MessageID.SyncTalkNPC) return;
-                    if (Main.netMode != 2) return;
+                    if (Main.dedServ == false) return;
 
                     if (updatas.Count > 60) updatas.RemoveRange(0, 30);
 
@@ -178,7 +178,7 @@ namespace ModTool.Common
 
             public override void UpdatePrefix(GameTime gameTime)
             {
-                if (Main.netMode != 2) return;
+                if (Main.dedServ == false) return;
                 if (updatas.Count < 1) return;
 
                 if (index < 0 || index >= Chest.maxItems)
