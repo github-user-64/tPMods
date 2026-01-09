@@ -51,8 +51,6 @@ namespace BedWars.BedWarsData
             DataCheck.RepairList(ref Inventory.inventory, InventoryData.inventoryLen);//物品栏
             DataCheck.RepairList(ref Inventory.armor, InventoryData.armorLen);//装备
             DataCheck.RepairList(ref Inventory.dye, InventoryData.dyeLen);//染料
-            DataCheck.RepairList(ref Inventory.miscEquip, InventoryData.miscEquipLen);//杂项装备
-            DataCheck.RepairList(ref Inventory.miscDye, InventoryData.miscDyeLen);//杂项染料
 
             DataCheck.RepairList(ref Shops);
             Shops.ForEach(i =>

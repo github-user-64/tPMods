@@ -56,6 +56,7 @@ namespace BedWars.Run
                 print?.Invoke("检查数据");
                 DataCheck.Repair(Data);
                 DataCheck.CheckMapData(Data);
+                DataInventory.inventory[DataInventory.inventory.Count - 1].Copy(null);//最后一个是鼠标物品,清空它
 
                 ModTool.ServerHelp.Utils.ServerSideCharacter(true);
 

@@ -19,7 +19,7 @@ namespace BedWars.BedWarsData
 
         public void Check(MapData mapData)
         {
-            inventory[inventoryLen - 1].Copy();//
+
         }
 
         private static void fori(int len, Action<int> action)
