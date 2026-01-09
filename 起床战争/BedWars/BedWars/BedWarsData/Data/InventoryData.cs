@@ -6,9 +6,12 @@ namespace BedWars.BedWarsData
 {
     public class InventoryData : ICheck
     {
-        public const int inventoryLen = 59;
-        public const int armorLen = 20;
-        public const int dyeLen = 10;
+        private static readonly Player _p = new Player();
+        public static readonly int inventoryLen = _p.inventory.Length;
+        public static readonly int armorLen = _p.armor.Length;
+        public static readonly int dyeLen = _p.dye.Length;
+        public static readonly int miscEquipLen = _p.miscEquips.Length;
+        public static readonly int miscDyeLen = _p.miscDyes.Length;
 
         public List<ItemData> inventory = null;//物品栏
         public List<ItemData> armor = null;//装备
@@ -16,7 +19,7 @@ namespace BedWars.BedWarsData
 
         public void Check(MapData mapData)
         {
-
+            inventory[inventoryLen - 1].Copy();//
         }
 
         private static void fori(int len, Action<int> action)

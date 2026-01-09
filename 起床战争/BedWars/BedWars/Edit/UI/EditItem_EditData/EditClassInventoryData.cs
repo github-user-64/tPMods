@@ -8,7 +8,7 @@ namespace BedWars.Edit.UI.EditItem_EditData
     {
         public EditCopyInventoryData(string btnText, Texture2D ico = null, string text = null) : base(btnText, ico, text)
         {
-            MouseText = "开始游戏时玩家的背包数据";
+            MouseText = "开始游戏时玩家的背包数据(物品栏,盔甲,饰品,时装,染料)";
 
             OnClick += () =>
             {

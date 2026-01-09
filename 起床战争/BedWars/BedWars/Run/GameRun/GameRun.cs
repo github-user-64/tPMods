@@ -118,8 +118,8 @@ namespace BedWars.Run
                     {
                         if (Main.player[i]?.active != true) continue;
 
-                        NetMessage.SendData(MessageID.AddPlayerBuff,
-                            number: i, number2: BuffID.NoBuilding, number3: buffTime + 10);
+                        NetMessage.SendData(MessageID.AddPlayerBuff, -1, -1, null,
+                            i, BuffID.NoBuilding, buffTime + 10);
                     }
                 }
             }
@@ -136,7 +136,8 @@ namespace BedWars.Run
             player.SpawnY = pos.Y;
             player.respawnTimer = 0;
             //单独发给玩家也可以, 玩家会重新发数据回来
-            NetMessage.TrySendData(MessageID.PlayerSpawn, player.whoAmI, -1, null, player.whoAmI, (float)PlayerSpawnContext.SpawningIntoWorld);
+            NetMessage.TrySendData(MessageID.PlayerSpawn, player.whoAmI, -1, null,
+                player.whoAmI, (float)PlayerSpawnContext.SpawningIntoWorld);
 
             player.ghost = true;
             player.Center = pos.ToWorldCoordinates();
@@ -147,6 +148,53 @@ namespace BedWars.Run
             NetMessage.TrySendData(MessageID.TogglePVP);
 
             //清空背包
+        }
+
+        public void asd(Player player)
+        {
+            cleari(player.inventory);//物品栏
+            cleari(player.trashItem);//垃圾桶
+            cleari(player.armor);//当前装备
+            cleari(player.dye);//当前染料
+            cleari(player.miscEquips);//杂项装备
+            cleari(player.miscDyes);//杂项染料
+            cleari(player.Loadouts[0].Armor);
+            cleari(player.Loadouts[0].Dye);
+            cleari(player.Loadouts[1].Armor);
+            cleari(player.Loadouts[1].Dye);
+            cleari(player.Loadouts[2].Armor);
+            cleari(player.Loadouts[2].Dye);
+            SyncItem(player, player.inventory, PlayerItemSlotID.Inventory0);
+            SyncItem(player, player.trashItem, PlayerItemSlotID.TrashItem);
+            SyncItem(player, player.armor, PlayerItemSlotID.Armor0);
+            SyncItem(player, player.dye, PlayerItemSlotID.Dye0);
+            SyncItem(player, player.miscEquips, PlayerItemSlotID.Misc0);
+            SyncItem(player, player.miscDyes, PlayerItemSlotID.MiscDye0);
+            SyncItem(player, player.Loadouts[0].Armor, PlayerItemSlotID.Loadout1_Armor_0);
+            SyncItem(player, player.Loadouts[0].Dye, PlayerItemSlotID.Loadout1_Dye_0);
+            SyncItem(player, player.Loadouts[1].Armor, PlayerItemSlotID.Loadout2_Armor_0);
+            SyncItem(player, player.Loadouts[1].Dye, PlayerItemSlotID.Loadout2_Dye_0);
+            SyncItem(player, player.Loadouts[2].Armor, PlayerItemSlotID.Loadout3_Armor_0);
+            SyncItem(player, player.Loadouts[2].Dye, PlayerItemSlotID.Loadout3_Dye_0);
+        }
+
+        private static void cleari(params Item[] arr)
+        {
+            foreach (Item i in arr) i.SetDefaults(ItemID.None);
+        }
+
+        private static void SyncItem(Player player, Item arr, int slot)
+        {
+            NetMessage.TrySendData(MessageID.SyncEquipment, -1, -1, null,
+                player.whoAmI, slot, arr.prefix);
+        }
+
+        private static void SyncItem(Player player, Item[] arr, int slot)
+        {
+            for (int i = 0; i < arr.Length; i++)
+            {
+                SyncItem(player, arr[i], slot + i);
+            }
         }
     }
 }
