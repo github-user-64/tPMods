@@ -1,5 +1,6 @@
 ﻿using BedWars.BedWarsData;
 using Microsoft.Xna.Framework;
+using System;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;
@@ -50,15 +51,10 @@ namespace BedWars.Run
     {
         public const int StateNone = 0;
         public const int StateMapInit = 1;
+        public const int StateReadyGame = 2;
 
         public static readonly GameRun instance = new GameRun();
 
-        protected IStateAction[] States = null;
-        public IStateAction NowState { get; protected set; } = null;
-        public int NowStateType { get; protected set; } = StateNone;
-        public bool IsLoaded { get; protected set; } = false;
-        public bool IsInited { get; protected set; } = false;
-        //
         public MapData Data { get; protected set; } = null;
         public MapInfoData DataInfo => Data?.Info;
         public List<SpawItemData> DataSpawItems => Data?.SpawItems;
@@ -68,17 +64,43 @@ namespace BedWars.Run
         public List<SignData> DataSigns => Data?.Signs;
         public InventoryData DataInventory => Data?.Inventory;
         public List<ShopData> DataShops => Data?.Shops;
+        //
+        protected IStateAction[] States = null;
+        public IStateAction NowState { get; protected set; } = null;
+        public int NowStateType { get; protected set; } = StateNone;
+        public bool IsLoaded { get; protected set; } = false;
+        public bool IsInited { get; protected set; } = false;
+        //
+        public readonly List<Point> PlayPlaceTile = new List<Point>();//玩家放置的图格
 
         public void SetState(int key)
         {
             if (States?.IndexInRange(key) != true) return;
 
-            NowState?.OnEnd();
-            NowState = null;
+            try
+            {
+                NowState?.OnEnd();
+                NowState = null;
+            }
+            catch (Exception ex)
+            {
+                string s = $"起床战争:退出状态{NowStateType}时出现异常:{ex.Message}";
+                tContentPatch.Utils.Log.Add(s);
+                tContentPatch.ContentPatch.PrintTry(s);
+            }
 
-            NowStateType = key;
-            NowState = States[key];
-            NowState?.OnStart();
+            try
+            {
+                NowStateType = key;
+                NowState = States[key];
+                NowState?.OnStart();
+            }
+            catch (Exception ex)
+            {
+                string s = $"起床战争:进入状态{NowStateType}时出现异常:{ex.Message}";
+                tContentPatch.Utils.Log.Add(s);
+                tContentPatch.ContentPatch.PrintTry(s);
+            }
         }
 
         private void Init()
@@ -103,13 +125,8 @@ namespace BedWars.Run
             }
         }
 
-        /// <summary>
-        /// 设为幽灵状态:重生,设为幽灵,无队伍,禁用pvp,设置到进入游戏位置,清空背包
-        /// </summary>
-        public void SetPlayGhost(Player player)
+        public void SpawnToPos(Player player, Point pos)
         {
-            Point pos = new Point(DataInfo.pos.X + DataInfo.spawPos.X, DataInfo.pos.Y + DataInfo.spawPos.Y);
-
             player.SpawnX = pos.X;
             player.SpawnY = pos.Y;
             player.respawnTimer = 0;
@@ -117,8 +134,28 @@ namespace BedWars.Run
             NetMessage.TrySendData(MessageID.PlayerSpawn, player.whoAmI, -1, null,
                 player.whoAmI, (float)PlayerSpawnContext.SpawningIntoWorld);
 
-            player.ghost = true;
             player.Center = pos.ToWorldCoordinates();
+            NetMessage.TrySendData(MessageID.PlayerControls);
+        }
+
+        /// <summary>
+        /// 重生到进入游戏位置
+        /// </summary>
+        public void SpawnToMapSpaw(Player player)
+        {
+            Point pos = new Point(DataInfo.pos.X + DataInfo.spawPos.X, DataInfo.pos.Y + DataInfo.spawPos.Y);
+
+            SpawnToPos(player, pos);
+        }
+
+        /// <summary>
+        /// 设为幽灵状态:重生,设为幽灵,无队伍,禁用pvp,设置到进入游戏位置,清空背包
+        /// </summary>
+        public void SetPlayGhost(Player player)
+        {
+            SpawnToMapSpaw(player);
+
+            player.ghost = true;
             NetMessage.TrySendData(MessageID.PlayerControls);
 
             SetTeamPvP(player, 0, false);
@@ -147,6 +184,15 @@ namespace BedWars.Run
             {
                 player.hostile = pvp;
                 NetMessage.TrySendData(MessageID.TogglePVP);
+            }
+        }
+
+        public void ForPlay(Action<Player> action)
+        {
+            foreach (Player i in Main.player)
+            {
+                if (i?.active != true) continue;
+                action(i);
             }
         }
     }

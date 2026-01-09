@@ -161,6 +161,7 @@
     <Compile Include="Run\GameRun\GameRun_IGameControl.cs" />
     <Compile Include="Run\GameRun\GameRun.cs" />
     <Compile Include="Run\IGameControl.cs" />
+    <Compile Include="Run\SReadyGame\SReadyGame.cs" />
     <Compile Include="Run\ThisIsWhat.cs" />
     <Compile Include="Run\IStateAction.cs" />
     <Compile Include="Run\PatchNPC.cs" />

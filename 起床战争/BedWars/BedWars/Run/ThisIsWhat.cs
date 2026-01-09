@@ -8,7 +8,7 @@ namespace BedWars.Run
 {
     internal class ThisIsWhat
     {
-        private static readonly IGameControl control = GameRun.instance;
+        private static IGameControl control = null;
 
         private static Player GetPlay(int plr)
         {
@@ -25,7 +25,9 @@ namespace BedWars.Run
                     Print("不是服务端,不加载游戏");
                     return;
                 }
-                
+
+                control = GameRun.instance;
+
                 tContentPatch.Utils.Log.Add("起床战争:注册事件");
 
                 PlayerCanAction.RegisterClassOnTile(control.PlayCanActionTile);
@@ -100,6 +102,7 @@ namespace BedWars.Run
         {
             public override void SyncConnectedPlayerPrefix(int plr)
             {
+                if (control == null) return;
                 if (GetPlay(plr) is Player player == false) return;
 
                 control.OnPlayJoinGame(player);
@@ -107,6 +110,7 @@ namespace BedWars.Run
 
             public override void SyncOnePlayerPostfix(int plr, int toWho, int fromWho)
             {
+                if (control == null) return;
                 if (GetPlay(plr) is Player player == false) return;
                 if (player.active == true) return;//是同步离线
 
@@ -118,6 +122,7 @@ namespace BedWars.Run
         {
             public override void DoUpdateInWorldPrefix(Stopwatch sw)
             {
+                if (control == null) return;
                 control.Update();
             }
         }

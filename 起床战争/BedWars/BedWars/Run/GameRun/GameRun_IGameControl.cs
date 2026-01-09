@@ -64,6 +64,7 @@ namespace BedWars.Run
                 {
                     null,
                     new SMapInit(this),
+                    new SReadyGame(this),
                 };
 
                 Init();
