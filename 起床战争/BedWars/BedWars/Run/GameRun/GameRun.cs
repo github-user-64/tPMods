@@ -12,7 +12,7 @@ namespace BedWars.Run
     //设为幽灵状态:重生,设为幽灵,无队伍,禁用pvp,设置到进入游戏位置,清空背包
     //
     //没有:完全不做任何处理
-    //-除此之外的状态:不生成任何npc,维持时间,给玩家添加创意震撼buff
+    //-除此之外的状态:不生成任何npc,维持时间
     //--放置图格只能在:游戏中 && 地图范围内 && (没图格 || 可交互图格)
     //--破坏图格只能在:游戏中 && 玩家放置图格 || 可交互图格
     //--未登录玩家不可交互
@@ -32,7 +32,7 @@ namespace BedWars.Run
     //-时间到进入游戏中
     //
     //游戏中:
-    //-进入时:分配队伍并添加到队伍数据,没队伍设为幽灵状态,生成玩家到队伍,启用pvp,取消添加buff
+    //-进入时:分配队伍并添加到队伍数据,没队伍设为幽灵状态,生成玩家到队伍,启用pvp
     //-生成玩家到队伍:没队伍设为幽灵状态,重生,设置位置,设置属性,清空设置背包,设置玩家队伍
     //-玩家重生时:生成玩家到队伍
     //-玩家退出,队伍不可重生时死亡,时从队伍删除
@@ -100,21 +100,6 @@ namespace BedWars.Run
             if (time % 60 * 10 == 0)//同步时间
             {
                 NetMessage.TrySendData(MessageID.SetTime);
-            }
-
-            int buffTime = 60 * 8;
-            if (time % buffTime == 0)//给玩家添加创意震撼buff
-            {
-                if (NowState == null || NowState.CanAddBuffNoBuilding())
-                {
-                    for (int i = 0; i < Main.player.Length; ++i)
-                    {
-                        if (Main.player[i]?.active != true) continue;
-
-                        NetMessage.SendData(MessageID.AddPlayerBuff, -1, -1, null,
-                            i, BuffID.NoBuilding, buffTime + 10);
-                    }
-                }
             }
         }
 

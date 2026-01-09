@@ -10,11 +10,11 @@ namespace BedWars.Run
     {
         public static void SetItemsSync(Player player, InventoryData data = null)
         {
-            SetItemsSync(player, player.inventory, PlayerItemSlotID.Inventory0, data.inventory);//物品栏
+            SetItemsSync(player, player.inventory, PlayerItemSlotID.Inventory0, data?.inventory);//物品栏
             //PlayerItemSlotID.InventoryMouseItem. 不需要, 包含在物品栏里了
             SetItemsSync(player, player.trashItem, PlayerItemSlotID.TrashItem, null);//垃圾桶
-            SetItemsSync(player, player.armor, PlayerItemSlotID.Armor0, data.armor);//当前装备
-            SetItemsSync(player, player.dye, PlayerItemSlotID.Dye0, data.dye);//当前染料
+            SetItemsSync(player, player.armor, PlayerItemSlotID.Armor0, data?.armor);//当前装备
+            SetItemsSync(player, player.dye, PlayerItemSlotID.Dye0, data?.dye);//当前染料
             SetItemsSync(player, player.miscEquips, PlayerItemSlotID.Misc0, null);//杂项装备
             SetItemsSync(player, player.miscDyes, PlayerItemSlotID.MiscDye0, null);//杂项染料
             SetItemsSync(player, player.Loadouts[0].Armor, PlayerItemSlotID.Loadout1_Armor_0, null);

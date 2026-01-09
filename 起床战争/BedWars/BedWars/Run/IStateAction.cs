@@ -27,12 +27,18 @@ namespace BedWars.Run
         public virtual bool PlayCanActionTile(ClassTileEventArgs e) => false;
 
         /// <summary>
-        /// 除控制移动外不能做任何操作
+        /// 不能做任何操作, 除了:
+        /// <para/>添加buff
+        /// <para/>控制移动
         /// </summary>
         public virtual bool PlayCanAction(GetDataEventArgs e)
         {
-            if (e is ControlsEventArgs ce == false) return false;//不是控制
-            if (ce.ghost != ce.player.ghost) return false;//修改了幽灵状态
+            if (e is PlayerBuffsEventArgs) return true;
+
+            if (e is ControlsEventArgs ce)
+            {
+                return ce.ghost == ce.player.ghost;//是否修改了幽灵状态
+            }
 
             return true;
         }
@@ -48,10 +54,5 @@ namespace BedWars.Run
         public virtual void OnPlayLeftGame(Player player) { }
 
         public virtual void OnPlayLogin(Player player) { }
-
-        /// <summary>
-        /// 可以给玩家添加buff<see cref="Terraria.ID.BuffID.NoBuilding"/>
-        /// </summary>
-        public virtual bool CanAddBuffNoBuilding() => true;
     }
 }
