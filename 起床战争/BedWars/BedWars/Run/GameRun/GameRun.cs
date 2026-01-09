@@ -46,7 +46,7 @@ namespace BedWars.Run
     //-有玩家死亡时:生成玩家到队伍
     //-一段时间后进入初始化地图
     //
-    public partial class GameRun : IGameControl
+    public partial class GameRun
     {
         public const int StateNone = 0;
         public const int StateMapInit = 1;
@@ -95,13 +95,6 @@ namespace BedWars.Run
             SetState(StateMapInit);
         }
 
-        //没有:完全不做任何处理
-        //-除此之外的状态:不生成任何npc,维持时间,给玩家添加创意震撼buff
-        //--放置图格只能在:游戏中 && 地图范围内 && (没图格 || 可交互图格)
-        //--破坏图格只能在:游戏中 && 玩家放置图格 || 可交互图格
-        //--未登录玩家不可交互
-        //--玩家进入时设为幽灵状态
-        //--不能设置队伍,pvp,幽灵状态
         private void Update(uint time)
         {
             if (time % 60 * 10 == 0)//同步时间
@@ -142,58 +135,33 @@ namespace BedWars.Run
             player.ghost = true;
             player.Center = pos.ToWorldCoordinates();
             NetMessage.TrySendData(MessageID.PlayerControls);
-            player.team = 0;
-            NetMessage.TrySendData(MessageID.Unknown45);
-            player.hostile = false;
-            NetMessage.TrySendData(MessageID.TogglePVP);
 
-            //清空背包
+            SetTeamPvP(player, 0, false);
+
+            ClearInventory(player);//清空物品栏
         }
 
-        public void asd(Player player)
+        public void ClearInventory(Player player)
         {
-            cleari(player.inventory);//物品栏
-            cleari(player.trashItem);//垃圾桶
-            cleari(player.armor);//当前装备
-            cleari(player.dye);//当前染料
-            cleari(player.miscEquips);//杂项装备
-            cleari(player.miscDyes);//杂项染料
-            cleari(player.Loadouts[0].Armor);
-            cleari(player.Loadouts[0].Dye);
-            cleari(player.Loadouts[1].Armor);
-            cleari(player.Loadouts[1].Dye);
-            cleari(player.Loadouts[2].Armor);
-            cleari(player.Loadouts[2].Dye);
-            SyncItem(player, player.inventory, PlayerItemSlotID.Inventory0);
-            SyncItem(player, player.trashItem, PlayerItemSlotID.TrashItem);
-            SyncItem(player, player.armor, PlayerItemSlotID.Armor0);
-            SyncItem(player, player.dye, PlayerItemSlotID.Dye0);
-            SyncItem(player, player.miscEquips, PlayerItemSlotID.Misc0);
-            SyncItem(player, player.miscDyes, PlayerItemSlotID.MiscDye0);
-            SyncItem(player, player.Loadouts[0].Armor, PlayerItemSlotID.Loadout1_Armor_0);
-            SyncItem(player, player.Loadouts[0].Dye, PlayerItemSlotID.Loadout1_Dye_0);
-            SyncItem(player, player.Loadouts[1].Armor, PlayerItemSlotID.Loadout2_Armor_0);
-            SyncItem(player, player.Loadouts[1].Dye, PlayerItemSlotID.Loadout2_Dye_0);
-            SyncItem(player, player.Loadouts[2].Armor, PlayerItemSlotID.Loadout3_Armor_0);
-            SyncItem(player, player.Loadouts[2].Dye, PlayerItemSlotID.Loadout3_Dye_0);
+            Utils.SetItemsSync(player, null);
         }
 
-        private static void cleari(params Item[] arr)
+        public void ResetInventory(Player player)
         {
-            foreach (Item i in arr) i.SetDefaults(ItemID.None);
+            Utils.SetItemsSync(player, DataInventory);
         }
 
-        private static void SyncItem(Player player, Item arr, int slot)
+        public void SetTeamPvP(Player player, int team, bool pvp)
         {
-            NetMessage.TrySendData(MessageID.SyncEquipment, -1, -1, null,
-                player.whoAmI, slot, arr.prefix);
-        }
-
-        private static void SyncItem(Player player, Item[] arr, int slot)
-        {
-            for (int i = 0; i < arr.Length; i++)
+            if (player.team != team)
             {
-                SyncItem(player, arr[i], slot + i);
+                player.team = team;
+                NetMessage.TrySendData(MessageID.Unknown45);
+            }
+            if (player.hostile != pvp)
+            {
+                player.hostile = pvp;
+                NetMessage.TrySendData(MessageID.TogglePVP);
             }
         }
     }
