@@ -1,4 +1,7 @@
-﻿using Terraria;
+﻿using HarmonyLib;
+using System;
+using System.Collections.Generic;
+using Terraria;
 
 namespace ModTool.PatchGame
 {
@@ -7,6 +10,10 @@ namespace ModTool.PatchGame
     /// </summary>
     public class PNPC : tContentPatch.PatchNPC
     {
+        /// <summary>
+        /// 能否自然生成npc
+        /// </summary>
+        public static List<Func<bool>> OnCanSpawnNPC { get; private set; } = new List<Func<bool>>();
         /// <summary/>
         public delegate void SetDefaultsEvent(NPC This, int Type, NPCSpawnParams spawnparams);
         /// <summary>
@@ -18,6 +25,23 @@ namespace ModTool.PatchGame
         public override void SetDefaultsPostfix(NPC This, int Type, NPCSpawnParams spawnparams)
         {
             OnSetDefaultsPo?.Invoke(This, Type, spawnparams);
+        }
+
+        private static class PatchSpawnNPC
+        {
+            [HarmonyPatch(typeof(NPC), "SpawnNPC")]
+            internal static bool Prefix()
+            {
+                OnCanSpawnNPC.RemoveAll(i => i == null);
+
+                bool ok = true;
+                foreach (Func<bool> i in OnCanSpawnNPC)
+                {
+                    ok &= i();
+                }
+
+                return ok;
+            }
         }
     }
 }

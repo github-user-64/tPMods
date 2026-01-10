@@ -65,6 +65,7 @@ namespace BedWars.Run
                     null,
                     new SMapInit(this),
                     new SReadyGame(this),
+                    new SGameing(this),
                 };
 
                 Init();
@@ -82,8 +83,6 @@ namespace BedWars.Run
         void IGameControl.Update(uint gametime)
         {
             if (CantRun()) return;
-
-            Update(gametime);
 
             NowState?.Update(gametime);
         }

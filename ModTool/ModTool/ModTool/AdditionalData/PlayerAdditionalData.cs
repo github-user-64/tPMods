@@ -12,10 +12,10 @@ namespace ModTool.AdditionalData
         public PlayerAdditionalData() : base(Main.player)
         {
             PatchGame.PMain.OnEnterWorldPr += EnterWorldPr;
-            PatchGame.PNetMessage.OnSyncConnectedPlayerPr += ServerConnectedPlayer;
-            PatchGame.PNetMessage.OnSyncOnePlayerDisconnectedPr += ServerDisconnectedPlayer;
             PatchGame.PMessageBuffer.OnPlayerConnecting += ClientGotConnect;
             PatchGame.PMessageBuffer.OnPlayerDisconnecting += ClientGotDisconnect;
+            PlayerJoinLeft.OnSyncConnectedPlayerPr += ServerConnectedPlayer;
+            PlayerJoinLeft.OnPlayerClientDisconnected += p => ServerDisconnectedPlayer(p.whoAmI);
         }
 
         /// <inheritdoc/>

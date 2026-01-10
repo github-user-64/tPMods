@@ -1,16 +1,21 @@
 ﻿using BedWars.BedWarsData;
-using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using tContentPatch;
 using Terraria;
+using Terraria.ID;
 
 namespace BedWars.Common
 {
     public static class GameAction
     {
-        private class sad : PatchMain
+        private class asd : PatchMain
         {
+            public override void Initialize()
+            {
+                ModTool.PatchGame.PNPC.OnCanSpawnNPC.Add(() => CanSpawnNPC);
+            }
+
             public override void DoUpdateInWorldPrefix(Stopwatch sw)
             {
                 DoUpdateInWorldPr();
@@ -35,6 +40,14 @@ namespace BedWars.Common
         /// 是白天, 4:30到7:30
         /// </summary>
         public static bool DayTime = true;
+        /// <summary>
+        /// 服务端同步时间间隔
+        /// </summary>
+        public static int SyncTimeCD = 0;
+        /// <summary>
+        /// 能否自然生成npc
+        /// </summary>
+        public static bool CanSpawnNPC = true;
 
         public static void Reset()
         {
@@ -50,11 +63,7 @@ namespace BedWars.Common
             {
                 if (GameAction.mapData is MapData mapData == false) return;//防止后面被设置为null
 
-                if (Time > -1)
-                {
-                    Main.time = Time;
-                    Main.dayTime = DayTime;
-                }
+                UpdateTime();
 
                 foreach (SpawItemData data in SpawItem)
                 {
@@ -64,6 +73,21 @@ namespace BedWars.Common
                 }
             }
             catch { }
+        }
+
+        private static void UpdateTime()
+        {
+            if (Time < 0) return;
+
+            Main.time = Time;
+            Main.dayTime = DayTime;
+
+            if (Main.dedServ == false) return;
+            
+            if (SyncTimeCD < 1 || Main.GameUpdateCount % SyncTimeCD == 0)
+            {
+                NetMessage.TrySendData(MessageID.SetTime);
+            }
         }
     }
 }

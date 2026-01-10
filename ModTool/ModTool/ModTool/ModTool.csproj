@@ -106,7 +106,6 @@
     <Compile Include="PatchGame\PNPC.cs" />
     <Compile Include="PatchGame\PMain.cs" />
     <Compile Include="PatchGame\PMessageBuffer.cs" />
-    <Compile Include="PatchGame\PNetMessage.cs" />
     <Compile Include="PatchGame\PItem.cs" />
     <Compile Include="PatchGame\PProjectile.cs" />
     <Compile Include="AdditionalData\ProjectileAdditionalData.cs" />
@@ -115,6 +114,7 @@
     <Compile Include="ServerHelp\ClientUUID.cs" />
     <Compile Include="ServerHelp\CombatTextTo.cs" />
     <Compile Include="ServerHelp\KickPlay.cs" />
+    <Compile Include="ServerHelp\PlayerJoinLeft.cs" />
     <Compile Include="ServerHelp\PlayerCanAction\PlayerCanAction_E_ClassTile.cs" />
     <Compile Include="ServerHelp\PlayerCanAction\PlayerCanAction_E.cs" />
     <Compile Include="Utils\GetDataEventArgs\MessageBufferToEventArgs.cs" />

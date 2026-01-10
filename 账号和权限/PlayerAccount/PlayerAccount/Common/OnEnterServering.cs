@@ -9,7 +9,7 @@ namespace PlayerAccount.Common
     {
         public override void Load()
         {
-            ModTool.PatchGame.PNetMessage.OnSyncConnectedPlayerPo += ply =>
+            PlayerJoinLeft.OnSyncConnectedPlayerPo += ply =>
             {
                 OnEnter(ply, true);
             };

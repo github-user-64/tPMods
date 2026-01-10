@@ -68,7 +68,7 @@ namespace BedWars.Run
 
         public override void OnPlayLeftGame(Player player)
         {
-            ReadyPlay.Remove(player.whoAmI);
+            if (ReadyPlay.Remove(player.whoAmI) == false) return;
 
             int v = game.DataInfo.startGameMinPlay - ReadyPlay.Count;
             if (v > 0)
@@ -124,31 +124,32 @@ namespace BedWars.Run
             if (gametime % 60 != 0) return;
 
             int v = game.DataInfo.startGameMinPlay - ReadyPlay.Count;
-            if (v > 0 || ReadyPlay.Count < 1)
+            if (v > 0 || ReadyPlay.Count < 1)//最小玩家数量不够时等待
             {
                 StartTime = 30;
                 return;
             }
 
             int time = 30;
-            if (ReadyPlay.Count >= MaxPlayCount) time = 5;
-            else if (ReadyPlay.Count > MaxPlayCount / 2f) time = 10;
-            else if (ReadyPlay.Count > MaxPlayCount / 3f) time = 20;
+            float what = 8;
+            if (ReadyPlay.Count >= what) time = 5;
+            else if (ReadyPlay.Count > what / 2f) time = 10;
+            else if (ReadyPlay.Count > what / 3f) time = 20;
 
             if (StartTime > time) StartTime = time;
 
-            //
+            //进入倒计时
 
-            if (StartTime < 1)
+            if (StartTime < 1)//时间到进入游戏中
             {
-                //
+                game.SetState(GameRun.StateGameing);
                 return;
             }
 
             if (StartTime < 6)
             {
                 PrintTo.PrintToPlayAll($"开始游戏:{StartTime}", Color.Pink);
-                CombatTextTo.ToPlayAllOff(StartTime.ToString(), 0, -50, Color.Pink);
+                CombatTextTo.ToPlayAllOff(StartTime.ToString(), 0, -30, Color.DeepPink);
             }
             else
             {

@@ -17,7 +17,7 @@ namespace PlayerAccount.Common
         {
             ModTool.PatchGame.PMessageBuffer.OnGetDataPo.Add(OnSyncPlayer);
             ModTool.PatchGame.PMessageBuffer.OnGetDataPo.Add(OnUUID);
-            ModTool.PatchGame.PNetMessage.OnSyncConnectedPlayerPr += OnSyncConnectedPlayerPr;
+            PlayerJoinLeft.OnSyncConnectedPlayerPr += OnSyncConnectedPlayerPr;
             AccountHelp.OnLogined += OnLogined;
         }
 

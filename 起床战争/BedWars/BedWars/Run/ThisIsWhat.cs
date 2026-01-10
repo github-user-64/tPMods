@@ -48,8 +48,11 @@ namespace BedWars.Run
                 PlayerCanAction.OnCanDamageNPC += control.PlayCanAction;
                 PlayerCanAction.OnCanPlayerHurtV2 += control.PlayCanAction;
 
-                PlayerAccount.Account.AccountHelp.OnLogined += control.OnPlayLogined;
-                PlayerAccount.Account.AccountHelp.OnJoinGamePo += a2.OnPlayJoinGameTryAutoLoginPo;
+                PlayerJoinLeft.OnSyncConnectedPlayerPr += playerJoinState.OnSyncConnectedPlayerPrefix;
+                PlayerJoinLeft.OnPlayerClientDisconnected += playerJoinState.OnPlayerLeft;
+
+                PlayerAccount.Account.AccountHelp.OnLogined += playerJoinState.OnPlayLogined;
+                PlayerAccount.Account.AccountHelp.OnJoinGamePo += playerJoinState.OnPlayJoinGameTryAutoLoginPo;
 
                 WorldFile.OnWorldLoad += () =>
                 {
@@ -99,35 +102,34 @@ namespace BedWars.Run
             }
         }
 
-        private class a2 : PatchNetMessage
+        private static class playerJoinState
         {
-            public static void OnPlayJoinGameTryAutoLoginPo(int plr)
+            public static void OnSyncConnectedPlayerPrefix(int plr)
             {
-                if (control == null) return;
-                if (GetPlay(plr) is Player player == false) return;
-
-                control.OnPlayJoinGameTryAutoLoginPo(player);
-            }
-
-            public override void SyncConnectedPlayerPrefix(int plr)
-            {
-                if (control == null) return;
                 if (GetPlay(plr) is Player player == false) return;
 
                 control.OnPlayJoinGame(player);
             }
 
-            public override void SyncOnePlayerPrefix(int plr, int toWho, int fromWho)
+            public static void OnPlayLogined(Player player)
             {
-                if (control == null) return;
-                if (GetPlay(plr) is Player player == false) return;
-                if (player.active == true) return;//不是同步离线
+                control.OnPlayJoinGameTryAutoLoginPo(player);
+            }
 
+            public static void OnPlayJoinGameTryAutoLoginPo(int plr)
+            {
+                if (GetPlay(plr) is Player player == false) return;
+
+                control.OnPlayJoinGameTryAutoLoginPo(player);
+            }
+
+            public static void OnPlayerLeft(Player player)
+            {
                 control.OnPlayLeftGame(player);
             }
         }
 
-        private class a3 : PatchMain
+        private class gameUpdate : PatchMain
         {
             public override void DoUpdateInWorldPrefix(Stopwatch sw)
             {

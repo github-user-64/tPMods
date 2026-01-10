@@ -13,7 +13,7 @@ namespace BedWars.Run
     //设为幽灵状态:重生,设为幽灵,无队伍,禁用pvp,设置到进入游戏位置,清空背包
     //
     //没有:完全不做任何处理
-    //-除此之外的状态:不生成任何npc,维持时间
+    //-除此之外的状态:不能自然生成npc,维持时间
     //--放置图格只能在:游戏中 && 地图范围内 && (没图格 || 可交互图格)
     //--破坏图格只能在:游戏中 && 玩家放置图格 || 可交互图格
     //--未登录玩家不可交互
@@ -52,6 +52,7 @@ namespace BedWars.Run
         public const int StateNone = 0;
         public const int StateMapInit = 1;
         public const int StateReadyGame = 2;
+        public const int StateGameing = 3;
 
         public static readonly GameRun instance = new GameRun();
 
@@ -105,8 +106,9 @@ namespace BedWars.Run
 
         private void Init()
         {
-            PatchNPC.CanNewNPC = false;//不生成任何npc
             Common.GameAction.mapData = Data;
+            Common.GameAction.CanSpawnNPC = false;//不能自然生成npc
+            Common.GameAction.SyncTimeCD = 60 * 10;//维持时间
             Common.GameAction.DayTime = DataInfo.dayTime;//维持时间
             Common.GameAction.Time = DataInfo.time;//维持时间
 
@@ -115,14 +117,6 @@ namespace BedWars.Run
             NetMessage.TrySendData(MessageID.WorldData);//防止已经有玩家加入
 
             SetState(StateMapInit);
-        }
-
-        private void Update(uint gametime)
-        {
-            if (gametime % 60 * 10 == 0)//同步时间
-            {
-                NetMessage.TrySendData(MessageID.SetTime);
-            }
         }
 
         public void SpawnToPos(Player player, Point pos)

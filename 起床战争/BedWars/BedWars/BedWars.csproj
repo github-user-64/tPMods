@@ -31,10 +31,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="0Harmony">
-      <HintPath>..\..\..\..\tPlainModLoader\tPlainModLoader\tPlainModLoader\bin\Debug\0Harmony.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
     <Reference Include="CommandHelp">
       <HintPath>..\..\..\..\tPlainModLoader\tPlainModLoader\tPlainModLoader\bin\Debug\CommandHelp.dll</HintPath>
       <Private>False</Private>
@@ -161,11 +157,11 @@
     <Compile Include="Run\GameRun\GameRun_IGameControl.cs" />
     <Compile Include="Run\GameRun\GameRun.cs" />
     <Compile Include="Run\IGameControl.cs" />
-    <Compile Include="Run\SReadyGame\SReadyGame.cs" />
+    <Compile Include="Run\StateActions\SGameing\SGameing.cs" />
+    <Compile Include="Run\StateActions\SReadyGame.cs" />
     <Compile Include="Run\ThisIsWhat.cs" />
     <Compile Include="Run\IStateAction.cs" />
-    <Compile Include="Run\PatchNPC.cs" />
-    <Compile Include="Run\SMapInit\SMapInit.cs" />
+    <Compile Include="Run\StateActions\SMapInit.cs" />
     <Compile Include="Run\Utils\Utils.cs" />
     <Compile Include="ThisMod.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
