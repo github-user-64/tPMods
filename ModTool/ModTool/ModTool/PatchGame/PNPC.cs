@@ -27,9 +27,9 @@ namespace ModTool.PatchGame
             OnSetDefaultsPo?.Invoke(This, Type, spawnparams);
         }
 
+        [HarmonyPatch(typeof(NPC), "SpawnNPC")]
         private static class PatchSpawnNPC
         {
-            [HarmonyPatch(typeof(NPC), "SpawnNPC")]
             internal static bool Prefix()
             {
                 OnCanSpawnNPC.RemoveAll(i => i == null);
