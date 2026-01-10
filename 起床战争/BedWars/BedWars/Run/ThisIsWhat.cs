@@ -48,7 +48,8 @@ namespace BedWars.Run
                 PlayerCanAction.OnCanDamageNPC += control.PlayCanAction;
                 PlayerCanAction.OnCanPlayerHurtV2 += control.PlayCanAction;
 
-                PlayerAccount.Account.AccountHelp.OnLogined += control.OnPlayLogin;
+                PlayerAccount.Account.AccountHelp.OnLogined += control.OnPlayLogined;
+                PlayerAccount.Account.AccountHelp.OnJoinGamePo += a2.OnPlayJoinGameTryAutoLoginPo;
 
                 WorldFile.OnWorldLoad += () =>
                 {
@@ -100,6 +101,14 @@ namespace BedWars.Run
 
         private class a2 : PatchNetMessage
         {
+            public static void OnPlayJoinGameTryAutoLoginPo(int plr)
+            {
+                if (control == null) return;
+                if (GetPlay(plr) is Player player == false) return;
+
+                control.OnPlayJoinGameTryAutoLoginPo(player);
+            }
+
             public override void SyncConnectedPlayerPrefix(int plr)
             {
                 if (control == null) return;
@@ -108,11 +117,11 @@ namespace BedWars.Run
                 control.OnPlayJoinGame(player);
             }
 
-            public override void SyncOnePlayerPostfix(int plr, int toWho, int fromWho)
+            public override void SyncOnePlayerPrefix(int plr, int toWho, int fromWho)
             {
                 if (control == null) return;
                 if (GetPlay(plr) is Player player == false) return;
-                if (player.active == true) return;//是同步离线
+                if (player.active == true) return;//不是同步离线
 
                 control.OnPlayLeftGame(player);
             }
@@ -123,7 +132,7 @@ namespace BedWars.Run
             public override void DoUpdateInWorldPrefix(Stopwatch sw)
             {
                 if (control == null) return;
-                control.Update();
+                control.Update(Main.GameUpdateCount);
             }
         }
     }

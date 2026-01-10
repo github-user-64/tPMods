@@ -14,9 +14,11 @@ namespace BedWars.Run
 
         void OnPlayLeftGame(Player player);
 
-        void OnPlayLogin(Player player);
+        void OnPlayLogined(Player player);
 
-        void Update();
+        void OnPlayJoinGameTryAutoLoginPo(Player player);
+
+        void Update(uint gametime);
 
         bool PlayCanActionTile(ClassTileEventArgs e);
 

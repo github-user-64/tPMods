@@ -79,13 +79,13 @@ namespace BedWars.Run
             }
         }
 
-        void IGameControl.Update()
+        void IGameControl.Update(uint gametime)
         {
             if (CantRun()) return;
 
-            Update(Main.GameUpdateCount);
+            Update(gametime);
 
-            NowState?.Update();
+            NowState?.Update(gametime);
         }
 
         void IGameControl.OnPlayJoinGame(Player player)
@@ -102,11 +102,18 @@ namespace BedWars.Run
             NowState?.OnPlayLeftGame(player);
         }
 
-        void IGameControl.OnPlayLogin(Player player)
+        void IGameControl.OnPlayLogined(Player player)
         {
             if (CantRun()) return;
 
             NowState?.OnPlayLogin(player);
+        }
+
+        public void OnPlayJoinGameTryAutoLoginPo(Player player)
+        {
+            if (CantRun()) return;
+
+            NowState?.OnPlayJoinGameTryAutoLoginPo(player);
         }
 
         bool IGameControl.PlayCanActionTile(ClassTileEventArgs e)

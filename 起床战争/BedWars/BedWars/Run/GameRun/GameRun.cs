@@ -117,9 +117,9 @@ namespace BedWars.Run
             SetState(StateMapInit);
         }
 
-        private void Update(uint time)
+        private void Update(uint gametime)
         {
-            if (time % 60 * 10 == 0)//同步时间
+            if (gametime % 60 * 10 == 0)//同步时间
             {
                 NetMessage.TrySendData(MessageID.SetTime);
             }

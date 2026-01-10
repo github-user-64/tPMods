@@ -19,7 +19,7 @@ namespace BedWars.Run
 
         public virtual void OnEnd() { }
 
-        public virtual void Update() { }
+        public virtual void Update(uint gametime) { }
 
         /// <summary>
         /// 不能和图格交互
@@ -28,19 +28,16 @@ namespace BedWars.Run
 
         /// <summary>
         /// 不能做任何操作, 除了:
-        /// <para/>添加buff
         /// <para/>控制移动
         /// </summary>
         public virtual bool PlayCanAction(GetDataEventArgs e)
         {
-            if (e is PlayerBuffsEventArgs) return true;
-
             if (e is ControlsEventArgs ce)
             {
                 return ce.ghost == ce.player.ghost;//是否修改了幽灵状态
             }
 
-            return true;
+            return false;
         }
 
         /// <summary>
@@ -54,5 +51,7 @@ namespace BedWars.Run
         public virtual void OnPlayLeftGame(Player player) { }
 
         public virtual void OnPlayLogin(Player player) { }
+
+        public virtual void OnPlayJoinGameTryAutoLoginPo(Player player) { }
     }
 }

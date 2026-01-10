@@ -56,11 +56,15 @@ namespace BedWars.Run
 
             //
 
+            if (HasConnect() == false) return;
+
             needSend = new Rectangle(info.pos.X, info.pos.Y, info.size.X, info.size.Y);
             sendBlock = new Rectangle(needSend.X, needSend.Y, maxSendWidth, maxSendHeight);
 
             while (SendUpdate() == false)
             {
+                if (HasConnect() == false) return;
+
                 System.Threading.Thread.Sleep(250);
             }
         }
@@ -82,6 +86,19 @@ namespace BedWars.Run
             {
                 sendBlock.X = needSend.X;
                 sendBlock.Y += maxSendHeight;
+            }
+
+            return false;
+        }
+
+        private bool HasConnect()
+        {
+            if (Netplay.Clients == null) return false;
+
+            foreach (RemoteClient i in Netplay.Clients)
+            {
+                if (i == null) continue;
+                if (i.IsConnected()) return true;
             }
 
             return false;

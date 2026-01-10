@@ -29,6 +29,8 @@ namespace PlayerAccount.Common
         {
             bool logined = false;
 
+            Account.AccountHelp.HandJoinGamePr(ply);
+
             if (ServerConfig.data.AutoLogin == true && autoLogin)
             {
                 logined = AutoLogin.Login(ply);
@@ -41,10 +43,12 @@ namespace PlayerAccount.Common
 
             if (logined == false)
             {
-                if (ServerConfig.data.NoLoginNoAction) PrintTo.PrintToPlayAll("登录前不能操作", Color.Red);
+                if (ServerConfig.data.NoLoginNoAction) PrintTo.PrintToPlay(ply, "登录前不能操作", Color.Red);
                 PrintTo.PrintToPlay(ply, "注册账号输入/register [c/aaffaa:密码]", Color.Yellow);
                 PrintTo.PrintToPlay(ply, "登录输入/login [c/aaffaa:密码]", Color.Yellow);
             }
+
+            Account.AccountHelp.HandJoinGamePo(ply);
         }
     }
 }

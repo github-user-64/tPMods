@@ -26,6 +26,14 @@ namespace PlayerAccount.Account
         /// </summary>
         public static event Action<Player> OnLogined = null;
         /// <summary>
+        /// 在加入游戏后, 不管是否自动登录都会触发, 自动登录前
+        /// </summary>
+        public static event Action<int> OnJoinGamePr = null;
+        /// <summary>
+        /// 在加入游戏后, 不管是否自动登录都会触发, 自动登录后
+        /// </summary>
+        public static event Action<int> OnJoinGamePo = null;
+        /// <summary>
         /// 在账号更新时
         /// </summary>
         public static event Action OnUpdateAccount = null;
@@ -40,6 +48,9 @@ namespace PlayerAccount.Account
 
             playerAccount = new PlayerAccount();
         }
+
+        internal static void HandJoinGamePr(int ply) => OnJoinGamePr?.Invoke(ply);
+        internal static void HandJoinGamePo(int ply) => OnJoinGamePo?.Invoke(ply);
 
         /// <summary>
         /// 获取玩家数据, 数据正常ex为<see langword="null"/>
