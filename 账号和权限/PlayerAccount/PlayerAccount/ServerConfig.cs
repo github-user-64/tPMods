@@ -56,7 +56,7 @@ namespace PlayerAccount
             //启用服务端角色
             if (ServerConfig.data.EnableServerSideCharacter) ModTool.ServerHelp.Utils.ServerSideCharacter(true);
 
-            if (ServerConfig.data.NoLoginNoAction) PrintTo.PrintToPlayAll("服务器已启用没登录不能操作", Color.Red);
+            if (ServerConfig.data.NoLoginNoAction) ToPlayerPrint.PrintToPlayAll("服务器已启用没登录不能操作", Color.Red);
         }
 
         public override object GetSaveData() => data;

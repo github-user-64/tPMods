@@ -217,7 +217,7 @@ namespace PlayerAccount.Account
                 Dictionary<string, string> newAcc = GetNameAccount(oldAcc.GetVal(AccountTag.Name));
 
                 playerAccount.SetAccount(player, newAcc);
-                PrintTo.PrintToPlay(i, "你的账号已变更", new Color(0f, 1f, 1f));
+                ToPlayerPrint.PrintToPlay(i, "你的账号已变更", new Color(0f, 1f, 1f));
             }
 
             OnUpdateAccount?.Invoke();

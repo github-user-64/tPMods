@@ -12,7 +12,7 @@ namespace BedWars.Run
         //设置玩家队伍,禁用pvp,所有玩家重生到进入游戏位置,清空玩家背包,清空玩家放置图格列表,清理图格,放置图格,进入准备游戏
         public override void OnStart()
         {
-            ModTool.ServerHelp.PrintTo.PrintToPlayAll("初始化地图", Color.YellowGreen);
+            ModTool.ServerHelp.ToPlayerPrint.PrintToPlayAll("初始化地图", Color.YellowGreen);
 
             game.PlayPlaceTile.Clear();
 

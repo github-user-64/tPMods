@@ -34,7 +34,7 @@ namespace PlayerAccount.Common
             //登录
             player.Login(acc.GetVal(AccountTag.Password, null));
 
-            ModTool.ServerHelp.PrintTo.PrintToPlay(ply, $"{name}[c/00ff00:登录成功]", Color.White);
+            ModTool.ServerHelp.ToPlayerPrint.PrintToPlay(ply, $"{name}[c/00ff00:登录成功]", Color.White);
 
             return true;
         }

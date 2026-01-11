@@ -61,7 +61,7 @@ namespace PlayerAccount.Common
             {
                 string msg = $"(未登录){player.name}: {text}";
 
-                ModTool.ServerHelp.PrintTo.PrintToPlayAll(msg, color, excludedPlayer);
+                ModTool.ServerHelp.ToPlayerPrint.PrintToPlayAll(msg, color, excludedPlayer);
                 return false;
             }
 
@@ -76,7 +76,7 @@ namespace PlayerAccount.Common
                 {
                     string msg = string.Format(data.text, player.name, text);
 
-                    ModTool.ServerHelp.PrintTo.PrintToPlayAll(msg, data.color, excludedPlayer);
+                    ModTool.ServerHelp.ToPlayerPrint.PrintToPlayAll(msg, data.color, excludedPlayer);
                 }
                 catch { }
 

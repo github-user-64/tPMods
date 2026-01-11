@@ -8,7 +8,7 @@ namespace ModTool.ServerHelp
     /// <summary>
     /// 浮动文本
     /// </summary>
-    public static class CombatTextTo
+    public static class ToPlayerCombatText
     {
         /// <summary>
         /// 到玩家

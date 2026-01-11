@@ -26,13 +26,13 @@ namespace PlayerAccount.Common.FunctionCommand
                     {
                         ServerConfig.data.EnableRegister = true;
                         print?.Invoke("服务器注册已启用");
-                        ModTool.ServerHelp.PrintTo.PrintToPlayAll("服务器注册已启用", Color.Green);
+                        ModTool.ServerHelp.ToPlayerPrint.PrintToPlayAll("服务器注册已启用", Color.Green);
                     }
                     else
                     {
                         ServerConfig.data.EnableRegister = false;
                         print?.Invoke("服务器注册已禁用");
-                        ModTool.ServerHelp.PrintTo.PrintToPlayAll("服务器注册已禁用", Color.Red);
+                        ModTool.ServerHelp.ToPlayerPrint.PrintToPlayAll("服务器注册已禁用", Color.Red);
                     }
                 };
             }

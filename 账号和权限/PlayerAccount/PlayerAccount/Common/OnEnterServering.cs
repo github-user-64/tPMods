@@ -38,14 +38,14 @@ namespace PlayerAccount.Common
             
             if (ServerConfig.data.EnterServerMsg is string msg)
             {
-                PrintTo.PrintToPlay(ply, msg, Color.White);
+                ToPlayerPrint.PrintToPlay(ply, msg, Color.White);
             }
 
             if (logined == false)
             {
-                if (ServerConfig.data.NoLoginNoAction) PrintTo.PrintToPlay(ply, "登录前不能操作", Color.Red);
-                PrintTo.PrintToPlay(ply, "注册账号输入/register [c/aaffaa:密码]", Color.Yellow);
-                PrintTo.PrintToPlay(ply, "登录输入/login [c/aaffaa:密码]", Color.Yellow);
+                if (ServerConfig.data.NoLoginNoAction) ToPlayerPrint.PrintToPlay(ply, "登录前不能操作", Color.Red);
+                ToPlayerPrint.PrintToPlay(ply, "注册账号输入/register [c/aaffaa:密码]", Color.Yellow);
+                ToPlayerPrint.PrintToPlay(ply, "登录输入/login [c/aaffaa:密码]", Color.Yellow);
             }
 
             Account.AccountHelp.HandJoinGamePo(ply);

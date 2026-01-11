@@ -35,11 +35,11 @@ namespace PlayerAccount.Common.FunctionCommand
 
                     if (args[0] is Player p)
                     {
-                        ModTool.ServerHelp.PrintTo.PrintToPlay(p.whoAmI, msg, Color.White);
+                        ModTool.ServerHelp.ToPlayerPrint.PrintToPlay(p.whoAmI, msg, Color.White);
                     }
                     else
                     {
-                        ModTool.ServerHelp.PrintTo.PrintToPlayAll(msg, Color.White);
+                        ModTool.ServerHelp.ToPlayerPrint.PrintToPlayAll(msg, Color.White);
                     }
                 };
             }

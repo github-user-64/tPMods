@@ -26,7 +26,7 @@ namespace PlayerAccount.Common.ActionPermission
             if (cd[player.whoAmI] > 0) return;
             cd[player.whoAmI] = 60;
 
-            PrintTo.PrintToPlay(player.whoAmI, msg, color);
+            ToPlayerPrint.PrintToPlay(player.whoAmI, msg, color);
         }
     }
 }

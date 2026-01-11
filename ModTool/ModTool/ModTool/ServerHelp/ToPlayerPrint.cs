@@ -10,9 +10,9 @@ using Terraria.Net.Sockets;
 namespace ModTool.ServerHelp
 {
     /// <summary>
-    /// 输出到
+    /// 输出到玩家
     /// </summary>
-    public static class PrintTo
+    public static class ToPlayerPrint
     {
         /// <summary>
         /// 字符串转包

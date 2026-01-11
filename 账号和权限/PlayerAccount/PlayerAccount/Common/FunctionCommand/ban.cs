@@ -68,7 +68,7 @@ namespace PlayerAccount.Common.FunctionCommand
                         ex = $"{ex}封禁{kickP?.name}{(kickM == null ? null : $",原因是:{kickM}")}";
 
                         tContentPatch.ContentPatch.PrintTry(ex);
-                        PrintTo.PrintToPlayAll(ex, Color.White, kickP?.whoAmI ?? -1);
+                        ToPlayerPrint.PrintToPlayAll(ex, Color.White, kickP?.whoAmI ?? -1);
                     }
                     else
                     {

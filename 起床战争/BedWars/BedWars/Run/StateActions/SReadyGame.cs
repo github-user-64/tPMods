@@ -3,6 +3,7 @@ using ModTool.ServerHelp;
 using PlayerAccount.Account;
 using System.Collections.Generic;
 using Terraria;
+using Terraria.Audio;
 using Terraria.ID;
 
 namespace BedWars.Run
@@ -25,8 +26,8 @@ namespace BedWars.Run
         //-时间到进入游戏中
         public override void OnStart()
         {
-            PrintTo.PrintToPlayAll("准备游戏", Color.YellowGreen);
-            CombatTextTo.ToPlayAllOff("准备游戏", 0, -100, Color.White);
+            ToPlayerPrint.PrintToPlayAll("准备游戏", Color.YellowGreen);
+            ToPlayerCombatText.ToPlayAllOff("准备游戏", 0, -100, Color.White);
 
             ReadyPlay.Clear();
             StartTime = 0;
@@ -73,7 +74,7 @@ namespace BedWars.Run
             int v = game.DataInfo.startGameMinPlay - ReadyPlay.Count;
             if (v > 0)
             {
-                PrintTo.PrintToPlayAll($"{player.name}离开游戏,还需{v}名玩家", Color.Green);
+                ToPlayerPrint.PrintToPlayAll($"{player.name}离开游戏,还需{v}名玩家", Color.Green);
             }
         }
 
@@ -85,15 +86,15 @@ namespace BedWars.Run
 
             if (ReadyPlay.Count >= MaxPlayCount)
             {
-                PrintTo.PrintToPlay(player.whoAmI, $"已达最大玩家数量{MaxPlayCount}名", Color.Red);
+                ToPlayerPrint.PrintToPlay(player.whoAmI, $"已达最大玩家数量{MaxPlayCount}名", Color.Red);
                 return;
             }
 
             Dictionary<string, string> acc = player.GetAccount();
             if (acc == null)
             {
-                PrintTo.PrintToPlay(player.whoAmI, "你还未登录,不能加入游戏", Color.Red);
-                PrintTo.PrintToPlay(player.whoAmI, "注册:[c/aaffaa:/register]登录[c/aaffaa:/login]", Color.White);
+                ToPlayerPrint.PrintToPlay(player.whoAmI, "你还未登录,不能加入游戏", Color.Red);
+                ToPlayerPrint.PrintToPlay(player.whoAmI, "注册:[c/aaffaa:/register]登录[c/aaffaa:/login]", Color.White);
                 return;
             }
 
@@ -111,11 +112,11 @@ namespace BedWars.Run
             int v = game.DataInfo.startGameMinPlay - ReadyPlay.Count;
             if (v > 0)
             {
-                PrintTo.PrintToPlayAll($"{player.name}加入游戏,还需{v}名玩家", Color.YellowGreen);
+                ToPlayerPrint.PrintToPlayAll($"{player.name}加入游戏,还需{v}名玩家", Color.YellowGreen);
             }
             else
             {
-                PrintTo.PrintToPlayAll($"{player.name}加入游戏,准备开始游戏", Color.YellowGreen);
+                ToPlayerPrint.PrintToPlayAll($"{player.name}加入游戏,准备开始游戏", Color.YellowGreen);
             }
         }
 
@@ -148,12 +149,16 @@ namespace BedWars.Run
 
             if (StartTime < 6)
             {
-                PrintTo.PrintToPlayAll($"开始游戏:{StartTime}", Color.Pink);
-                CombatTextTo.ToPlayAllOff(StartTime.ToString(), 0, -30, Color.DeepPink);
+                ToPlayerPrint.PrintToPlayAll($"开始游戏:{StartTime}", Color.Pink);
+                ToPlayerCombatText.ToPlayAllOff(StartTime.ToString(), 0, -30, Color.DeepPink);
+
+                ToPlayerPlayNetSound.ToPlayAll(SoundID.Item149);
             }
-            else
+            else if (StartTime % 10 == 0)
             {
-                if (StartTime % 10 == 0) PrintTo.PrintToPlayAll($"开始游戏:{StartTime}", Color.YellowGreen);
+                ToPlayerPrint.PrintToPlayAll($"开始游戏:{StartTime}", Color.YellowGreen);
+
+                ToPlayerPlayNetSound.ToPlayAll(SoundID.Item149);
             }
 
             --StartTime;

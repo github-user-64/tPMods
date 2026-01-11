@@ -66,7 +66,7 @@ namespace PlayerAccount.Common.FunctionCommand
                 noAcc.SetVal("禁言", msg);
 
                 print?.Invoke(msg);
-                PrintTo.PrintToPlayAll(msg, Color.Red);
+                ToPlayerPrint.PrintToPlayAll(msg, Color.Red);
             };
 
             return c;
@@ -85,7 +85,7 @@ namespace PlayerAccount.Common.FunctionCommand
                 noAcc.DelKey("禁言");
 
                 print?.Invoke(msg);
-                PrintTo.PrintToPlayAll(msg, Color.Green);
+                ToPlayerPrint.PrintToPlayAll(msg, Color.Green);
             };
 
             return c;

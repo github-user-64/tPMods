@@ -63,7 +63,7 @@ namespace PlayerAccount.Common.FunctionCommand
                         ex = $"{ex}踢出{kickP?.name}{(kickM == null ? null : $",原因是:{kickM}")}";
 
                         tContentPatch.ContentPatch.PrintTry(ex);
-                        ModTool.ServerHelp.PrintTo.PrintToPlayAll(ex, Color.White, kickP?.whoAmI ?? -1);
+                        ModTool.ServerHelp.ToPlayerPrint.PrintToPlayAll(ex, Color.White, kickP?.whoAmI ?? -1);
                     }
                     else
                     {
