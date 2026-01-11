@@ -3,20 +3,20 @@ using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 
-namespace BedWars.Run
+namespace BedWars.Run.StateActions
 {
     internal class SMapInit : IStateAction
     {
         public SMapInit(GameRun game) : base(game) { }
 
         //设置玩家队伍,禁用pvp,所有玩家重生到进入游戏位置,清空玩家背包,清空玩家放置图格列表,清理图格,放置图格,进入准备游戏
-        public override void OnStart()
+        public override void OnStart(object arg)
         {
             ModTool.ServerHelp.ToPlayerPrint.PrintToPlayAll("初始化地图", Color.YellowGreen);
 
             game.PlayPlaceTile.Clear();
 
-            game.ForPlay(i =>
+            game.ForActivePlayer(i =>
             {
                 game.SetTeamPvP(i, 0, false);
 
@@ -27,7 +27,7 @@ namespace BedWars.Run
 
             ResetTile();
 
-            game.SetState(GameRun.StateReadyGame);
+            game.SetStateUpdate(GameRun.StateReadyGame);
         }
 
         private void ResetTile()

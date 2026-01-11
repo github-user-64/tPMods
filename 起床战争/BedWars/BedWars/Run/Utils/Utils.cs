@@ -1,4 +1,5 @@
 ﻿using BedWars.BedWarsData;
+using ModTool.ServerHelp;
 using System;
 using System.Collections.Generic;
 using Terraria;
@@ -91,6 +92,17 @@ namespace BedWars.Run
         {
             NetMessage.TrySendData(MessageID.SyncEquipment, -1, -1, null,
                 player.whoAmI, slot, item.prefix);
+        }
+
+        /// <summary>
+        /// <paramref name="player"/>是否还在服务器中
+        /// </summary>
+        public static bool PlayerHasServer(Player player = null)
+        {
+            RemoteClient c = player.GetClient();
+            if (c == null) return false;
+            if (player.active == false) return false;
+            return true;
         }
     }
 }

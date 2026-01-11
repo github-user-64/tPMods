@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Terraria;
 using Terraria.ID;
 
@@ -33,8 +34,8 @@ namespace BedWars.Run
     //-时间到进入游戏中
     //
     //游戏中:
-    //-进入时:分配队伍并添加到队伍数据,没队伍设为幽灵状态,生成玩家到队伍,启用pvp
-    //-生成玩家到队伍:没队伍设为幽灵状态,重生,设置位置,设置属性,清空设置背包,设置玩家队伍
+    //-进入时:分配队伍并添加到队伍数据,生成玩家到队伍,启用pvp
+    //-生成玩家到队伍:没队伍设为幽灵状态[退出],重生,设置位置,设置属性,清空设置背包,设置玩家队伍
     //-玩家重生时:生成玩家到队伍
     //-玩家退出,队伍不可重生时死亡,时从队伍删除
     //-当有队伍删除玩家时:
@@ -65,44 +66,17 @@ namespace BedWars.Run
         public List<SignData> DataSigns => Data?.Signs;
         public InventoryData DataInventory => Data?.Inventory;
         public List<ShopData> DataShops => Data?.Shops;
+        protected List<TeamPlayerData> _Teams = null;
+        public IReadOnlyList<TeamPlayerData> Teams => _Teams;
         //
         protected IStateAction[] States = null;
         public IStateAction NowState { get; protected set; } = null;
         public int NowStateType { get; protected set; } = StateNone;
+        private Action HasUpdateState = null;
         public bool IsLoaded { get; protected set; } = false;
         public bool IsInited { get; protected set; } = false;
         //
         public readonly List<Point> PlayPlaceTile = new List<Point>();//玩家放置的图格
-
-        public void SetState(int key)
-        {
-            if (States?.IndexInRange(key) != true) return;
-
-            try
-            {
-                NowState?.OnEnd();
-                NowState = null;
-            }
-            catch (Exception ex)
-            {
-                string s = $"起床战争:退出状态{NowStateType}时出现异常:{ex.Message}";
-                tContentPatch.Utils.Log.Add(s);
-                tContentPatch.ContentPatch.PrintTry(s);
-            }
-
-            try
-            {
-                NowStateType = key;
-                NowState = States[key];
-                NowState?.OnStart();
-            }
-            catch (Exception ex)
-            {
-                string s = $"起床战争:进入状态{NowStateType}时出现异常:{ex.Message}";
-                tContentPatch.Utils.Log.Add(s);
-                tContentPatch.ContentPatch.PrintTry(s);
-            }
-        }
 
         private void Init()
         {
@@ -181,13 +155,43 @@ namespace BedWars.Run
             }
         }
 
-        public void ForPlay(Action<Player> action)
+        public void ForActivePlayer(Action<Player> action)
         {
+            if (action == null) return;
+
             foreach (Player i in Main.player)
             {
                 if (i?.active != true) continue;
                 action(i);
             }
+        }
+
+        public void ForTeam(Action<TeamPlayerData> action)
+        {
+            if (action != null) _Teams.ForEach(action);
+        }
+
+        /// <summary>
+        /// 清除所有队伍的玩家
+        /// </summary>
+        public void ClearAllTeamPlayer()
+        {
+            _Teams.ForEach(i => i.ClearPlayer());
+        }
+
+        /// <summary>
+        /// 清除所有队伍的离线玩家
+        /// </summary>
+        public void ClearAllTeamLeftPlayer()
+        {
+            _Teams.ForEach(i => i.ClearLefyPlayer());
+        }
+
+        public TeamPlayerData GetPlayerTeam(Player player = null)
+        {
+            if (player == null) return null;
+
+            return _Teams.FirstOrDefault(i => i.ps.Contains(player));
         }
     }
 }

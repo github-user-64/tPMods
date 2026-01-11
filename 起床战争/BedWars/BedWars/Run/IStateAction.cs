@@ -15,7 +15,7 @@ namespace BedWars.Run
             this.game = game ?? throw new ArgumentNullException(nameof(game));
         }
 
-        public virtual void OnStart() { }
+        public virtual void OnStart(object arg) { }
 
         public virtual void OnEnd() { }
 

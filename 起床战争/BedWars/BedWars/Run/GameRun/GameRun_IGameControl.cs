@@ -1,6 +1,8 @@
 ﻿using BedWars.BedWarsData;
+using BedWars.Run.StateActions;
 using ModTool.Utils.GetDataEventArgs;
 using System;
+using System.Collections.Generic;
 using Terraria;
 
 namespace BedWars.Run
@@ -58,7 +60,8 @@ namespace BedWars.Run
                 DataCheck.CheckMapData(Data);
                 DataInventory.inventory[DataInventory.inventory.Count - 1].Copy(null);//最后一个是鼠标物品,清空它
 
-                ModTool.ServerHelp.Utils.ServerSideCharacter(true);
+                _Teams = new List<TeamPlayerData>();
+                DataTeams.ForEach(i => _Teams.Add(new TeamPlayerData(i)));
 
                 States = new IStateAction[]
                 {
@@ -69,6 +72,8 @@ namespace BedWars.Run
                 };
 
                 Init();
+
+                ModTool.ServerHelp.Utils.ServerSideCharacter(true);
 
                 IsInited = true;
 
@@ -84,6 +89,12 @@ namespace BedWars.Run
         {
             if (CantRun()) return;
 
+            if (HasUpdateState != null)
+            {
+                HasUpdateState();
+                HasUpdateState = null;
+            }
+            
             NowState?.Update(gametime);
         }
 
