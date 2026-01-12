@@ -20,6 +20,14 @@ namespace BedWars.BedWarsData
         public double time = 3600 * (12 - 4);//维持时间, 小于0不维持
         //白天, 4:30到7:30
         public bool dayTime = true;
+        /// <summary>
+        /// 虚空高度, 从地图底部开始算, 低于虚空高度的玩家会掉血, 高度小于1不生效
+        /// </summary>
+        public int voidHeight = 0;
+        /// <summary>
+        /// 玩家死亡掉落物品
+        /// </summary>
+        public bool playDeathLoot = false;
 
         public void Check(MapData mapData)
         {
@@ -31,6 +39,9 @@ namespace BedWars.BedWarsData
             if (DataCheck.InWorldSize(pos, size) == false) throw new Exception("地图大小超出世界");
 
             if (mapData.InMapRelative(spawPos) == false) throw new Exception("重生点超出地图");
+
+            if (voidHeight < 0) voidHeight = 0;
+            else if (voidHeight > size.Y) voidHeight = size.Y;
         }
     }
 }

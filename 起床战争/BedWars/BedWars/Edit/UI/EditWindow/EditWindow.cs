@@ -28,6 +28,7 @@ namespace BedWars.Edit.UI.EditWindow
             ui_wp.Append(BuildPanel(new EditPanel5(), "Images/House_Banner_1", "编辑队伍(必须至少1个队伍)"));
             ui_wp.Append(BuildPanel(new EditPanel6(), "Images/UI/Cursor_7", "编辑背包"));
             ui_wp.Append(BuildPanel(new EditPanel7(), "Images/UI/Cursor_10", "编辑商店"));
+            ui_wp.Append(BuildPanel(new EditPanel8(), "Images/UI/UI_quickicon1", "提示"));
 
             ui_con = new UIElement();
             ui_con.Width.Precent = 1;

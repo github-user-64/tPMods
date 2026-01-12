@@ -51,6 +51,8 @@ namespace BedWars.Edit
             _ = DataSigns.RemoveAll(i => Data.InMapRelative(i.x, i.y) == false);
             _ = DataShops.RemoveAll(i => Data.InMapRelative(i.pos) == false);
 
+            if (DataInfo.voidHeight > DataInfo.size.Y) DataInfo.voidHeight = DataInfo.size.Y;
+
             Data.RepairTile();
 
             return null;
@@ -64,6 +66,18 @@ namespace BedWars.Edit
             if (CheckPos(ref pos) is string ex) return ex;
 
             DataInfo.spawPos = pos;
+
+            return null;
+        }
+
+        public string SetVoidHeight(int height)
+        {
+            if (DataInfo == null) return "地图数据为null";
+
+            if (height < 0) height = 0;
+            else if (height > DataInfo.size.Y) height = DataInfo.size.Y;
+
+            DataInfo.voidHeight = height;
 
             return null;
         }

@@ -20,11 +20,11 @@ namespace BedWars.Edit.UI.EditItem_EditData
                 return;
             }
 
-            size = EditData.instance.DataInfo.size;
+            size = EditData.instance.DataInfo?.size ?? new Point(-1, -1);
 
             string text = $"大小为{size.X},{size.Y}";
             Main.NewText(text);
-            CombatText.NewText(new Rectangle(pos.X * 16, pos.Y * 16, 0, 0), Color.LawnGreen, text, false, false);
+            CombatText.NewText(Main.LocalPlayer.getRect(), Color.LawnGreen, text, false, false);
         }
 
         public override void Update(GameTime gameTime)

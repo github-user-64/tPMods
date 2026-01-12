@@ -30,4 +30,30 @@ namespace BedWars.Edit.UI.EditItem_EditData
             EditData.instance.DataInfo.startGameMinPlay = v;
         }
     }
+
+    internal class EditPlayDeathLoot : UIItemSwitchUpdate
+    {
+        public EditPlayDeathLoot(string text) : base(null, null, text)
+        {
+            MouseText = "玩家死亡后会掉落物品";
+
+            gss = new GetSetStringBool(GetV, SetV);
+        }
+
+        private static bool GetV()
+        {
+            return EditData.instance.DataInfo?.playDeathLoot ?? default;
+        }
+
+        private static void SetV(bool v)
+        {
+            if (EditData.instance.DataInfo == null)
+            {
+                Main.NewText("数据为null");
+                return;
+            }
+
+            EditData.instance.DataInfo.playDeathLoot = v;
+        }
+    }
 }

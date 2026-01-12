@@ -112,14 +112,16 @@
     <Compile Include="Edit\UI\EditItem_DisplayData\DisplayCanActionTile.cs" />
     <Compile Include="Edit\UI\EditItem_DisplayData\DisplayMapSpawPos.cs" />
     <Compile Include="Edit\UI\EditItem_DisplayData\DisplayShop.cs" />
+    <Compile Include="Edit\UI\EditItem_DisplayData\DisplayVoidHeight.cs" />
     <Compile Include="Edit\UI\EditItem_DisplayData\DisplayTeam.cs" />
     <Compile Include="Edit\UI\EditItem_DisplayData\DrawUtils.cs" />
+    <Compile Include="Edit\UI\EditItem_EditData\EditClassMapInfo.cs" />
     <Compile Include="Edit\UI\EditItem_EditData\EditClassTileData.cs" />
     <Compile Include="Edit\UI\EditItem_EditData\EditClassInventoryData.cs" />
     <Compile Include="Edit\UI\EditItem_EditData\EditClassTile.cs" />
     <Compile Include="Edit\UI\EditItem_EditData\EditClassTime.cs" />
+    <Compile Include="Edit\UI\EditItem_EditData\EditMapVoidHeight.cs" />
     <Compile Include="Edit\UI\EditItem_EditData\EditMapSpawPos.cs" />
-    <Compile Include="Edit\UI\EditItem_EditData\EditStartGameMinPlay.cs" />
     <Compile Include="Edit\UI\EditItem_EditData\EditClassTileCanAction.cs" />
     <Compile Include="Edit\UI\EditShop\EditItem.cs" />
     <Compile Include="Edit\UI\EditShop\EditShopItems.cs" />

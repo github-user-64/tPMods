@@ -82,7 +82,7 @@ namespace BedWars.Run.StateActions
             TeamPlayerData team = game.GetPlayerTeam(player);
             if (team == null)
             {
-                game.SetPlayGhost(player);
+                game.SetPlayGhost(player);//没队伍设为幽灵状态
                 return; 
             }
 
@@ -104,6 +104,8 @@ namespace BedWars.Run.StateActions
 
             OnTeamPlayerUpdate(out bool stateUpdate);
             if (stateUpdate) return;
+
+            //NetMessage.SendPlayerHurt(i, reason, 6, 0, false, false, -1, -1, -1);
         }
 
         private void OnTeamPlayerUpdate(out bool stateUpdate)

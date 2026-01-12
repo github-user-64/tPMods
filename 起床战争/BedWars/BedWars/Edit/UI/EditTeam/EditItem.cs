@@ -1,7 +1,6 @@
 ﻿using BedWars.BedWarsData;
 using BedWars.Common.UI;
 using BedWars.Edit.UI.Elements;
-using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
 using System;
@@ -16,6 +15,8 @@ namespace BedWars.Edit.UI.EditTeam
         private static Asset<Texture2D> ico1 = Main.Assets.Request<Texture2D>("Images/Buff_135", AssetRequestMode.ImmediateLoad);
         private static Asset<Texture2D> ico2 = Main.Assets.Request<Texture2D>("Images/UI/Workshop/Tags", AssetRequestMode.ImmediateLoad);
         private static Asset<Texture2D> ico3 = Main.Assets.Request<Texture2D>("Images/UI/CharCreation/ColorSkin", AssetRequestMode.ImmediateLoad);
+        private static Asset<Texture2D> ico4 = Main.Assets.Request<Texture2D>("Images/Heart", AssetRequestMode.ImmediateLoad);
+        private static Asset<Texture2D> ico5 = Main.Assets.Request<Texture2D>("Images/Mana", AssetRequestMode.ImmediateLoad);
 
         private Action OnDataUpdate = null;
         private MapData mapData = null;
@@ -24,6 +25,8 @@ namespace BedWars.Edit.UI.EditTeam
         private GetSetStringInt gss_team = null;
         private GetSetStringString gss_name = null;
         private GetSetStringInt gss_maxPlay = null;
+        private GetSetStringInt gss_statLifeMax = null;
+        private GetSetStringInt gss_statManaMax = null;
         //
         private UIStackPanel ui_open = null;
         private UIState ui_close = null;
@@ -38,6 +41,8 @@ namespace BedWars.Edit.UI.EditTeam
             gss_team = new GetSetStringInt(() => data.team, v => data.team = v);
             gss_name = new GetSetStringString(() => data.name, v => data.name = v);
             gss_maxPlay = new GetSetStringInt(() => data.maxPlay, v => data.maxPlay = v);
+            gss_statLifeMax = new GetSetStringInt(() => data.statLifeMax, v => data.statLifeMax = v);
+            gss_statManaMax = new GetSetStringInt(() => data.statManaMax, v => data.statManaMax = v);
 
             Width.Precent = 1;
         }
@@ -72,6 +77,10 @@ namespace BedWars.Edit.UI.EditTeam
             ui_open.Append(Build1.ItemTextBoxUpdate("名称", ico2, gss_name));
 
             ui_open.Append(Build1.ItemTextBoxUpdate("最大玩家数量", ico3, gss_maxPlay));
+
+            ui_open.Append(Build1.ItemTextBoxUpdate("生命值", ico4, gss_statLifeMax));
+
+            ui_open.Append(Build1.ItemTextBoxUpdate("魔力", ico5, gss_statManaMax));
 
             UIStackPanel sp = new UIStackPanel();
             sp.Width.Precent = 1;

@@ -10,9 +10,7 @@ namespace BedWars.Run
     {
         public readonly TeamData team = null;
         public readonly List<Player> ps = new List<Player>();
-        public readonly int statLifeMax = 500;
-        public readonly int statManaMax = 20 * 3;
-
+        
         public TeamPlayerData(TeamData team)
         {
             this.team = team ?? throw new ArgumentNullException(nameof(team));
@@ -28,16 +26,20 @@ namespace BedWars.Run
             ps.RemoveAll(i => Utils.PlayerHasServer(i) == false);
         }
 
-        public void asd()
+        /// <summary>
+        /// 不判断是否是这个队伍的
+        /// </summary>
+        public void SetPlayerAttributes(Player player)
         {
-            ps.ForEach(i =>
-            {
-                NetMessage.TrySendData(MessageID.PlayerLifeMana, -1, -1, null, i.whoAmI, statLifeMax, statLifeMax);
+            if (player == null) return;
 
-                NetMessage.TrySendData(MessageID.Unknown42, -1, -1, null, i.whoAmI, statManaMax, statManaMax);
+            player.statLifeMax = team.statLifeMax;
+            player.statLife = player.statLifeMax;
+            NetMessage.TrySendData(MessageID.PlayerLifeMana, -1, -1, null, player.whoAmI);
 
-                //
-            });
+            player.statManaMax = team.statManaMax;
+            player.statMana = player.statManaMax;
+            NetMessage.TrySendData(MessageID.Unknown42, -1, -1, null, player.whoAmI);
         }
     }
 }

@@ -18,6 +18,8 @@ namespace BedWars.Edit.UI.EditItem_EditData
                 return;
             }
 
+            pos = EditData.instance.DataInfo?.pos ?? new Point(-1, -1);
+
             string text = $"位置在{pos.X},{pos.Y}";
             Main.NewText(text);
             CombatText.NewText(new Rectangle(pos.X * 16, pos.Y * 16, 0, 0), Color.LawnGreen, text, false, false);

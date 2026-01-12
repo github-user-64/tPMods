@@ -45,6 +45,7 @@ namespace BedWars.Edit.UI.EditWindow
             AddChild(new DisplayTeam("显示队伍位置"));
             AddChild(new DisplayCanActionTile("显示可交互图格"));
             AddChild(new DisplayShop("显示商店位置"));
+            AddChild(new DisplayVoidHeight("显示虚空"));
         }
     }
 
@@ -58,6 +59,8 @@ namespace BedWars.Edit.UI.EditWindow
             AddChild(new EditMapPos("设置地图位置"));
             AddChild(new EditMapSize("设置地图大小"));
             AddChild(new EditMapSpawPos("设置重生点"));
+            AddChild(new EditMapVoidHeight("设置斩杀线"));
+            AddChild(new EditPlayDeathLoot("玩家死亡掉落物品"));
             AddChild(new EditStartGameMinPlay("开始所需玩家"));
             AddChild(new EditTime("维持时间"));
             AddChild(new EditDayTime("白天"));
@@ -119,5 +122,25 @@ namespace BedWars.Edit.UI.EditWindow
     internal class EditPanel7 : EditShop.EditPanel
     {
 
+    }
+
+    internal class EditPanel8 : UIScrollViewer2
+    {
+        public EditPanel8()
+        {
+            Width.Precent = 1;
+            Height.Precent = 1;
+
+            string t = "[c/aaffaa:在服务器使用编辑模式需要注意:]"
+                + "\n[c/aaffaa:你可以复制服务器的方块]"
+                + "\n[c/aaffaa:如果要复制箱子里的物品要先手动打开,不然箱子里没东西]"
+                + "\n[c/aaffaa:粘贴的方块不会同步到服务器]";
+
+            UIText text = new UIText(t, 0.7f);
+            text.Width.Precent = 1;
+            text.MarginTop = 10;
+            text.TextOriginX = 0;
+            AddChild(text);
+        }
     }
 }
