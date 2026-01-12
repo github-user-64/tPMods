@@ -3,7 +3,7 @@ using Terraria;
 
 namespace BedWars.Run
 {
-    public partial class GameRun : IGameControl
+    public partial class GameRun
     {
         protected void EndState()
         {

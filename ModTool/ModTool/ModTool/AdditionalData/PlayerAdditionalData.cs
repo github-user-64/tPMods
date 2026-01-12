@@ -21,7 +21,9 @@ namespace ModTool.AdditionalData
         /// <inheritdoc/>
         public override void OnNew()
         {
-            for (int i = 0; i < Main.player.Length; ++i)
+            int len = Main.player.Length - 1;//最后一个是服务器
+
+            for (int i = 0; i < len; ++i)
             {
                 Player p = CheckPlayer(i);
                 if (p == null) continue;

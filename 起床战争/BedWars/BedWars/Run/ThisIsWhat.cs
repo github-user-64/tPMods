@@ -79,6 +79,7 @@ namespace BedWars.Run
                 foreach (Player i in Main.player)//防止已经有玩家加入
                 {
                     if (i?.active != true) continue;
+                    if (i.whoAmI == Main.player.Length - 1) continue;//最后一个是服务器
 
                     control.OnPlayJoinGame(i);
                 }

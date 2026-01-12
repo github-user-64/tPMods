@@ -2,7 +2,6 @@
 using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using Terraria;
 using Terraria.ID;
 
@@ -34,8 +33,8 @@ namespace BedWars.Run
     //-时间到进入游戏中
     //
     //游戏中:
-    //-进入时:分配队伍并添加到队伍数据,生成玩家到队伍,启用pvp
-    //-生成玩家到队伍:没队伍设为幽灵状态[退出],重生,设置位置,设置属性,清空设置背包,设置玩家队伍
+    //-进入时:分配队伍并添加到队伍数据,生成玩家到队伍
+    //-生成玩家到队伍:没队伍设为幽灵状态[退出],重生,设置位置,设置属性,清空设置背包,设置队伍pvp
     //-玩家重生时:生成玩家到队伍
     //-玩家退出,队伍不可重生时死亡,时从队伍删除
     //-当有队伍删除玩家时:
@@ -45,7 +44,7 @@ namespace BedWars.Run
     //
     //游戏结束:
     //-进入时:禁用pvp,在在队伍中的所有玩家位置生成烟花
-    //-有玩家死亡时:重生,有队伍就设置到队伍位置
+    //-有玩家死亡时:
     //-一段时间后进入初始化地图
     //
     public partial class GameRun
@@ -66,8 +65,7 @@ namespace BedWars.Run
         public List<SignData> DataSigns => Data?.Signs;
         public InventoryData DataInventory => Data?.Inventory;
         public List<ShopData> DataShops => Data?.Shops;
-        protected List<TeamPlayerData> _Teams = null;
-        public IReadOnlyList<TeamPlayerData> Teams => _Teams;
+        public TeamAndPlayer Team { get; protected set; } = null;
         //
         protected IStateAction[] States = null;
         public IStateAction NowState { get; protected set; } = null;
@@ -166,9 +164,14 @@ namespace BedWars.Run
             }
         }
 
-        public void ForTeam(Action<TeamPlayerData> action)
+        public void ForTeam(Action<TeamAndPlayer.TeamPlayer> action)
         {
-            if (action != null) _Teams.ForEach(action);
+            Team.ForTeam(action);
+        }
+
+        public void ForAllTeamPlay(Action<Player> action)
+        {
+            if (action != null) ForTeam(i => i.ForPlay(action));
         }
 
         /// <summary>
@@ -176,22 +179,17 @@ namespace BedWars.Run
         /// </summary>
         public void ClearAllTeamPlayer()
         {
-            _Teams.ForEach(i => i.ClearPlayer());
+            Team.ClearPlayer();
         }
 
-        /// <summary>
-        /// 清除所有队伍的离线玩家
-        /// </summary>
-        public void ClearAllTeamLeftPlayer()
+        public bool ClearLeftPlayer()
         {
-            _Teams.ForEach(i => i.ClearLefyPlayer());
+            return Team.ClearLeftPlayer();
         }
 
-        public TeamPlayerData GetPlayerTeam(Player player = null)
+        public TeamAndPlayer.TeamPlayer GetPlayerTeam(Player player)
         {
-            if (player == null) return null;
-
-            return _Teams.FirstOrDefault(i => i.ps.Contains(player));
+            return Team.GetTeam(player);
         }
     }
 }

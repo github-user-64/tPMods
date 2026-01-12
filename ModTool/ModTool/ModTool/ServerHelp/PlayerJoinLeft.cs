@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using Terraria;
 
 namespace ModTool.ServerHelp
@@ -35,6 +36,7 @@ namespace ModTool.ServerHelp
                 if (This.IsActive == false) return;
                 if (Main.dedServ == false) return;
                 if (Main.player?.IndexInRange(This.Id) != true) return;
+                if (Netplay.Clients?.Contains(This) != true) return;
 
                 Player player = Main.player[This.Id];
                 if (player == null) return;

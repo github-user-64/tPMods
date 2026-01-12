@@ -156,13 +156,13 @@
     <Compile Include="Edit\UI\Init.cs" />
     <Compile Include="Edit\UI\Elements\UIWindowEditControl.cs" />
     <Compile Include="ModConfig.cs" />
+    <Compile Include="Run\TeamAndPlayer.cs" />
     <Compile Include="Run\GameRun\GameRun_SetState.cs" />
     <Compile Include="Run\GameRun\GameRun_IGameControl.cs" />
     <Compile Include="Run\GameRun\GameRun.cs" />
     <Compile Include="Run\IGameControl.cs" />
     <Compile Include="Run\StateActions\SGameing\SGameing.cs" />
     <Compile Include="Run\StateActions\SReadyGame.cs" />
-    <Compile Include="Run\TeamPlayerData.cs" />
     <Compile Include="Run\ThisIsWhat.cs" />
     <Compile Include="Run\IStateAction.cs" />
     <Compile Include="Run\StateActions\SMapInit.cs" />
