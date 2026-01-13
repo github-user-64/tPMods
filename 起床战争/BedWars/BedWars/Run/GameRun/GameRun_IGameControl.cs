@@ -1,5 +1,6 @@
 ﻿using BedWars.BedWarsData;
 using BedWars.Run.StateActions;
+using ModTool.Common;
 using ModTool.Utils.GetDataEventArgs;
 using System;
 using Terraria;
@@ -129,14 +130,14 @@ namespace BedWars.Run
         {
             if (CantRun()) return true;
 
-            return NowState?.PlayCanActionTile(e) == true;
+            return NowState?.PlayCanActionTile(e) ?? false;
         }
 
         bool IGameControl.PlayCanAction(GetDataEventArgs e)
         {
             if (CantRun()) return true;
 
-            return NowState?.PlayCanAction(e) == true;
+            return NowState?.PlayCanAction(e) ?? false;
         }
 
         public void OnGetDataPo(Player player, int messageType)
@@ -144,6 +145,13 @@ namespace BedWars.Run
             if (CantRun()) return;
 
             NowState?.OnGetDataPo(player, messageType);
+        }
+
+        public bool ModifyShop(ModifyShop.ItemData[] items, NPC npc, Player player)
+        {
+            if (CantRun()) return false;
+
+            return NowState?.ModifyShop(items, npc, player) ?? false;
         }
 
         /// <summary>

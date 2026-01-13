@@ -10,8 +10,10 @@ using Terraria.ID;
 
 namespace BedWars.Run.StateActions
 {
-    internal class SGameing : IStateAction
+    internal partial class SGameing : IStateAction
     {
+        private readonly List<ShopNPC> shopNPC = new List<ShopNPC>();
+
         public SGameing(GameRun game) : base(game) { }
 
         //游戏中:
@@ -35,6 +37,8 @@ namespace BedWars.Run.StateActions
                 return;
             }
 
+            shopNPC.Clear();
+
             game.ForTeam(i => i.UpdateSpawTile(out _));//更新重生方块活动状态
 
             //分配队伍
@@ -49,6 +53,15 @@ namespace BedWars.Run.StateActions
             ToPlayerPlayNetSound.ToPlayAll(SoundID.Item4);
             ToPlayerPrint.PrintToPlayAll("游戏开始", Color.YellowGreen);
             ToPlayerCombatText.ToPlayAllOff("游戏开始", 0, -40, Color.YellowGreen);
+
+            game.DataSpawItems.ForEach(i => Common.GameAction.SpawItem.Add(i));//生成物品
+            game.DataShops.ForEach(i => shopNPC.Add(new ShopNPC(null, i)));//商店
+        }
+
+        public override void OnEnd()
+        {
+            Common.GameAction.SpawItem.Clear();//生成物品
+            shopNPC.ForEach(i => i.DelNPC());//商店
         }
 
         private void AssignTeam(List<Player> ps = null, Action<Player> thisPlayNoTeam = null)//分配队伍
@@ -125,6 +138,8 @@ namespace BedWars.Run.StateActions
             UpdateVoid(gametime);
 
             UpdateSpawTile(null);
+
+            UpdateShop();
         }
 
         private void UpdateVoid(uint gametime)//更新虚空

@@ -55,6 +55,7 @@ namespace BedWars.Run
                 PlayerAccount.Account.AccountHelp.OnJoinGamePo += playerJoinState.OnPlayJoinGameTryAutoLoginPo;
 
                 ModTool.PatchGame.PMessageBuffer.OnGetDataPo.Add(OnGetDataPo);
+                ModTool.Common.ModifyShop.SetupShop += control.ModifyShop;//商店
 
                 WorldFile.OnWorldLoad += () =>
                 {

@@ -55,5 +55,7 @@ namespace BedWars.Run
         public virtual void OnPlayJoinGameTryAutoLoginPo(Player player) { }
 
         public virtual void OnGetDataPo(Player player, int messageType) { }
+
+        public virtual bool ModifyShop(ModTool.Common.ModifyShop.ItemData[] items, NPC npc, Player player) => false;
     }
 }

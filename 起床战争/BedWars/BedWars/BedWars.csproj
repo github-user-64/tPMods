@@ -164,6 +164,8 @@
     <Compile Include="Run\IGameControl.cs" />
     <Compile Include="Run\StateActions\SGameing\SGameing.cs" />
     <Compile Include="Run\StateActions\SGameEnd.cs" />
+    <Compile Include="Run\StateActions\SGameing\SGameing_CanAction.cs" />
+    <Compile Include="Run\StateActions\SGameing\SGameing_Shop.cs" />
     <Compile Include="Run\StateActions\SReadyGame.cs" />
     <Compile Include="Run\ThisIsWhat.cs" />
     <Compile Include="Run\IStateAction.cs" />
