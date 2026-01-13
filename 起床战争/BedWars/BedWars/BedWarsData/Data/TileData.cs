@@ -1,4 +1,5 @@
-﻿using Terraria;
+﻿using Newtonsoft.Json;
+using Terraria;
 
 namespace BedWars.BedWarsData
 {
@@ -24,6 +25,12 @@ namespace BedWars.BedWarsData
         public bool wire3;
         public bool wire4;
         public byte color;//漆
+        //
+        /// <summary>
+        /// 不保存. 有玩家交互过
+        /// </summary>
+        [JsonIgnore]
+        public bool HasPlayerActive = false;
 
         public void Check(MapData mapData)
         {

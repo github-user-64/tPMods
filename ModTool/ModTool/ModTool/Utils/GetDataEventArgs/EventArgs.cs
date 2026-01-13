@@ -108,7 +108,7 @@ namespace ModTool.Utils.GetDataEventArgs
         /// <summary/>
         public byte manipulationType;
         /// <summary/>
-        public short tileType;
+        public short type;
         /// <summary/>
         public int placeStyle;
     }

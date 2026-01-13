@@ -113,7 +113,7 @@ namespace ModTool.Utils.GetDataEventArgs
             e.manipulationType = This.reader.ReadByte();
             e.x = This.reader.ReadInt16();
             e.y = This.reader.ReadInt16();
-            e.tileType = This.reader.ReadInt16();
+            e.type = This.reader.ReadInt16();
             e.placeStyle = This.reader.ReadByte();
 
             return e;

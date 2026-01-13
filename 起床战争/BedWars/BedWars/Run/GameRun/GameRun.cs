@@ -44,7 +44,6 @@ namespace BedWars.Run
     //
     //游戏结束:
     //-进入时:禁用pvp,在在队伍中的所有玩家位置生成烟花
-    //-有玩家死亡时:
     //-一段时间后进入初始化地图
     //
     public partial class GameRun
@@ -74,8 +73,6 @@ namespace BedWars.Run
         private Action HasUpdateState = null;
         public bool IsLoaded { get; protected set; } = false;
         public bool IsInited { get; protected set; } = false;
-        //
-        public readonly List<Point> PlayPlaceTile = new List<Point>();//玩家放置的图格
 
         private void Init()
         {

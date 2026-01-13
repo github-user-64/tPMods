@@ -12,7 +12,6 @@ namespace BedWars.Run.StateActions
         public SGameEnd(GameRun game) : base(game) { }
 
         //-进入时:禁用pvp,在在队伍中的所有玩家位置生成烟花
-        //-有玩家死亡时:
         //-一段时间后进入初始化地图
         public override void OnStart(object arg)
         {

@@ -14,7 +14,13 @@ namespace BedWars.Run.StateActions
         {
             ModTool.ServerHelp.ToPlayerPrint.PrintToPlayAll("初始化地图", Color.YellowGreen);
 
-            game.PlayPlaceTile.Clear();
+            game.DataTile.ForEach(i =>
+            {
+                i.ForEach(tile =>
+                {
+                    tile.HasPlayerActive = false;
+                });
+            });
 
             game.ForActivePlayer(i =>
             {
