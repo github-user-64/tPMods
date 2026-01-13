@@ -53,6 +53,7 @@ namespace BedWars.Run
         public const int StateMapInit = 1;
         public const int StateReadyGame = 2;
         public const int StateGameing = 3;
+        public const int StateGameEnd = 4;
 
         public static readonly GameRun instance = new GameRun();
 
@@ -65,7 +66,7 @@ namespace BedWars.Run
         public List<SignData> DataSigns => Data?.Signs;
         public InventoryData DataInventory => Data?.Inventory;
         public List<ShopData> DataShops => Data?.Shops;
-        public TeamAndPlayer Team { get; protected set; } = null;
+        public GameTeam Team { get; protected set; } = null;
         //
         protected IStateAction[] States = null;
         public IStateAction NowState { get; protected set; } = null;
@@ -164,7 +165,7 @@ namespace BedWars.Run
             }
         }
 
-        public void ForTeam(Action<TeamAndPlayer.TeamPlayer> action)
+        public void ForTeam(Action<GameTeamData> action)
         {
             Team.ForTeam(action);
         }
@@ -182,12 +183,7 @@ namespace BedWars.Run
             Team.ClearPlayer();
         }
 
-        public bool ClearLeftPlayer()
-        {
-            return Team.ClearLeftPlayer();
-        }
-
-        public TeamAndPlayer.TeamPlayer GetPlayerTeam(Player player)
+        public GameTeamData GetPlayerTeam(Player player)
         {
             return Team.GetTeam(player);
         }

@@ -8,6 +8,8 @@ namespace ModTool.AdditionalData
     /// </summary>
     public abstract class AdditionalData<T, T2>
     {
+        /// <summary>数据数量</summary>
+        public int Count => data.Length;
         /// <summary>数据</summary>
         protected T[] data = null;
         /// <summary>有值</summary>
@@ -27,7 +29,7 @@ namespace ModTool.AdditionalData
         /// <summary>
         /// 在这个对象创建时
         /// </summary>
-        public virtual void OnNew() { }
+        protected virtual void OnNew() { }
 
         /// <summary>
         /// 是否有数据
@@ -84,7 +86,7 @@ namespace ModTool.AdditionalData
         /// <summary>
         /// 更新数据, <paramref name="clearOld"/>为<see langword="true"/>会先清除再更新
         /// </summary>
-        public virtual void UpdateData(bool clearOld = false)
+        protected virtual void UpdateData(bool clearOld = false)
         {
             ForData(i => UpdateDataItem(i, clearOld));
         }
@@ -92,7 +94,7 @@ namespace ModTool.AdditionalData
         /// <summary>
         /// 更新数据项, 成功返回<see langword="true"/>, <paramref name="clearOld"/>为<see langword="true"/>会先清除再更新
         /// </summary>
-        public virtual bool UpdateDataItem(int index, bool clearOld = false)
+        protected virtual bool UpdateDataItem(int index, bool clearOld = false)
         {
             try
             {
@@ -111,7 +113,7 @@ namespace ModTool.AdditionalData
         /// <summary>
         /// 批量处理数据
         /// </summary>
-        public virtual void ForData(Action<int> action)
+        protected virtual void ForData(Action<int> action)
         {
             if (action == null) return;
 
@@ -121,7 +123,7 @@ namespace ModTool.AdditionalData
         /// <summary>
         /// <paramref name="index"/>在范围内返回<see langword="true"/>
         /// </summary>
-        public virtual bool IndexInRange(int index)
+        protected virtual bool IndexInRange(int index)
         {
             return data?.IndexInRange(index) == true;
         }
@@ -129,6 +131,6 @@ namespace ModTool.AdditionalData
         /// <summary>
         /// 将<paramref name="index"/>转化为<typeparamref name="T"/>
         /// </summary>
-        public virtual T ConverterThrow(int index) => throw new Exception("转化失败");
+        protected virtual T ConverterThrow(int index) => throw new Exception("转化未实现");
     }
 }

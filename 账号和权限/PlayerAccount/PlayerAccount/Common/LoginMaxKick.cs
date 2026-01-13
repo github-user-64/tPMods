@@ -9,7 +9,7 @@ namespace PlayerAccount.Common
     {
         private class ErrorCount : ModTool.AdditionalData.PlayerAdditionalData<int>
         {
-            public override int ConverterThrow(int index) => 0;
+            protected override int ConverterThrow(int index) => 0;
         }
 
         public override void Load()

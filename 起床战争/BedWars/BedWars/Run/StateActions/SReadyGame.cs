@@ -10,7 +10,7 @@ namespace BedWars.Run.StateActions
 {
     internal class SReadyGame : IStateAction
     {
-        private List<Player> ReadyPlay = new List<Player>();
+        private readonly List<Player> ReadyPlay = new List<Player>();
         private int MaxPlayCount = 0;
         private int StartTime = 0;
 

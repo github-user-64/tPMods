@@ -19,7 +19,7 @@ namespace ModTool.AdditionalData
         }
 
         /// <inheritdoc/>
-        public override void OnNew()
+        protected override void OnNew()
         {
             for (int  i = 0; i < Main.item.Length; ++i)
             {
@@ -32,7 +32,7 @@ namespace ModTool.AdditionalData
         /// <summary>
         /// 单人和客户端进入游戏前
         /// </summary>
-        public virtual void EnterWorldPr()
+        protected virtual void EnterWorldPr()
         {
             ClearData();
         }

@@ -23,5 +23,7 @@ namespace BedWars.Run
         bool PlayCanActionTile(ClassTileEventArgs e);
 
         bool PlayCanAction(GetDataEventArgs e);
+
+        void OnGetDataPo(Player player, int messageType);
     }
 }

@@ -33,7 +33,7 @@ namespace ModTool.ServerHelp
 
         //不允许设置值
         public override bool SetData(int index, string val) => false;
-        public override bool UpdateDataItem(int index, bool clearOld = false) => false;
+        protected override bool UpdateDataItem(int index, bool clearOld = false) => false;
 
         private void SetUUIDData(int index, string val)
         {

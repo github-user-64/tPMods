@@ -59,7 +59,7 @@ namespace BedWars.Run
                 DataCheck.CheckMapData(Data);
                 DataInventory.inventory[DataInventory.inventory.Count - 1].Copy(null);//最后一个是鼠标物品,清空它
 
-                Team = new TeamAndPlayer(DataTeams);
+                Team = new GameTeam(DataTeams);
 
                 States = new IStateAction[]
                 {
@@ -67,6 +67,7 @@ namespace BedWars.Run
                     new SMapInit(this),
                     new SReadyGame(this),
                     new SGameing(this),
+                    new SGameEnd(this),
                 };
 
                 Init();
@@ -136,6 +137,13 @@ namespace BedWars.Run
             if (CantRun()) return true;
 
             return NowState?.PlayCanAction(e) == true;
+        }
+
+        public void OnGetDataPo(Player player, int messageType)
+        {
+            if (CantRun()) return;
+
+            NowState?.OnGetDataPo(player, messageType);
         }
 
         /// <summary>

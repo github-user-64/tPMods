@@ -54,6 +54,8 @@ namespace BedWars.Run
                 PlayerAccount.Account.AccountHelp.OnLogined += playerJoinState.OnPlayLogined;
                 PlayerAccount.Account.AccountHelp.OnJoinGamePo += playerJoinState.OnPlayJoinGameTryAutoLoginPo;
 
+                ModTool.PatchGame.PMessageBuffer.OnGetDataPo.Add(OnGetDataPo);
+
                 WorldFile.OnWorldLoad += () =>
                 {
                     Print("世界加载完成,开始加载");
@@ -100,6 +102,13 @@ namespace BedWars.Run
                 s = $"起床战争:{s}";
                 tContentPatch.Utils.Log.Add(s);
                 ContentPatch.PrintTry(s);
+            }
+
+            private static void OnGetDataPo(MessageBuffer This, int start, int length, int messageType)
+            {
+                if (Main.dedServ == false) return;
+
+                control?.OnGetDataPo(Main.player[This.whoAmI], messageType);
             }
         }
 

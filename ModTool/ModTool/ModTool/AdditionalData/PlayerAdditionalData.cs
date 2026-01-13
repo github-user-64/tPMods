@@ -19,7 +19,7 @@ namespace ModTool.AdditionalData
         }
 
         /// <inheritdoc/>
-        public override void OnNew()
+        protected override void OnNew()
         {
             int len = Main.player.Length - 1;//最后一个是服务器
 
@@ -35,7 +35,7 @@ namespace ModTool.AdditionalData
         /// <summary>
         /// 客户端收到玩家连接时
         /// </summary>
-        public virtual void ClientGotConnect(int playerIndex)
+        protected virtual void ClientGotConnect(int playerIndex)
         {
             UpdateDataItem(Main.myPlayer, true);
         }
@@ -43,7 +43,7 @@ namespace ModTool.AdditionalData
         /// <summary>
         /// 客户端收到玩家断开连接时
         /// </summary>
-        public virtual void ClientGotDisconnect(int playerIndex)
+        protected virtual void ClientGotDisconnect(int playerIndex)
         {
             ClearDataItem(playerIndex);
         }
@@ -51,7 +51,7 @@ namespace ModTool.AdditionalData
         /// <summary>
         /// 单人和客户端进入游戏前
         /// </summary>
-        public virtual void EnterWorldPr()
+        protected virtual void EnterWorldPr()
         {
             ClearData();
             UpdateDataItem(Main.myPlayer, true);
@@ -60,7 +60,7 @@ namespace ModTool.AdditionalData
         /// <summary>
         /// 服务端在同步已连接玩家前
         /// </summary>
-        public virtual void ServerConnectedPlayer(int ply)
+        protected virtual void ServerConnectedPlayer(int ply)
         {
             UpdateDataItem(ply, true);
         }
@@ -68,7 +68,7 @@ namespace ModTool.AdditionalData
         /// <summary>
         /// 服务端在同步断开连接玩家前
         /// </summary>
-        public virtual void ServerDisconnectedPlayer(int ply)
+        protected virtual void ServerDisconnectedPlayer(int ply)
         {
             ClearDataItem(ply);
         }

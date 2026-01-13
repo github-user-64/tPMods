@@ -35,6 +35,8 @@ namespace BedWars.Run.StateActions
                 return;
             }
 
+            game.ForTeam(i => i.UpdateSpawTile(out _));//更新重生方块活动状态
+
             //分配队伍
             AssignTeam(arg as List<Player>, p =>
             {
@@ -43,6 +45,10 @@ namespace BedWars.Run.StateActions
 
             //生成玩家到队伍
             game.ForActivePlayer(i => SpawPlayToTeam(i));
+
+            ToPlayerPlayNetSound.ToPlayAll(SoundID.Item4);
+            ToPlayerPrint.PrintToPlayAll("游戏开始", Color.YellowGreen);
+            ToPlayerCombatText.ToPlayAllOff("游戏开始", 0, -40, Color.YellowGreen);
         }
 
         private void AssignTeam(List<Player> ps = null, Action<Player> thisPlayNoTeam = null)//分配队伍
@@ -56,7 +62,7 @@ namespace BedWars.Run.StateActions
             //
 
             int teamI = 0;
-            List<TeamAndPlayer.TeamPlayer> canAssignTeam = game.Team.teams.ToList();//可分配队伍
+            List<GameTeamData> canAssignTeam = game.Team.teams.ToList();//可分配队伍
 
             for (int i = 0; i < ps.Count; ++i)
             {
@@ -66,7 +72,7 @@ namespace BedWars.Run.StateActions
                     continue;
                 }
 
-                TeamAndPlayer.TeamPlayer team = canAssignTeam[i];
+                GameTeamData team = canAssignTeam[i];
 
                 if (team.PlayerCount < team.team.maxPlay)//如果该队伍没到最大玩家数量
                 {
@@ -83,10 +89,12 @@ namespace BedWars.Run.StateActions
             }
         }
 
-        //生成玩家到队伍:没队伍设为幽灵状态[退出],重生,设置位置,设置属性,清空设置背包,设置队伍pvp
+        /// <summary>
+        /// 生成玩家到队伍:没队伍设为幽灵状态[退出],重生,设置位置,设置属性,清空设置背包,设置队伍pvp
+        /// </summary>
         private void SpawPlayToTeam(Player player)
         {
-            TeamAndPlayer.TeamPlayer team = game.GetPlayerTeam(player);
+            GameTeamData team = game.GetPlayerTeam(player);
             if (team == null)
             {
                 game.SetPlayGhost(player);//没队伍设为幽灵状态
@@ -111,13 +119,12 @@ namespace BedWars.Run.StateActions
 
         public override void Update(uint gametime)
         {
-            if (game.ClearLeftPlayer())
-            {
-                OnTeamPlayerUpdate(out bool stateUpdate);
-                if (stateUpdate) return;
-            }
-            
+            UpdateOnlinePlayer(out bool stateUpdate);
+            if (stateUpdate) return;
+
             UpdateVoid(gametime);
+
+            UpdateSpawTile(null);
         }
 
         private void UpdateVoid(uint gametime)//更新虚空
@@ -154,11 +161,11 @@ namespace BedWars.Run.StateActions
             });
         }
 
-        private void OnTeamPlayerUpdate(out bool stateUpdate)
+        private void UpdateOnlinePlayer(out bool stateUpdate)
         {
             stateUpdate = false;
 
-            List<TeamAndPlayer.TeamPlayer> hasPlayTeam = new List<TeamAndPlayer.TeamPlayer>();//有玩家的队伍
+            List<GameTeamData> hasPlayTeam = new List<GameTeamData>();//有玩家的队伍
 
             game.ForTeam(i =>
             {
@@ -178,7 +185,81 @@ namespace BedWars.Run.StateActions
             //如果只有一个队伍有人时进入游戏结束
             if (hasPlayTeam.Count == 1)
             {
+                stateUpdate = true;
+                game.SetStateUpdate(GameRun.StateGameEnd, hasPlayTeam[0]);
                 return;
+            }
+        }
+
+        private void UpdateSpawTile(Player player = null)//更新重生方块活动状态
+        {
+            game.ForTeam(team =>
+            {
+                if (team.CanSpaw == false) return;
+                team.UpdateSpawTile(out bool hasUpdate);
+                if (hasUpdate == false) return;
+                if (player == null) return;
+                if (team.SpawTileActive == true) return;
+
+                ToPlayerPlayNetSound.ToPlayAll(SoundID.DeerclopsDeath);
+                ToPlayerPlayNetSound.ToPlayAll(SoundID.DeerclopsDeath);
+
+                ToPlayerPrint.PrintToPlayAll($"{player.name}破坏了{team.team.name}队的床", Color.Yellow);
+
+                team.ForPlay(i =>
+                {
+                    ToPlayerCombatText.ToPlay(i.whoAmI, "队伍被摧毁,你将不能重生", i.Center.X, i.Center.Y - 40, Color.Red);
+                });
+            });
+        }
+
+        private void OnPlayerDead(Player player)
+        {
+            GameTeamData team = game.GetPlayerTeam(player);
+            if (team == null) return;
+
+            if (ModTool.Utils.Utils.GetRand(0, 2) == 0)
+            {
+                ToPlayerPlayNetSound.ToPlayAll(SoundID.DSTMaleHurt, player.Center);
+            }
+            else
+            {
+                ToPlayerPlayNetSound.ToPlayAll(SoundID.DSTFemaleHurt, player.Center);
+            }
+
+            //队伍里的玩家不能重生时
+            if (team.CanSpaw == false) DelPlayerTeam(player);
+        }
+
+        private void DelPlayerTeam(Player player)
+        {
+            game.Team.DelPlayerTeam(player);//从队伍删除
+
+            game.SetPlayGhost(player);//设为鬼魂
+
+            UpdateOnlinePlayer(out _);
+        }
+
+        private void OnPlayerSpaw(Player player)
+        {
+            SpawPlayToTeam(player);
+        }
+
+        public override void OnGetDataPo(Player player, int messageType)
+        {
+            if (messageType == MessageID.TileManipulation)
+            {
+                UpdateSpawTile(player);
+            }
+            else
+            if (messageType == MessageID.PlayerLifeMana)
+            {
+                if (player.dead) OnPlayerDead(player);
+            }
+            else
+            if (messageType == MessageID.PlayerSpawn)
+            {
+                if (player.dead == false) OnPlayerSpaw(player);
             }
         }
     }
