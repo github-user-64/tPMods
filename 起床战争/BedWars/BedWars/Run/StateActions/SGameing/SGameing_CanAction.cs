@@ -9,10 +9,16 @@ namespace BedWars.Run.StateActions
     {
         public override bool PlayCanAction(GetDataEventArgs e)
         {
-            if (base.PlayCanAction(e) == true) return true;
+            if (e is ControlsEventArgs ce)
+            {
+                return ce.ghost == ce.player.ghost;//是否修改了幽灵状态
+            }
 
             GameTeamData team = game.GetPlayerTeam(e.player);
             if (team != null) return true;
+
+            if (e is TogglePVPEventArgs) return false;
+            if (e is ToggleTeamEventArgs) return false;
 
             return false;
         }

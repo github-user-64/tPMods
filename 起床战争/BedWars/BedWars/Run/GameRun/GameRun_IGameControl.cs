@@ -60,7 +60,7 @@ namespace BedWars.Run
                 DataCheck.CheckMapData(Data);
                 DataInventory.inventory[DataInventory.inventory.Count - 1].Copy(null);//最后一个是鼠标物品,清空它
 
-                Team = new GameTeam(DataTeams);
+                Team = new GameTeam(Data);
 
                 States = new IStateAction[]
                 {
@@ -91,8 +91,10 @@ namespace BedWars.Run
 
             if (HasUpdateState != null)
             {
-                HasUpdateState();
+                Action foo = HasUpdateState;
                 HasUpdateState = null;
+
+                foo();
             }
             
             NowState?.Update(gametime);

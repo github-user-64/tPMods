@@ -12,12 +12,17 @@ namespace BedWars.Run
         public bool SpawTileActive { get; protected set; } = false;
         public bool CanSpaw => team.canSpaw && SpawTileActive;
         public int PlayerCount => ps.Count;
+        public readonly MapData data = null;
         public readonly TeamData team = null;
+        private readonly Point spawTilePos = Point.Zero;
         private readonly List<Player> ps = new List<Player>();
 
-        public GameTeamData(TeamData team)
+        public GameTeamData(MapData data, TeamData team)
         {
-            this.team = team ?? throw new ArgumentNullException(nameof(team));
+            this.data = data;
+            this.team = team;
+
+            spawTilePos = new Point(data.Info.pos.X + team.spawTilePos.X, data.Info.pos.Y + team.spawTilePos.Y);
         }
 
         public void ClearPlayer()
@@ -69,7 +74,7 @@ namespace BedWars.Run
 
         public void UpdateSpawTile(out bool hasUpdate)
         {
-            Point pos = team.spawTilePos;
+            Point pos = spawTilePos;
 
             if (WorldGen.InWorld(pos.X, pos.Y) == false)
             {

@@ -121,7 +121,10 @@ namespace BedWars.Run.StateActions
                 NetMessage.TrySendData(MessageID.PlayerControls);
             }
 
-            game.SpawnToPos(player, team.team.spawPos);//重生,设置位置
+            MapInfoData info = game.DataInfo;
+            Point pos = new Point(info.pos.X + team.team.spawPos.X, info.pos.Y + team.team.spawPos.Y);
+
+            game.SpawnToPos(player, pos);//重生,设置位置
 
             team.SetPlayerAttributes(player);//设置玩家属性
 
@@ -172,7 +175,7 @@ namespace BedWars.Run.StateActions
 
                 PlayerDeathReason reason = PlayerDeathReason.ByCustomReason(text);
 
-                NetMessage.SendPlayerHurt(i.whoAmI, reason, 20 * 5, 0, false, false, -1, -1, -1);
+                NetMessage.SendPlayerHurt(i.whoAmI, reason, 20 * 8, 0, false, false, -1, -1, -1);
             });
         }
 
@@ -276,6 +279,11 @@ namespace BedWars.Run.StateActions
             {
                 if (player.dead == false) OnPlayerSpaw(player);
             }
+        }
+
+        public override void OnPlayJoinGame(Player player)
+        {
+            ToPlayerPrint.PrintToPlay(player.whoAmI, "正在游戏中,请等待游戏结束", Color.YellowGreen);
         }
     }
 }

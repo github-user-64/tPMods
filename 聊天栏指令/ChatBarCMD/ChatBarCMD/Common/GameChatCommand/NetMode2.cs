@@ -56,7 +56,7 @@ namespace ChatBarCMD.Common.GameChatCommand
 
             try
             {
-                Action<string> print = s => ModTool.ServerHelp.PrintTo.PrintToPlay(clientId, s, Color.Yellow);
+                Action<string> print = s => ModTool.ServerHelp.ToPlayerPrint.PrintToPlay(clientId, s, Color.Yellow);
                 Utils.InputCMD(cmd, GetCMD(clientId, print), print);
             }
             catch { }

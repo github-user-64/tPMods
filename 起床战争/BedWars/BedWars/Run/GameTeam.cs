@@ -11,13 +11,11 @@ namespace BedWars.Run
         public int TeamCount => teams.Count;
         public readonly List<GameTeamData> teams = new List<GameTeamData>();
 
-        public GameTeam(List<TeamData> teams)
+        public GameTeam(MapData data)
         {
-            if (teams == null) throw new ArgumentNullException(nameof(teams));
-
-            teams.ForEach(i =>
+            data.Teams.ForEach(i =>
             {
-                this.teams.Add(new GameTeamData(i));
+                teams.Add(new GameTeamData(data, i));
             });
         }
 
