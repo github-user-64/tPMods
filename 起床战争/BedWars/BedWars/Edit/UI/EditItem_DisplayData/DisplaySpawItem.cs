@@ -25,9 +25,11 @@ namespace BedWars.Edit.UI.EditItem_DisplayData
 
             float dis = Math.Min(Main.screenWidth, Main.screenHeight) / 2f * 0.7f - 50;
 
+            Point pos = data.Info.Pos;
+
             foreach (var i in data.SpawItems)
             {
-                DrawUtils.Draw(data.Info.pos, i.pos, Color.LawnGreen, i.name, dis);
+                DrawUtils.Draw(pos, i.pos, Color.LawnGreen, i.name, dis);
             }
         }
     }

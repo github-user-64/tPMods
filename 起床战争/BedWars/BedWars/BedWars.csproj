@@ -76,6 +76,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BedWarsData\RectangleJsonConverter.cs" />
     <Compile Include="BedWarsData\Data\ShopData.cs" />
     <Compile Include="BedWarsData\Data\SignData.cs" />
     <Compile Include="BedWarsData\Data\ChestData.cs" />
@@ -136,6 +137,7 @@
     <Compile Include="Edit\UI\EditWindow\EditPanels.cs" />
     <Compile Include="Edit\UI\Elements\Build1.cs" />
     <Compile Include="Edit\UI\Elements\UIEditPanel.cs" />
+    <Compile Include="Edit\UI\Elements\UIImageButtonSwitchSize.cs" />
     <Compile Include="Edit\UI\Elements\UIItemSwitchSize.cs" />
     <Compile Include="Edit\UI\IEditControl.cs" />
     <Compile Include="Edit\UI\EditItem_DisplayData\DisplaySpawItem.cs" />
@@ -147,6 +149,7 @@
     <Compile Include="Edit\UI\EditItem_File\MapLoad.cs" />
     <Compile Include="Edit\UI\EditItem_File\MapNew.cs" />
     <Compile Include="Edit\UI\Elements\UIImageButtonSwitchPos.cs" />
+    <Compile Include="Edit\UI\SwitchSize.cs" />
     <Compile Include="Edit\UI\SwitchPos.cs" />
     <Compile Include="Edit\UI\EditItem_EditData\EditMapSize.cs" />
     <Compile Include="Edit\UI\EditItem_EditData\EditMapPos.cs" />

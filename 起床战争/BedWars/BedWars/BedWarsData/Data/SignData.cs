@@ -22,8 +22,8 @@ namespace BedWars.BedWarsData
 
         public void Copy(MapData mapData, Sign sign)
         {
-            x = sign.x - mapData.Info.pos.X;
-            y = sign.y - mapData.Info.pos.Y;
+            x = sign.x - mapData.Info.X;
+            y = sign.y - mapData.Info.Y;
             text = sign.text;
         }
 
@@ -31,8 +31,8 @@ namespace BedWars.BedWarsData
         {
             if (mapData.InMapRelative(x, y) == false) return;
 
-            int tilex = mapData.Info.pos.X + x;
-            int tiley = mapData.Info.pos.Y + y;
+            int tilex = mapData.Info.X + x;
+            int tiley = mapData.Info.Y + y;
 
             int index = Sign.ReadSign(tilex, tiley, true);
             if (index < 0) return;

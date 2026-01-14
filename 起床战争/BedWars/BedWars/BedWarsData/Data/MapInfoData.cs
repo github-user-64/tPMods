@@ -1,12 +1,28 @@
 ﻿using Microsoft.Xna.Framework;
+using Newtonsoft.Json;
 using System;
 
 namespace BedWars.BedWarsData
 {
     public class MapInfoData : ICheck
     {
-        public Point pos;
-        public Point size;
+        /// <summary>
+        /// 地图范围
+        /// </summary>
+        [JsonConverter(typeof(RectangleJsonConverter))]
+        public Rectangle rect;
+        [JsonIgnore]
+        public int X => rect.X;
+        [JsonIgnore]
+        public int Y => rect.Y;
+        [JsonIgnore]
+        public Point Pos => new Point(rect.X, rect.Y);
+        [JsonIgnore]
+        public Point Size => new Point(rect.Width, rect.Height);
+        [JsonIgnore]
+        public int Width => rect.Width;
+        [JsonIgnore]
+        public int Height => rect.Height;
         /// <summary>
         /// 重生点, 相对位置
         /// </summary>
@@ -31,17 +47,15 @@ namespace BedWars.BedWarsData
 
         public void Check(MapData mapData)
         {
-            if (DataCheck.InWorld(pos) == false) throw new Exception("地图位置超出世界");
+            if (Width < 2) throw new Exception("地图大小不能小于2");
+            if (Height < 2) throw new Exception("地图大小不能小于2");
 
-            if (size.X < 2) throw new Exception("地图大小不能小于2");
-            if (size.Y < 2) throw new Exception("地图大小不能小于2");
-
-            if (DataCheck.InWorldSize(pos, size) == false) throw new Exception("地图大小超出世界");
+            if (DataCheck.InWorld(rect) == false) throw new Exception("地图超出世界");
 
             if (mapData.InMapRelative(spawPos) == false) throw new Exception("重生点超出地图");
 
             if (voidHeight < 0) voidHeight = 0;
-            else if (voidHeight > size.Y) voidHeight = size.Y;
+            else if (voidHeight > Height) voidHeight = Height;
         }
     }
 }

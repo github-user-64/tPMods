@@ -26,11 +26,19 @@ namespace BedWars.Edit.UI.EditItem_DisplayData
             float dis = Math.Min(Main.screenWidth, Main.screenHeight) / 2f * 0.9f - 50;
             float dis2 = Math.Min(Main.screenWidth, Main.screenHeight) / 2f * 0.8f - 50;
 
+            Point pos = data.Info.Pos;
+
             foreach (var i in data.Teams)
             {
-                DrawUtils.Draw(data.Info.pos, i.spawTilePos, Color.BlueViolet, $"{i.name}队方块", dis);
+                Rectangle rect = i.spawTile;
+                rect.X += pos.X;
+                rect.Y += pos.Y;
 
-                DrawUtils.Draw(data.Info.pos, i.spawPos, Color.Wheat, $"{i.name}队重生", dis2);
+                DrawUtils.Draw(rect, Color.BlueViolet, $"{i.name}队方块", dis);
+
+                //
+
+                DrawUtils.Draw(pos, i.spawPos, Color.Wheat, $"{i.name}队重生", dis2);
             }
         }
     }

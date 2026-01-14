@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using Newtonsoft.Json;
 using System;
 
 namespace BedWars.BedWarsData
@@ -19,9 +20,10 @@ namespace BedWars.BedWarsData
         /// </summary>
         public bool canSpaw = true;
         /// <summary>
-        /// 判断能否重生的方块位置, 相对位置
+        /// 判断能否重生的方块范围, 相对位置
         /// </summary>
-        public Point spawTilePos;
+        [JsonConverter(typeof(RectangleJsonConverter))]
+        public Rectangle spawTile;
         /// <summary>
         /// 重生位置, 相对位置
         /// </summary>
@@ -31,7 +33,7 @@ namespace BedWars.BedWarsData
 
         public void Check(MapData mapData)
         {
-            if (mapData.InMapRelative(spawTilePos) == false) throw new Exception("重生方块超出地图");
+            if (mapData.InMapRelative(spawTile) == false) throw new Exception("重生方块超出地图");
             if (mapData.InMapRelative(spawPos) == false) throw new Exception("重生位置超出地图");
         }
     }

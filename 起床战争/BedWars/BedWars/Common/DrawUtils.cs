@@ -23,8 +23,8 @@ namespace BedWars.Common
         public static void Draw_rectangle(Rectangle sizeTile, Color borderColor, Color backgroundColor, int width = 0)
         {
             Draw_rectangle(sizeTile.X, sizeTile.Y,
-                sizeTile.X + sizeTile.Width,
-                sizeTile.Y + sizeTile.Height,
+                sizeTile.X + sizeTile.Width - 1,
+                sizeTile.Y + sizeTile.Height - 1,
                 borderColor, backgroundColor, width);
         }
 

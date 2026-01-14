@@ -41,16 +41,16 @@ namespace BedWars.Run.StateActions
             MapData data = game.Data;
             MapInfoData info = game.DataInfo;
 
-            Common.Utils.ClearInRangeChest(info.pos, info.size);//清除箱子
-            Common.Utils.ClearInRangeSign(info.pos, info.size);//清除告示牌
+            Common.Utils.ClearInRangeChest(info.rect);//清除箱子
+            Common.Utils.ClearInRangeSign(info.rect);//清除告示牌
 
             //
 
-            for (int y = 0; y < info.size.Y; ++y)
+            for (int y = 0; y < info.Height; ++y)
             {
-                for (int x = 0; x < info.size.X; ++x)
+                for (int x = 0; x < info.Width; ++x)
                 {
-                    Tile tile = Main.tile[info.pos.X + x, info.pos.Y + y];
+                    Tile tile = Main.tile[info.X + x, info.Y + y];
                     TileData td = data.Tile[y][x];
 
                     TileData.Place(td, tile);
@@ -64,7 +64,7 @@ namespace BedWars.Run.StateActions
 
             if (HasConnect() == false) return;
 
-            needSend = new Rectangle(info.pos.X, info.pos.Y, info.size.X, info.size.Y);
+            needSend = info.rect;
             sendBlock = new Rectangle(needSend.X, needSend.Y, maxSendWidth, maxSendHeight);
 
             while (SendUpdate() == false)

@@ -66,7 +66,7 @@ namespace BedWars.BedWarsData
         /// </summary>
         public void RepairTile()
         {
-            DataCheck.RepairList(ref Tile, Info.size.X, Info.size.Y);
+            DataCheck.RepairList(ref Tile, Info.Width, Info.Height);
         }
     }
 }

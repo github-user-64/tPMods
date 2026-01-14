@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using Terraria;
+using static ModTool.PatchGame.PPlayer;
 
 namespace ModTool.PatchGame
 {
@@ -13,13 +14,23 @@ namespace ModTool.PatchGame
         /// <summary>
         /// 能否自然生成npc
         /// </summary>
-        public static List<Func<bool>> OnCanSpawnNPC { get; private set; } = new List<Func<bool>>();
-        /// <summary/>
-        public delegate void SetDefaultsEvent(NPC This, int Type, NPCSpawnParams spawnparams);
+        public static event Func<bool> OnCanSpawnNPC
+        {
+            add
+            {
+                if (value == null) return;
+                onCanSpawnNPC.Add(value);
+            }
+            remove => onCanSpawnNPC.Remove(value);
+        }
+        private static readonly List<Func<bool>> onCanSpawnNPC = new List<Func<bool>>();
+
         /// <summary>
         /// 在设置默认后
         /// </summary>
         public static event SetDefaultsEvent OnSetDefaultsPo = null;
+        /// <summary/>
+        public delegate void SetDefaultsEvent(NPC This, int Type, NPCSpawnParams spawnparams);
 
         /// <inheritdoc/>
         public override void SetDefaultsPostfix(NPC This, int Type, NPCSpawnParams spawnparams)
@@ -32,13 +43,8 @@ namespace ModTool.PatchGame
         {
             internal static bool Prefix()
             {
-                OnCanSpawnNPC.RemoveAll(i => i == null);
-
                 bool ok = true;
-                foreach (Func<bool> i in OnCanSpawnNPC)
-                {
-                    ok &= i();
-                }
+                onCanSpawnNPC.ForEach(i => ok &= i());
 
                 return ok;
             }

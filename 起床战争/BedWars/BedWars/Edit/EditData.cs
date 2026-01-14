@@ -26,10 +26,14 @@ namespace BedWars.Edit
         public string SetMapPos(Point pos)
         {
             if (Data == null) return "地图数据为null";
-            if (DataCheck.InWorld(pos) == false) return "地图位置超出世界";
-            if (DataCheck.InWorldSize(pos, Data.Info.size) == false) return "地图大小超出世界";
 
-            DataInfo.pos = pos;
+            Rectangle rect = DataInfo.rect;
+            rect.X = pos.X;
+            rect.Y = pos.Y;
+
+            if (DataCheck.InWorld(rect) == false) return "地图超出世界";
+
+            DataInfo.rect = rect;
 
             return null;
         }
@@ -37,21 +41,27 @@ namespace BedWars.Edit
         public string SetMapSize(Point size)
         {
             if (Data == null) return "地图数据为null";
-            if (DataCheck.InWorldSize(Data.Info.pos, size) == false) return "地图大小超出世界";
             if (size.X < 2) return "大小不能小于2";
             if (size.Y < 2) return "大小不能小于2";
 
-            DataInfo.size = size;
-            if (DataInfo.spawPos.X >= size.X) DataInfo.spawPos.X = size.X - 1;
-            if (DataInfo.spawPos.Y >= size.Y) DataInfo.spawPos.Y = size.Y - 1;
+            Rectangle rect = DataInfo.rect;
+            rect.Width = size.X;
+            rect.Height = size.Y;
+
+            if (DataCheck.InWorld(rect) == false) return "地图超出世界";
+
+            DataInfo.rect = rect;
+
+            if (DataInfo.spawPos.X >= DataInfo.Width) DataInfo.spawPos.X = DataInfo.Width - 1;
+            if (DataInfo.spawPos.Y >= DataInfo.Height) DataInfo.spawPos.Y = DataInfo.Height - 1;
 
             _ = DataSpawItems.RemoveAll(i => Data.InMapRelative(i.pos) == false);
-            _ = DataTeams.RemoveAll(i => Data.InMapRelative(i.spawTilePos) == false || Data.InMapRelative(i.spawPos) == false);
+            _ = DataTeams.RemoveAll(i => Data.InMapRelative(i.spawTile) == false || Data.InMapRelative(i.spawPos) == false);
             _ = DataChests.RemoveAll(i => Data.InMapRelative(i.x, i.y) == false);
             _ = DataSigns.RemoveAll(i => Data.InMapRelative(i.x, i.y) == false);
             _ = DataShops.RemoveAll(i => Data.InMapRelative(i.pos) == false);
 
-            if (DataInfo.voidHeight > DataInfo.size.Y) DataInfo.voidHeight = DataInfo.size.Y;
+            if (DataInfo.voidHeight > DataInfo.Height) DataInfo.voidHeight = DataInfo.Height;
 
             Data.RepairTile();
 
@@ -75,7 +85,7 @@ namespace BedWars.Edit
             if (DataInfo == null) return "地图数据为null";
 
             if (height < 0) height = 0;
-            else if (height > DataInfo.size.Y) height = DataInfo.size.Y;
+            else if (height > DataInfo.Height) height = DataInfo.Height;
 
             DataInfo.voidHeight = height;
 
@@ -89,8 +99,8 @@ namespace BedWars.Edit
         {
             if (DataInfo == null) return "地图数据为null";
 
-            pos.X -= DataInfo.pos.X;
-            pos.Y -= DataInfo.pos.Y;
+            pos.X -= DataInfo.X;
+            pos.Y -= DataInfo.Y;
 
             if (Data.InMapRelative(pos) == false) return "超出地图";
 
@@ -102,22 +112,33 @@ namespace BedWars.Edit
         /// </summary>
         public void Tp(Point pos)
         {
+            Tp(new Rectangle(pos.X, pos.Y, 1, 1));
+        }
+
+        /// <summary>
+        /// <paramref name="rect"/>为相对位置
+        /// </summary>
+        public void Tp(Rectangle rect)
+        {
             if (DataInfo == null)
             {
                 Main.NewText("地图数据为null");
                 return;
             }
 
-            pos.X += DataInfo.pos.X;
-            pos.Y += DataInfo.pos.Y;
+            Point point = new Point(DataInfo.X + rect.X, DataInfo.Y + rect.Y);
 
-            if (WorldGen.InWorld(pos.X, pos.Y) == false)
+            Vector2 pos = point.ToWorldCoordinates(0, 0);
+            pos += new Point(rect.Width, rect.Height).ToWorldCoordinates() / 2;
+
+            point = pos.ToTileCoordinates();
+            if (WorldGen.InWorld(point.X, point.Y) == false)
             {
                 Main.NewText($"超出世界:{pos.X},{pos.Y}");
                 return;
             }
 
-            Main.LocalPlayer.Center = pos.ToWorldCoordinates();
+            Main.LocalPlayer.Center = pos;
         }
     }
 }

@@ -41,11 +41,11 @@ namespace BedWars.Edit.UI.EditItem_EditData
 
             if (EditData.instance.DataInfo != null)
             {
-                pos = EditData.instance.DataInfo.pos;
-                pos.Y += EditData.instance.DataInfo.size.Y - 1;
+                pos = EditData.instance.DataInfo.Pos;
+                pos.Y += EditData.instance.DataInfo.Height - 1;
 
                 pos2 = pos;
-                pos2.X += EditData.instance.DataInfo.size.X - 1;
+                pos2.X += EditData.instance.DataInfo.Width - 1;
                 pos2.Y -= height - 1;
             }
 
@@ -67,12 +67,12 @@ namespace BedWars.Edit.UI.EditItem_EditData
         {
             if (EditData.instance.DataInfo == null) return 0;
 
-            pos.Y -= EditData.instance.DataInfo.pos.Y;
+            pos.Y -= EditData.instance.DataInfo.Y;
 
-            int height = EditData.instance.DataInfo.size.Y - pos.Y;
+            int height = EditData.instance.DataInfo.Height - pos.Y;
 
             if (height < 0) height = 0;
-            else if (height > EditData.instance.DataInfo.size.Y) height = EditData.instance.DataInfo.size.Y;
+            else if (height > EditData.instance.DataInfo.Height) height = EditData.instance.DataInfo.Height;
 
             return height;
         }

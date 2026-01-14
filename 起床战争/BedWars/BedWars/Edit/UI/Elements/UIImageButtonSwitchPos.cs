@@ -11,7 +11,7 @@ namespace BedWars.Edit.UI.Elements
         public Action<Point> OnSetPos = null;
         private SwitchPos sp = new SwitchPos();
 
-        public UIImageButtonSwitchPos(int size, string text, string image) : base(size, text, image)
+        public UIImageButtonSwitchPos(int size, string mouseText, string image) : base(size, mouseText, image)
         {
             sp.OnSet += v => SetPos(v);
             sp.OnNoSet += () =>

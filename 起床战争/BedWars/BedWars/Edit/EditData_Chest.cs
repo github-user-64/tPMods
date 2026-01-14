@@ -13,7 +13,7 @@ namespace BedWars.Edit
         {
             if (Data == null) return "地图数据为null";
 
-            List<(Chest, int)> cs = Common.Utils.GetInRangeChest(DataInfo.pos, DataInfo.size);
+            List<(Chest, int)> cs = Common.Utils.GetInRangeChest(DataInfo.rect);
 
             DataChests.Clear();
 
@@ -38,7 +38,7 @@ namespace BedWars.Edit
         {
             if (Data == null) return "地图数据为null";
 
-            Common.Utils.ClearInRangeChest(DataInfo.pos, DataInfo.size);//清除
+            Common.Utils.ClearInRangeChest(DataInfo.rect);//清除
 
             DataChests.ForEach(i => i.Paste(Data));//创建
 

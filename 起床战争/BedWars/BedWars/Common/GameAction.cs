@@ -13,7 +13,8 @@ namespace BedWars.Common
         {
             public override void Initialize()
             {
-                ModTool.PatchGame.PNPC.OnCanSpawnNPC.Add(() => CanSpawnNPC);
+                ModTool.PatchGame.PNPC.OnCanSpawnNPC += () => CanSpawnNPC;
+                ModTool.PatchGame.PPlayer.OnCanDropTombstone += (_1, _2, _3, _4) => CanDropTombstone;
             }
 
             public override void DoUpdateInWorldPrefix(Stopwatch sw)
@@ -48,13 +49,20 @@ namespace BedWars.Common
         /// 能否自然生成npc
         /// </summary>
         public static bool CanSpawnNPC = true;
+        /// <summary>
+        /// 能否掉落墓碑
+        /// </summary>
+        public static bool CanDropTombstone = true;
 
         public static void Reset()
         {
             mapData = null;
+            SpawItem.Clear();
             Time = -1;
             DayTime = true;
-            SpawItem.Clear();
+            SyncTimeCD = 0;
+            CanSpawnNPC = true;
+            CanDropTombstone = true;
         }
 
         private static void DoUpdateInWorldPr()

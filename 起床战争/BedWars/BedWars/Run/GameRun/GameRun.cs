@@ -77,13 +77,14 @@ namespace BedWars.Run
         private void Init()
         {
             Common.GameAction.mapData = Data;
+            Common.GameAction.CanDropTombstone = false;//不能掉落墓碑
             Common.GameAction.CanSpawnNPC = false;//不能自然生成npc
             Common.GameAction.SyncTimeCD = 60 * 10;//维持时间
             Common.GameAction.DayTime = DataInfo.dayTime;//维持时间
             Common.GameAction.Time = DataInfo.time;//维持时间
 
-            Main.spawnTileX = DataInfo.pos.X + DataInfo.spawPos.X;
-            Main.spawnTileY = DataInfo.pos.Y + DataInfo.spawPos.Y;
+            Main.spawnTileX = DataInfo.X + DataInfo.spawPos.X;
+            Main.spawnTileY = DataInfo.Y + DataInfo.spawPos.Y;
             NetMessage.TrySendData(MessageID.WorldData);//防止已经有玩家加入
 
             SetState(StateMapInit);
@@ -107,7 +108,7 @@ namespace BedWars.Run
         /// </summary>
         public void SpawnToMapSpaw(Player player)
         {
-            Point pos = new Point(DataInfo.pos.X + DataInfo.spawPos.X, DataInfo.pos.Y + DataInfo.spawPos.Y);
+            Point pos = new Point(DataInfo.X + DataInfo.spawPos.X, DataInfo.Y + DataInfo.spawPos.Y);
 
             SpawnToPos(player, pos);
         }

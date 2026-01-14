@@ -1,6 +1,7 @@
 ﻿using BedWars.BedWarsData;
 using BedWars.Common.UI;
 using BedWars.Edit.UI.Elements;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
 using System;
@@ -98,15 +99,18 @@ namespace BedWars.Edit.UI.EditTeam
             };
             sp.Append(del);
 
-            UIImageButtonSwitchPos setSpawTilePos = new UIImageButtonSwitchPos((int)sp.Height.Pixels, "重生方块位置,右键传送", "Images/UI/SpawnBed");
-            setSpawTilePos.OnSetPos = v =>
+            UIImageButtonSwitchSize setSpawTilePos =
+                new UIImageButtonSwitchSize((int)sp.Height.Pixels, "重生方块范围,右键传送,拖动选大小", "Images/UI/SpawnBed");
+            setSpawTilePos.BorderColor =  Color.BlueViolet * 0.9f;
+            setSpawTilePos.BackColor = Color.BlueViolet * 0.2f;
+            setSpawTilePos.OnSetSize = v =>
             {
-                string ex = EditData.instance.TeamSpawTileSetPos(data, v);
+                string ex = EditData.instance.TeamSpawTileSet(data, v);
                 if (ex != null) Main.NewText(ex);
             };
             setSpawTilePos.OnRightClick += (e, s) =>
             {
-                EditData.instance.Tp(data.spawTilePos);
+                EditData.instance.Tp(data.spawTile);
             };
             sp.Append(setSpawTilePos);
 

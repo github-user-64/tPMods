@@ -32,7 +32,7 @@ namespace BedWars.Edit.UI.EditItem_EditData
             if (IsMouseHovering == false) return;
             if (EditData.instance.DataInfo is MapInfoData info == false) return;
 
-            Point point = new Point(info.pos.X + info.spawPos.X, info.pos.Y + info.spawPos.Y);
+            Point point = new Point(info.X + info.spawPos.X, info.Y + info.spawPos.Y);
             Vector2 pos = point.ToWorldCoordinates();
 
             Main.instance.MouseText($"右键传送{pos.X}, {pos.Y}");

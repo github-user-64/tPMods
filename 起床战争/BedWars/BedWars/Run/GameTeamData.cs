@@ -22,7 +22,7 @@ namespace BedWars.Run
             this.data = data;
             this.team = team;
 
-            spawTilePos = new Point(data.Info.pos.X + team.spawTilePos.X, data.Info.pos.Y + team.spawTilePos.Y);
+            //spawTilePos = new Point(data.Info.X + team.spawTilePos.X, data.Info.Y + team.spawTilePos.Y);
         }
 
         public void ClearPlayer()

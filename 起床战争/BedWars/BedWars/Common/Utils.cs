@@ -32,39 +32,22 @@ namespace BedWars.Common
             }
         }
 
-        public static bool InWorld(Vector2 pos, float fluff = 0)
-        {
-            if (pos.X < fluff || pos.X >= Main.maxTilesX * 16 - fluff ||
-                pos.Y < fluff || pos.Y >= Main.maxTilesY * 16 - fluff)
-            {
-                return false;
-            }
-            return true;
-        }
-
         /// <summary>
         /// 获取范围内的项
         /// </summary>
-        public static List<(T, int)> GetInRange<T>(Point pos, Point size, T[] arr, Func<T, Point> getp)
+        public static List<(T, int)> GetInRange<T>(Rectangle rect, T[] arr, Func<T, Point> getp)
         {
             List<(T, int)> list = new List<(T, int)>();
 
-            if (size.X < 1) return list;
-            if (size.Y < 1) return list;
-            int endx = pos.X + size.X - 1;
-            int endy = pos.Y + size.Y - 1;
+            if (rect.Width < 1) return list;
+            if (rect.Height < 1) return list;
 
             for (int i = 0; i < arr.Length; ++i)
             {
                 T item = arr[i];
-
                 if (item == null) continue;
-                Point p = getp(item);
 
-                if (p.X < pos.X) continue;
-                if (p.Y < pos.Y) continue;
-                if (p.X > endx) continue;
-                if (p.Y > endy) continue;
+                if (rect.Contains(getp(item)) == false) continue;
 
                 list.Add((item, i));
             }
@@ -75,25 +58,25 @@ namespace BedWars.Common
         /// <summary>
         /// 获取范围内的箱子, 位置是世界位置
         /// </summary>
-        public static List<(Chest, int)> GetInRangeChest(Point pos, Point size)
+        public static List<(Chest, int)> GetInRangeChest(Rectangle rect)
         {
-            return GetInRange(pos, size, Main.chest, i => new Point(i.x, i.y));
+            return GetInRange(rect, Main.chest, i => new Point(i.x, i.y));
         }
 
         /// <summary>
         /// 获取范围内的告示牌, 位置是世界位置
         /// </summary>
-        public static List<(Sign, int)> GetInRangeSign(Point pos, Point size)
+        public static List<(Sign, int)> GetInRangeSign(Rectangle rect)
         {
-            return GetInRange(pos, size, Main.sign, i => new Point(i.x, i.y));
+            return GetInRange(rect, Main.sign, i => new Point(i.x, i.y));
         }
 
         /// <summary>
         /// 清除范围内的箱子, 位置是世界位置
         /// </summary>
-        public static void ClearInRangeChest(Point pos, Point size)
+        public static void ClearInRangeChest(Rectangle rect)
         {
-            List<(Chest, int)> list = GetInRangeChest(pos, size);
+            List<(Chest, int)> list = GetInRangeChest(rect);
 
             list.ForEach(i =>
             {
@@ -106,9 +89,9 @@ namespace BedWars.Common
         /// <summary>
         /// 清除范围内的告示牌, 位置是世界位置
         /// </summary>
-        public static void ClearInRangeSign(Point pos, Point size)
+        public static void ClearInRangeSign(Rectangle rect)
         {
-            List<(Sign, int)> list = GetInRangeSign(pos, size);
+            List<(Sign, int)> list = GetInRangeSign(rect);
 
             list.ForEach(i =>
             {

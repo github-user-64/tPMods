@@ -86,8 +86,7 @@ namespace BedWars.Edit.UI.EditWindow
 
             string t = "[c/aaffaa:可交互位置的方块能被:破坏,放置,交互]"
                 + "\n[c/aaffaa:可交互方块的显示是默认关闭的]"
-                + "\n[c/aaffaa:别搞太多可交互方块]"
-                + "\n[c/ffffaa:记得给床的位置设为可交互方块]";
+                + "\n[c/aaffaa:别搞太多可交互方块]";
 
             UIText text = new UIText(t, 0.7f);
             text.Width.Precent = 1;

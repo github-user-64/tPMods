@@ -46,10 +46,9 @@ namespace BedWars.BedWarsData
             if (stack > item.maxStack) stack = item.maxStack;
             else if (stack < 1) stack = 1;
 
-            int x = pos.X + mapData.Info.pos.X;
-            int y = pos.Y + mapData.Info.pos.Y;
+            Point p = new Point(mapData.Info.X + pos.X, mapData.Info.Y + pos.Y);
 
-            Item.NewItem(null, new Point(x, y).ToWorldCoordinates(), Vector2.Zero, type, stack);
+            Item.NewItem(null, p.ToWorldCoordinates(), Vector2.Zero, type, stack);
         }
 
         public void Check(MapData mapData)

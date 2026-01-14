@@ -24,14 +24,15 @@ namespace BedWars.Edit.UI.EditItem_DisplayData
             if (Init.Enable == false) return;
             MapData data = EditData.instance.Data;
             if (data == null) return;
+            Rectangle rect = data.Info.rect;
 
-            for (int y = 0; y < data.Info.size.Y; ++y)
+            for (int y = 0; y < rect.Height; ++y)
             {
-                for (int x = 0; x < data.Info.size.X; ++x)
+                for (int x = 0; x < rect.Width; ++x)
                 {
                     if (data.Tile[y][x].canAction == false) continue;
 
-                    Point pos = new Point(data.Info.pos.X, data.Info.pos.Y);
+                    Point pos = new Point(rect.X, rect.Y);
                     pos.X += x;
                     pos.Y += y;
 

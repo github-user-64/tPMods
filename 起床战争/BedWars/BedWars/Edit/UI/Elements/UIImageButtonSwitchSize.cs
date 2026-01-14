@@ -1,38 +1,37 @@
-﻿using Microsoft.Xna.Framework;
+﻿using BedWars.Common.UI;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
-using tContentPatch.Content.UI.ModSet;
-using Terraria;
 
 namespace BedWars.Edit.UI.Elements
 {
-    internal class UIItemSwitchSize : UIItemSwitch
+    internal class UIImageButtonSwitchSize : UIImageButton
     {
-        public string MouseText = "启用后按住并拖动";
         public Action<Rectangle> OnSetSize = null;
         public Color BorderColor { get => ss.BorderColor; set => ss.BorderColor = value; }
         public Color BackColor { get => ss.BackColor; set => ss.BackColor = value; }
         protected SwitchSize ss = new SwitchSize();
 
-        public UIItemSwitchSize(string text) : base(null, text)
+        public UIImageButtonSwitchSize(int size, string mouseText, string image) : base(size, mouseText, image)
         {
-            OnValUpdate += v =>
+            ss.OnSetSize += v =>
             {
-                if (v == false) ss.End();
+                ss.CanStartSwitch = false;
+
+                OnSetSize?.Invoke(v);
             };
+
+            OnClick += () => ss.CanStartSwitch = true;
         }
 
         public override void Update(GameTime gameTime)
         {
             base.Update(gameTime);
 
-            ss.CanStartSwitch = GetVal();
             ss.Update();
-
-            if (IsMouseHovering && MouseText != null) Main.instance.MouseText(MouseText);
         }
 
-        private void DrawSwitchSize(SpriteBatch spriteBatch)
+        private void DrawSwitch(SpriteBatch spriteBatch)
         {
             ss.DrawSwitch();
         }
@@ -40,7 +39,7 @@ namespace BedWars.Edit.UI.Elements
         public override void OnDeactivate()
         {
             ss.End();
-            Common.GameInterface.OnDraw.Remove(DrawSwitchSize);
+            Common.GameInterface.OnDraw.Remove(DrawSwitch);
 
             base.OnDeactivate();
         }
@@ -49,7 +48,7 @@ namespace BedWars.Edit.UI.Elements
         {
             base.OnActivate();
 
-            Common.GameInterface.OnDraw.Add(DrawSwitchSize);
+            Common.GameInterface.OnDraw.Add(DrawSwitch);
         }
     }
 }

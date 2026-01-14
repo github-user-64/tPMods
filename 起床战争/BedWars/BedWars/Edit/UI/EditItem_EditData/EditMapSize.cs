@@ -10,7 +10,7 @@ namespace BedWars.Edit.UI.EditItem_EditData
 
         public override void SetPos(Point pos)
         {
-            Point p = EditData.instance.DataInfo?.pos ?? pos;//如果为地图数据为null那么设置也会失败, 不用担心吧
+            Point p = EditData.instance.DataInfo?.Pos ?? pos;//如果为地图数据为null那么设置也会失败, 不用担心吧
             Point size = new Point(pos.X - p.X + 1, pos.Y - p.Y + 1);
 
             string ex = EditData.instance.SetMapSize(size);
@@ -20,7 +20,7 @@ namespace BedWars.Edit.UI.EditItem_EditData
                 return;
             }
 
-            size = EditData.instance.DataInfo?.size ?? new Point(-1, -1);
+            size = EditData.instance.DataInfo?.Size ?? new Point(-1, -1);
 
             string text = $"大小为{size.X},{size.Y}";
             Main.NewText(text);
@@ -36,7 +36,7 @@ namespace BedWars.Edit.UI.EditItem_EditData
 
         public override void OnDrawSwitchPos(Point pos)
         {
-            Point p = EditData.instance.DataInfo?.pos ?? pos;
+            Point p = EditData.instance.DataInfo?.Pos ?? pos;
             Point size = new Point(pos.X - p.X + 1, pos.Y - p.Y + 1);
 
             Color rectC = Color.LawnGreen;

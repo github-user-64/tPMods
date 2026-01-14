@@ -25,7 +25,7 @@ namespace BedWars.Edit.UI.EditItem_DisplayData
 
             float dis = Math.Min(Main.screenWidth, Main.screenHeight) / 2f * 0.5f - 50;
 
-            DrawUtils.Draw(data.Info.pos, data.Info.spawPos, Color.RosyBrown, "重生点", dis);
+            DrawUtils.Draw(data.Info.Pos, data.Info.spawPos, Color.RosyBrown, "重生点", dis);
         }
     }
 }

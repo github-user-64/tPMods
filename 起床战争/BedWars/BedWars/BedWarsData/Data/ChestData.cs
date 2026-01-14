@@ -36,8 +36,8 @@ namespace BedWars.BedWarsData
         public void Copy(MapData mapData, Chest chest)
         {
             name = chest.name;
-            x = chest.x - mapData.Info.pos.X;
-            y = chest.y - mapData.Info.pos.Y;
+            x = chest.x - mapData.Info.X;
+            y = chest.y - mapData.Info.Y;
 
             for (int i = 0; i < Chest.maxItems; ++i)
             {
@@ -52,8 +52,8 @@ namespace BedWars.BedWarsData
         {
             if (mapData.InMapRelative(x, y) == false) return;
 
-            int tilex = mapData.Info.pos.X + x;
-            int tiley = mapData.Info.pos.Y + y;
+            int tilex = mapData.Info.X + x;
+            int tiley = mapData.Info.Y + y;
 
             int index = Chest.CreateChest(tilex, tiley);
             if (index < 0) return;

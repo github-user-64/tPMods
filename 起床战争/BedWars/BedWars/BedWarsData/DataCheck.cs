@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 using Terraria;
 
 namespace BedWars.BedWarsData
@@ -89,19 +90,27 @@ namespace BedWars.BedWarsData
             list.ForEach(i => RepairList(ref i, xcount));
         }
 
-        public static bool InWorld(Point pos)
-        {
-            return InWorld(pos.X, pos.Y);
-        }
-
         public static bool InWorld(int x, int y)
         {
             return WorldGen.InWorld(x, y, 2);
         }
 
-        public static bool InWorldSize(Point pos, Point size)
+        public static bool InWorld(Point pos)
         {
-            return WorldGen.InWorld(pos.X + size.X, pos.Y + size.Y, 2);
+            return InWorld(pos.X, pos.Y);
+        }
+
+        public static bool InWorld(Rectangle rect)
+        {
+            if (InWorld(rect.X, rect.Y) == false) return false;
+            if (InWorld(rect.X + rect.Width - 1, rect.Y + rect.Height - 1) == false) return false;
+
+            return true;
+        }
+
+        public static bool InMap(this MapData mapData, int x, int y)
+        {
+            return mapData?.Info.rect.Contains(x, y) == true;
         }
 
         public static bool InMap(this MapData mapData, Point pos)
@@ -109,15 +118,16 @@ namespace BedWars.BedWarsData
             return mapData.InMap(pos.X, pos.Y);
         }
 
-        public static bool InMap(this MapData mapData, int x, int y)
+        /// <summary>
+        /// 相对位置
+        /// </summary>
+        public static bool InMapRelative(this MapData mapData, int x, int y)
         {
             if (mapData?.Info == null) return false;
-            if (x < mapData.Info.pos.X) return false;
-            if (y < mapData.Info.pos.Y) return false;
-            if (x > mapData.Info.pos.X + mapData.Info.size.X - 1) return false;
-            if (y > mapData.Info.pos.Y + mapData.Info.size.Y - 1) return false;
+            x += mapData.Info.X;
+            y += mapData.Info.Y;
 
-            return true;
+            return mapData.InMap(x, y);
         }
 
         /// <summary>
@@ -131,14 +141,10 @@ namespace BedWars.BedWarsData
         /// <summary>
         /// 相对位置
         /// </summary>
-        public static bool InMapRelative(this MapData mapData, int x, int y)
+        public static bool InMapRelative(this MapData mapData, Rectangle rect)
         {
-            if (mapData?.Info == null) return false;
-            if (x < 0) return false;
-            if (y < 0) return false;
-            if (x > mapData.Info.size.X - 1) return false;
-            if (y > mapData.Info.size.Y - 1) return false;
-
+            if (mapData.InMapRelative(rect.X, rect.Y) == false) return false;
+            if (mapData.InMapRelative(rect.Width, rect.Height) == false) return false;
             return true;
         }
     }

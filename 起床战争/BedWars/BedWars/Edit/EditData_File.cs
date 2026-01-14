@@ -77,8 +77,7 @@ namespace BedWars.Edit
         {
             MapData temp = new MapData();
             temp.Info = new MapInfoData();
-            temp.Info.pos = new Point(Main.spawnTileX, Main.spawnTileY);
-            temp.Info.size = new Point(2, 2);
+            temp.Info.rect = new Rectangle(Main.spawnTileX, Main.spawnTileY, 2, 2);
 
             return LoadData(temp, null);
         }

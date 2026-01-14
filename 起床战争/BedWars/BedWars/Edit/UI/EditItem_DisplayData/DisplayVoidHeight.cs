@@ -23,14 +23,10 @@ namespace BedWars.Edit.UI.EditItem_DisplayData
 
             if (data.Info.voidHeight < 1) return;
 
-            Rectangle rect = new Rectangle();
-            rect.X = data.Info.pos.X;
-            rect.Y = data.Info.pos.Y + data.Info.size.Y - 1;
-            rect.Width = data.Info.size.X - 1;
-            rect.Height = 0;
+            Rectangle rect = data.Info.rect;
 
-            rect.Y -= data.Info.voidHeight - 1;
-            rect.Height = data.Info.voidHeight - 1;
+            rect.Y += rect.Height - data.Info.voidHeight;
+            rect.Height = data.Info.voidHeight;
 
             Common.DrawUtils.Draw_rectangle(rect, Color.DarkRed * 0.9f, Color.DarkRed * 0.2f, 1);
         }

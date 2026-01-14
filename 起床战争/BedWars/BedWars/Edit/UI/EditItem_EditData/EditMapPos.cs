@@ -18,7 +18,7 @@ namespace BedWars.Edit.UI.EditItem_EditData
                 return;
             }
 
-            pos = EditData.instance.DataInfo?.pos ?? new Point(-1, -1);
+            pos = EditData.instance.DataInfo?.Pos ?? new Point(-1, -1);
 
             string text = $"位置在{pos.X},{pos.Y}";
             Main.NewText(text);
@@ -32,21 +32,11 @@ namespace BedWars.Edit.UI.EditItem_EditData
             if (IsMouseHovering == false) return;
             if (EditData.instance.DataInfo is MapInfoData info == false) return;
 
-            Vector2 pos = info.pos.ToWorldCoordinates();
-            pos += info.size.ToWorldCoordinates() / 2;
-
-            Main.instance.MouseText($"右键传送{pos.X}, {pos.Y}");
+            Main.instance.MouseText($"右键传送");
 
             if ((Main.mouseRight && Main.mouseRightRelease) == false) return;
 
-            Point point = pos.ToTileCoordinates();
-            if (WorldGen.InWorld(point.X, point.Y) == false)
-            {
-                Main.NewText($"超出世界:{pos.X},{pos.Y}");
-                return;
-            }
-
-            Main.LocalPlayer.Center = pos;
+            EditData.instance.Tp(info.rect);
         }
     }
 }

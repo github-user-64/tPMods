@@ -2,6 +2,8 @@
 using Microsoft.Xna.Framework;
 using ModTool.Utils.GetDataEventArgs;
 using Terraria;
+using Terraria.DataStructures;
+using Terraria.ObjectData;
 
 namespace BedWars.Run.StateActions
 {
@@ -17,8 +19,8 @@ namespace BedWars.Run.StateActions
             GameTeamData team = game.GetPlayerTeam(e.player);
             if (team == null) return false;
 
-            if (e is TogglePVPEventArgs) return false;
-            if (e is ToggleTeamEventArgs) return false;
+            if (e is TogglePVPEventArgs) return false;//不能改pvp
+            if (e is ToggleTeamEventArgs) return false;//不能改队伍
 
             return true;
         }
@@ -29,8 +31,8 @@ namespace BedWars.Run.StateActions
             if (team == null) return false;//没队伍
 
             Point mapPos = new Point(e.x, e.y);
-            mapPos.X -= game.DataInfo.pos.X;
-            mapPos.Y -= game.DataInfo.pos.Y;
+            mapPos.X -= game.DataInfo.X;
+            mapPos.Y -= game.DataInfo.Y;
 
             if (game.Data.InMapRelative(mapPos) == false) return false;//不在地图里
 

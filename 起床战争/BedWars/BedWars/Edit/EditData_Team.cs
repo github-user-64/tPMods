@@ -1,5 +1,6 @@
 ﻿using BedWars.BedWarsData;
 using Microsoft.Xna.Framework;
+using System;
 
 namespace BedWars.Edit
 {
@@ -26,13 +27,18 @@ namespace BedWars.Edit
         }
 
         /// <summary>
-        /// <paramref name="pos"/>为世界位置
+        /// <paramref name="rect"/>为世界位置
         /// </summary>
-        public string TeamSpawTileSetPos(TeamData data, Point pos)
+        public string TeamSpawTileSet(TeamData data, Rectangle rect)
         {
-            if (CheckPos(ref pos) is string ex) return ex;
+            if (Data == null) return "地图数据为null";
 
-            data.spawTilePos = pos;
+            rect.X -= DataInfo.X;
+            rect.Y -= DataInfo.Y;
+
+            if (Data.InMapRelative(rect) == false) throw new Exception("超出地图");
+
+            data.spawTile = rect;
 
             return null;
         }

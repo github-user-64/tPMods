@@ -26,12 +26,6 @@ namespace BedWars.Run.StateActions
             time = 60 * 6;
 
             ToPlayerPrint.PrintToPlayAll("游戏结束,即将重新开始游戏", Color.GreenYellow);
-
-            //
-            string text = "";
-            team.ForPlay(i => text += i.name + ",");
-
-            ToPlayerPrint.PrintToPlayAll(text, Color.AliceBlue);
         }
 
         public override void Update(uint gametime)

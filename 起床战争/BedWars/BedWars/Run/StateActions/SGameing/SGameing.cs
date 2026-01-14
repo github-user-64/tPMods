@@ -122,7 +122,7 @@ namespace BedWars.Run.StateActions
             }
 
             MapInfoData info = game.DataInfo;
-            Point pos = new Point(info.pos.X + team.team.spawPos.X, info.pos.Y + team.team.spawPos.Y);
+            Point pos = new Point(info.X + team.team.spawPos.X, info.Y + team.team.spawPos.Y);
 
             game.SpawnToPos(player, pos);//重生,设置位置
 
@@ -152,7 +152,7 @@ namespace BedWars.Run.StateActions
             MapInfoData info = game.DataInfo;
             if (info.voidHeight < 1) return;
 
-            Vector2 voidPos = new Point(0, info.pos.Y + info.size.Y - 1 - info.voidHeight).ToWorldCoordinates(0, 0);
+            Vector2 voidPos = new Point(0, info.Y + info.Height - 1 - info.voidHeight).ToWorldCoordinates(0, 0);
             float voidY = voidPos.Y;
 
             game.ForAllTeamPlay(i =>
