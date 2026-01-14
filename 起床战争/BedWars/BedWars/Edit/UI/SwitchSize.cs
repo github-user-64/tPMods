@@ -21,6 +21,17 @@ namespace BedWars.Edit.UI
 
         public void Update()
         {
+            if (Main.mouseRight && Main.mouseRightRelease)
+            {
+                if (Switching || CanStartSwitch)
+                {
+                    End();
+                    CombatText.NewText(Main.LocalPlayer.getRect(), Color.Red, "取消选择", true, false);
+
+                    return;
+                }
+            }
+
             if (Switching == false)
             {
                 if (CanStartSwitch == false) return;
@@ -39,12 +50,7 @@ namespace BedWars.Edit.UI
 
             UpdateSize();
 
-            if (Main.mouseRight && Main.mouseRightRelease)
-            {
-                Switching = false;
-                CombatText.NewText(Main.LocalPlayer.getRect(), Color.Red, "取消选择", true, false);
-            }
-            else if (Main.mouseLeft == false)
+            if (Main.mouseLeft == false)
             {
                 Switching = false;
                 SetSize();
@@ -78,7 +84,7 @@ namespace BedWars.Edit.UI
             {
                 if (CanStartSwitch == false) return;
 
-                Common.DrawUtils.Draw_rectangle(size.X, size.Y, 1, 1, BorderColor, BackColor, 2);
+                Common.DrawUtils.Draw_rectangle(size.X, size.Y, size.X, size.Y, BorderColor, BackColor, 2);
                 return;
             }
 

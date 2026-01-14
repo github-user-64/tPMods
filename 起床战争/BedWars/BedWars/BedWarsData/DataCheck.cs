@@ -1,7 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
-using System.Text.RegularExpressions;
 using Terraria;
 
 namespace BedWars.BedWarsData
@@ -144,7 +143,7 @@ namespace BedWars.BedWarsData
         public static bool InMapRelative(this MapData mapData, Rectangle rect)
         {
             if (mapData.InMapRelative(rect.X, rect.Y) == false) return false;
-            if (mapData.InMapRelative(rect.Width, rect.Height) == false) return false;
+            if (mapData.InMapRelative(rect.X + rect.Width - 1, rect.Y + rect.Height - 1) == false) return false;
             return true;
         }
     }

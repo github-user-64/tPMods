@@ -11,6 +11,7 @@ namespace BedWars.Edit
             if (Data == null) return "地图数据为null";
 
             TeamData team = new TeamData();
+            team.spawTile = new Rectangle(0, 0, 1, 1);
 
             DataTeams.Add(team);
 
@@ -33,10 +34,13 @@ namespace BedWars.Edit
         {
             if (Data == null) return "地图数据为null";
 
+            if (rect.Width < 1) throw new Exception("重生方块不能小于1");
+            if (rect.Height < 1) throw new Exception("重生方块不能小于1");
+
             rect.X -= DataInfo.X;
             rect.Y -= DataInfo.Y;
 
-            if (Data.InMapRelative(rect) == false) throw new Exception("超出地图");
+            if (Data.InMapRelative(rect) == false) return "超出地图";
 
             data.spawTile = rect;
 

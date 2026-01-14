@@ -9,11 +9,9 @@ namespace BedWars.Edit.UI.EditItem_DisplayData
 {
     internal class DisplayMapSpawPos : UIItemSwitch
     {
-        public DisplayMapSpawPos(string text) : base(null, text)
+        public DisplayMapSpawPos(Texture2D ico = null, string text = null) : base(ico, text)
         {
             Common.GameInterface.OnDraw.Add(DrawSpawPos);
-
-            SetVal(true);
         }
 
         private void DrawSpawPos(SpriteBatch spriteBatch)

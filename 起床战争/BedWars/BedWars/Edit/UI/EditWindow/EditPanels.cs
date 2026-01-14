@@ -39,13 +39,19 @@ namespace BedWars.Edit.UI.EditWindow
             Width.Precent = 1;
             Height.Precent = 1;
 
-            AddChild(new DisplayMapPosSize("显示地图位置大小"));
-            AddChild(new DisplayMapSpawPos("显示地图重生点"));
-            AddChild(new DisplaySpawItem("显示生成物品位置"));
-            AddChild(new DisplayTeam("显示队伍位置"));
-            AddChild(new DisplayCanActionTile("显示可交互图格"));
-            AddChild(new DisplayShop("显示商店位置"));
-            AddChild(new DisplayVoidHeight("显示虚空"));
+            var ico1 = Main.Assets.Request<Texture2D>("Images/Item_1344", AssetRequestMode.ImmediateLoad).Value;
+            var ico2 = Main.Assets.Request<Texture2D>("Images/Item_2", AssetRequestMode.ImmediateLoad).Value;
+            var ico3 = Main.Assets.Request<Texture2D>("Images/Item_27", AssetRequestMode.ImmediateLoad).Value;
+            var ico4 = Main.Assets.Request<Texture2D>("Images/House_Banner_1", AssetRequestMode.ImmediateLoad).Value;
+            var ico5 = Main.Assets.Request<Texture2D>("Images/UI/Cursor_10", AssetRequestMode.ImmediateLoad).Value;
+
+            AddChild(new DisplayMapPosSize(ico1, "显示地图位置大小"));
+            AddChild(new DisplayMapSpawPos(ico1, "显示地图重生点"));
+            AddChild(new DisplayVoidHeight(ico1, "显示虚空"));
+            AddChild(new DisplayCanActionTile(ico2, "显示可交互图格"));
+            AddChild(new DisplaySpawItem(ico3, "显示生成物品位置"));
+            AddChild(new DisplayTeam(ico4, "显示队伍位置"));
+            AddChild(new DisplayShop(ico5, "显示商店位置"));
         }
     }
 

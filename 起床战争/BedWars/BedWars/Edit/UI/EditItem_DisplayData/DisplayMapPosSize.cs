@@ -9,7 +9,7 @@ namespace BedWars.Edit.UI.EditItem_DisplayData
 {
     internal class DisplayMapPosSize : UIItemSwitch
     {
-        public DisplayMapPosSize(string text) : base(null, text)
+        public DisplayMapPosSize(Texture2D ico = null, string text = null) : base(ico, text)
         {
             Common.GameInterface.OnDraw.Add(DrawMapPosSize);
 
@@ -25,7 +25,7 @@ namespace BedWars.Edit.UI.EditItem_DisplayData
 
             float dis = Math.Min(Main.screenWidth, Main.screenHeight) / 2f * 1f - 50;
 
-            DrawUtils.Draw(data.Info.rect, Color.Green, "地图位置", dis);
+            DrawUtils.Draw(data.Info.rect, Color.Green, "地图位置", dis, 0.5f);
         }
     }
 }

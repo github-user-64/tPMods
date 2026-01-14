@@ -21,7 +21,7 @@ namespace BedWars.Edit.UI.Elements
                 OnSetSize?.Invoke(v);
             };
 
-            OnClick += () => ss.CanStartSwitch = true;
+            OnClick += () => ss.CanStartSwitch = !ss.CanStartSwitch;
         }
 
         public override void Update(GameTime gameTime)
@@ -29,6 +29,8 @@ namespace BedWars.Edit.UI.Elements
             base.Update(gameTime);
 
             ss.Update();
+
+            Color = ss.Switching || ss.CanStartSwitch ? Color.White : Color.White * 0.5f;
         }
 
         private void DrawSwitch(SpriteBatch spriteBatch)

@@ -9,7 +9,7 @@ namespace BedWars.Edit.UI.EditItem_DisplayData
 {
     internal class DisplaySpawItem : UIItemSwitch
     {
-        public DisplaySpawItem(string text) : base(null, text)
+        public DisplaySpawItem(Texture2D ico = null, string text = null) : base(ico, text)
         {
             Common.GameInterface.OnDraw.Add(DrawMapPosSize);
 

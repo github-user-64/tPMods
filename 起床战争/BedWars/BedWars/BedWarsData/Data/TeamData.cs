@@ -33,6 +33,9 @@ namespace BedWars.BedWarsData
 
         public void Check(MapData mapData)
         {
+            if (spawTile.Width < 1) throw new Exception("重生方块不能小于1");
+            if (spawTile.Height < 1) throw new Exception("重生方块不能小于1");
+
             if (mapData.InMapRelative(spawTile) == false) throw new Exception("重生方块超出地图");
             if (mapData.InMapRelative(spawPos) == false) throw new Exception("重生位置超出地图");
         }

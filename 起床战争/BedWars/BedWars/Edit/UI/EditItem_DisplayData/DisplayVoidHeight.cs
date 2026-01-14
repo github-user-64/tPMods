@@ -7,7 +7,7 @@ namespace BedWars.Edit.UI.EditItem_DisplayData
 {
     internal class DisplayVoidHeight : UIItemSwitch
     {
-        public DisplayVoidHeight(string text) : base(null, text)
+        public DisplayVoidHeight(Texture2D ico = null, string text = null) : base(ico, text)
         {
             Common.GameInterface.OnDraw.Add(DrawVoid);
 

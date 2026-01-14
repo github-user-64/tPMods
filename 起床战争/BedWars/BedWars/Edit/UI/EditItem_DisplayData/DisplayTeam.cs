@@ -9,7 +9,7 @@ namespace BedWars.Edit.UI.EditItem_DisplayData
 {
     internal class DisplayTeam : UIItemSwitch
     {
-        public DisplayTeam(string text) : base(null, text)
+        public DisplayTeam(Texture2D ico = null, string text = null) : base(ico, text)
         {
             Common.GameInterface.OnDraw.Add(DrawTeam);
 

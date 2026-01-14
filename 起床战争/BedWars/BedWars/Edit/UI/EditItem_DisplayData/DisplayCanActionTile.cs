@@ -13,7 +13,7 @@ namespace BedWars.Edit.UI.EditItem_DisplayData
     {
         private static readonly Color drawc = Color.DarkBlue * 0.5f;
 
-        public DisplayCanActionTile(string text) : base(null, text)
+        public DisplayCanActionTile(Texture2D ico = null, string text = null) : base(ico, text)
         {
             Common.GameInterface.OnDraw.Add(DrawTile);
         }
