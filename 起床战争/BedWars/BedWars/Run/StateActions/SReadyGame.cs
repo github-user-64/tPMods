@@ -30,7 +30,7 @@ namespace BedWars.Run.StateActions
             ToPlayerCombatText.ToPlayAllOff("准备游戏", 0, -100, Color.White);
 
             ReadyPlay.Clear();
-            StartTime = 0;
+            StartTime = 30;
             MaxPlayCount = 0;
 
             game.DataTeams.ForEach(i => MaxPlayCount += i.maxPlay);
@@ -140,7 +140,7 @@ namespace BedWars.Run.StateActions
 
             int time = 30;
             //float what = 6;
-            float what = 2;//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+            float what = 1;//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
             if (ReadyPlay.Count >= what) time = 5;
             else if (ReadyPlay.Count > what / 2f) time = 10;
             else if (ReadyPlay.Count > what / 3f) time = 20;

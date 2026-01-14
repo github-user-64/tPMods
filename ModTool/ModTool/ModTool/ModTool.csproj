@@ -103,6 +103,7 @@
     <Compile Include="PatchGame\PNetMessage_SendData\PNetMessage_SendData.cs" />
     <Compile Include="PatchGame\PNetMessage_SendData\PShopOverride.cs" />
     <Compile Include="PatchGame\PNetMessage_SendData\PWorldData.cs" />
+    <Compile Include="PatchGame\PPlayer.cs" />
     <Compile Include="PatchGame\PNPC.cs" />
     <Compile Include="PatchGame\PMain.cs" />
     <Compile Include="PatchGame\PMessageBuffer.cs" />

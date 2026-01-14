@@ -15,12 +15,12 @@ namespace BedWars.Run.StateActions
             }
 
             GameTeamData team = game.GetPlayerTeam(e.player);
-            if (team != null) return true;
+            if (team == null) return false;
 
             if (e is TogglePVPEventArgs) return false;
             if (e is ToggleTeamEventArgs) return false;
 
-            return false;
+            return true;
         }
 
         public override bool PlayCanActionTile(ClassTileEventArgs e)

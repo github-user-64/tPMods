@@ -91,16 +91,13 @@ namespace BedWars.Run
 
         public void SpawnToPos(Player player, Point pos)
         {
-            if (player.dead)
-            {
-                player.SpawnX = pos.X;
-                player.SpawnY = pos.Y;
-                player.respawnTimer = 0;
-                //单独发给玩家也可以, 玩家会重新发数据回来
-                NetMessage.TrySendData(MessageID.PlayerSpawn, player.whoAmI, -1, null,
-                    player.whoAmI, (float)PlayerSpawnContext.SpawningIntoWorld);
-            }
-            
+            player.SpawnX = pos.X;
+            player.SpawnY = pos.Y;
+            player.respawnTimer = 0;
+            //单独发给玩家也可以, 玩家会重新发数据回来
+            NetMessage.TrySendData(MessageID.PlayerSpawn, player.whoAmI, -1, null,
+                player.whoAmI, (float)PlayerSpawnContext.SpawningIntoWorld);
+
             player.Center = pos.ToWorldCoordinates();
             NetMessage.TrySendData(MessageID.PlayerControls);
         }

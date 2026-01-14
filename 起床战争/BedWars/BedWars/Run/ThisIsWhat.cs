@@ -54,6 +54,7 @@ namespace BedWars.Run
                 PlayerAccount.Account.AccountHelp.OnLogined += playerJoinState.OnPlayLogined;
                 PlayerAccount.Account.AccountHelp.OnJoinGamePo += playerJoinState.OnPlayJoinGameTryAutoLoginPo;
 
+                ModTool.PatchGame.PMessageBuffer.OnGetDataPr.Add(OnGetDataPr);
                 ModTool.PatchGame.PMessageBuffer.OnGetDataPo.Add(OnGetDataPo);
                 ModTool.Common.ModifyShop.SetupShop += control.ModifyShop;//商店
 
@@ -103,6 +104,13 @@ namespace BedWars.Run
                 s = $"起床战争:{s}";
                 tContentPatch.Utils.Log.Add(s);
                 ContentPatch.PrintTry(s);
+            }
+
+            private static void OnGetDataPr(MessageBuffer This, int start, int length, int messageType)
+            {
+                if (Main.dedServ == false) return;
+
+                control?.OnGetDataPr(Main.player[This.whoAmI], messageType);
             }
 
             private static void OnGetDataPo(MessageBuffer This, int start, int length, int messageType)

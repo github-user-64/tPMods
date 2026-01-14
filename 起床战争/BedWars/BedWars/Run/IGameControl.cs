@@ -24,6 +24,8 @@ namespace BedWars.Run
 
         bool PlayCanAction(GetDataEventArgs e);
 
+        void OnGetDataPr(Player player, int messageType);
+
         void OnGetDataPo(Player player, int messageType);
 
         bool ModifyShop(ModTool.Common.ModifyShop.ItemData[] items, NPC npc, Player player);

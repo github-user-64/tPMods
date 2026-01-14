@@ -142,6 +142,13 @@ namespace BedWars.Run
             return NowState?.PlayCanAction(e) ?? false;
         }
 
+        public void OnGetDataPr(Player player, int messageType)
+        {
+            if (CantRun()) return;
+
+            NowState?.OnGetDataPr(player, messageType);
+        }
+
         public void OnGetDataPo(Player player, int messageType)
         {
             if (CantRun()) return;

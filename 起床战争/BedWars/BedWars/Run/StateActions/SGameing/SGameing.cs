@@ -135,8 +135,8 @@ namespace BedWars.Run.StateActions
 
         public override void Update(uint gametime)
         {
-            UpdateOnlinePlayer(out bool stateUpdate);
-            if (stateUpdate) return;
+            //UpdateOnlinePlayer(out bool stateUpdate);
+            //if (stateUpdate) return;
 
             UpdateVoid(gametime);
 
@@ -247,6 +247,7 @@ namespace BedWars.Run.StateActions
 
             //队伍里的玩家不能重生时
             if (team.CanSpaw == false) DelPlayerTeam(player);
+            else SpawPlayToTeam(player);
         }
 
         private void DelPlayerTeam(Player player)
@@ -270,15 +271,20 @@ namespace BedWars.Run.StateActions
                 UpdateSpawTile(player);
             }
             else
-            if (messageType == MessageID.PlayerLifeMana)
+            if (messageType == MessageID.PlayerDeathV2)
             {
-                if (player.dead) OnPlayerDead(player);
+                OnPlayerDead(player);
             }
-            else
-            if (messageType == MessageID.PlayerSpawn)
-            {
-                if (player.dead == false) OnPlayerSpaw(player);
-            }
+            //else
+            //if (messageType == MessageID.PlayerLifeMana)
+            //{
+            //    if (player.dead) OnPlayerDead(player);
+            //}
+            //else
+            //if (messageType == MessageID.PlayerDeathV2)
+            //{
+            //    OnPlayerSpaw(player);
+            //}
         }
 
         public override void OnPlayJoinGame(Player player)
