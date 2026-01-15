@@ -110,16 +110,12 @@ namespace BedWars.Run.StateActions
             GameTeamData team = game.GetPlayerTeam(player);
             if (team == null)
             {
-                game.SetPlayGhost(player);//没队伍设为幽灵状态
+                game.SetPlayGhostState(player);//没队伍设为幽灵状态
                 return; 
             }
 
             //设为正常状态
-            if (player.ghost)
-            {
-                player.ghost = false;
-                NetMessage.TrySendData(MessageID.PlayerControls);
-            }
+            game.SetPlayGhost(player, false);
 
             MapInfoData info = game.DataInfo;
             Point pos = new Point(info.X + team.team.spawPos.X, info.Y + team.team.spawPos.Y);
@@ -255,7 +251,7 @@ namespace BedWars.Run.StateActions
         {
             game.Team.DelPlayerTeam(player);//从队伍删除
 
-            game.SetPlayGhost(player);//设为鬼魂
+            game.SetPlayGhostState(player);//设为幽灵状态
 
             UpdateOnlinePlayer(out _);
         }

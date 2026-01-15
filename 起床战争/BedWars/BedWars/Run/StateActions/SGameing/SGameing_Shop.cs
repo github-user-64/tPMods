@@ -49,6 +49,7 @@ namespace BedWars.Run.StateActions
 
                 npc = Main.npc[index];
                 npc.position = pos;
+                npc.townNpcVariationIndex = 1;//设为1就是微光变体了, 鬼知道什么原理, 看不懂
             }
         }
 

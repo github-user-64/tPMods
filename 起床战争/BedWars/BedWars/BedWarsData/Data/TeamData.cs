@@ -28,7 +28,7 @@ namespace BedWars.BedWarsData
         /// 重生位置, 相对位置
         /// </summary>
         public Point spawPos;
-        public int statLifeMax = 500;
+        public int statLifeMax = 400;
         public int statManaMax = 20 * 3;
 
         public void Check(MapData mapData)

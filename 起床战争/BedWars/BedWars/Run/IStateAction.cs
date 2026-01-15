@@ -29,6 +29,7 @@ namespace BedWars.Run
         /// <summary>
         /// 不能做任何操作, 除了:
         /// <para/>控制移动
+        /// <para/>buff
         /// </summary>
         public virtual bool PlayCanAction(GetDataEventArgs e)
         {
@@ -36,6 +37,7 @@ namespace BedWars.Run
             {
                 return ce.ghost == ce.player.ghost;//是否修改了幽灵状态
             }
+            if (e is PlayerBuffsEventArgs) return true;
 
             return false;
         }
@@ -45,7 +47,7 @@ namespace BedWars.Run
         /// </summary>
         public virtual void OnPlayJoinGame(Player player)
         {
-            game.SetPlayGhost(player);
+            game.SetPlayGhostState(player);
         }
 
         public virtual void OnPlayLeftGame(Player player) { }

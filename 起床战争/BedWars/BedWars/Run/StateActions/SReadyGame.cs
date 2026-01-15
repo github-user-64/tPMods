@@ -114,11 +114,7 @@ namespace BedWars.Run.StateActions
             ReadyPlay.Add(player);
 
             //设为正常状态
-            if (player.ghost)
-            {
-                player.ghost = false;
-                NetMessage.TrySendData(MessageID.PlayerControls);
-            }
+            game.SetPlayGhost(player, false);
 
             game.SpawnToMapSpaw(player);//重生到进入游戏位置
 
@@ -147,11 +143,11 @@ namespace BedWars.Run.StateActions
             }
 
             int time = StartTimeMax;
-            float what = 6;
-            //float what = 1;//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+            //float what = 6;
+            float what = 1;//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
             if (ReadyPlay.Count >= what) time = 5;
-            else if (ReadyPlay.Count > what / 2f) time = 10;
-            else if (ReadyPlay.Count > what / 3f) time = 20;
+            else if (ReadyPlay.Count >= what / 2f) time = 10;
+            else if (ReadyPlay.Count >= what / 3f) time = 20;
 
             if (StartTime > time) StartTime = time;
 

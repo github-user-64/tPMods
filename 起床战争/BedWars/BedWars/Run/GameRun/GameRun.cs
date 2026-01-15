@@ -110,7 +110,7 @@ namespace BedWars.Run
                 player.whoAmI, (float)PlayerSpawnContext.SpawningIntoWorld);
 
             player.Center = pos.ToWorldCoordinates();
-            NetMessage.TrySendData(MessageID.PlayerControls);
+            NetMessage.TrySendData(MessageID.PlayerControls, number: player.whoAmI);
         }
 
         /// <summary>
@@ -126,16 +126,23 @@ namespace BedWars.Run
         /// <summary>
         /// 设为幽灵状态:重生,设为幽灵,无队伍,禁用pvp,设置到进入游戏位置,清空背包
         /// </summary>
-        public void SetPlayGhost(Player player)
+        public void SetPlayGhostState(Player player)
         {
             SpawnToMapSpaw(player);
 
-            player.ghost = true;
-            NetMessage.TrySendData(MessageID.PlayerControls);
+            SetPlayGhost(player, true);
 
             SetTeamPvP(player, 0, false);
 
             ClearInventory(player);//清空物品栏
+        }
+
+        public void SetPlayGhost(Player player, bool ghost)
+        {
+            if (player.ghost == ghost) return;
+
+            player.ghost = ghost;
+            NetMessage.TrySendData(MessageID.PlayerControls, number: player.whoAmI);
         }
 
         public void ClearInventory(Player player)
@@ -153,12 +160,13 @@ namespace BedWars.Run
             if (player.team != team)
             {
                 player.team = team;
-                NetMessage.TrySendData(MessageID.Unknown45);
+                NetMessage.TrySendData(MessageID.Unknown45, number: player.whoAmI);
             }
+            
             if (player.hostile != pvp)
             {
                 player.hostile = pvp;
-                NetMessage.TrySendData(MessageID.TogglePVP);
+                NetMessage.TrySendData(MessageID.TogglePVP, number: player.whoAmI);
             }
         }
 
