@@ -4,6 +4,7 @@ using ModTool.Common;
 using ModTool.Utils.GetDataEventArgs;
 using System;
 using Terraria;
+using Terraria.ID;
 
 namespace BedWars.Run
 {
@@ -142,18 +143,11 @@ namespace BedWars.Run
             return NowState?.PlayCanAction(e) ?? false;
         }
 
-        public void OnGetDataPr(Player player, int messageType)
+        public void OnGetDataPo(Player player, int messageType, MessageBuffer buffer)
         {
             if (CantRun()) return;
 
-            NowState?.OnGetDataPr(player, messageType);
-        }
-
-        public void OnGetDataPo(Player player, int messageType)
-        {
-            if (CantRun()) return;
-
-            NowState?.OnGetDataPo(player, messageType);
+            NowState?.OnGetDataPo(player, messageType, buffer);
         }
 
         public bool ModifyShop(ModifyShop.ItemData[] items, NPC npc, Player player)
@@ -161,6 +155,13 @@ namespace BedWars.Run
             if (CantRun()) return false;
 
             return NowState?.ModifyShop(items, npc, player) ?? false;
+        }
+
+        public void OnProjectileKill(Projectile proj)
+        {
+            if (CantRun()) return;
+
+            NowState?.OnProjectileKill(proj);
         }
 
         /// <summary>

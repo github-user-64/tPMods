@@ -14,6 +14,19 @@ namespace BedWars.Run.StateActions
         {
             ModTool.ServerHelp.ToPlayerPrint.PrintToPlayAll("初始化地图", Color.YellowGreen);
 
+            foreach (NPC i in Main.npc)//清理npc
+            {
+                if (i?.active != true) continue;
+                if (i.type == NPCID.None) continue;
+                if (i.life < 1) continue;
+
+                Point pos = i.Center.ToTileCoordinates();
+                if (game.Data.InMap(pos) == false) continue;
+
+                i.active = false;
+                NetMessage.TrySendData(MessageID.SyncNPC, number: i.whoAmI);
+            }
+
             game.ForActivePlayer(i =>
             {
                 game.SetTeamPvP(i, 0, false);

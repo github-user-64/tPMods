@@ -139,6 +139,8 @@ namespace BedWars.Run.StateActions
             UpdateSpawTile(null);
 
             UpdateShop();
+
+            UpdateAction();
         }
 
         private void UpdateVoid(uint gametime)//更新虚空
@@ -229,12 +231,12 @@ namespace BedWars.Run.StateActions
             });
         }
 
-        private void OnPlayerDead(Player player)
+        private void OnPlayerDead(Player player, PlayerDeathReason reason = null)
         {
             GameTeamData team = game.GetPlayerTeam(player);
             if (team == null) return;
 
-            if (ModTool.Utils.Utils.GetRand(0, 2) == 0)
+            if (ModTool.Utils.Utils.GetRand(0, 2) == 0)//声音
             {
                 ToPlayerPlayNetSound.ToPlayAll(SoundID.DSTMaleHurt, player.Center);
             }
@@ -243,11 +245,18 @@ namespace BedWars.Run.StateActions
                 ToPlayerPlayNetSound.ToPlayAll(SoundID.DSTFemaleHurt, player.Center);
             }
 
-            if (team.CanSpaw) SpawPlayToTeam(player);
-            else DelPlayerTeam(player);
+            if (reason?.TryGetCausingEntity(out Entity causingEntity) == true)//彩纸
+            {
+                Vector2 v = Vector2.Normalize(player.Center - causingEntity.Center);
+
+                Projectile.NewProjectile(null, player.Center, v * 8, ProjectileID.ConfettiGun, 0, 0);
+            }
+
+            if (team.CanSpaw) SpawPlayToTeam(player);//可以重生就重生
+            else DelPlayerTeam(player);//从队伍删除
         }
 
-        private void DelPlayerTeam(Player player)
+        private void DelPlayerTeam(Player player)//删除玩家队伍
         {
             game.Team.DelPlayerTeam(player);//从队伍删除
 
@@ -256,16 +265,24 @@ namespace BedWars.Run.StateActions
             UpdateOnlinePlayer(out _);
         }
 
-        public override void OnGetDataPo(Player player, int messageType)
+        public override void OnGetDataPo(Player player, int messageType, MessageBuffer buffer)
         {
             if (messageType == MessageID.TileManipulation)
             {
                 UpdateSpawTile(player);
             }
-            else
-            if (messageType == MessageID.PlayerDeathV2)
+            else if (messageType == MessageID.PlayerDeathV2)
             {
-                OnPlayerDead(player);
+                PlayerDeathReason reason = null;
+
+                try
+                {
+                    int _whoAmI = buffer.reader.ReadByte();
+                    reason = PlayerDeathReason.FromReader(buffer.reader);
+                }
+                catch { }
+
+                OnPlayerDead(player, reason);
             }
         }
 

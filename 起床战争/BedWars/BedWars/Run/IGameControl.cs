@@ -24,10 +24,10 @@ namespace BedWars.Run
 
         bool PlayCanAction(GetDataEventArgs e);
 
-        void OnGetDataPr(Player player, int messageType);
-
-        void OnGetDataPo(Player player, int messageType);
+        void OnGetDataPo(Player player, int messageType, MessageBuffer buffer);
 
         bool ModifyShop(ModTool.Common.ModifyShop.ItemData[] items, NPC npc, Player player);
+
+        void OnProjectileKill(Projectile proj);
     }
 }

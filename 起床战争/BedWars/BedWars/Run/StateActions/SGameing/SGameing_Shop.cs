@@ -27,6 +27,7 @@ namespace BedWars.Run.StateActions
             {
                 if (npc == null) return false;
                 if (npc.active == false) return false;
+                if (npc.life < 1) return false;
                 if (Main.npc.IndexInRange(npc.whoAmI) != true) return false;
                 if (Main.npc[npc.whoAmI] != npc) return false;
                 return true;

@@ -54,7 +54,6 @@ namespace BedWars.Run
                 PlayerAccount.Account.AccountHelp.OnLogined += playerJoinState.OnPlayLogined;
                 PlayerAccount.Account.AccountHelp.OnJoinGamePo += playerJoinState.OnPlayJoinGameTryAutoLoginPo;
 
-                ModTool.PatchGame.PMessageBuffer.OnGetDataPr.Add(OnGetDataPr);
                 ModTool.PatchGame.PMessageBuffer.OnGetDataPo.Add(OnGetDataPo);
                 ModTool.Common.ModifyShop.SetupShop += control.ModifyShop;//商店
 
@@ -106,18 +105,11 @@ namespace BedWars.Run
                 ContentPatch.PrintTry(s);
             }
 
-            private static void OnGetDataPr(MessageBuffer This, int start, int length, int messageType)
-            {
-                if (Main.dedServ == false) return;
-
-                control?.OnGetDataPr(Main.player[This.whoAmI], messageType);
-            }
-
             private static void OnGetDataPo(MessageBuffer This, int start, int length, int messageType)
             {
                 if (Main.dedServ == false) return;
 
-                control?.OnGetDataPo(Main.player[This.whoAmI], messageType);
+                control?.OnGetDataPo(Main.player[This.whoAmI], messageType, This);
             }
         }
 
@@ -152,8 +144,15 @@ namespace BedWars.Run
         {
             public override void DoUpdateInWorldPrefix(Stopwatch sw)
             {
-                if (control == null) return;
-                control.Update(Main.GameUpdateCount);
+                control?.Update(Main.GameUpdateCount);
+            }
+        }
+
+        private class projKill : PatchProjectile
+        {
+            public override void KillPrefix(Projectile This)
+            {
+                control?.OnProjectileKill(This);
             }
         }
     }
