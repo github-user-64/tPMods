@@ -27,10 +27,15 @@ namespace BedWars.BedWarsData
         public byte color;//漆
         //
         /// <summary>
-        /// 不保存. 有玩家交互过
+        /// 不保存. 可以操作图格, 图格
         /// </summary>
         [JsonIgnore]
-        public bool HasPlayerActive = false;
+        public bool CanActionTile = false;
+        /// <summary>
+        /// 不保存. 可以操作图格, 墙
+        /// </summary>
+        [JsonIgnore]
+        public bool CanActionWall = false;
 
         public void Check(MapData mapData)
         {

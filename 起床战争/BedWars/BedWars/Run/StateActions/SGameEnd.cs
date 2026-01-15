@@ -8,6 +8,7 @@ namespace BedWars.Run.StateActions
     internal class SGameEnd : IStateAction
     {
         private int time = 0;
+        private GameTeamData team = null;
 
         public SGameEnd(GameRun game) : base(game) { }
 
@@ -15,28 +16,35 @@ namespace BedWars.Run.StateActions
         //-一段时间后进入初始化地图
         public override void OnStart(object arg)
         {
+            time = 60 * 10;
+
             game.ForActivePlayer(i => game.SetTeamPvP(i, 0, false));//禁用pvp
 
-            if (arg is GameTeamData team == false) return;
+            team = arg as GameTeamData;
+            if (team == null) return;
 
+            ToPlayerPlayNetSound.ToPlayAll(SoundID.DD2_WinScene);
             ToPlayerPrint.PrintToPlayAll($"{team.team.name}队胜利", Color.GreenYellow);
-
-            a1(team);
-
-            time = 60 * 6;
 
             ToPlayerPrint.PrintToPlayAll("游戏结束,即将重新开始游戏", Color.GreenYellow);
         }
 
         public override void Update(uint gametime)
         {
-            if (time > 0)
+            if (time < 1)
             {
-                --time;
+                game.SetStateUpdate(GameRun.StateMapInit);
                 return;
             }
 
-            game.SetStateUpdate(GameRun.StateMapInit);
+            --time;
+
+            if (team != null && time > 30 && gametime % 60 == 0) a1(team);
+        }
+
+        public override void OnPlayLeftGame(Player player)
+        {
+            if (Netplay.HasClients == false) game.SetStateUpdate(GameRun.StateMapInit);
         }
 
         private void a1(GameTeamData team)

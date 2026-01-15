@@ -12,9 +12,12 @@ namespace BedWars.Run
         public bool SpawTileActive { get; protected set; } = false;
         public bool CanSpaw => team.canSpaw && SpawTileActive;
         public int PlayerCount => ps.Count;
+        /// <summary>
+        /// 世界位置
+        /// </summary>
+        public readonly Rectangle spawTile = Rectangle.Empty;
         public readonly MapData data = null;
         public readonly TeamData team = null;
-        private readonly Point spawTilePos = Point.Zero;
         private readonly List<Player> ps = new List<Player>();
 
         public GameTeamData(MapData data, TeamData team)
@@ -22,7 +25,9 @@ namespace BedWars.Run
             this.data = data;
             this.team = team;
 
-            //spawTilePos = new Point(data.Info.X + team.spawTilePos.X, data.Info.Y + team.spawTilePos.Y);
+            spawTile = team.spawTile;
+            spawTile.X += data.Info.X;
+            spawTile.Y += data.Info.Y;
         }
 
         public void ClearPlayer()
@@ -72,23 +77,26 @@ namespace BedWars.Run
             NetMessage.TrySendData(MessageID.Unknown42, -1, -1, null, player.whoAmI);
         }
 
-        public void UpdateSpawTile(out bool hasUpdate)
+        public void UpdateSpawTileActive()
         {
-            Point pos = spawTilePos;
+            int xlen = spawTile.X + spawTile.Width;
+            int ylen = spawTile.Y + spawTile.Height;
 
-            if (WorldGen.InWorld(pos.X, pos.Y) == false)
+            for (int y = spawTile.Y; y < ylen; ++y)
             {
-                hasUpdate = SpawTileActive;//有更新, 如果之前是活动的
-                SpawTileActive = false;
-                return;
+                for (int x = spawTile.X; x < xlen; ++x)
+                {
+                    Tile tile = Main.tile[x, y];
+                    bool tileA = tile?.active() ?? false;
+
+                    if (tileA) continue;//缺一个图格就视为床没了
+
+                    SpawTileActive = false;
+                    return;
+                }
             }
 
-            Tile tile = Main.tile[pos.X, pos.Y];
-            bool tileA = tile?.active() ?? false;
-
-            hasUpdate = SpawTileActive != tileA;
-
-            SpawTileActive = tileA;
+            SpawTileActive = true;
         }
     }
 }

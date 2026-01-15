@@ -13,6 +13,7 @@ namespace BedWars.Run.StateActions
         private readonly List<Player> ReadyPlay = new List<Player>();
         private int MaxPlayCount = 0;
         private int StartTime = 0;
+        private const int StartTimeMax = 30;
 
         public SReadyGame(GameRun game) : base(game) { }
 
@@ -30,7 +31,7 @@ namespace BedWars.Run.StateActions
             ToPlayerCombatText.ToPlayAllOff("准备游戏", 0, -100, Color.White);
 
             ReadyPlay.Clear();
-            StartTime = 30;
+            StartTime = StartTimeMax;
             MaxPlayCount = 0;
 
             game.DataTeams.ForEach(i => MaxPlayCount += i.maxPlay);
@@ -75,6 +76,13 @@ namespace BedWars.Run.StateActions
         public override void OnPlayLeftGame(Player player)
         {
             if (ReadyPlay.Remove(player) == false) return;
+
+            if (ReadyPlay.Count < 1)
+            {
+                StartTime = StartTimeMax;
+                ToPlayerPrint.PrintToPlayAll($"{player.name}离开游戏,没有准备中的玩家", Color.Green);
+                return;
+            }
 
             int v = game.DataInfo.startGameMinPlay - ReadyPlay.Count;
             if (v > 0)
@@ -134,13 +142,13 @@ namespace BedWars.Run.StateActions
             int v = game.DataInfo.startGameMinPlay - ReadyPlay.Count;
             if (v > 0 || ReadyPlay.Count < 1)//最小玩家数量不够时等待
             {
-                StartTime = 30;
+                StartTime = StartTimeMax;
                 return;
             }
 
-            int time = 30;
-            //float what = 6;
-            float what = 1;//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+            int time = StartTimeMax;
+            float what = 6;
+            //float what = 1;//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
             if (ReadyPlay.Count >= what) time = 5;
             else if (ReadyPlay.Count > what / 2f) time = 10;
             else if (ReadyPlay.Count > what / 3f) time = 20;

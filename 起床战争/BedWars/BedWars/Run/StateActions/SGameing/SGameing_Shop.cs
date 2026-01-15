@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using BedWars.BedWarsData;
+using Microsoft.Xna.Framework;
 using ModTool.Common;
 using System;
 using System.Linq;
@@ -13,14 +14,13 @@ namespace BedWars.Run.StateActions
         {
             public NPC npc = null;
             public Vector2 pos;
-            public readonly BedWarsData.ShopData shop = null;
+            public readonly ShopData shop = null;
 
-            public ShopNPC(NPC npc, BedWarsData.ShopData shop)
+            public ShopNPC(MapInfoData data, ShopData shop)
             {
-                this.npc = npc;
                 this.shop = shop;
 
-                pos = shop.pos.ToWorldCoordinates(0, 0);
+                pos = data.Pos.ToWorldCoordinates(0, 0) + shop.pos.ToWorldCoordinates(0, 0);
             }
 
             public bool NPCActive()
@@ -37,7 +37,18 @@ namespace BedWars.Run.StateActions
                 if (npc == null) return;
 
                 npc.active = false;
+                NetMessage.TrySendData(MessageID.SyncNPC, number: npc.whoAmI);
                 npc = null;
+            }
+
+            public void SpawNPC()
+            {
+                DelNPC();
+
+                int index = NPC.NewNPC(null, (int)pos.X, (int)pos.Y, NPCID.Clothier);
+
+                npc = Main.npc[index];
+                npc.position = pos;
             }
         }
 
@@ -55,22 +66,16 @@ namespace BedWars.Run.StateActions
                     continue;
                 }
 
-                shopNPC.DelNPC();//删除npc
-
-                //生成npc
-                int index = NPC.NewNPC(null, (int)shopNPC.pos.X, (int)shopNPC.pos.Y, NPCID.Clothier);
-
-                shopNPC.npc = Main.npc[index];
-                shopNPC.npc.position = shopNPC.pos;
+                shopNPC.SpawNPC();
             }
         }
 
         public override bool ModifyShop(ModifyShop.ItemData[] items, NPC npc, Player player)
         {
-            BedWarsData.ShopData shop = shopNPC.FirstOrDefault(i => i.npc == npc).shop;
+            ShopData shop = shopNPC.FirstOrDefault(i => i.npc == npc).shop;
             if (shop == null) return false;
 
-            int len = Math.Min(items.Length, shop.item.Count);
+            int len = Math.Min(items.Length, shop.item.Count);//没必要, 长度正常都一样
 
             for (int i = 0; i < len; ++i)
             {

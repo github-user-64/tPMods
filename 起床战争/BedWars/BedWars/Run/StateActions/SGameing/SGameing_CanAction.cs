@@ -1,9 +1,7 @@
 ﻿using BedWars.BedWarsData;
 using Microsoft.Xna.Framework;
+using ModTool.ServerHelp;
 using ModTool.Utils.GetDataEventArgs;
-using Terraria;
-using Terraria.DataStructures;
-using Terraria.ObjectData;
 
 namespace BedWars.Run.StateActions
 {
@@ -34,27 +32,48 @@ namespace BedWars.Run.StateActions
             mapPos.X -= game.DataInfo.X;
             mapPos.Y -= game.DataInfo.Y;
 
+            //
+
             if (game.Data.InMapRelative(mapPos) == false) return false;//不在地图里
+
+            //
+
+            foreach (GameTeamData i in game.Team.teams)
+            {
+                if (i.SpawTileActive == false) continue;//床还在
+                if (i.spawTile.Contains(e.x, e.y) == false) continue;//在床的范围内
+                if (i != team) return true;//不是自己的床
+
+                ToPlayerPrint.PrintToPlay(e.player.whoAmI, "你不能破坏自己的床", Color.Red);
+                return false;
+            }
+
+            //
 
             TileData data = game.DataTile[mapPos.Y][mapPos.X];
             if (data.canAction == true) return true;//是可交互图格
-            if (data.HasPlayerActive == true) return true;//玩家交互过了
 
             if (e is TileManipulationEventArgs tm) return OnTileManipulation(tm, data);
 
-            return false;
+            return data.CanActionTile;
         }
 
-        //那里没实心方块就可以交互
         private bool OnTileManipulation(TileManipulationEventArgs e, TileData data)
         {
-            Tile tile = Main.tile[e.x, e.y];
-            if (tile == null) return false;//应该不可能会为空
+            bool isWall = false;
 
-            if (tile.active() == true) return false;//有实心方块了
+            switch (e.manipulationType)
+            {
+                case 2: isWall = true; break;
+                case 3: isWall = true; break;
+                case 22: isWall = true; break;
+                default: break;
+            }
 
-            data.HasPlayerActive = true;//标记玩家碰过了
-            return true;
+            //是墙类型的操作
+            if (isWall) return data.CanActionWall;
+
+            return data.CanActionTile;
         }
     }
 }

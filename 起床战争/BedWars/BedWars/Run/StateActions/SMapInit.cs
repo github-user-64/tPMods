@@ -14,14 +14,6 @@ namespace BedWars.Run.StateActions
         {
             ModTool.ServerHelp.ToPlayerPrint.PrintToPlayAll("初始化地图", Color.YellowGreen);
 
-            game.DataTile.ForEach(i =>
-            {
-                i.ForEach(tile =>
-                {
-                    tile.HasPlayerActive = false;
-                });
-            });
-
             game.ForActivePlayer(i =>
             {
                 game.SetTeamPvP(i, 0, false);
@@ -62,14 +54,14 @@ namespace BedWars.Run.StateActions
 
             //
 
-            if (HasConnect() == false) return;
+            if (Netplay.HasClients == false) return;
 
             needSend = info.rect;
             sendBlock = new Rectangle(needSend.X, needSend.Y, maxSendWidth, maxSendHeight);
 
             while (SendUpdate() == false)
             {
-                if (HasConnect() == false) return;
+                if (Netplay.HasClients == false) return;
 
                 System.Threading.Thread.Sleep(250);
             }
@@ -92,19 +84,6 @@ namespace BedWars.Run.StateActions
             {
                 sendBlock.X = needSend.X;
                 sendBlock.Y += maxSendHeight;
-            }
-
-            return false;
-        }
-
-        private bool HasConnect()
-        {
-            if (Netplay.Clients == null) return false;
-
-            foreach (RemoteClient i in Netplay.Clients)
-            {
-                if (i == null) continue;
-                if (i.IsConnected()) return true;
             }
 
             return false;

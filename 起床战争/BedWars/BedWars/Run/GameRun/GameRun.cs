@@ -87,6 +87,16 @@ namespace BedWars.Run
             Main.spawnTileY = DataInfo.Y + DataInfo.spawPos.Y;
             NetMessage.TrySendData(MessageID.WorldData);//防止已经有玩家加入
 
+            DataTile.ForEach(i =>
+            {
+                i.ForEach(tile =>
+                {
+                    if (tile.active) return;
+                    tile.CanActionTile = true;//没方块
+                    tile.CanActionWall = tile.wall == WallID.None;//没方块没墙
+                });
+            });
+
             SetState(StateMapInit);
         }
 

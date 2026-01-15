@@ -39,7 +39,7 @@ namespace BedWars.Run.StateActions
 
             shopNPC.Clear();
 
-            game.ForTeam(i => i.UpdateSpawTile(out _));//更新重生方块活动状态
+            game.ForTeam(i => i.UpdateSpawTileActive());//更新重生方块活动状态
 
             //分配队伍
             AssignTeam(arg as List<Player>, p =>
@@ -55,7 +55,7 @@ namespace BedWars.Run.StateActions
             ToPlayerCombatText.ToPlayAllOff("游戏开始", 0, -40, Color.YellowGreen);
 
             game.DataSpawItems.ForEach(i => Common.GameAction.SpawItem.Add(i));//生成物品
-            game.DataShops.ForEach(i => shopNPC.Add(new ShopNPC(null, i)));//商店
+            game.DataShops.ForEach(i => shopNPC.Add(new ShopNPC(game.DataInfo, i)));//商店
         }
 
         public override void OnEnd()
@@ -135,8 +135,8 @@ namespace BedWars.Run.StateActions
 
         public override void Update(uint gametime)
         {
-            //UpdateOnlinePlayer(out bool stateUpdate);
-            //if (stateUpdate) return;
+            UpdateOnlinePlayer(out bool stateUpdate);
+            if (stateUpdate) return;
 
             UpdateVoid(gametime);
 
@@ -213,12 +213,14 @@ namespace BedWars.Run.StateActions
         {
             game.ForTeam(team =>
             {
-                if (team.CanSpaw == false) return;
-                team.UpdateSpawTile(out bool hasUpdate);
-                if (hasUpdate == false) return;
-                if (player == null) return;
+                if (team.SpawTileActive == false) return;
+                team.UpdateSpawTileActive();
                 if (team.SpawTileActive == true) return;
 
+                if (player == null) return;
+
+                ToPlayerPlayNetSound.ToPlayAll(SoundID.DD2_BetsyDeath);
+                ToPlayerPlayNetSound.ToPlayAll(SoundID.DD2_BetsyDeath);
                 ToPlayerPlayNetSound.ToPlayAll(SoundID.DeerclopsDeath);
                 ToPlayerPlayNetSound.ToPlayAll(SoundID.DeerclopsDeath);
 
@@ -245,9 +247,8 @@ namespace BedWars.Run.StateActions
                 ToPlayerPlayNetSound.ToPlayAll(SoundID.DSTFemaleHurt, player.Center);
             }
 
-            //队伍里的玩家不能重生时
-            if (team.CanSpaw == false) DelPlayerTeam(player);
-            else SpawPlayToTeam(player);
+            if (team.CanSpaw) SpawPlayToTeam(player);
+            else DelPlayerTeam(player);
         }
 
         private void DelPlayerTeam(Player player)
@@ -257,11 +258,6 @@ namespace BedWars.Run.StateActions
             game.SetPlayGhost(player);//设为鬼魂
 
             UpdateOnlinePlayer(out _);
-        }
-
-        private void OnPlayerSpaw(Player player)
-        {
-            SpawPlayToTeam(player);
         }
 
         public override void OnGetDataPo(Player player, int messageType)
@@ -275,16 +271,6 @@ namespace BedWars.Run.StateActions
             {
                 OnPlayerDead(player);
             }
-            //else
-            //if (messageType == MessageID.PlayerLifeMana)
-            //{
-            //    if (player.dead) OnPlayerDead(player);
-            //}
-            //else
-            //if (messageType == MessageID.PlayerDeathV2)
-            //{
-            //    OnPlayerSpaw(player);
-            //}
         }
 
         public override void OnPlayJoinGame(Player player)
