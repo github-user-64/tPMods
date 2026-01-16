@@ -15,12 +15,12 @@ namespace BedWars.Edit.UI.OtherItem
 
         private static bool GetV()
         {
-            return Common.GameAction.CanSpawnNPC;
+            return !Common.GameAction.CanSpawnNPC;
         }
 
         private static void SetV(bool v)
         {
-            Common.GameAction.CanSpawnNPC = v;
+            Common.GameAction.CanSpawnNPC = !v;
         }
     }
 }
