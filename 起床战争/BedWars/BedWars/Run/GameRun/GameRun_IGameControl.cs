@@ -4,7 +4,6 @@ using ModTool.Common;
 using ModTool.Utils.GetDataEventArgs;
 using System;
 using Terraria;
-using Terraria.ID;
 
 namespace BedWars.Run
 {
@@ -88,6 +87,8 @@ namespace BedWars.Run
 
         void IGameControl.Update(uint gametime)
         {
+            UpdateStatusText(gametime);
+
             if (CantRun()) return;
 
             if (HasUpdateState != null)
@@ -97,7 +98,7 @@ namespace BedWars.Run
 
                 foo();
             }
-            
+
             NowState?.Update(gametime);
         }
 
@@ -106,6 +107,8 @@ namespace BedWars.Run
             if (CantRun()) return;
 
             NowState?.OnPlayJoinGame(player);
+
+            OnPlayJoinGame(player);
         }
 
         void IGameControl.OnPlayLeftGame(Player player)

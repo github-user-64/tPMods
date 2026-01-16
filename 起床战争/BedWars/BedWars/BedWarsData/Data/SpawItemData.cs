@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using Terraria;
+using Terraria.ID;
 
 namespace BedWars.BedWarsData
 {
@@ -25,18 +26,18 @@ namespace BedWars.BedWarsData
             if (maxStack < 1) return;
             if (mapData.InMapRelative(pos) == false) return;
 
-            int type = 0;
+            int type = ItemID.None;
 
             if (exclude)
             {
                 type = Common.Utils.GetRandItemID(types);
             }
-            else if (types?.Count > 0)
+            else if (types?.Count > ItemID.None)
             {
                 type = types[ModTool.Utils.Utils.GetRand(0, types.Count)];
             }
 
-            if (type == 0) return;
+            if (type == ItemID.None) return;
 
             Item item = new Item();
             item.SetDefaults(type);
@@ -48,7 +49,31 @@ namespace BedWars.BedWarsData
 
             Point p = new Point(mapData.Info.X + pos.X, mapData.Info.Y + pos.Y);
 
-            Item.NewItem(null, p.ToWorldCoordinates(), Vector2.Zero, type, stack);
+            NewItem(p.ToWorldCoordinates(), type, stack);
+        }
+
+        private void NewItem(Vector2 pos, int type, int stack)
+        {
+            foreach (Item i in Main.item)
+            {
+                if (i?.active != true) continue;
+                if (i.type != type) continue;
+                if (i.stack < 1) continue;
+
+                float dis = i.Center.Distance(pos);
+                if (dis > 16 * 8) continue;
+
+                if (i.stack + stack > i.maxStack) continue;//如果不能堆叠
+
+                i.stack += stack;
+                i.Center = pos;
+                i.velocity = Vector2.UnitY * -5;
+
+                NetMessage.TrySendData(MessageID.SyncItem, number: i.whoAmI);
+                return;
+            }
+
+            Item.NewItem(null, pos, Vector2.Zero, type, stack);
         }
 
         public void Check(MapData mapData)

@@ -23,10 +23,28 @@ namespace BedWars.Run.StateActions
             team = arg as GameTeamData;
             if (team == null) return;
 
+            team.ForPlay(i =>
+            {
+                NetMessage.TrySendData(MessageID.AddPlayerBuff, number: i.whoAmI, number2: BuffID.WitchBroom, number3: 1);
+            });
+
             ToPlayerPlayNetSound.ToPlayAll(SoundID.DD2_WinScene);
             ToPlayerPrint.PrintToPlayAll($"{team.team.name}队胜利", Color.GreenYellow);
 
             ToPlayerPrint.PrintToPlayAll("游戏结束,即将重新开始游戏", Color.GreenYellow);
+        }
+
+        public override void OnEnd()
+        {
+            team.ForPlay(i =>
+            {
+                for (int j = 0; j < i.buffType.Length; j++)
+                {
+                    i.buffType[j] = 0;
+                }
+
+                NetMessage.TrySendData(MessageID.PlayerBuffs, -1, -1, null, i.whoAmI);
+            });
         }
 
         public override void Update(uint gametime)

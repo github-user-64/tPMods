@@ -1,9 +1,7 @@
 ﻿using BedWars.BedWarsData;
 using Microsoft.Xna.Framework;
-using ModTool.PatchGame;
 using Terraria;
 using Terraria.ID;
-using static Terraria.GameContent.Animations.Actions;
 
 namespace BedWars.Run.StateActions
 {

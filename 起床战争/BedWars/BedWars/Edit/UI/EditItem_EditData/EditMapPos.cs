@@ -36,7 +36,10 @@ namespace BedWars.Edit.UI.EditItem_EditData
 
             if ((Main.mouseRight && Main.mouseRightRelease) == false) return;
 
-            EditData.instance.Tp(info.rect);
+            Rectangle rect = info.rect;
+            rect.X = 0;
+            rect.Y = 0;
+            EditData.instance.Tp(rect);
         }
     }
 }

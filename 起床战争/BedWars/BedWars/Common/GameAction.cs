@@ -9,7 +9,7 @@ namespace BedWars.Common
 {
     public static class GameAction
     {
-        private class asd : PatchMain
+        private class gameAction : PatchMain
         {
             public override void Initialize()
             {

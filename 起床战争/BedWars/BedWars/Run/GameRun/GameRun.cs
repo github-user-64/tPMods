@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;
+using Terraria.Localization;
 
 namespace BedWars.Run
 {
@@ -99,6 +100,44 @@ namespace BedWars.Run
 
             SetState(StateMapInit);
         }
+
+        #region 手机端看不到,屁用没有
+        private string _oldStatusText = null;
+        private void UpdateStatusText(uint gametime)
+        {
+            string text = "[c/ffaaff:「起床战争」]";
+
+            switch (NowStateType)
+            {
+                case StateNone: text += "\n当前状态:无"; break;
+                case StateMapInit: text += "\n当前状态:初始化"; break;
+                case StateReadyGame: text += "\n当前状态:准备游戏"; break;
+                case StateGameing: text += "\n当前状态:游戏中"; break;
+                case StateGameEnd: text += "\n当前状态:游戏结束"; break;
+                default: text += $"\n当前状态:{NowStateType}"; break;
+            }
+
+            if (_oldStatusText == text && gametime % (60 * 8) != 0) return;
+
+            _oldStatusText = text;
+
+            SendStatusTextSize();
+        }
+
+        private void OnPlayJoinGame(Player player)
+        {
+            SendStatusTextSize(player.whoAmI);
+        }
+
+        private void SendStatusTextSize(int remoteClient = -1)
+        {
+            NetworkText t = NetworkText.FromLiteral(_oldStatusText);
+            BitsByte serverSpecialFlags = 0;
+            serverSpecialFlags[0] = true;
+            serverSpecialFlags[1] = true;
+            NetMessage.TrySendData(MessageID.StatusTextSize, remoteClient, -1, t, _oldStatusText.Length, serverSpecialFlags);
+        }
+        #endregion
 
         public void SpawnToPos(Player player, Point pos)
         {
