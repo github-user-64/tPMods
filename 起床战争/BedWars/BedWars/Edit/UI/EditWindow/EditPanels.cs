@@ -82,11 +82,13 @@ namespace BedWars.Edit.UI.EditWindow
 
             var ico1 = Main.Assets.Request<Texture2D>("Images/Item_30", AssetRequestMode.ImmediateLoad).Value;
             var ico2 = Main.Assets.Request<Texture2D>("Images/Item_171", AssetRequestMode.ImmediateLoad).Value;
+            var ico3 = Main.Assets.Request<Texture2D>("Images/Item_348", AssetRequestMode.ImmediateLoad).Value;
 
             AddChild(new EditCopyTile("复制", ico1, "复制图格"));
             AddChild(new EditPlaceTile("放置", ico1, "放置图格"));
             AddChild(new EditCopyTileData("复制", ico2, "复制方块数据"));
             AddChild(new EditPasteTileData("粘贴", ico2, "粘贴方块数据"));
+            AddChild(new ClearGameTile("清空", ico3, "清空地图内图格"));
             AddChild(new EditTileCanAction("添加可交互方块"));
             AddChild(new EditTileNoCanAction("删除可交互方块"));
 
@@ -136,6 +138,8 @@ namespace BedWars.Edit.UI.EditWindow
         {
             Width.Precent = 1;
             Height.Precent = 1;
+
+            AddChild(new OtherItem.NoSpawnNPC("禁用生物自然生成"));
 
             string t = "[c/aaffaa:在服务器使用编辑模式需要注意:]"
                 + "\n[c/aaffaa:你可以复制服务器的方块]"

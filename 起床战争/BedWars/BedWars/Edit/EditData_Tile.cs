@@ -68,6 +68,25 @@ namespace BedWars.Edit
             return null;
         }
 
+        public string TileGameClear()
+        {
+            if (Data == null) return "地图数据为null";
+
+            Common.Utils.ClearInRangeChest(DataInfo.rect);//清除箱子
+            Common.Utils.ClearInRangeSign(DataInfo.rect);//清除告示牌
+
+            TileData nullData = new TileData();
+
+            ForMapTile(DataInfo.rect, (data, tile, x, y) =>
+            {
+                if (tile == null) return;
+
+                TileData.Place(nullData, tile);
+            });
+
+            return null;
+        }
+
         /// <summary>
         /// 超出地图部分会跳过, 参数是世界位置
         /// </summary>

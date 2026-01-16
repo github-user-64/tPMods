@@ -117,7 +117,6 @@
     <Compile Include="Edit\UI\EditItem_DisplayData\DisplayTeam.cs" />
     <Compile Include="Edit\UI\EditItem_DisplayData\DrawUtils.cs" />
     <Compile Include="Edit\UI\EditItem_EditData\EditClassMapInfo.cs" />
-    <Compile Include="Edit\UI\EditItem_EditData\EditClassTileData.cs" />
     <Compile Include="Edit\UI\EditItem_EditData\EditClassInventoryData.cs" />
     <Compile Include="Edit\UI\EditItem_EditData\EditClassTile.cs" />
     <Compile Include="Edit\UI\EditItem_EditData\EditClassTime.cs" />
@@ -149,6 +148,7 @@
     <Compile Include="Edit\UI\EditItem_File\MapLoad.cs" />
     <Compile Include="Edit\UI\EditItem_File\MapNew.cs" />
     <Compile Include="Edit\UI\Elements\UIImageButtonSwitchPos.cs" />
+    <Compile Include="Edit\UI\OtherItem\NoSpawnNPC.cs" />
     <Compile Include="Edit\UI\SwitchSize.cs" />
     <Compile Include="Edit\UI\SwitchPos.cs" />
     <Compile Include="Edit\UI\EditItem_EditData\EditMapSize.cs" />
