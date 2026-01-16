@@ -1,4 +1,5 @@
-﻿using Terraria;
+﻿using System.Diagnostics;
+using Terraria;
 using Terraria.DataStructures;
 using Terraria.GameContent.Items;
 

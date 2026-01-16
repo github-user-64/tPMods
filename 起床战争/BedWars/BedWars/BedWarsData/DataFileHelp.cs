@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using tContentPatch.Utils;
 
@@ -9,7 +10,7 @@ namespace BedWars.BedWarsData
         public const string FileNameMapInfo = "地图信息.txt";
         public const string FileNameSpawItem = "生成物品.txt";
         public const string FileNameTeam = "队伍信息.txt";
-        public const string FileNameTile = "图格.txt";
+        public const string FileNameTile = "图格.tile";
         public const string FileNameChest = "箱子.txt";
         public const string FileNameSign = "告示牌.txt";
         public const string FileNameInventory = "物品栏.txt";
@@ -90,7 +91,7 @@ namespace BedWars.BedWarsData
                 throw new Exception("队伍信息保存失败");
             }
 
-            if (SaveFileTry(Path.Combine(dir, FileNameTile), mapData.Tile, false) == false)
+            if (SaveFileTry(Path.Combine(dir, FileNameTile), mapData.Tile, mapData.Info.Width) == false)
             {
                 throw new Exception("图格保存失败");
             }
@@ -139,6 +140,85 @@ namespace BedWars.BedWarsData
             catch
             {
                 return false;
+            }
+        }
+
+        /// <summary>
+        /// 图格
+        /// </summary>
+        public static bool ReadFileTry(string file, ref List<List<TileData>> data)
+        {
+            FileStream fs = null;
+
+            try
+            {
+                fs = new FileStream(file, FileMode.Open);
+                BinaryReader sr = new BinaryReader(fs);
+
+                int width = sr.ReadInt32();
+                int height = sr.ReadInt32();
+
+                List<List<TileData>> datas = new List<List<TileData>>();
+
+                for (int y = 0; y < height; ++y)
+                {
+                    List<TileData> td = new List<TileData>();
+                    datas.Add(td);
+
+                    for (int x = 0; x < width; ++x)
+                    {
+                        td.Add(new TileData().Read(sr));
+                    }
+                }
+
+                data = datas;
+
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+            finally
+            {
+                fs?.Close();
+            }
+        }
+
+        /// <summary>
+        /// 图格
+        /// </summary>
+        public static bool SaveFileTry(string file, List<List<TileData>> data, int width)
+        {
+            FileStream fs = null;
+
+            try
+            {
+                fs = new FileStream(file, FileMode.Open);
+                BinaryWriter sw = new BinaryWriter(fs);
+
+                int height = data.Count;
+
+                sw.Write(width);
+                sw.Write(height);
+
+                for (int y = 0; y < height; ++y)
+                {
+                    for (int x = 0; x < width; ++x)
+                    {
+                        data[y][x].Writer(sw);
+                    }
+                }
+
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+            finally
+            {
+                fs?.Close();
             }
         }
     }

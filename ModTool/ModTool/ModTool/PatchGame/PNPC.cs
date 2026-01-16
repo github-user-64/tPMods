@@ -2,7 +2,6 @@
 using System;
 using System.Collections.Generic;
 using Terraria;
-using static ModTool.PatchGame.PPlayer;
 
 namespace ModTool.PatchGame
 {

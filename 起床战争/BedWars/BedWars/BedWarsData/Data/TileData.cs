@@ -1,4 +1,4 @@
-﻿using Newtonsoft.Json;
+﻿using System.IO;
 using Terraria;
 
 namespace BedWars.BedWarsData
@@ -29,17 +29,59 @@ namespace BedWars.BedWarsData
         /// <summary>
         /// 不保存. 可以操作图格, 图格
         /// </summary>
-        [JsonIgnore]
         public bool CanActionTile = false;
         /// <summary>
         /// 不保存. 可以操作图格, 墙
         /// </summary>
-        [JsonIgnore]
         public bool CanActionWall = false;
 
         public void Check(MapData mapData)
         {
 
+        }
+
+        public TileData Read(BinaryReader sr)
+        {
+            canAction = sr.ReadBoolean();
+            active = sr.ReadBoolean();
+            type = sr.ReadUInt16();
+            frameX = sr.ReadInt16();
+            frameY = sr.ReadInt16();
+            wall = sr.ReadUInt16();
+            liquid = sr.ReadByte();
+            liquidType = sr.ReadInt32();
+            halfBrick = sr.ReadBoolean();
+            slope = sr.ReadByte();
+            actuator = sr.ReadBoolean();
+            inActive = sr.ReadBoolean();
+            wire = sr.ReadBoolean();
+            wire2 = sr.ReadBoolean();
+            wire3 = sr.ReadBoolean();
+            wire4 = sr.ReadBoolean();
+            color = sr.ReadByte();
+
+            return this;
+        }
+
+        public void Writer(BinaryWriter sw)
+        {
+            sw.Write(canAction);
+            sw.Write(active);
+            sw.Write(type);
+            sw.Write(frameX);
+            sw.Write(frameY);
+            sw.Write(wall);
+            sw.Write(liquid);
+            sw.Write(liquidType);
+            sw.Write(halfBrick);
+            sw.Write(slope);
+            sw.Write(actuator);
+            sw.Write(inActive);
+            sw.Write(wire);
+            sw.Write(wire2);
+            sw.Write(wire3);
+            sw.Write(wire4);
+            sw.Write(color);
         }
 
         public static void Copy(TileData data, Tile tile)
