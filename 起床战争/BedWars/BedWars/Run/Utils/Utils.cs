@@ -1,4 +1,5 @@
 ﻿using BedWars.BedWarsData;
+using Microsoft.Xna.Framework;
 using ModTool.ServerHelp;
 using System;
 using System.Collections.Generic;
@@ -103,6 +104,33 @@ namespace BedWars.Run
             if (c == null) return false;
             if (player.active == false) return false;
             return true;
+        }
+
+        public static void ForPlayerInventory(Player player, Action<Item> action)
+        {
+            ForItems(player.inventory, action);
+            ForItems(player.armor, action);
+            ForItems(player.dye, action);
+            for (int i = 0; i < player.Loadouts.Length; ++i)
+            {
+                if (i == player.CurrentLoadoutIndex) continue;
+                ForItems(player.Loadouts[i].Armor, action);
+                ForItems(player.Loadouts[i].Dye, action);
+            }
+            ForItems(player.miscEquips, action);
+            ForItems(player.miscDyes, action);
+        }
+
+        public static void ForItems(Item[] items, Action<Item> action)
+        {
+            foreach (Item i in items)
+            {
+                if (i == null) continue;
+                if (i.type == ItemID.None) continue;
+                if (i.stack < 1) continue;
+
+                action(i);
+            }
         }
     }
 }

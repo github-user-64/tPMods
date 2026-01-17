@@ -8,9 +8,9 @@ namespace BedWars.Edit.UI.EditItem_File
         {
             OnClick += () =>
             {
-                string ex = EditData.instance.ResetData() ?? "新建成功";
+                string ex = EditData.instance.ResetData();
 
-                Main.NewText(ex);
+                Main.NewText(ex ?? "新建成功");
             };
         }
     }

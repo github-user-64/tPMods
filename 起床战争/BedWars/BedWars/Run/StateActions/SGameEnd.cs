@@ -57,33 +57,18 @@ namespace BedWars.Run.StateActions
 
             --time;
 
-            if (team != null && time > 30 && gametime % 60 == 0) a1(team);
+            if (team != null && time > 30 && gametime % 60 == 0)
+            {
+                team.ForPlay(i =>
+                {
+                    game.NewFireworks(i);
+                });
+            }
         }
 
         public override void OnPlayLeftGame(Player player)
         {
             if (Netplay.HasClients == false) game.SetStateUpdate(GameRun.StateMapInit);
-        }
-
-        private void a1(GameTeamData team)
-        {
-            int[] ids = new int[]
-            {
-                ProjectileID.RocketFireworksBoxRed,
-                ProjectileID.RocketFireworksBoxGreen,
-                ProjectileID.RocketFireworksBoxBlue,
-                ProjectileID.RocketFireworksBoxYellow,
-            };
-
-            team.ForPlay(i =>
-            {
-                Vector2 pos = i.Center;
-                pos.Y -= 40;
-
-                int id = ids[ModTool.Utils.Utils.GetRand(0, ids.Length)];
-
-                Projectile.NewProjectile(null, pos, Vector2.UnitY * -5, id, 0, 0);
-            });
         }
     }
 }

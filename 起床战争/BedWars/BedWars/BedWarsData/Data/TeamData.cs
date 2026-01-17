@@ -29,7 +29,7 @@ namespace BedWars.BedWarsData
         /// </summary>
         public Point spawPos;
         public int statLifeMax = 400;
-        public int statManaMax = 20 * 3;
+        public int statManaMax = 20 * 2;
 
         public void Check(MapData mapData)
         {

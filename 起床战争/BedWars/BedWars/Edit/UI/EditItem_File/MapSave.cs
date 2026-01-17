@@ -24,9 +24,8 @@ namespace BedWars.Edit.UI.EditItem_File
                     try
                     {
                         string ex = EditData.instance.SaveData();
-                        if (ex == null) ex = "保存地图成功";
 
-                        Main.NewText(ex);
+                        Main.NewText(ex ?? "保存地图成功");
                     }
                     catch { }
                 })

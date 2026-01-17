@@ -242,5 +242,25 @@ namespace BedWars.Run
         {
             return Team.GetTeam(player);
         }
+
+        private int[] _NewFireworks_ids = new int[]
+        {
+            ProjectileID.RocketFireworksBoxRed,
+            ProjectileID.RocketFireworksBoxGreen,
+            ProjectileID.RocketFireworksBoxBlue,
+            ProjectileID.RocketFireworksBoxYellow,
+        };
+        /// <summary>
+        /// 烟花
+        /// </summary>
+        public void NewFireworks(Player player)
+        {
+            Vector2 pos = player.Center;
+            pos.Y -= 40;
+
+            int id = _NewFireworks_ids[ModTool.Utils.Utils.GetRand(0, _NewFireworks_ids.Length)];
+
+            Projectile.NewProjectile(null, pos, Vector2.UnitY * -5, id, 0, 0);
+        }
     }
 }

@@ -153,15 +153,18 @@ namespace BedWars.Run.StateActions
             if (gametime % 30 != 0) return;
 
             MapInfoData info = game.DataInfo;
-            if (info.voidHeight < 1) return;
 
             Vector2 voidPos = new Point(0, info.Y + info.Height - 1 - info.voidHeight).ToWorldCoordinates(0, 0);
             float voidY = voidPos.Y;
 
             game.ForAllTeamPlay(i =>
             {
-                if (i.Center.Y < voidY) return;
-
+                //在地图内在虚空上
+                if (game.Data.InMap(i.Center.ToTileCoordinates()))
+                {
+                    if (info.voidHeight < 1 || i.Center.Y < voidY) return;
+                }
+                
                 string text = null;
                 switch (ModTool.Utils.Utils.GetRand(0, 8))
                 {
@@ -222,6 +225,8 @@ namespace BedWars.Run.StateActions
 
                 if (player == null) return;
 
+                game.NewFireworks(player);
+
                 ToPlayerPlayNetSound.ToPlayAll(SoundID.DD2_BetsyDeath);
                 ToPlayerPlayNetSound.ToPlayAll(SoundID.DD2_BetsyDeath);
                 ToPlayerPlayNetSound.ToPlayAll(SoundID.DeerclopsDeath);
@@ -257,8 +262,20 @@ namespace BedWars.Run.StateActions
                 Projectile.NewProjectile(null, player.Center, v * 8, ProjectileID.ConfettiGun, 0, 0);
             }
 
+            if (game.DataInfo.playDeathLoot) PlayDeathLoot(player);
+
             if (team.CanSpaw) SpawPlayToTeam(player);//可以重生就重生
             else DelPlayerTeam(player);//从队伍删除
+        }
+
+        private void PlayDeathLoot(Player player)
+        {
+            Vector2 pos = player.Center;
+
+            Utils.ForPlayerInventory(player, i =>
+            {
+                Item.NewItem(null, pos, Vector2.Zero, i.type, i.stack, prefixGiven: i.prefix);
+            });
         }
 
         private void DelPlayerTeam(Player player)//删除玩家队伍
