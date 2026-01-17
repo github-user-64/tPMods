@@ -97,9 +97,16 @@ namespace BedWars.Run.StateActions
 
         private void UpdateAction_Hook(Projectile proj, Player player)
         {
+            if (proj.ai[0] != 0) return;//不是射出状态的钩子
+
             Vector2 v = Vector2.Normalize(proj.velocity) * 16 * 1;
 
-            //proj.Kill();
+            if (v.HasNaNs())
+            {
+                v = Vector2.Normalize(proj.Center - player.Center) * 16 * 1;
+                if (v.HasNaNs()) return;
+            }
+
             proj.type = ProjectileID.None;
             NetMessage.TrySendData(MessageID.SyncProjectile, number: proj.whoAmI);
 

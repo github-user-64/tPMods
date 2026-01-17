@@ -16,6 +16,7 @@ namespace BedWars.Edit
             ShopData temp = new ShopData();
             temp.pos = pos;
             DataCheck.RepairList(ref temp.item, Chest.maxItems);
+            temp.ItemBuyOnceToMax();
 
             DataShops.Add(temp);
 

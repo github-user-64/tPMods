@@ -156,9 +156,12 @@ namespace BedWars.Run.StateActions
 
         public override void Update(uint gametime)
         {
-            UpdateOnlinePlayer(out bool stateUpdate);
-            if (stateUpdate) return;
-
+            if (GameRun.isdebugrun == false)
+            {
+                UpdateOnlinePlayer(out bool stateUpdate);
+                if (stateUpdate) return;
+            }
+            
             UpdateVoid(gametime);
 
             UpdateSpawTile(null);

@@ -56,6 +56,12 @@ namespace BedWars.Run.StateActions
 
                 TryAddPlayToReady(i);//添加登录玩家到列表
             });
+
+            if (GameRun.isdebugrun)
+            {
+                game.DataInfo.startGameMinPlay = 1;
+                StartTime = 5;
+            }
         }
 
         public override void OnEnd()
@@ -142,7 +148,6 @@ namespace BedWars.Run.StateActions
 
             int time = StartTimeMax;
             float what = 6;
-            //float what = 1;//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
             if (ReadyPlay.Count >= what) time = 5;
             else if (ReadyPlay.Count >= what / 2f) time = 10;
             else if (ReadyPlay.Count >= what / 3f) time = 20;

@@ -21,5 +21,13 @@ namespace BedWars.BedWarsData
         {
             if (mapData.InMapRelative(pos) == false) throw new Exception("商店超出地图");
         }
+
+        public void ItemBuyOnceToMax()
+        {
+            item.ForEach(i =>
+            {
+                i.buyOnce = byte.MaxValue;
+            });
+        }
     }
 }

@@ -23,7 +23,9 @@ namespace ModTool.Common
             public byte prefix;
             /// <summary/>
             public int value;
-            /// <summary/>
+            /// <summary>
+            /// 这个好像得设置成<see cref="byte.MaxValue"/>价格显示才正常
+            /// </summary>
             public byte buyOnce;
 
             /// <summary>
