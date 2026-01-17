@@ -67,7 +67,7 @@ namespace BedWars.BedWarsData
 
                 i.stack += stack;
                 i.Center = pos;
-                i.velocity = Vector2.UnitY * -1;
+                i.velocity = Vector2.UnitY * -2;
 
                 NetMessage.TrySendData(MessageID.SyncItem, number: i.whoAmI);
                 return;
