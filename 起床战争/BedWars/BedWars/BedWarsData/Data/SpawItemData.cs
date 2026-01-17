@@ -61,13 +61,13 @@ namespace BedWars.BedWarsData
                 if (i.stack < 1) continue;
 
                 float dis = i.Center.Distance(pos);
-                if (dis > 16 * 2) continue;
+                if (dis > 16 * 5) continue;
 
                 if (i.stack + stack > i.maxStack) continue;//如果不能堆叠
 
                 i.stack += stack;
                 i.Center = pos;
-                i.velocity = Vector2.UnitY * -5;
+                i.velocity = Vector2.UnitY * -1;
 
                 NetMessage.TrySendData(MessageID.SyncItem, number: i.whoAmI);
                 return;
