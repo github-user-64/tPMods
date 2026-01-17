@@ -16,6 +16,11 @@ namespace BedWars.Edit.UI.Elements
 
         public UIItemSwitchSize(string text) : base(null, text)
         {
+            ss.OnSetSize += v =>
+            {
+                OnSetSize?.Invoke(v);
+            };
+
             OnValUpdate += v =>
             {
                 if (v == false) ss.End();

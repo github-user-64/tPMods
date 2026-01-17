@@ -61,7 +61,7 @@ namespace BedWars.BedWarsData
                 if (i.stack < 1) continue;
 
                 float dis = i.Center.Distance(pos);
-                if (dis > 16 * 8) continue;
+                if (dis > 16 * 2) continue;
 
                 if (i.stack + stack > i.maxStack) continue;//如果不能堆叠
 

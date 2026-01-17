@@ -102,7 +102,7 @@ namespace BedWars.Edit.UI.EditShop
             ss.Add($"id:{item.type}");
             int[] vs = EditShopItems.GetVal(item.value);
             ss.Add($"[c/FFD700:价格][i:71]{vs[0]}[i:72]{vs[1]}[i:73]{vs[2]}[i:74]{vs[3]}");
-            ss.Add("[c/aaffaa:实际价格会波动]");
+            ss.Add("[c/aaffaa:实际价格有波动,建议提高价格]");
             ss.Add("[c/aaffaa:用物品点击复制到商店,右键移除]");
 
             tContentPatch.Content.DrawTip.SetDraw(ss.ToArray());
