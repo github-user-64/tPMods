@@ -143,8 +143,8 @@ namespace BedWars.Run.StateActions
             }
 
             int time = StartTimeMax;
-            //float what = 6;
-            float what = 1;//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+            float what = 6;
+            //float what = 1;//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
             if (ReadyPlay.Count >= what) time = 5;
             else if (ReadyPlay.Count >= what / 2f) time = 10;
             else if (ReadyPlay.Count >= what / 3f) time = 20;
