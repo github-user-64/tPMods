@@ -131,8 +131,6 @@ namespace BedWars.Run.StateActions
 
         public override void Update(uint gametime)
         {
-            ReadyPlay.RemoveAll(i => Utils.PlayerHasServer(i) == false);
-
             if (gametime % 60 != 0) return;
 
             int v = game.DataInfo.startGameMinPlay - ReadyPlay.Count;
