@@ -44,6 +44,10 @@ namespace BedWars.BedWarsData
         /// 玩家死亡掉落物品
         /// </summary>
         public bool playDeathLoot = false;
+        /// <summary>
+        /// 玩家重生到队伍时保留盔甲
+        /// </summary>
+        public bool playKeepArmor = true;
 
         public void Check(MapData mapData)
         {

@@ -67,6 +67,7 @@ namespace BedWars.Edit.UI.EditWindow
             AddChild(new EditMapSpawPos("设置重生点"));
             AddChild(new EditMapVoidHeight("设置斩杀线"));
             AddChild(new EditPlayDeathLoot("玩家死亡掉落物品"));
+            AddChild(new EditPlayKeepArmor("玩家保留盔甲"));
             AddChild(new EditStartGameMinPlay("开始所需玩家"));
             AddChild(new EditTime("维持时间"));
             AddChild(new EditDayTime("白天"));

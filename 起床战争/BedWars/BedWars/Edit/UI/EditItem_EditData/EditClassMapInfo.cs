@@ -56,4 +56,30 @@ namespace BedWars.Edit.UI.EditItem_EditData
             EditData.instance.DataInfo.playDeathLoot = v;
         }
     }
+
+    internal class EditPlayKeepArmor : UIItemSwitchUpdate
+    {
+        public EditPlayKeepArmor(string text) : base(null, null, text)
+        {
+            MouseText = "玩家重生保留盔甲";
+
+            gss = new GetSetStringBool(GetV, SetV);
+        }
+
+        private static bool GetV()
+        {
+            return EditData.instance.DataInfo?.playKeepArmor ?? default;
+        }
+
+        private static void SetV(bool v)
+        {
+            if (EditData.instance.DataInfo == null)
+            {
+                Main.NewText("数据为null");
+                return;
+            }
+
+            EditData.instance.DataInfo.playKeepArmor = v;
+        }
+    }
 }

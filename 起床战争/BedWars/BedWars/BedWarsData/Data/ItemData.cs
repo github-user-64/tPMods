@@ -16,18 +16,19 @@ namespace BedWars.BedWarsData
         /// <summary>
         /// 复制物品, 如果参数为空, 则重置数据
         /// </summary>
-        public void Copy(Item item = null)
+        public ItemData Copy(Item item = null)
         {
             if (item == null)
             {
                 type = 0;
                 stack = 0;
                 prefix = 0;
-                return;
+                return this;
             }
             type = item.type;
             stack = item.stack;
             prefix = item.prefix;
+            return this;
         }
 
         /// <summary>

@@ -61,8 +61,8 @@ namespace BedWars.Common
             Time = -1;
             DayTime = true;
             SyncTimeCD = 0;
-            CanSpawnNPC = true;
-            CanDropTombstone = true;
+            //CanSpawnNPC = true;
+            //CanDropTombstone = true;
         }
 
         private static void DoUpdateInWorldPr()

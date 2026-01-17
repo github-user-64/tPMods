@@ -124,7 +124,7 @@ namespace BedWars.Run.StateActions
 
             team.SetPlayerAttributes(player);//设置玩家属性
 
-            game.ResetInventory(player);//重置物品栏
+            ResetInventory(player);
 
             game.SetTeamPvP(player, team.team.team, true);//设置队伍pvp
 
@@ -132,6 +132,26 @@ namespace BedWars.Run.StateActions
             NetMessage.TrySendData(MessageID.AddPlayerBuff, number: player.whoAmI, number2: BuffID.WeaponImbueCursedFlames, number3: 60 * 5);
             NetMessage.TrySendData(MessageID.AddPlayerBuff, number: player.whoAmI, number2: BuffID.Endurance, number3: 60 * 5);
             NetMessage.TrySendData(MessageID.AddPlayerBuff, number: player.whoAmI, number2: BuffID.NebulaUpDmg3, number3: 60 * 5);
+        }
+
+        private void ResetInventory(Player player)
+        {
+            if (game.DataInfo.playKeepArmor == false)//不需要保留盔甲
+            {
+                game.ResetInventory(player);//重置物品栏
+                return;
+            }
+
+            List<ItemData> keepArmor = new List<ItemData>()//要保留的盔甲
+            {
+                new ItemData().Copy(player.armor[0]),
+                new ItemData().Copy(player.armor[1]),
+                new ItemData().Copy(player.armor[2]),
+            };
+
+            game.ResetInventory(player);//重置物品栏
+
+            Utils.SetItemsSync(player, player.armor, PlayerItemSlotID.Armor0, keepArmor);
         }
 
         public override void Update(uint gametime)
