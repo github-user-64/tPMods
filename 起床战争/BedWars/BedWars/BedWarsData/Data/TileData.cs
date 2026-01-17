@@ -25,6 +25,9 @@ namespace BedWars.BedWarsData
         public bool wire3;
         public bool wire4;
         public byte color;//漆
+        public bool invisibleBlock;//漆回声
+        public bool invisibleWall;//漆回声
+
         //
         /// <summary>
         /// 不保存. 可以操作图格, 图格
@@ -59,6 +62,8 @@ namespace BedWars.BedWarsData
             wire3 = sr.ReadBoolean();
             wire4 = sr.ReadBoolean();
             color = sr.ReadByte();
+            invisibleBlock = sr.ReadBoolean();
+            invisibleWall = sr.ReadBoolean();
 
             return this;
         }
@@ -82,6 +87,8 @@ namespace BedWars.BedWarsData
             sw.Write(wire3);
             sw.Write(wire4);
             sw.Write(color);
+            sw.Write(invisibleBlock);
+            sw.Write(invisibleWall);
         }
 
         public static void Copy(TileData data, Tile tile)
@@ -102,6 +109,8 @@ namespace BedWars.BedWarsData
             data.wire3 = tile.wire3();
             data.wire4 = tile.wire4();
             data.color = tile.color();
+            data.invisibleBlock = tile.invisibleBlock();
+            data.invisibleWall = tile.invisibleWall();
         }
 
         public static void Place(TileData data, Tile tile)
@@ -122,6 +131,8 @@ namespace BedWars.BedWarsData
             tile.wire3(data.wire3);
             tile.wire4(data.wire4);
             tile.color(data.color);
+            tile.invisibleBlock(data.invisibleBlock);
+            tile.invisibleWall(data.invisibleWall);
         }
     }
 }
