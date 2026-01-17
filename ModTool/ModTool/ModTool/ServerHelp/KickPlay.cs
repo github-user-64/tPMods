@@ -23,12 +23,12 @@ namespace ModTool.ServerHelp
             Netplay.Clients[whoAmI].PendingTermination = true;
             Netplay.Clients[whoAmI].PendingTerminationApproved = true;
 
-            try
-            {
-                Netplay.Clients[whoAmI].Reset();
-                NetMessage.SyncDisconnectedPlayer(whoAmI);
-            }
-            catch { }
+            //try
+            //{
+            //    Netplay.Clients[whoAmI].Reset();
+            //    NetMessage.SyncDisconnectedPlayer(whoAmI);
+            //}
+            //catch { }
 
             return null;
         }

@@ -73,7 +73,7 @@ namespace BedWars.Run.StateActions
                 if (team == null) continue;
 
                 if (i.type == ProjectileID.StarAnise) UpdateAction_Place(i);
-                else if (i.type == ProjectileID.TendonHook) UpdateAction_TendonHook(i, player);
+                else if (i.type == ProjectileID.Hook) UpdateAction_Hook(i, player);
             }
         }
 
@@ -95,7 +95,7 @@ namespace BedWars.Run.StateActions
             NetMessage.SendTileSquare(-1, pos.X, pos.Y, 1);
         }
 
-        private void UpdateAction_TendonHook(Projectile proj, Player player)
+        private void UpdateAction_Hook(Projectile proj, Player player)
         {
             Vector2 v = Vector2.Normalize(proj.velocity) * 16 * 1;
 
@@ -106,8 +106,8 @@ namespace BedWars.Run.StateActions
             //
 
             //消耗沟子
-            if (UpdateAction_TendonHook_DelTendonHook(player, player.miscEquips, PlayerItemSlotID.Misc0) == false &&
-                UpdateAction_TendonHook_DelTendonHook(player, player.inventory, PlayerItemSlotID.Inventory0) == false)
+            if (UpdateAction_Hook_DelGrapplingHook(player, player.miscEquips, PlayerItemSlotID.Misc0) == false &&
+                UpdateAction_Hook_DelGrapplingHook(player, player.inventory, PlayerItemSlotID.Inventory0) == false)
             {
                 return;
             }
@@ -118,13 +118,13 @@ namespace BedWars.Run.StateActions
             NetMessage.TrySendData(MessageID.PlayerControls, number: player.whoAmI);
         }
 
-        private bool UpdateAction_TendonHook_DelTendonHook(Player player, Item[] arr, int solt)
+        private bool UpdateAction_Hook_DelGrapplingHook(Player player, Item[] arr, int solt)
         {
             for (int i = 0; i < arr.Length; ++i)
             {
                 Item item = arr[i];
                 if (item == null) continue;
-                if (item.type != ItemID.TendonHook) continue;
+                if (item.type != ItemID.GrapplingHook) continue;
                 if (item.stack < 1) continue;
 
                 item.SetDefaults(ItemID.None);

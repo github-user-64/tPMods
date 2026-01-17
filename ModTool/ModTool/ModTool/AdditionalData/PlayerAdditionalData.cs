@@ -71,9 +71,6 @@ namespace ModTool.AdditionalData
         protected virtual void ServerDisconnectedPlayer(int ply)
         {
             ClearDataItem(ply);
-
-            //不知道为啥有时候玩家还在线却调用断开连接导致账号登出, 防止账号登出玩家还在这时候直接踢出好了
-            KickPlay.Kick(ply, "同步断开连接");
         }
 
         /// <summary>
