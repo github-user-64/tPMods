@@ -13,7 +13,7 @@ namespace BedWars.Run.StateActions
         private readonly List<Player> ReadyPlay = new List<Player>();
         private int MaxPlayCount = 0;
         private int StartTime = 0;
-        private const int StartTimeMax = 30;
+        private int StartTimeMax = 30;
 
         public SReadyGame(GameRun game) : base(game) { }
 
@@ -57,10 +57,10 @@ namespace BedWars.Run.StateActions
                 TryAddPlayToReady(i);//添加登录玩家到列表
             });
 
-            if (GameRun.isdebugrun)
+            if (ThisMod.Config.IsDebug == 1)
             {
                 game.DataInfo.startGameMinPlay = 1;
-                StartTime = 5;
+                StartTime = StartTimeMax = 5;
             }
         }
 
@@ -158,7 +158,7 @@ namespace BedWars.Run.StateActions
 
             if (StartTime < 1)//时间到进入游戏中
             {
-                game.SetStateUpdate(GameRun.StateGameing, ReadyPlay.ToList());
+                EnterGameing(ReadyPlay);
                 return;
             }
 
@@ -177,6 +177,20 @@ namespace BedWars.Run.StateActions
             }
 
             --StartTime;
+        }
+
+        private void EnterGameing(List<Player> readyPly)
+        {
+            List<Player> ps = new List<Player>();
+
+            while (readyPly.Count > 0)//打乱
+            {
+                int index = ModTool.Utils.Utils.GetRand(0, readyPly.Count);
+                ps.Add(readyPly[index]);
+                readyPly.RemoveAt(index);
+            }
+
+            game.SetStateUpdate(GameRun.StateGameing, ps);
         }
     }
 }

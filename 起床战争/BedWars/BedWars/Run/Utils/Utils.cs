@@ -1,5 +1,4 @@
 ﻿using BedWars.BedWarsData;
-using Microsoft.Xna.Framework;
 using ModTool.ServerHelp;
 using System;
 using System.Collections.Generic;
@@ -25,6 +24,11 @@ namespace BedWars.Run
             SetItemsSync(player, player.Loadouts[0].Dye, PlayerItemSlotID.Loadout1_Dye_0, null);
             SetItemsSync(player, player.Loadouts[1].Dye, PlayerItemSlotID.Loadout2_Dye_0, null);
             SetItemsSync(player, player.Loadouts[2].Dye, PlayerItemSlotID.Loadout3_Dye_0, null);
+
+            SetItemsSync(player, player.bank.item, PlayerItemSlotID.Bank1_0, null);//猪猪
+            SetItemsSync(player, player.bank2.item, PlayerItemSlotID.Bank2_0, null);//保险箱
+            SetItemsSync(player, player.bank3.item, PlayerItemSlotID.Bank3_0, null);//护卫熔炉
+            SetItemsSync(player, player.bank4.item, PlayerItemSlotID.Bank4_0, null);//虚空保险库
         }
 
         /// <summary>

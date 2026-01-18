@@ -23,9 +23,7 @@ namespace ModTool.Common
             public byte prefix;
             /// <summary/>
             public int value;
-            /// <summary>
-            /// 这个好像得设置成<see cref="byte.MaxValue"/>价格显示才正常
-            /// </summary>
+            /// <summary/>
             public byte buyOnce;
 
             /// <summary>
@@ -48,6 +46,18 @@ namespace ModTool.Common
                 prefix = item.prefix;
                 value = item.value;
                 buyOnce = Convert.ToByte(item.buyOnce);//一次性?
+            }
+
+            /// <summary>
+            /// 复制
+            /// </summary>
+            public void Copy(ItemData data)
+            {
+                type = data.type;
+                stack = data.stack;
+                prefix = data.prefix;
+                value = data.value;
+                buyOnce = data.buyOnce;
             }
 
             /// <summary>

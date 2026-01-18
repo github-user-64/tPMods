@@ -43,5 +43,22 @@ namespace BedWars.Edit
 
             return null;
         }
+
+        /// <summary>
+        /// 复制到每个商店
+        /// </summary>
+        public string ShopCopyToAll(ShopData data)
+        {
+            if (Data == null) return "地图数据为null";
+
+            foreach (ShopData i in DataShops)
+            {
+                if (i == data) continue;
+
+                i.Copy(data);
+            }
+
+            return null;
+        }
     }
 }

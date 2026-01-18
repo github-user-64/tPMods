@@ -10,6 +10,8 @@ namespace BedWars
         {
             [JsonProperty("地图数据目录")]
             public string DirMapData = "MapData";
+            [JsonProperty("调试")]
+            public int IsDebug = 0;
         }
 
         public override bool HasUI => false;

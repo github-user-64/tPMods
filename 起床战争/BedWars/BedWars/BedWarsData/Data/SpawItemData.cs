@@ -54,6 +54,15 @@ namespace BedWars.BedWarsData
 
         private void NewItem(Vector2 pos, int type, int stack)
         {
+            if (StackToItem(pos, type, stack) == true) return;//成功堆叠到附近物品
+
+            Item.NewItem(null, pos, Vector2.Zero, type, stack);
+        }
+
+        private bool StackToItem(Vector2 pos, int type, int stack)//堆叠到附近物品
+        {
+            if (HasPlayer(pos)) return false;//如果旁边有玩家
+
             foreach (Item i in Main.item)
             {
                 if (i?.active != true) continue;
@@ -70,10 +79,23 @@ namespace BedWars.BedWarsData
                 i.velocity = Vector2.UnitY * -2;
 
                 NetMessage.TrySendData(MessageID.SyncItem, number: i.whoAmI);
-                return;
+                return true;
             }
 
-            Item.NewItem(null, pos, Vector2.Zero, type, stack);
+            return false;
+        }
+
+        private bool HasPlayer(Vector2 pos)
+        {
+            foreach (Player i in Main.player)
+            {
+                if (i?.active != true) continue;
+                if (i.Center.Distance(pos) > 16 * 1) continue;
+
+                return true;
+            }
+
+            return false;
         }
 
         public void Check(MapData mapData)

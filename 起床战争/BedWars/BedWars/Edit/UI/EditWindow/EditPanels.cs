@@ -22,12 +22,23 @@ namespace BedWars.Edit.UI.EditWindow
             AddChild(new MapSave("保存", "保存地图"));
 
             string t = "[c/aaffaa:进入游戏后需要重新加载]"
-                + "\n[c/aaffaa:退出后不会保存所以记得][c/ff1111:保存][c/aaffaa:哦:p]";
+                + "\n[c/aaffaa:退出后不会保存所以记得][c/ff1111:保存][c/aaffaa:哦:p]"
+                + "\n[c/aaffaa:地图目录:] ";
+            string newt = t;
+            string oldt = newt;
 
             UIText text = new UIText(t, 0.7f);
             text.Width.Precent = 1;
             text.MarginTop = 10;
             text.TextOriginX = 0;
+            text.OnUpdate += _ =>
+            {
+                newt = $"{t}{ThisMod.Config.DirMapData}";
+                if (newt == oldt) return;
+                oldt = newt;
+
+                text.SetText(newt);
+            };
             AddChild(text);
         }
     }

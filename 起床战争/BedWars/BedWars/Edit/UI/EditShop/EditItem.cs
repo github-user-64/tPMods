@@ -72,6 +72,14 @@ namespace BedWars.Edit.UI.EditShop
             };
             sp.Append(setPos);
 
+            UIImageButton copyToAll = new UIImageButton(sp.Height.Pixels, "将物品应用于其它商店", "Images/UI/CharCreation/Paste");
+            copyToAll.VAlign = 0.5f;
+            copyToAll.OnClick += () =>
+            {
+                EditData.instance.ShopCopyToAll(data);
+            };
+            sp.Append(copyToAll);
+
             ui_open.Append(new EditShopItems(data));
 
             return ui_open;

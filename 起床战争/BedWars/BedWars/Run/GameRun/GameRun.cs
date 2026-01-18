@@ -49,8 +49,6 @@ namespace BedWars.Run
     //
     public partial class GameRun
     {
-        public static bool isdebugrun = false;
-
         public const int StateNone = 0;
         public const int StateMapInit = 1;
         public const int StateReadyGame = 2;

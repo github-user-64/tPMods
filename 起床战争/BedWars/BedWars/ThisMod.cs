@@ -10,6 +10,7 @@ namespace BedWars
     internal class ThisMod : Mod
     {
         public static ModObject mo { get; private set; } = null;
+        public static ModConfig.Data Config { get; private set; } = null;
         public static string Dir { get; private set; } = null;
         public static string DirMapData { get; private set; } = null;
 
@@ -26,6 +27,8 @@ namespace BedWars
 
         public static void LoadModConfig(ModConfig.Data data)
         {
+            Config = data;
+
             SetDirMapData(data.DirMapData);
         }
 

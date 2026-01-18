@@ -14,8 +14,9 @@ namespace BedWars.Run
             }
             catch (Exception ex)
             {
-                string s = $"起床战争:退出状态{NowStateType}时出现异常:{ex.Message}";
+                string s = $"起床战争:退出状态{NowStateType}时出现异常:{ex}";
                 tContentPatch.Utils.Log.Add(s);
+                tContentPatch.Utils.Log.SaveTry();
                 tContentPatch.ContentPatch.PrintTry(s);
             }
         }
@@ -32,8 +33,9 @@ namespace BedWars.Run
             }
             catch (Exception ex)
             {
-                string s = $"起床战争:进入状态{NowStateType}时出现异常:{ex.Message}";
+                string s = $"起床战争:进入状态{NowStateType}时出现异常:{ex}";
                 tContentPatch.Utils.Log.Add(s);
+                tContentPatch.Utils.Log.SaveTry();
                 tContentPatch.ContentPatch.PrintTry(s);
             }
         }

@@ -85,7 +85,7 @@ namespace BedWars.Run.StateActions
                     continue;
                 }
 
-                GameTeamData team = canAssignTeam[i];
+                GameTeamData team = canAssignTeam[teamI];
 
                 if (team.PlayerCount < team.team.maxPlay)//如果该队伍没到最大玩家数量
                 {
@@ -128,10 +128,10 @@ namespace BedWars.Run.StateActions
 
             game.SetTeamPvP(player, team.team.team, true);//设置队伍pvp
 
-            NetMessage.TrySendData(MessageID.AddPlayerBuff, number: player.whoAmI, number2: BuffID.Panic, number3: 60 * 5);
-            NetMessage.TrySendData(MessageID.AddPlayerBuff, number: player.whoAmI, number2: BuffID.WeaponImbueCursedFlames, number3: 60 * 5);
-            NetMessage.TrySendData(MessageID.AddPlayerBuff, number: player.whoAmI, number2: BuffID.Endurance, number3: 60 * 5);
-            NetMessage.TrySendData(MessageID.AddPlayerBuff, number: player.whoAmI, number2: BuffID.NebulaUpDmg3, number3: 60 * 5);
+            NetMessage.TrySendData(MessageID.AddPlayerBuff, number: player.whoAmI, number2: BuffID.Panic, number3: 60 * 8);
+            NetMessage.TrySendData(MessageID.AddPlayerBuff, number: player.whoAmI, number2: BuffID.WeaponImbueCursedFlames, number3: 60 * 8);
+            NetMessage.TrySendData(MessageID.AddPlayerBuff, number: player.whoAmI, number2: BuffID.Endurance, number3: 60 * 8);
+            NetMessage.TrySendData(MessageID.AddPlayerBuff, number: player.whoAmI, number2: BuffID.NebulaUpDmg3, number3: 60 * 8);
         }
 
         private void ResetInventory(Player player)
@@ -156,7 +156,7 @@ namespace BedWars.Run.StateActions
 
         public override void Update(uint gametime)
         {
-            if (GameRun.isdebugrun == false)
+            if (ThisMod.Config.IsDebug != 1)
             {
                 UpdateOnlinePlayer(out bool stateUpdate);
                 if (stateUpdate) return;

@@ -42,8 +42,8 @@ namespace test2.MT
                 CommandMethod clear_p = new CommandMethod("p");
                 clear_p.Runing += _ =>
                 {
-                    ModTool.ServerHelp.PrintTo.PrintToPlayAll($"发送到全部", Color.SaddleBrown);
-                    ModTool.ServerHelp.PrintTo.PrintToPlay(i, "发给你哦哦哦", Color.BlanchedAlmond);
+                    ModTool.ServerHelp.ToPlayerPrint.PrintToPlayAll($"发送到全部", Color.SaddleBrown);
+                    ModTool.ServerHelp.ToPlayerPrint.PrintToPlay(i, "发给你哦哦哦", Color.BlanchedAlmond);
                 };
                 clear.SubCommand.Add(clear_p);
 
