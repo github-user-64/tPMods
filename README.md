@@ -12,6 +12,8 @@
 
 登录:`/login 注册的密码`
 
+玩家账号的`管理等级`标签值越小代表等级越大，0为服主级别
+
 ## 引用
 ### 该项目地址
 <https://github.com/github-user-64/tPMods>
