@@ -333,6 +333,8 @@ namespace BedWars.Run.StateActions
 
         public override void OnPlayJoinGame(Player player)
         {
+            base.OnPlayJoinGame(player);
+
             ToPlayerPrint.PrintToPlay(player.whoAmI, "正在游戏中,请等待游戏结束", Color.YellowGreen);
         }
     }
