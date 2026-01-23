@@ -8,47 +8,43 @@ using Terraria;
 
 namespace PlayerAccount.Common.FunctionCommand
 {
-    /// <summary>
-    /// 注册
-    /// </summary>
-    public class register
+    /// <summary/>
+    public class Register : CommandMethod
     {
-        /// <summary/>
-        public class cmd : CommandMethod
+        /// <summary>
+        /// 注册
+        /// </summary>
+        public Register(Player player, Dictionary<string, string> account, Action<string> print) : base(CommandText.Register, 1)
         {
-            /// <summary/>
-            public cmd(Player player, Dictionary<string, string> account, Action<string> print) : base("register", 1)
+            SubCommand.Add(new CommandPrintList(SubCommand, "密码", print));
+            SubCommand.Add(new CommandString2());
+
+            Runing += args =>
             {
-                SubCommand.Add(new CommandPrintList(SubCommand, "密码", print));
-                SubCommand.Add(new CommandString2());
-
-                Runing += args =>
+                if (args[0] is string pas == false)
                 {
-                    if (args[0] is string pas == false)
-                    {
-                        print?.Invoke("密码为null");
-                        return;
-                    }
+                    print?.Invoke("密码为null");
+                    return;
+                }
 
-                    string exmsg = foo(player, account, pas);
-                    if (exmsg != null)
-                    {
-                        print?.Invoke(exmsg);
-                        return;
-                    }
+                string exmsg = PlayerRergister(player, account, pas);
+                if (exmsg != null)
+                {
+                    print?.Invoke(exmsg);
+                    return;
+                }
 
-                    if (print == null) return;
+                if (print == null) return;
 
-                    print($"{player.name}注册成功,密码是:[c/aaffaa:{pas}]");
-                    print("登录请输入/login [c/aaffaa:密码]");
-                };
-            }
+                print($"{player.name}注册成功,密码是:[c/aaffaa:{pas}]");
+                print("登录请输入/login [c/aaffaa:密码]");
+            };
         }
 
         /// <summary>
         /// 注册, 成功返回<see langword="null"/>
         /// </summary>
-        public static string foo(Player player, Dictionary<string, string> account, string password)
+        public static string PlayerRergister(Player player, Dictionary<string, string> account, string password)
         {
             if (account != null) return "已登录无法注册";
             if (password == null) return "密码为空";

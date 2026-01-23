@@ -7,40 +7,36 @@ using Terraria;
 
 namespace PlayerAccount.Common.FunctionCommand
 {
-    /// <summary>
-    /// 登录
-    /// </summary>
-    public class login
+    /// <summary/>
+    public class Login : CommandMethod
     {
-        /// <summary/>
-        public class cmd : CommandMethod
+        /// <summary>
+        /// 登录
+        /// </summary>
+        public Login(Player player, Dictionary<string, string> account, Action<string> print) : base(CommandText.Login, 1)
         {
-            /// <summary/>
-            public cmd(Player player, Dictionary<string, string> account, Action<string> print) : base("login", 1)
+            SubCommand.Add(new CommandPrintList(SubCommand, "密码", print));
+            SubCommand.Add(new CommandString2());
+
+            Runing += args =>
             {
-                SubCommand.Add(new CommandPrintList(SubCommand, "密码", print));
-                SubCommand.Add(new CommandString2());
-
-                Runing += args =>
+                if (args[0] is string pas == false)
                 {
-                    if (args[0] is string pas == false)
-                    {
-                        print?.Invoke("密码为null");
-                        return;
-                    }
+                    print?.Invoke("密码为null");
+                    return;
+                }
 
-                    string ex = foo(player, account, pas);
-                    if (ex == null) ex = $"{player?.name}[c/00ff00:登录成功]";
+                string ex = PlayerLogin(player, account, pas);
+                if (ex == null) ex = $"{player?.name}[c/00ff00:登录成功]";
 
-                    print?.Invoke(ex);
-                };
-            }
+                print?.Invoke(ex);
+            };
         }
 
         /// <summary>
         /// 登录, 成功返回<see langword="null"/>
         /// </summary>
-        public static string foo(Player player, Dictionary<string, string> account, string password)
+        public static string PlayerLogin(Player player, Dictionary<string, string> account, string password)
         {
             if (account != null) return "不能重复登录";
 

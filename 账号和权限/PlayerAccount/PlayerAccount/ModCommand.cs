@@ -38,32 +38,33 @@ namespace PlayerAccount
             CommandMethod readConfig = new CommandMethod("updateConfig");
             readConfig.Runing += _ =>
             {
+                ContentPatch.PrintTry(CommandText.Update() ? "更新指令文本成功" : "更新指令文本失败");
                 ContentPatch.PrintTry(ServerConfig.Update() ? "更新服务器配置成功" : "更新服务器配置失败");
                 ContentPatch.PrintTry(Common.SetChat.ChatConfig.instance.UpdateData() == true ? "更新聊天配置成功" : "更新聊天配置失败");
             };
             root.SubCommand.Add(readConfig);
 
             //踢出
-            root.SubCommand.Add(new kick.cmd(ContentPatch.PrintTry));
+            root.SubCommand.Add(new Kick.cmd(ContentPatch.PrintTry));
 
             //封禁
             ban.cmd ban = new ban.cmd(ContentPatch.PrintTry);
-            ban.SubCommand.Add(new banAdd.cmd(ContentPatch.PrintTry));
-            ban.SubCommand.Add(new banDel.cmd(ContentPatch.PrintTry));
+            ban.SubCommand.Add(new BanAdd.cmd(ContentPatch.PrintTry));
+            ban.SubCommand.Add(new BanDel.cmd(ContentPatch.PrintTry));
             root.SubCommand.Add(ban);
 
             //账号操作
             root.SubCommand.Add(new accAction.cmd(ContentPatch.PrintTry));
 
             //发送消息到游戏
-            root.SubCommand.Add(new printToGame.cmd(ContentPatch.PrintTry));
+            root.SubCommand.Add(new SendToGame.cmd(ContentPatch.PrintTry));
 
             //禁言
             root.SubCommand.Add(noChat.GetYes(null, null, ContentPatch.PrintTry));
             root.SubCommand.Add(noChat.GetNo(null, null, ContentPatch.PrintTry));
 
             //打开关闭注册
-            root.SubCommand.Add(new openRegister.cmd(ContentPatch.PrintTry));
+            root.SubCommand.Add(new EnableRegister.cmd(ContentPatch.PrintTry));
 
             //添加服主账号
             root.SubCommand.Add(new addMan.cmd(ContentPatch.PrintTry));

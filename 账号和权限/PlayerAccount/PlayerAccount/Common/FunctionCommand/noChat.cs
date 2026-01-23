@@ -16,13 +16,13 @@ namespace PlayerAccount.Common.FunctionCommand
     public class noChat
     {
         /// <summary/>
-        public class class1 : CommandMethod
+        public class CommandNoChat : CommandMethod
         {
             /// <summary/>
             public Action<Player, Dictionary<string, string>> OnAction = null;
 
             /// <summary/>
-            public class1(Player player, Dictionary<string, string> acc, string text, Action<string> print) : base(text, 1)
+            public CommandNoChat(Player player, Dictionary<string, string> acc, string text, Action<string> print) : base(text, 1)
             {
                 SubCommand.Add(new CommandPrintList(SubCommand, null, print));
                 SubCommand.Add(new CommandGetPlayer());
@@ -58,7 +58,7 @@ namespace PlayerAccount.Common.FunctionCommand
         /// </summary>
         public static CommandObject GetYes(Player player, Dictionary<string, string> acc, Action<string> print)
         {
-            class1 c = new class1(player, acc, "禁言", print);
+            CommandNoChat c = new CommandNoChat(player, acc, CommandText.NoChat, print);
             c.OnAction += (noP, noAcc) =>
             {
                 string msg = $"{(player == null ? "Server" : $"玩家{player.name}")}禁言{noP.name}";
@@ -77,7 +77,7 @@ namespace PlayerAccount.Common.FunctionCommand
         /// </summary>
         public static CommandObject GetNo(Player player, Dictionary<string, string> acc, Action<string> print)
         {
-            class1 c = new class1(player, acc, "取消禁言", print);
+            CommandNoChat c = new CommandNoChat(player, acc, CommandText.NoNoChat, print);
             c.OnAction += (noP, noAcc) =>
             {
                 string msg = $"{(player == null ? "Server" : $"玩家{player.name}")}取消禁言{noP.name}";

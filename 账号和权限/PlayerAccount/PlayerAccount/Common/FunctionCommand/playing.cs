@@ -4,26 +4,22 @@ using Terraria;
 
 namespace PlayerAccount.Common.FunctionCommand
 {
-    /// <summary>
-    /// 输出玩家列表
-    /// </summary>
-    public static class playing
+    /// <summary/>
+    public class Playing : CommandMethod
     {
-        /// <summary/>
-        public class cmd : CommandMethod
+        /// <summary>
+        /// 输出玩家列表
+        /// </summary>
+        public Playing(Action<string> print) : base(CommandText.Playing)
         {
-            /// <summary/>
-            public cmd(Player player, Action<string> print) : base("playing")
-            {
-                if (print == null) return;
-                Runing += _ => foo(print);
-            }
+            if (print == null) return;
+            Runing += _ => Print(print);
         }
 
         /// <summary>
         /// 输出玩家列表
         /// </summary>
-        public static void foo(Action<string> print)
+        public static void Print(Action<string> print)
         {
             if (print == null) return;
 

@@ -66,23 +66,23 @@ namespace PlayerAccount.Common
 
             List<CommandObject> cos = new List<CommandObject>();
 
-            if (ServerConfig.data.EnableRegister) cos.Add(new register.cmd(player, account, print));
-            cos.Add(new login.cmd(player, account, print));
-            cos.Add(new playing.cmd(player, print));
+            if (ServerConfig.data.EnableRegister) cos.Add(new Register.cmd(player, account, print));
+            cos.Add(new Login.cmd(player, account, print));
+            cos.Add(new Playing.cmd(player, print));
 
             bool isban = account.HasKey(AccountTag.Ban);//是封禁
             int? al = AccountHelp.GetAdminLevel(account);//管理等级
 
             if (isban == false && al != null)
             {
-                cos.Add(new kick.cmd(player, account, print));
+                cos.Add(new Kick.cmd(player, account, print));
                 ban.cmd ban = new ban.cmd(player, account, print);
                 cos.Add(ban);
 
                 if (al == 0)
                 {
-                    ban.SubCommand.Add(new banAdd.cmd(print));
-                    ban.SubCommand.Add(new banDel.cmd(print));
+                    ban.SubCommand.Add(new BanAdd.cmd(print));
+                    ban.SubCommand.Add(new BanDel.cmd(print));
                     cos.Add(new accAction.cmd(print));
                     cos.Add(new addPlayerAdmin.cmd(player, print));
                 }
@@ -90,7 +90,7 @@ namespace PlayerAccount.Common
                 cos.Add(noChat.GetYes(player, account, print));
                 cos.Add(noChat.GetNo(player, account, print));
 
-                cos.Add(new openRegister.cmd(print));
+                cos.Add(new EnableRegister.cmd(print));
             }
 
             return cos;
