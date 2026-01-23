@@ -1,13 +1,17 @@
 ﻿using CommandHelp;
 using System;
 using System.Collections.Generic;
-using tContentPatch;
 
 namespace PlayerAccount.Common.FunctionCommand
 {
     internal class UpdateConfig : CommandMethod
     {
-        public UpdateConfig() : base(CommandText.UpdateConfig) { }
+        private readonly Action<string> print = null;
+
+        public UpdateConfig(Action<string> print = null) : base(CommandText.UpdateConfig)
+        {
+            this.print = print;
+        }
 
         public override object OnRuning(ref int index, List<CommandObject> commandList, object[] args)
         {
@@ -18,9 +22,9 @@ namespace PlayerAccount.Common.FunctionCommand
             return null;
         }
 
-        private static void G(Func<bool> fun, string s)
+        private void G(Func<bool> fun, string s)
         {
-            ContentPatch.PrintTry($"{s}{(fun() ? "成功" : "失败")}");
+            print?.Invoke($"{s}{(fun() ? "成功" : "失败")}");
         }
     }
 }

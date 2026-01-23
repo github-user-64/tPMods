@@ -37,7 +37,7 @@ namespace PlayerAccount.Common.FunctionCommand
                 if (print == null) return;
 
                 print($"{player.name}注册成功,密码是:[c/aaffaa:{pas}]");
-                print("登录请输入/login [c/aaffaa:密码]");
+                print($"登录请输入/{CommandText.Login} [c/aaffaa:密码]");
             };
         }
 

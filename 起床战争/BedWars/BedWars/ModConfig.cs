@@ -10,6 +10,8 @@ namespace BedWars
         {
             [JsonProperty("地图数据目录")]
             public string DirMapData = "MapData";
+            [JsonProperty("加入游戏需登录")]
+            public bool HasLogin = true;
             [JsonProperty("调试")]
             public int IsDebug = 0;
         }

@@ -2,7 +2,6 @@
 using ModTool.ServerHelp;
 using PlayerAccount.Account;
 using System.Collections.Generic;
-using System.Linq;
 using Terraria;
 using Terraria.ID;
 
@@ -64,11 +63,6 @@ namespace BedWars.Run.StateActions
             }
         }
 
-        public override void OnEnd()
-        {
-            ReadyPlay.Clear();
-        }
-
         public override void OnPlayLogin(Player player)
         {
             TryAddPlayToReady(player);//玩家登录后
@@ -103,36 +97,42 @@ namespace BedWars.Run.StateActions
             if (player.active == false) return;
             if (ReadyPlay.Contains(player)) return;
 
-            if (ReadyPlay.Count >= MaxPlayCount)
-            {
-                ToPlayerPrint.PrintToPlay(player.whoAmI, $"已达最大玩家数量{MaxPlayCount}名", Color.Red);
-                return;
-            }
+            if (CanAdd(player) == false) return;
 
-            Dictionary<string, string> acc = player.GetAccount();
-            if (acc == null)
-            {
-                ToPlayerPrint.PrintToPlay(player.whoAmI, "你还未登录,不能加入游戏", Color.Red);
-                ToPlayerPrint.PrintToPlay(player.whoAmI, "注册:[c/aaffaa:/register]登录[c/aaffaa:/login]", Color.White);
-                return;
-            }
+            AddPlayToReady(player);
+        }
 
+        private void AddPlayToReady(Player player)
+        {
             ReadyPlay.Add(player);
 
-            //设为正常状态
-            game.SetPlayGhost(player, false);
+            game.SetPlayGhost(player, false);//设为正常状态
 
             game.SpawnToMapSpaw(player);//重生到进入游戏位置
 
             int v = game.DataInfo.startGameMinPlay - ReadyPlay.Count;
-            if (v > 0)
+
+            string msg = $"{player.name}加入游戏,";
+            msg += v > 0 ? $"还需{v}名玩家" : "准备开始游戏";
+
+            ToPlayerPrint.PrintToPlayAll(msg, Color.YellowGreen);
+        }
+
+        private bool CanAdd(Player player)
+        {
+            if (ReadyPlay.Count >= MaxPlayCount)
             {
-                ToPlayerPrint.PrintToPlayAll($"{player.name}加入游戏,还需{v}名玩家", Color.YellowGreen);
+                ToPlayerPrint.PrintToPlay(player.whoAmI, $"已达最大玩家数量{MaxPlayCount}名", Color.Red);
+                return false;
             }
-            else
-            {
-                ToPlayerPrint.PrintToPlayAll($"{player.name}加入游戏,准备开始游戏", Color.YellowGreen);
-            }
+
+            if (ThisMod.Config.HasLogin == false) return true;
+
+            Dictionary<string, string> acc = player.GetAccount();
+            if (acc != null) return true;
+
+            ToPlayerPrint.PrintToPlay(player.whoAmI, "你还未登录,不能加入游戏", Color.Red);
+            return false;
         }
 
         public override void Update(uint gametime)

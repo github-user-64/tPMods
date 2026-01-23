@@ -87,7 +87,9 @@
     <Compile Include="BedWarsData\Data\SpawItemData.cs" />
     <Compile Include="BedWarsData\Data\TeamData.cs" />
     <Compile Include="BedWarsData\Data\TileData.cs" />
-    <Compile Include="Command.cs" />
+    <Compile Include="Command\CommandReset.cs" />
+    <Compile Include="Command\GameCommand.cs" />
+    <Compile Include="Command\ModCommand.cs" />
     <Compile Include="Common\DrawUtils.cs" />
     <Compile Include="Common\GameAction.cs" />
     <Compile Include="BedWarsData\DataCheck.cs" />

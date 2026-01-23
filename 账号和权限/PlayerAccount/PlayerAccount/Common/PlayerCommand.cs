@@ -2,6 +2,8 @@
 using ModTool.Utils;
 using PlayerAccount.Account;
 using PlayerAccount.Common.FunctionCommand;
+using PlayerAccount.Common.FunctionCommand.Acc;
+using PlayerAccount.Common.FunctionCommand.Ban;
 using System;
 using System.Collections.Generic;
 using tContentPatch;
@@ -21,19 +23,27 @@ namespace PlayerAccount.Common
         /// <param name="account">已登录玩家账号</param>
         /// <param name="print"></param>
         public delegate List<CommandObject> GetCosDelegate(Player player, Dictionary<string, string> account, Action<string> print);
+        private static readonly List<GetCosDelegate> _Cmd = new List<GetCosDelegate>();
         /// <summary>
         /// 指令
         /// </summary>
-        public static List<GetCosDelegate> CMD { get; private set; } = new List<GetCosDelegate>();
+        public static event GetCosDelegate Cmd
+        {
+            add
+            {
+                if (value != null) _Cmd.Add(value);
+            }
+            remove => _Cmd.Remove(value);
+        }
 
         /// <inheritdoc/>
         public override void Load()
         {
-            CMD.Add(GetCMD);
-            ChatBarCMD.Common.GameChatCommand.NetMode2.CMD.Add(GetChatCMD);
+            Cmd += GetServerCmd;
+            ChatBarCMD.Common.GameChatCommand.NetMode2.CMD.Add(GetChatCmd);
         }
 
-        private List<CommandObject> GetChatCMD(int clientId, Action<string> print)
+        private List<CommandObject> GetChatCmd(int clientId, Action<string> print)
         {
             if (Main.player?.IndexInRange(clientId) != true) return null;
 
@@ -44,9 +54,7 @@ namespace PlayerAccount.Common
 
             List<CommandObject> cos = new List<CommandObject>();
 
-            CMD.RemoveAll(i => i == null);
-
-            foreach (var i in CMD)
+            foreach (var i in _Cmd)
             {
                 try
                 {
@@ -60,37 +68,38 @@ namespace PlayerAccount.Common
             return cos;
         }
 
-        private List<CommandObject> GetCMD(Player player, Dictionary<string, string> account, Action<string> print)
+        private List<CommandObject> GetServerCmd(Player player, Dictionary<string, string> account, Action<string> print)
         {
             if (Main.dedServ == false) return null;
 
             List<CommandObject> cos = new List<CommandObject>();
 
-            if (ServerConfig.data.EnableRegister) cos.Add(new Register.cmd(player, account, print));
-            cos.Add(new Login.cmd(player, account, print));
-            cos.Add(new Playing.cmd(player, print));
+            if (ServerConfig.data.EnableRegister) cos.Add(new Register(player, account, print));
+            cos.Add(new Login(player, account, print));
+            cos.Add(new Playing(print));
 
             bool isban = account.HasKey(AccountTag.Ban);//是封禁
             int? al = AccountHelp.GetAdminLevel(account);//管理等级
 
             if (isban == false && al != null)
             {
-                cos.Add(new Kick.cmd(player, account, print));
-                ban.cmd ban = new ban.cmd(player, account, print);
-                cos.Add(ban);
+                cos.Add(new Kick(player, account, print));
 
-                if (al == 0)
-                {
-                    ban.SubCommand.Add(new BanAdd.cmd(print));
-                    ban.SubCommand.Add(new BanDel.cmd(print));
-                    cos.Add(new accAction.cmd(print));
-                    cos.Add(new addPlayerAdmin.cmd(player, print));
-                }
+                Ban ban = new Ban(player, account, print);
+                cos.Add(ban);
 
                 cos.Add(noChat.GetYes(player, account, print));
                 cos.Add(noChat.GetNo(player, account, print));
 
-                cos.Add(new EnableRegister.cmd(print));
+                cos.Add(new EnableRegister(print));
+
+                if (al == 0)//服主
+                {
+                    cos.Add(new Acc(print));
+
+                    ban.SubCommand.Add(new BanAdd(print));
+                    ban.SubCommand.Add(new BanDel(print));
+                }
             }
 
             return cos;
