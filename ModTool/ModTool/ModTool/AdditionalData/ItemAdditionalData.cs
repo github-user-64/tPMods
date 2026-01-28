@@ -8,7 +8,7 @@ namespace ModTool.AdditionalData
     /// <summary>
     /// 物品附加数据
     /// </summary>
-    public abstract class ItemAdditionalData<T> : AdditionalData<T, Item>
+    public abstract class ItemAdditionalData<T> : AdditionalData<T, WorldItem>
     {
         /// <summary/>
         public ItemAdditionalData() : base(Main.item)
@@ -53,18 +53,18 @@ namespace ModTool.AdditionalData
             int ownIgnore = This.reader.ReadByte();
             int type = This.reader.ReadInt16();
 
-            Item item = Main.item[whoAmI];
+            WorldItem item = Main.item[whoAmI];
 
             if (item.active == true &&
                 item.stack == stack &&
-                item.prefix == prefix &&
+                item.inner.prefix == prefix &&
                 item.type == type &&
                 HasData(whoAmI)) return;
 
             UpdateDataItem(whoAmI, true);
         }
 
-        private void OnNewItemPos(int result, IEntitySource source, int X, int Y, int Width, int Height, int Type, int Stack, bool noBroadcast, int pfix, bool noGrabDelay, bool reverseLookup)
+        private void OnNewItemPos(int result, IEntitySource source, int X, int Y, int Width, int Height, int Type, int Stack, bool noBroadcast, int pfix, bool noGrabDelay)
         {
             //如果是客户端则不处理
             //客户端返回的物品索引都是400

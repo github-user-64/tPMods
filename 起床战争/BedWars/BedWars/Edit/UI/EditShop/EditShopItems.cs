@@ -77,8 +77,8 @@ namespace BedWars.Edit.UI.EditShop
 
         private void BuildItems()
         {
-            int rowCount = Chest.maxItems / 10;
-            int columnCount = Chest.maxItems / rowCount;
+            int rowCount = DataCheck.ChestMaxItems / 10;
+            int columnCount = DataCheck.ChestMaxItems / rowCount;
             int itemSize = 32;
 
             UIWrapPanel2 wp = new UIWrapPanel2();

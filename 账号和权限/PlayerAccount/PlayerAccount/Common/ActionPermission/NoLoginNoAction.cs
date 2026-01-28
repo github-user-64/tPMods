@@ -20,7 +20,7 @@ namespace PlayerAccount.Common.ActionPermission
             PlayerCanAction.OnCanNewProjectile += CanActionNoMsg;
             PlayerCanAction.OnCanNewItem += CanAction;
             PlayerCanAction.OnCanTogglePVP += CanAction;
-            PlayerCanAction.OnCanToggleTeam += CanAction;
+            PlayerCanAction.OnCanTeamChange += CanAction;
             PlayerCanAction.OnCanControls += OnCanControls;
             PlayerCanAction.OnCanRequestChestOpen += CanAction;
             PlayerCanAction.OnCanQuickStackChests += CanAction;

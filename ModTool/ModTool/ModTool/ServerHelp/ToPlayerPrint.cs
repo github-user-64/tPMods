@@ -75,7 +75,7 @@ namespace ModTool.ServerHelp
             packet.ShrinkToFit();
             try
             {
-                socket.AsyncSend(packet.Buffer.Data, 0, packet.Length, new SocketSendCallback(NetManager.SendCallback), packet);
+                socket.AsyncSend(packet.Buffer.Data, 0, packet.Length, new SocketSendCallback(EmptyCallback), packet);
             }
             catch
             {
@@ -83,5 +83,7 @@ namespace ModTool.ServerHelp
 
             Main.ActiveNetDiagnosticsUI.CountSentModuleMessage(packet.Id, packet.Length);
         }
+
+        public static void EmptyCallback(object state) { }
     }
 }

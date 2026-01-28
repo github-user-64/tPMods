@@ -39,7 +39,7 @@ namespace BedWars.BedWarsData
             x = chest.x - mapData.Info.X;
             y = chest.y - mapData.Info.Y;
 
-            for (int i = 0; i < Chest.maxItems; ++i)
+            for (int i = 0; i < chest.maxItems; ++i)
             {
                 item[i].Copy(chest.item[i]);
             }
@@ -59,22 +59,13 @@ namespace BedWars.BedWarsData
             if (index < 0) return;
 
             Chest chest = Main.chest[index];
-
-            if (chest == null)//如果是在单人就不用考虑这个
-            {
-                chest = new Chest();
-                Main.chest[index] = chest;
-                chest.x = tilex;
-                chest.y = tiley;
-                for (int i = 0; i < chest.item.Length; ++i)
-                {
-                    chest.item[i] = new Item();
-                }
-            }
+            if (chest == null) return;//如果是在单人就不用考虑这个
 
             chest.name = name;
 
-            for (int i = 0; i < Chest.maxItems; ++i)
+            int len = Math.Min(chest.item?.Length ?? 0, item.Count);
+
+            for (int i = 0; i < len; ++i)
             {
                 item[i].Paste(chest.item[i]);
             }

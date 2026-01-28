@@ -75,6 +75,11 @@ namespace ModTool.Common
         }
 
         /// <summary>
+        /// 后面得改掉
+        /// </summary>
+        public const int maxItems = 40;
+
+        /// <summary>
         /// <paramref name="npc"/>是玩家正在对话的npc(会为<see langword="null"/>)
         /// </summary>
         /// <returns>如果有进行修改就返回<see langword="true"/></returns>
@@ -127,7 +132,7 @@ namespace ModTool.Common
                 ItemData[] data = Update(Main.LocalPlayer, This);
                 if (data == null) return;
 
-                for (int i = 0; i < Chest.maxItems; ++i)
+                for (int i = 0; i < This.maxItems; ++i)
                 {
                     data[i].Paste(ref This.item[i]);
                     //This.item[i].isAShopItem = true;
@@ -193,7 +198,7 @@ namespace ModTool.Common
                 if (Main.dedServ == false) return;
                 if (updatas.Count < 1) return;
 
-                if (index < 0 || index >= Chest.maxItems)
+                if (index < 0 || index >= maxItems)
                 {
                     index = 0;
                     updatas.RemoveAll(i => i.Check());
@@ -202,6 +207,7 @@ namespace ModTool.Common
                 updatas.ForEach(i =>
                 {
                     if (i.shop == null) return;
+                    if (i.shop.IndexInRange(index) != true) return;
                     SyncShopToPlay(i.shop[index], index, i.whoAmI);
                 });
 
@@ -214,7 +220,7 @@ namespace ModTool.Common
         /// </summary>
         public static ItemData[] ShopToItemDatas(Chest shop = null)
         {
-            ItemData[] items = new ItemData[Chest.maxItems];
+            ItemData[] items = new ItemData[shop.maxItems];
             for (int i = 0; i < items.Length; ++i) items[i] = new ItemData();
 
             if (shop == null) return items;

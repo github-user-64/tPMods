@@ -22,7 +22,7 @@ namespace BedWars.Edit
                 if (i.Item1.bankChest) return;//是类似猪猪存钱罐的东西
 
                 ChestData c = new ChestData();
-                DataCheck.RepairList(ref c.item, Chest.maxItems);
+                DataCheck.RepairList(ref c.item, DataCheck.ChestMaxItems);
                 c.Copy(Data, i.Item1);
 
                 DataChests.Add(c);

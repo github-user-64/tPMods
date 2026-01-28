@@ -28,12 +28,12 @@ namespace ModTool.ServerHelp
             kv.Add(MessageID.SyncProjectile, CanNewProjectile);
             kv.Add(MessageID.SyncItem, CanNewItem);
             kv.Add(MessageID.TogglePVP, CanTogglePVP);
-            kv.Add(MessageID.Unknown45, CanToggleTeam);
+            kv.Add(MessageID.TeamChange, CanTeamChange);
             kv.Add(MessageID.PlayerControls, CanControls);
             kv.Add(MessageID.TileManipulation, CanTileManipulation);
             kv.Add(MessageID.PlaceObject, CanPlaceObject);
             kv.Add(MessageID.TileEntityPlacement, CanTileEntityPlacement);
-            kv.Add(MessageID.Unknown20, CanSendTileSquare);
+            kv.Add(MessageID.AreaTileChange, CanAreaTileChange);
             kv.Add(MessageID.ChestUpdates, CanChestUpdates);
             kv.Add(MessageID.HitSwitch, CanHitSwitch);
             kv.Add(MessageID.ItemFrameTryPlacing, CanItemFrameTryPlacing);
@@ -43,9 +43,9 @@ namespace ModTool.ServerHelp
             kv.Add(MessageID.QuickStackChests, CanQuickStackChests);
             kv.Add(MessageID.PlayerBuffs, CanPlayerBuffs);
             kv.Add(MessageID.LiquidUpdate, CanLiquidUpdate);
-            kv.Add(MessageID.Unknown63, CanPaintTile);
-            kv.Add(MessageID.Unknown64, CanPaintWall);
-            kv.Add(MessageID.Unknown47, CanEditSign);
+            kv.Add(MessageID.SyncTilePaintOrCoating, CanSyncTilePaintOrCoating);
+            kv.Add(MessageID.SyncWallPaintOrCoating, CanSyncWallPaintOrCoating);
+            kv.Add(MessageID.OpenSignResponse, CanOpenSignResponse);
             kv.Add(MessageID.LockAndUnlock, CanLockAndUnlock);
             kv.Add(MessageID.BugCatching, CanBugCatching);
             kv.Add(MessageID.BugReleasing, CanBugReleasing);
@@ -121,13 +121,13 @@ namespace ModTool.ServerHelp
             });
         }
 
-        private static bool CanToggleTeam(Player player, MessageBuffer This, int start, int length, int messageType)
+        private static bool CanTeamChange(Player player, MessageBuffer This, int start, int length, int messageType)
         {
-            ToggleTeamEventArgs e = This.Unknown45_ToggleTeam(player);//切换队伍
+            TeamChangeEventArgs e = This.TeamChange(player);//切换队伍
 
-            return OnCanToggleTeam.Call(e, () =>
+            return OnCanTeamChange.Call(e, () =>
             {
-                NetMessage.TrySendData(MessageID.Unknown45, This.whoAmI, -1, null, player.whoAmI);
+                NetMessage.TrySendData(MessageID.TeamChange, This.whoAmI, -1, null, player.whoAmI);
             });
         }
 
@@ -172,11 +172,11 @@ namespace ModTool.ServerHelp
             });
         }
 
-        private static bool CanSendTileSquare(Player player, MessageBuffer This, int start, int length, int messageType)
+        private static bool CanAreaTileChange(Player player, MessageBuffer This, int start, int length, int messageType)
         {
-            SendTileSquareEventArgs e = This.Unknown20_SendTileSquare(player);//发送多图格方块数据
+            AreaTileChangeEventArgs e = This.AreaTileChange(player);//区域瓦片更改
 
-            return OnCanSendTileSquare.Call(e, () =>
+            return OnCanAreaTileChange.Call(e, () =>
             {
                 NetMessage.SendTileSquare(This.whoAmI, e.x, e.y, e.sizeX, e.sizeY);
             });
@@ -278,37 +278,37 @@ namespace ModTool.ServerHelp
             });
         }
 
-        private static bool CanPaintTile(Player player, MessageBuffer This, int start, int length, int messageType)
+        private static bool CanSyncTilePaintOrCoating(Player player, MessageBuffer This, int start, int length, int messageType)
         {
-            PaintTileEventArgs e = This.Unknown63_PaintTile(player);//油漆方块
+            SyncTilePaintOrCoatingEventArgs e = This.SyncTilePaintOrCoating(player);//同步瓷砖涂料或涂层
 
-            return OnCanPaintTile.Call(e, () =>
+            return OnCanSyncTilePaintOrCoating.Call(e, () =>
             {
                 if (WorldGen.InWorld(e.x, e.y) == false) return;
                 Tile tile = Main.tile[e.x, e.y];
-                NetMessage.TrySendData(MessageID.Unknown63, This.whoAmI, -1, null, e.x, e.y, tile.color());
+                NetMessage.TrySendData(MessageID.SyncTilePaintOrCoating, This.whoAmI, -1, null, e.x, e.y, tile.color());
             });
         }
 
-        private static bool CanPaintWall(Player player, MessageBuffer This, int start, int length, int messageType)
+        private static bool CanSyncWallPaintOrCoating(Player player, MessageBuffer This, int start, int length, int messageType)
         {
-            PaintWallEventArgs e = This.Unknown64_PaintWall(player);//油漆墙
+            SyncWallPaintOrCoatingEventArgs e = This.SyncWallPaintOrCoating(player);//同步墙面漆或涂层
 
-            return OnCanPaintWall.Call(e, () =>
+            return OnCanSyncWallPaintOrCoating.Call(e, () =>
             {
                 if (WorldGen.InWorld(e.x, e.y) == false) return;
                 Tile tile = Main.tile[e.x, e.y];
-                NetMessage.TrySendData(MessageID.Unknown64, This.whoAmI, -1, null, e.x, e.y, tile.wallColor());
+                NetMessage.TrySendData(MessageID.SyncWallPaintOrCoating, This.whoAmI, -1, null, e.x, e.y, tile.wallColor());
             });
         }
 
-        private static bool CanEditSign(Player player, MessageBuffer This, int start, int length, int messageType)
+        private static bool CanOpenSignResponse(Player player, MessageBuffer This, int start, int length, int messageType)
         {
-            EditSignEventArgs e = This.Unknown47_EditSign(player);//编辑告示牌
+            OpenSignResponseEventArgs e = This.OpenSignResponse(player);//编辑告示牌
 
-            return OnCanEditSign.Call(e, () =>
+            return OnCanOpenSignResponse.Call(e, () =>
             {
-                NetMessage.TrySendData(MessageID.Unknown47, This.whoAmI, -1, null, e.signIndex, e.whoAmI);
+                NetMessage.TrySendData(MessageID.OpenSignResponse, This.whoAmI, -1, null, e.signIndex, e.whoAmI);
             });
         }
 

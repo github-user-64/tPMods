@@ -63,7 +63,7 @@ namespace BedWars.BedWarsData
         {
             if (HasPlayer(pos)) return false;//如果旁边有玩家
 
-            foreach (Item i in Main.item)
+            foreach (WorldItem i in Main.item)
             {
                 if (i?.active != true) continue;
                 if (i.type != type) continue;

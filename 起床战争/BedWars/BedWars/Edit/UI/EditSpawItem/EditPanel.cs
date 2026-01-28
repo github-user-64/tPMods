@@ -3,6 +3,7 @@ using BedWars.Common.UI;
 using BedWars.Edit.UI.Elements;
 using System.Collections.Generic;
 using Terraria;
+using Terraria.ID;
 
 namespace BedWars.Edit.UI.EditSpawItem
 {
@@ -18,7 +19,7 @@ namespace BedWars.Edit.UI.EditSpawItem
                 {
                     if (Main.item[i]?.active != true) continue;
 
-                    Main.item[i].active = false;
+                    Main.item[i].SetDefaults(ItemID.None);
                 }
             };
             sp.Append(btn1);

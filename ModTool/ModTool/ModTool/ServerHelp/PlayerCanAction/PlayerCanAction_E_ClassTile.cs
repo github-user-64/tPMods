@@ -27,7 +27,7 @@ namespace ModTool.ServerHelp
         /// 能否修改图格数据, 当有一个返回<see langword="false"/>则剩下的不会再执行
         /// <para/>方块类
         /// </summary>
-        public static HandlerList<SendTileSquareEventArgs> OnCanSendTileSquare = null;
+        public static HandlerList<AreaTileChangeEventArgs> OnCanAreaTileChange = null;
 
         /// <summary>
         /// 能否放置破坏箱子, 当有一个返回<see langword="false"/>则剩下的不会再执行
@@ -69,19 +69,19 @@ namespace ModTool.ServerHelp
         /// 能否放置去除方块油漆, 当有一个返回<see langword="false"/>则剩下的不会再执行
         /// <para/>方块类
         /// </summary>
-        public static HandlerList<PaintTileEventArgs> OnCanPaintTile = null;
+        public static HandlerList<SyncTilePaintOrCoatingEventArgs> OnCanSyncTilePaintOrCoating = null;
 
         /// <summary>
         /// 能否放置去除墙油漆, 当有一个返回<see langword="false"/>则剩下的不会再执行
         /// <para/>方块类
         /// </summary>
-        public static HandlerList<PaintWallEventArgs> OnCanPaintWall = null;
+        public static HandlerList<SyncWallPaintOrCoatingEventArgs> OnCanSyncWallPaintOrCoating = null;
 
         /// <summary>
         /// 能否编辑告示牌, 当有一个返回<see langword="false"/>则剩下的不会再执行
         /// <para/>方块类
         /// </summary>
-        public static HandlerList<EditSignEventArgs> OnCanEditSign = null;
+        public static HandlerList<OpenSignResponseEventArgs> OnCanOpenSignResponse = null;
 
         /// <summary>
         /// 能否上锁开锁, 当有一个返回<see langword="false"/>则剩下的不会再执行
@@ -100,16 +100,16 @@ namespace ModTool.ServerHelp
             OnCanTileManipulation += e => action(e);
             OnCanPlaceObject += e => action(e);
             OnCanTileEntityPlacement += e => action(e);
-            OnCanSendTileSquare += e => action(e);
+            OnCanAreaTileChange += e => action(e);
             OnCanChestUpdates += e => action(e);
             OnCanHitSwitch += e => action(e);
             OnCanItemFrameTryPlacing += e => action(e);
             OnCanWeaponsRackTryPlacing += e => action(e);
             OnCanFoodPlatterTryPlacing += e => action(e);
             OnCanLiquidUpdate += e => action(e);
-            OnCanPaintTile += e => action(e);
-            OnCanPaintWall += e => action(e);
-            OnCanEditSign += e => action(e);
+            OnCanSyncTilePaintOrCoating += e => action(e);
+            OnCanSyncWallPaintOrCoating += e => action(e);
+            OnCanOpenSignResponse += e => action(e);
             OnCanLockAndUnlock += e => action(e);
         }
     }

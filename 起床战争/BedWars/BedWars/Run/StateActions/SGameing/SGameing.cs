@@ -128,10 +128,10 @@ namespace BedWars.Run.StateActions
 
             game.SetTeamPvP(player, team.team.team, true);//设置队伍pvp
 
-            NetMessage.TrySendData(MessageID.AddPlayerBuff, number: player.whoAmI, number2: BuffID.Panic, number3: 60 * 8);
-            NetMessage.TrySendData(MessageID.AddPlayerBuff, number: player.whoAmI, number2: BuffID.WeaponImbueCursedFlames, number3: 60 * 8);
-            NetMessage.TrySendData(MessageID.AddPlayerBuff, number: player.whoAmI, number2: BuffID.Endurance, number3: 60 * 8);
-            NetMessage.TrySendData(MessageID.AddPlayerBuff, number: player.whoAmI, number2: BuffID.NebulaUpDmg3, number3: 60 * 8);
+            NetMessage.TrySendData(MessageID.AddPlayerBuffPvP, number: player.whoAmI, number2: BuffID.Panic, number3: 60 * 8);
+            NetMessage.TrySendData(MessageID.AddPlayerBuffPvP, number: player.whoAmI, number2: BuffID.WeaponImbueCursedFlames, number3: 60 * 8);
+            NetMessage.TrySendData(MessageID.AddPlayerBuffPvP, number: player.whoAmI, number2: BuffID.Endurance, number3: 60 * 8);
+            NetMessage.TrySendData(MessageID.AddPlayerBuffPvP, number: player.whoAmI, number2: BuffID.NebulaUpDmg3, number3: 60 * 8);
         }
 
         private void ResetInventory(Player player)

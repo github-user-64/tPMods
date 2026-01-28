@@ -7,6 +7,8 @@ namespace BedWars.BedWarsData
 {
     public static class DataCheck
     {
+        public const int ChestMaxItems = 40;
+
         /// <summary>
         /// 修复地图数据, 清理<see langword="null"/>, 不包括数据合理性, 检查数据合理性调用<see cref="CheckMapData(MapData)"/>
         /// </summary>

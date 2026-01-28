@@ -68,12 +68,12 @@ namespace ModTool.Utils.GetDataEventArgs
             };
         }
         /// <summary/>
-        public static ToggleTeamEventArgs Unknown45_ToggleTeam(this MessageBuffer This, Player player)
+        public static TeamChangeEventArgs TeamChange(this MessageBuffer This, Player player)
         {
             int _whoAmI = This.reader.ReadByte();
             int team = This.reader.ReadByte();
 
-            return new ToggleTeamEventArgs()
+            return new TeamChangeEventArgs()
             {
                 player = player,
                 team = team,
@@ -147,9 +147,9 @@ namespace ModTool.Utils.GetDataEventArgs
             return e;
         }
         /// <summary/>
-        public static SendTileSquareEventArgs Unknown20_SendTileSquare(this MessageBuffer This, Player player)
+        public static AreaTileChangeEventArgs AreaTileChange(this MessageBuffer This, Player player)
         {
-            SendTileSquareEventArgs e = new SendTileSquareEventArgs();
+            AreaTileChangeEventArgs e = new AreaTileChangeEventArgs();
 
             e.player = player;
             e.x = This.reader.ReadInt16();
@@ -258,9 +258,9 @@ namespace ModTool.Utils.GetDataEventArgs
             return e;
         }
         /// <summary/>
-        public static PaintTileEventArgs Unknown63_PaintTile(this MessageBuffer This, Player player)
+        public static SyncTilePaintOrCoatingEventArgs SyncTilePaintOrCoating(this MessageBuffer This, Player player)
         {
-            PaintTileEventArgs e = new PaintTileEventArgs();
+            SyncTilePaintOrCoatingEventArgs e = new SyncTilePaintOrCoatingEventArgs();
 
             e.player = player;
             e.x = This.reader.ReadInt16();
@@ -271,9 +271,9 @@ namespace ModTool.Utils.GetDataEventArgs
             return e;
         }
         /// <summary/>
-        public static PaintWallEventArgs Unknown64_PaintWall(this MessageBuffer This, Player player)
+        public static SyncWallPaintOrCoatingEventArgs SyncWallPaintOrCoating(this MessageBuffer This, Player player)
         {
-            PaintWallEventArgs e = new PaintWallEventArgs();
+            SyncWallPaintOrCoatingEventArgs e = new SyncWallPaintOrCoatingEventArgs();
 
             e.player = player;
             e.x = This.reader.ReadInt16();
@@ -284,9 +284,9 @@ namespace ModTool.Utils.GetDataEventArgs
             return e;
         }
         /// <summary/>
-        public static EditSignEventArgs Unknown47_EditSign(this MessageBuffer This, Player player)
+        public static OpenSignResponseEventArgs OpenSignResponse(this MessageBuffer This, Player player)
         {
-            EditSignEventArgs e = new EditSignEventArgs();
+            OpenSignResponseEventArgs e = new OpenSignResponseEventArgs();
 
             e.player = player;
             e.signIndex = This.reader.ReadInt16();

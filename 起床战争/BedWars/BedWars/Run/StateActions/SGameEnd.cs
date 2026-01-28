@@ -25,7 +25,7 @@ namespace BedWars.Run.StateActions
 
             team.ForPlay(i =>
             {
-                NetMessage.TrySendData(MessageID.AddPlayerBuff, number: i.whoAmI, number2: BuffID.WitchBroom, number3: 1);
+                NetMessage.TrySendData(MessageID.AddPlayerBuffPvP, number: i.whoAmI, number2: BuffID.WitchBroom, number3: 1);
             });
 
             ToPlayerPlayNetSound.ToPlayAll(SoundID.DD2_WinScene);

@@ -2,7 +2,6 @@
 using System.Diagnostics;
 using tContentPatch;
 using Terraria;
-using Terraria.IO;
 
 namespace BedWars.Run
 {
@@ -35,7 +34,7 @@ namespace BedWars.Run
                 PlayerCanAction.OnCanNewProjectile += control.PlayCanAction;
                 PlayerCanAction.OnCanNewItem += control.PlayCanAction;
                 PlayerCanAction.OnCanTogglePVP += control.PlayCanAction;
-                PlayerCanAction.OnCanToggleTeam += control.PlayCanAction;
+                PlayerCanAction.OnCanTeamChange += control.PlayCanAction;
                 PlayerCanAction.OnCanControls += control.PlayCanAction;
                 PlayerCanAction.OnCanRequestChestOpen += control.PlayCanAction;
                 PlayerCanAction.OnCanQuickStackChests += control.PlayCanAction;
@@ -57,7 +56,7 @@ namespace BedWars.Run
                 ModTool.PatchGame.PMessageBuffer.OnGetDataPo.Add(OnGetDataPo);
                 ModTool.Common.ModifyShop.SetupShop += control.ModifyShop;//商店
 
-                WorldFile.OnWorldLoad += () =>
+                WorldGen.Hooks.OnWorldLoad += () =>
                 {
                     Print("世界加载完成,开始加载");
                     LoadGame();
@@ -70,10 +69,8 @@ namespace BedWars.Run
                 Print("加载");
                 LoadGame();
 
-                if (WorldGen.loadSuccess == false || WorldGen.loadFailed == true)
-                {
-                    return;
-                }
+                if (Netplay.TcpListener == null) return;
+                if (WorldGen.loadFailed == true) return;
                 //世界文件已加载
 
                 Print("世界已加载,开始初始化");

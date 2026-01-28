@@ -46,6 +46,18 @@ namespace ModTool.EntityTag
         }
 
         /// <summary>
+        /// 判断active是否是true
+        /// </summary>
+        public static bool IsActive<T>(T o)
+        {
+            if (o is Player p) return p.active;
+            if (o is Projectile proj) return proj.active;
+            if (o is Item item) return item.active;
+            if (o is NPC npc) return npc.active;
+            return false;
+        }
+
+        /// <summary>
         /// 绘制附加数据
         /// </summary>
         public static void DrawAD<T>(SpriteBatch spriteBatch, T[] list,
@@ -59,7 +71,7 @@ namespace ModTool.EntityTag
                 T e = list[i];
 
                 if (e == null) continue;
-                if (e.active == false) continue;
+                if (IsActive(e) == false) continue;
                 if (fun != null && fun(i) == false) continue;
 
                 if (pos.Distance(e.Center) > 1000) continue;

@@ -199,7 +199,7 @@ namespace BedWars.Run
             if (player.team != team)
             {
                 player.team = team;
-                NetMessage.TrySendData(MessageID.Unknown45, number: player.whoAmI);
+                NetMessage.TrySendData(MessageID.TeamChange, number: player.whoAmI);
             }
             
             if (player.hostile != pvp)

@@ -59,7 +59,7 @@ namespace ModTool.Utils.GetDataEventArgs
     /// <summary>
     /// 切换队伍
     /// </summary>
-    public class ToggleTeamEventArgs : GetDataEventArgs
+    public class TeamChangeEventArgs : GetDataEventArgs
     {
         /// <summary/>
         public int team;
@@ -142,7 +142,7 @@ namespace ModTool.Utils.GetDataEventArgs
     /// <summary>
     /// 发送多图格方块的数据?
     /// </summary>
-    public class SendTileSquareEventArgs : ClassTileEventArgs
+    public class AreaTileChangeEventArgs : ClassTileEventArgs
     {
         /// <summary/>
         public ushort sizeX;
@@ -237,7 +237,7 @@ namespace ModTool.Utils.GetDataEventArgs
     /// <summary>
     /// 油漆方块
     /// </summary>
-    public class PaintTileEventArgs : PaintEventArgs
+    public class SyncTilePaintOrCoatingEventArgs : PaintEventArgs
     {
 
     }
@@ -245,7 +245,7 @@ namespace ModTool.Utils.GetDataEventArgs
     /// <summary>
     /// 油漆墙
     /// </summary>
-    public class PaintWallEventArgs : PaintEventArgs
+    public class SyncWallPaintOrCoatingEventArgs : PaintEventArgs
     {
 
     }
@@ -253,7 +253,7 @@ namespace ModTool.Utils.GetDataEventArgs
     /// <summary>
     /// 编辑告示牌
     /// </summary>
-    public class EditSignEventArgs : PaintEventArgs
+    public class OpenSignResponseEventArgs : PaintEventArgs
     {
         /// <summary/>
         public int signIndex;

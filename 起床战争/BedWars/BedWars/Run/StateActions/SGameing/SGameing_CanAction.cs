@@ -15,7 +15,7 @@ namespace BedWars.Run.StateActions
             if (team == null) return false;
 
             if (e is TogglePVPEventArgs) return false;//不能改pvp
-            if (e is ToggleTeamEventArgs) return false;//不能改队伍
+            if (e is TeamChangeEventArgs) return false;//不能改队伍
 
             return true;
         }

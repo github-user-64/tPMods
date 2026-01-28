@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using Terraria;
 
 namespace BedWars.BedWarsData
 {
@@ -42,7 +41,7 @@ namespace BedWars.BedWarsData
             DataCheck.RepairList(ref Chests);
             Chests.ForEach(i =>
             {
-                DataCheck.RepairList(ref i.item, Chest.maxItems);
+                DataCheck.RepairList(ref i.item, DataCheck.ChestMaxItems);
             });
 
             DataCheck.RepairList(ref Signs);
@@ -55,7 +54,7 @@ namespace BedWars.BedWarsData
             DataCheck.RepairList(ref Shops);
             Shops.ForEach(i =>
             {
-                DataCheck.RepairList(ref i.item, Chest.maxItems);
+                DataCheck.RepairList(ref i.item, DataCheck.ChestMaxItems);
             });
 
             RepairTile();

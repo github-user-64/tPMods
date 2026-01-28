@@ -38,13 +38,12 @@ namespace BedWars.Run.StateActions
             //清空掉落物
             for (int i = 0; i < Main.item.Length; i++)
             {
-                Item item = Main.item[i];
+                WorldItem item = Main.item[i];
                 if (item?.active != true) continue;
                 if (item.type == ItemID.None) continue;
                 if (item.stack < 1) continue;
 
                 item.SetDefaults(ItemID.None);
-                item.active = false;
 
                 NetMessage.TrySendData(MessageID.SyncItem, number: i);
             }

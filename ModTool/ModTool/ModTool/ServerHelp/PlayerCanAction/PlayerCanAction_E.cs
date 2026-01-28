@@ -75,7 +75,7 @@ namespace ModTool.ServerHelp
         /// <summary>
         /// 能否切换队伍, 当有一个返回<see langword="false"/>则剩下的不会再执行
         /// </summary>
-        public static HandlerList<ToggleTeamEventArgs> OnCanToggleTeam = null;
+        public static HandlerList<TeamChangeEventArgs> OnCanTeamChange = null;
 
         /// <summary>
         /// 能否控制和移位, 当有一个返回<see langword="false"/>则剩下的不会再执行
