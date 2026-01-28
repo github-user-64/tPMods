@@ -134,7 +134,8 @@ namespace BedWars.Run.StateActions
                 if (item.type != ItemID.GrapplingHook) continue;
                 if (item.stack < 1) continue;
 
-                item.SetDefaults(ItemID.None);
+                if (item.stack > 1) item.stack--;
+                else item.SetDefaults(ItemID.None);
 
                 NetMessage.TrySendData(MessageID.SyncEquipment, -1, -1, null,
                     player.whoAmI, solt + i, item.prefix);

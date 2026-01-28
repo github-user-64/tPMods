@@ -33,7 +33,7 @@ namespace PlayerAccount
             public string enableRegister = "启用注册";
             public string enableRegisterTrue = "开";
             public string enableRegisterFalse = "关";
-            public string playing = "playing";
+            public string playing = "在线";
             public string login = "登录";
             public string register = "注册";
         }

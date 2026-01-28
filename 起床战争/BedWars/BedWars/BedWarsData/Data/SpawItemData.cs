@@ -56,7 +56,7 @@ namespace BedWars.BedWarsData
         {
             if (StackToItem(pos, type, stack) == true) return;//成功堆叠到附近物品
 
-            Item.NewItem(null, pos, Vector2.Zero, type, stack);
+            Item.NewItem(null, pos, Vector2.Zero, type, stack, noGrabDelay: true);
         }
 
         private bool StackToItem(Vector2 pos, int type, int stack)//堆叠到附近物品
@@ -78,7 +78,7 @@ namespace BedWars.BedWarsData
                 i.Center = pos;
                 i.velocity = Vector2.UnitY * -2;
 
-                NetMessage.TrySendData(MessageID.SyncItem, number: i.whoAmI);
+                NetMessage.TrySendData(MessageID.InstancedItem, number: i.whoAmI);
                 return true;
             }
 
