@@ -25,7 +25,9 @@ namespace BedWars.Run.StateActions
 
             team.ForPlay(i =>
             {
-                NetMessage.TrySendData(MessageID.AddPlayerBuffPvP, number: i.whoAmI, number2: BuffID.WitchBroom, number3: 1);
+                //NetMessage.TrySendData(MessageID.AddPlayerBuffPvP, number: i.whoAmI, number2: BuffID.WitchBroom, number3: 1);
+                i.mount.SetMount(MountID.WitchBroom, i);
+                NetMessage.TrySendData(MessageID.PlayerControls, number: i.whoAmI);
             });
 
             ToPlayerPlayNetSound.ToPlayAll(SoundID.DD2_WinScene);
@@ -38,12 +40,15 @@ namespace BedWars.Run.StateActions
         {
             team.ForPlay(i =>
             {
-                for (int j = 0; j < i.buffType.Length; j++)
-                {
-                    i.buffType[j] = 0;
-                }
+                //for (int j = 0; j < i.buffType.Length; j++)
+                //{
+                //    i.buffType[j] = 0;
+                //}
 
-                NetMessage.TrySendData(MessageID.PlayerBuffs, -1, -1, null, i.whoAmI);
+                //NetMessage.TrySendData(MessageID.PlayerBuffs, -1, -1, null, i.whoAmI);
+
+                i.mount.Dismount(i);
+                NetMessage.TrySendData(MessageID.PlayerControls, number: i.whoAmI);
             });
         }
 
