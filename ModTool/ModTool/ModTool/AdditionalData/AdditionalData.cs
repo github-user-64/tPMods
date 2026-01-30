@@ -57,10 +57,19 @@ namespace ModTool.AdditionalData
         public virtual bool SetData(int index, T val)
         {
             if (IndexInRange(index) == false) return false;
+            if (CanSetData(index, val) == false) return false;
 
             data[index] = val;
             hasData[index] = true;
 
+            return true;
+        }
+
+        /// <summary>
+        /// 能否使用<see cref="SetData(int, T)"/>
+        /// </summary>
+        protected virtual bool CanSetData(int index, T val)
+        {
             return true;
         }
 

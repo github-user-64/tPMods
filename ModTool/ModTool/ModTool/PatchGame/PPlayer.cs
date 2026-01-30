@@ -1,5 +1,5 @@
-﻿using HarmonyLib;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using tContentPatch;
 using Terraria;
 using Terraria.Localization;
 
@@ -8,7 +8,7 @@ namespace ModTool.PatchGame
     /// <summary>
     /// 修补<see cref="Player"/>
     /// </summary>
-    public class PPlayer
+    public class PPlayer : PatchPlayer
     {
         /// <summary>
         /// 能否掉落墓碑
@@ -26,16 +26,13 @@ namespace ModTool.PatchGame
         public delegate bool DropTombstoneEvent(Player This, long coinsOwned, NetworkText deathText, int hitDirection);
         private readonly static List<DropTombstoneEvent> onCanDropTombstone = new List<DropTombstoneEvent>();
 
-        [HarmonyPatch(typeof(Player), "DropTombstone")]
-        private static class PatchDropTombstone
+        /// <inheritdoc/>
+        public override bool CanDropTombstone(Player This, long coinsOwned, NetworkText deathText, int hitDirection)
         {
-            internal static bool Prefix(Player __instance, long coinsOwned, NetworkText deathText, int hitDirection)
-            {
-                bool ok = true;
-                onCanDropTombstone.ForEach(i => ok &= i(__instance, coinsOwned, deathText, hitDirection));
+            bool ok = true;
+            onCanDropTombstone.ForEach(i => ok &= i(This, coinsOwned, deathText, hitDirection));
 
-                return ok;
-            }
+            return ok;
         }
     }
 }

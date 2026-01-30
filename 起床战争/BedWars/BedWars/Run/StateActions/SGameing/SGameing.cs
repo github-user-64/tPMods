@@ -56,6 +56,8 @@ namespace BedWars.Run.StateActions
 
             game.DataSpawItems.ForEach(i => Common.GameAction.SpawItem.Add(i));//生成物品
             game.DataShops.ForEach(i => shopNPC.Add(new ShopNPC(game.DataInfo, i)));//商店
+
+            InitAction();
         }
 
         public override void OnEnd()

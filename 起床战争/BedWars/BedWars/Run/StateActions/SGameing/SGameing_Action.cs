@@ -1,66 +1,55 @@
 ﻿using BedWars.BedWarsData;
-using Microsoft.Xna.Framework;
+using BedWars.Run.StateActions.GameAction;
 using Terraria;
-using Terraria.ID;
 
 namespace BedWars.Run.StateActions
 {
-    internal partial class SGameing : IStateAction
+    internal partial class SGameing
     {
-        private int[] _rottenEggNPC = new int[]
-        {
-            NPCID.BigCrimslime,
-            NPCID.Pinky,
-            NPCID.Slimer,
-            NPCID.IlluminantSlime,
-            NPCID.IceSlime,
-            NPCID.SpikedJungleSlime,
-            NPCID.SlimeMasked,
-            NPCID.SandSlime,
-            NPCID.GoldenSlime,
-            NPCID.ShimmerSlime,
-            NPCID.YellowSlime,
-            NPCID.RedSlime,
-            NPCID.BlueSlime,
-        };
-        private int getRandNPCid()
-        {
-            int index = ModTool.Utils.Utils.GetRand(0, _rottenEggNPC.Length);
+        private IGameAction[] actions = null;
+        private bool isInitActioned = false;
 
-            return _rottenEggNPC[index];
+        private void InitAction()
+        {
+            if (isInitActioned) return;
+            isInitActioned = true;
+
+            EggPlaceTile a1 = new EggPlaceTile((x, y) =>
+            {
+                int mapX = x - game.DataInfo.X;
+                int mapY = y - game.DataInfo.Y;
+
+                if (game.Data.InMapRelative(mapX, mapY) == false) return false;//不在地图里
+
+                TileData data = game.DataTile[mapY][mapX];
+                if (data.CanActionTile == false) return false;
+
+                return true;
+            });
+
+            EggSpawnNPC a2 = new EggSpawnNPC();
+
+            HookGo a3 = new HookGo();
+
+            PaladinsHammerFriendly a4 = new PaladinsHammerFriendly();
+
+            actions = new IGameAction[] { a1, a2, a3, a4 };
         }
 
         public override void OnProjectileKill(Projectile proj)
         {
-            if (proj.type != ProjectileID.RottenEgg) return;
+            if (actions == null) return;
 
             GameTeamData team = game.Team.GetData(proj.owner, null);
             if (team == null) return;
 
-            int id = getRandNPCid();//随机npc
-
-            //获取在范围内的玩家
-            int Target = Main.maxPlayers;
-            foreach (Player i in Main.player)
-            {
-                GameTeamData t = game.Team.GetData(i.whoAmI, null);
-                if (t == null) continue;
-
-                float dis = i.Center.Distance(proj.Center);
-                if (dis > 16 * 30) continue;
-
-                Target = i.whoAmI;
-                break;
-            }
-
-            int index = NPC.NewNPC(null, (int)proj.Center.X, (int)proj.Center.Y, id, Target: Target);
-            if (index >= Main.maxNPCs) return;
-
-            Main.npc[index].life -= 1;
+            foreach (IGameAction ga in actions) ga.OnProjectileKill(proj);
         }
 
         private void UpdateAction()
         {
+            if (actions == null) return;
+
             foreach (Projectile i in Main.projectile)
             {
                 if (i?.active != true) continue;
@@ -72,78 +61,8 @@ namespace BedWars.Run.StateActions
                 GameTeamData team = game.GetPlayerTeam(player);
                 if (team == null) continue;
 
-                if (i.type == ProjectileID.StarAnise) UpdateAction_Place(i);
-                else if (i.type == ProjectileID.Hook) UpdateAction_Hook(i, player);
+                foreach (IGameAction ga in actions) ga.UpdateProjectile(i, player);
             }
-        }
-
-        private void UpdateAction_Place(Projectile proj)
-        {
-            Vector2 p = Vector2.Normalize(proj.velocity) * -24;//在射弹后面
-            p += proj.Center;
-
-            Point pos = p.ToTileCoordinates();
-            Point posMap = pos;
-            posMap.X -= game.DataInfo.X;
-            posMap.Y -= game.DataInfo.Y;
-            if (game.Data.InMapRelative(posMap) == false) return;//不在地图里
-
-            TileData data = game.DataTile[posMap.Y][posMap.X];
-            if (data.CanActionTile == false) return;
-
-            WorldGen.PlaceTile(pos.X, pos.Y, TileID.Cloud);
-            NetMessage.SendTileSquare(-1, pos.X, pos.Y, 1);
-        }
-
-        private void UpdateAction_Hook(Projectile proj, Player player)
-        {
-            if (proj.ai[0] != 0) return;//不是射出状态的钩子
-
-            Vector2 v = Vector2.Normalize(proj.velocity) * 16 * 1;
-
-            if (v.HasNaNs())
-            {
-                v = Vector2.Normalize(proj.Center - player.Center) * 16 * 1;
-                if (v.HasNaNs()) return;
-            }
-
-            proj.type = ProjectileID.None;
-            NetMessage.TrySendData(MessageID.SyncProjectile, number: proj.whoAmI);
-
-            //
-
-            //消耗沟子
-            if (UpdateAction_Hook_DelGrapplingHook(player, player.miscEquips, PlayerItemSlotID.Misc0) == false &&
-                UpdateAction_Hook_DelGrapplingHook(player, player.inventory, PlayerItemSlotID.Inventory0) == false)
-            {
-                return;
-            }
-            
-            //
-
-            player.velocity = v;
-            NetMessage.TrySendData(MessageID.PlayerControls, number: player.whoAmI);
-        }
-
-        private bool UpdateAction_Hook_DelGrapplingHook(Player player, Item[] arr, int solt)
-        {
-            for (int i = 0; i < arr.Length; ++i)
-            {
-                Item item = arr[i];
-                if (item == null) continue;
-                if (item.type != ItemID.GrapplingHook) continue;
-                if (item.stack < 1) continue;
-
-                if (item.stack > 1) item.stack--;
-                else item.SetDefaults(ItemID.None);
-
-                NetMessage.TrySendData(MessageID.SyncEquipment, -1, -1, null,
-                    player.whoAmI, solt + i, item.prefix);
-
-                return true;
-            }
-
-            return false;
         }
     }
 }

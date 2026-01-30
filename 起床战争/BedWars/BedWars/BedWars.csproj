@@ -168,6 +168,11 @@
     <Compile Include="Run\GameRun\GameRun.cs" />
     <Compile Include="Run\GameTeamData.cs" />
     <Compile Include="Run\IGameControl.cs" />
+    <Compile Include="Run\StateActions\SGameing\GameAction\HookGo.cs" />
+    <Compile Include="Run\StateActions\SGameing\GameAction\EggPlaceTile.cs" />
+    <Compile Include="Run\StateActions\SGameing\GameAction\EggSpawnNPC.cs" />
+    <Compile Include="Run\StateActions\SGameing\GameAction\PaladinsHammerFriendly.cs" />
+    <Compile Include="Run\StateActions\SGameing\GameAction\IGameAction.cs" />
     <Compile Include="Run\StateActions\SGameing\SGameing_Action.cs" />
     <Compile Include="Run\StateActions\SGameing\SGameing.cs" />
     <Compile Include="Run\StateActions\SGameEnd.cs" />
