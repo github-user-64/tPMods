@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using ModTool.EntityTag;
 using Terraria;
+using Terraria.GameContent.Drawing;
 using Terraria.ID;
 
 namespace BedWars.Run.StateActions.GameAction
@@ -10,27 +11,25 @@ namespace BedWars.Run.StateActions.GameAction
     /// </summary>
     public class PaladinsHammerFriendly : IGameAction
     {
-        public PaladinsHammerFriendly()
+        private byte GetByte(byte v1, byte v2)
         {
-            ModTool.PatchGame.PProjectile.SetLightningColor += PProjectile_SetLightningColor;
+            return (byte)ModTool.Utils.Utils.GetRand(v1, v2);
         }
 
-        private Color PProjectile_SetLightningColor(Projectile This, Color color)
+        private Color GetLightningColor()
         {
-            if (This.type != ProjectileID.PaladinsHammerFriendly) return color;
-            if (This.ai[0] != 1) return color;
-
-            color.R = (byte)ModTool.Utils.Utils.GetRand((byte)200, (byte)255);
+            Color color = Color.Black;
+            color.R = GetByte(150, 255);
+            color.G = GetByte(50, 255);
+            color.B = GetByte(50, 255);
 
             if (ModTool.Utils.Utils.GetRand(0, 2) == 0)
             {
-                color.G = (byte)ModTool.Utils.Utils.GetRand((byte)200, (byte)255);
-                color.B = 0;
+                color.G = GetByte(0, 150);
             }
             else
             {
-                color.G = 0;
-                color.B = (byte)ModTool.Utils.Utils.GetRand((byte)200, (byte)255);
+                color.B = GetByte(0, 150);
             }
 
             return color;
@@ -54,10 +53,21 @@ namespace BedWars.Run.StateActions.GameAction
             if (Entitys.projectile.DelTag(proj, tag) == false) return;
             //有标签被删除
 
-            int style = ModTool.Utils.Utils.GetRand(0, 1145);
+            ParticleSpawn(proj);
+        }
 
-            Projectile.NewProjectile(null, proj.Center, Vector2.Zero, ProjectileID.StormLightning, proj.damage, 1, Main.myPlayer,
-                ai1: 1, ai2: style);
+        private void ParticleSpawn(Projectile proj)
+        {
+            ParticleOrchestraType type = ParticleOrchestraType.StormLightning;
+            int style = ModTool.Utils.Utils.GetRand(0, 1145);
+            Color color = GetLightningColor();
+
+            ParticleOrchestrator.BroadcastOrRequestParticleSpawn(type, new ParticleOrchestraSettings
+            {
+                PositionInWorld = proj.Center,
+                UniqueInfoPiece = (int)color.PackedValue,
+                MovementVector = new Vector2(style, 0f),
+            });
         }
     }
 }

@@ -74,7 +74,7 @@ namespace BedWars.Run.StateActions
 
         public override bool ModifyShop(ModifyShop.ItemData[] items, NPC npc, Player player)
         {
-            ShopData shop = shopNPC.FirstOrDefault(i => i.npc == npc).shop;
+            ShopData shop = shopNPC.FirstOrDefault(i => i.npc == npc)?.shop;
             if (shop == null) return false;
 
             int len = Math.Min(items.Length, shop.item.Count);//没必要, 长度正常都一样
