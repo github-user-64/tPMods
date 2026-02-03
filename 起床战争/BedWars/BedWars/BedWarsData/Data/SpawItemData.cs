@@ -43,13 +43,14 @@ namespace BedWars.BedWarsData
             item.SetDefaults(type);
             if (item.maxStack < 1) return;
 
-            int stack = ModTool.Utils.Utils.GetRand(1, maxStack + 1);
-            if (stack > item.maxStack) stack = item.maxStack;
-            else if (stack < 1) stack = 1;
+            int spawStackMax = Common.Utils.GetMaxStack(item);
+            int spawStack = ModTool.Utils.Utils.GetRand(1, maxStack + 1);
+            if (spawStack > spawStackMax) spawStack = spawStackMax;
+            else if (spawStack < 1) spawStack = 1;
 
             Point p = new Point(mapData.Info.X + pos.X, mapData.Info.Y + pos.Y);
 
-            NewItem(p.ToWorldCoordinates(), type, stack);
+            NewItem(p.ToWorldCoordinates(), type, spawStack);
         }
 
         private void NewItem(Vector2 pos, int type, int stack)
