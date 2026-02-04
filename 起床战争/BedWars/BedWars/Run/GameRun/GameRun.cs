@@ -131,6 +131,7 @@ namespace BedWars.Run
 
         private void SendStatusTextSize(int remoteClient = -1)
         {
+            if (_oldStatusText == null) return;
             NetworkText t = NetworkText.FromLiteral(_oldStatusText);
             BitsByte serverSpecialFlags = 0;
             serverSpecialFlags[0] = true;
