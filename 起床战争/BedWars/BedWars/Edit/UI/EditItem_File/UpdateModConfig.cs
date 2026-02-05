@@ -11,6 +11,7 @@ namespace BedWars.Edit.UI.EditItem_File
                 string v = ModConfig.Update() ? "成功" : "失败";
 
                 Main.NewText($"更新{v}");
+                Main.NewText($"地图目录:{ThisMod.DirMapData}");
             };
         }
     }

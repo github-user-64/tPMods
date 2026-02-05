@@ -27,7 +27,7 @@ namespace BedWars
 
         public static void LoadModConfig(ModConfig.Data data)
         {
-            Config = data;
+            Config = data ?? throw new ArgumentNullException(nameof(data), "配置为空");
 
             SetDirMapData(data.DirMapData);
         }
