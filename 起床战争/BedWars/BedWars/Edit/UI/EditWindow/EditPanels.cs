@@ -17,6 +17,7 @@ namespace BedWars.Edit.UI.EditWindow
             Height.Precent = 1;
 
             AddChild(new UpdateModConfig("更新", "更新模组配置"));
+            AddChild(new OpenMapDirectory("打开", "打开地图目录"));
             AddChild(new MapNew("新建", "新建地图"));
             AddChild(new MapLoad("加载", "加载地图"));
             AddChild(new MapSave("保存", "保存地图"));

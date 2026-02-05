@@ -1,6 +1,7 @@
 ﻿using BedWars.BedWarsData;
 using Microsoft.Xna.Framework;
 using System;
+using System.Diagnostics;
 using System.IO;
 using tContentPatch;
 using Terraria;
@@ -80,6 +81,21 @@ namespace BedWars.Edit
             temp.Info.rect = new Rectangle(Main.spawnTileX, Main.spawnTileY, 2, 2);
 
             return LoadData(temp, null);
+        }
+
+        public string OpenDirectory()
+        {
+            try
+            {
+                string dir = DirMapData;
+                if (Directory.Exists(dir) == false) return $"目录不存在:{dir}";
+                Process.Start(dir);
+                return null;
+            }
+            catch (Exception ex)
+            {
+                return ex.Message;
+            }
         }
     }
 }

@@ -126,6 +126,7 @@
     <Compile Include="Edit\UI\EditItem_EditData\EditMapVoidHeight.cs" />
     <Compile Include="Edit\UI\EditItem_EditData\EditMapSpawPos.cs" />
     <Compile Include="Edit\UI\EditItem_EditData\EditClassTileCanAction.cs" />
+    <Compile Include="Edit\UI\EditItem_File\OpenMapDirectory.cs" />
     <Compile Include="Edit\UI\EditShop\EditItem.cs" />
     <Compile Include="Edit\UI\EditShop\EditShopItems.cs" />
     <Compile Include="Edit\UI\EditShop\EditShopItemSlot.cs" />
