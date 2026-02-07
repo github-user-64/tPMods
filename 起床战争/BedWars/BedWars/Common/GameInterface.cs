@@ -17,7 +17,17 @@ namespace BedWars.Common
 
         public override void UpdateUIStatesPostfix(GameTime gameTime)
         {
-            ui?.Update(Main.gameTimeCache);
+            if (ui == null) return;
+
+            if (Main.gameMenu)
+            {
+                ui.SetState(null);
+            }
+            else
+            {
+                ui.SetState(UI);
+                ui.Update(gameTime);
+            }
         }
 
         public override void SetupDrawInterfaceLayersPostfix(List<GameInterfaceLayer> gameInterfaceLayers)
