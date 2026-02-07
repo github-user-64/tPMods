@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework.Graphics;
+﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
 using tContentPatch;
@@ -14,17 +15,21 @@ namespace BedWars.Common
         public static UIState UI { get; private set; } = null;
         private static UserInterface ui = null;
 
+        public override void UpdateUIStatesPostfix(GameTime gameTime)
+        {
+            ui.Update(Main.gameTimeCache);
+        }
+
         public override void SetupDrawInterfaceLayersPostfix(List<GameInterfaceLayer> gameInterfaceLayers)
         {
-            if (ui == null)
-            {
-                OnDraw = new List<Action<SpriteBatch>>();
-                ui = new UserInterface();
-                UI = new UIState();
-                ui.SetState(UI);
+            if (ui != null) return;
 
-                OnInitUI?.Invoke();
-            }
+            OnDraw = new List<Action<SpriteBatch>>();
+            ui = new UserInterface();
+            UI = new UIState();
+            ui.SetState(UI);
+
+            OnInitUI?.Invoke();
 
             Setup(gameInterfaceLayers, InterfaceScaleType.UI,
                 "Vanilla: Inventory",
@@ -32,7 +37,6 @@ namespace BedWars.Common
                 {
                     try
                     {
-                        ui.Update(Main.gameTimeCache);
                         ui.Draw(Main.spriteBatch, Main.gameTimeCache);
                     }
                     catch { }
