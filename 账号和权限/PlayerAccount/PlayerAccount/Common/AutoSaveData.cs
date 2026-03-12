@@ -9,7 +9,7 @@ namespace PlayerAccount.Common
     /// </summary>
     internal class AutoSaveData : PatchWorldFile
     {
-        public override void SaveWorldPostfix(bool useCloudSaving, bool resetTime)
+        public override void SaveWorldPostfix(bool useCloudSaving, bool resetTime, bool useTemps, bool canBeSkipped)
         {
             if (Main.dedServ == false) return;
 
