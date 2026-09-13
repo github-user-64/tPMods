@@ -4,13 +4,14 @@ using ModTool.Command;
 using ModTool.EntityTag;
 using System;
 using System.Collections.Generic;
+using tContentPatch;
 using Terraria;
 
 namespace test2.MT
 {
-    public class 测试指令
+    public class 测试指令 : Mod
     {
-        public static void Init()
+        public override void Loaded()
         {
             ChatBarCMD.Common.GameChatCommand.NetMode01.CMD.Add((i, p) =>
             {
@@ -88,10 +89,10 @@ namespace test2.MT
                     Entitys.npc.SetVal(npc, tag, val);
                     print?.Invoke($"{npc.GetGivenOrTypeNetName()}的标签设置为{Entitys.npc.GetTagValString(npc, tag)}");
                 }
-                else if (entity is Item item)
+                else if (entity is WorldItem item)
                 {
                     Entitys.item.SetVal(item, tag, val);
-                    print?.Invoke($"{item.HoverName}的标签设置为{Entitys.item.GetTagValString(item, tag)}");
+                    print?.Invoke($"{item.inner.HoverName}的标签设置为{Entitys.item.GetTagValString(item, tag)}");
                 }
                 else if (entity is Projectile proj)
                 {
@@ -119,10 +120,10 @@ namespace test2.MT
                     Entitys.npc.DelTag(npc, tag);
                     print?.Invoke($"{npc.GetGivenOrTypeNetName()}的标签{tag}已删除");
                 }
-                else if (entity is Item item)
+                else if (entity is WorldItem item)
                 {
                     Entitys.item.DelTag(item, tag);
-                    print?.Invoke($"{item.HoverName}的标签{tag}已删除");
+                    print?.Invoke($"{item.inner.HoverName}的标签{tag}已删除");
                 }
                 else if (entity is Projectile proj)
                 {

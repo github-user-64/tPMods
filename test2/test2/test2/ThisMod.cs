@@ -17,8 +17,6 @@ namespace test2
 
             ModObject mo2 = mos.FirstOrDefault(i => i.config.key == "StaticTile.ModTool");
             if (mo2 == null) return;
-
-            MT.测试指令.Init();
         }
     }
 }

@@ -43,22 +43,22 @@ namespace test2.MT
 
             if (type == 0)
             {
-                entity = GetEntity(Main.npc);
+                entity = GetEntity(Main.npc, e => e.active);
                 if (entity == null) print?.Invoke("找不到npc");
             }
             else if (type == 1)
             {
                 entity = GetEntity(Main.item, e =>
                 {
+                    if (e.active == false) return false;
                     if (e.whoAmI == Main.item.Length - 1) return false;
-                    if (e is Item i) return i.stack > 0;
-                    return false;
+                    return e.stack > 0;
                 });
                 if (entity == null) print?.Invoke("找不到物品");
             }
             else if (type == 2)
             {
-                entity = GetEntity(Main.projectile);
+                entity = GetEntity(Main.projectile, e => e.active);
                 if (entity == null) print?.Invoke("找不到射弹");
             }
             else if (type == 3)
@@ -84,8 +84,7 @@ namespace test2.MT
 
             foreach (T i in list)
             {
-                if (i.active == false) continue;
-                if (fun != null && fun(i) == false) continue;
+                if (fun != null && fun(i) != true) continue;
 
                 Vector2 p = i.Center;
                 float d = pos.Distance(p);
