@@ -11,12 +11,16 @@ using Terraria.UI;
 
 namespace ExtenContent.Extens
 {
+    /// <summary/>
     public static partial class ItemLoad
     {
         private static readonly FieldInfo __itemNameCache = typeof(Lang).GetField("_itemNameCache", BindingFlags.NonPublic | BindingFlags.Static);
         private static readonly FieldInfo __itemTooltipCache = typeof(Lang).GetField("_itemTooltipCache", BindingFlags.NonPublic | BindingFlags.Static);
         private static readonly PropertyInfo _itemVariant = typeof(Item).GetProperty("Variant", BindingFlags.Public | BindingFlags.Instance);
 
+        /// <summary>
+        /// 物品数量, <see cref="ItemID.Count"/>的数量加上<see cref="ExtenItem"/>的数量
+        /// </summary>
         public static int ItemCount { get; private set; } = ItemID.Count;
         private static readonly List<ExtenItem> items = new List<ExtenItem>();
 
@@ -39,6 +43,9 @@ namespace ExtenContent.Extens
             ++ItemCount;
         }
 
+        /// <summary>
+        /// 获取<see cref="Item.type"/>对应的<see cref="ExtenItem"/>, 不存在返回<see langword="null"/>
+        /// </summary>
         public static ExtenItem GetItem(int type)
         {
             if (TypeInRange(type) != true) return null;
@@ -46,6 +53,9 @@ namespace ExtenContent.Extens
             return items[type - ItemID.Count];
         }
 
+        /// <summary>
+        /// <see cref="Item.type"/>是否是<see cref="ExtenItem"/>
+        /// </summary>
         public static bool TypeInRange(int type)
         {
             return ItemID.Count <= type && type < ItemCount;

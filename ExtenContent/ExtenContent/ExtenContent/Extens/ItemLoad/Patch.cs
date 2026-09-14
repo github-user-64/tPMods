@@ -6,7 +6,7 @@ namespace ExtenContent.Extens
 {
     public static partial class ItemLoad
     {
-        public static void SetDefaults(Item item, int Type, ItemVariant variant = null)
+        internal static void SetDefaults(Item item, int Type, ItemVariant variant = null)
         {
             if (TypeInRange(Type) != true) return;
 
@@ -36,7 +36,7 @@ namespace ExtenContent.Extens
             item.RebuildTooltip();
         }
 
-        public static void ItemCheck_ShootPostfix(Player __instance, Item sItem, int weaponDamage, bool withAudioVisualFeedback)
+        internal static void ItemCheck_ShootPostfix(Player __instance, Item sItem, int weaponDamage, bool withAudioVisualFeedback)
         {
             int Type = sItem.type;
 

@@ -31,8 +31,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="CommandHelp">
-      <HintPath>..\..\..\..\tPlainModLoader\tPlainModLoader\tPlainModLoader\bin\Debug\CommandHelp.dll</HintPath>
+    <Reference Include="ExtenContent">
+      <HintPath>..\..\..\..\tPlainModLoader\tPlainModLoader\tPlainModLoader\bin\Debug\Mods\ExtenContent\ExtenContent.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="Microsoft.Xna.Framework, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553, processorArchitecture=x86">
@@ -66,30 +66,19 @@
       <HintPath>..\..\..\..\tPlainModLoader\tPlainModLoader\tPlainModLoader\bin\Debug\tContentPatch.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="Terraria_v1.4.5.6">
-      <HintPath>..\..\..\..\tPlainModLoader\dll\Terraria_v1.4.5.6.exe</HintPath>
+    <Reference Include="Terraria_v1.4.5.8">
+      <HintPath>..\..\..\..\tPlainModLoader\dll\Terraria_v1.4.5.8.exe</HintPath>
       <Private>False</Private>
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DeBug.cs" />
     <Compile Include="ModTool\测试指令2.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ModTool\CommandeEntityTagMethod.cs" />
     <Compile Include="ModTool\CommandeEnumEntity.cs" />
     <Compile Include="ModTool\测试指令.cs" />
     <Compile Include="ThisMod.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\..\ModTool\ModTool\ModTool\ModTool.csproj">
-      <Project>{e80b35b3-88db-4fc0-a106-a659c937edac}</Project>
-      <Name>ModTool</Name>
-      <Private>False</Private>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\聊天栏指令\ChatBarCMD\ChatBarCMD\ChatBarCMD.csproj">
-      <Project>{5f1673b3-6898-4f0c-aa9d-5ea8886d71cf}</Project>
-      <Name>ChatBarCMD</Name>
-      <Private>False</Private>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

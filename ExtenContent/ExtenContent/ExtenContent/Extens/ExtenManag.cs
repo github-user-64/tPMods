@@ -14,6 +14,9 @@ using Terraria.ID;
 
 namespace ExtenContent.Extens
 {
+    /// <summary>
+    /// 扩展管理
+    /// </summary>
     public static class ExtenManag
     {
         private static class RegistFoo<T> where T : IExtenType
@@ -27,6 +30,8 @@ namespace ExtenContent.Extens
         static ExtenManag()
         {
             RegistFoo<ExtenItem>.Foo = ItemLoad.Register;
+
+            RegistMod(ThisMod.mo);
         }
 
         internal static void Load()
@@ -35,11 +40,13 @@ namespace ExtenContent.Extens
             IsLoad = true;
 
             ItemLoad.Load();
+            PlayerLoad.Load();
         }
 
         internal static void Unload()
         {
             ItemLoad.Unload();
+            PlayerLoad.Unload();
 
             foreach (IAssetRepository asset in Assets) asset.Dispose();
             Assets.Clear();
@@ -49,7 +56,6 @@ namespace ExtenContent.Extens
         /// 注册模组中所有的扩展内容<para/>
         /// 应在<see cref="tContentPatch.Mod.Loaded"/>前调用
         /// </summary>
-        /// <param name="mo"></param>
         public static void RegistMod(ModObject mo)
         {
             if (IsLoad) throw new Exception("不可在加载后注册");
@@ -118,6 +124,9 @@ namespace ExtenContent.Extens
             return Asset;
         }
 
+        /// <summary>
+        /// 获取<see cref="ExtenItem"/>对应的<see cref="Item.type"/>, 不存在返回<see cref="ItemID.None"/>
+        /// </summary>
         public static int ItemType<T>() where T : ExtenItem
         {
             T instance = ExtenInstance<T>.Instance;
@@ -126,9 +135,20 @@ namespace ExtenContent.Extens
             return instance.Type;
         }
 
+        /// <summary>
+        /// 获取<see cref="Item.type"/>对应的<see cref="ExtenItem"/>, 不存在返回<see langword="null"/>
+        /// </summary>
         public static ExtenItem GetExtenItem(int type)
         {
             return ItemLoad.GetItem(type);
+        }
+
+        /// <summary>
+        /// <see cref="Item.type"/>是否是<see cref="ExtenItem"/>
+        /// </summary>
+        public static bool IsExtenItem(int type)
+        {
+            return ItemLoad.TypeInRange(type);
         }
     }
 }

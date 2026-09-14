@@ -7,7 +7,7 @@ namespace test2
 {
     internal class ThisMod : Mod
     {
-        public override void Load()
+        public override void Load(ModObject mo)
         {
             List<ModObject> mos = ContentPatch.GetModObjects();
             if (mos == null) return;

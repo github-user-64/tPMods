@@ -12,7 +12,7 @@ namespace ExtenContent.Extens
 {
     public static partial class ItemLoad
     {
-        public static void ResizeArrays()
+        private static void ResizeArrays()
         {
             LocalizedText[] _itemNameCache = (LocalizedText[])__itemNameCache.GetValue(null);
             ItemTooltip[] _itemTooltipCache = (ItemTooltip[])__itemTooltipCache.GetValue(null);

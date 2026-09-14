@@ -21,6 +21,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <DocumentationFile>..\..\..\..\tPlainModLoader\tPlainModLoader\tPlainModLoader\bin\Debug\Mods\ExtenContent\ExtenContent.xml</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -73,16 +74,19 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Extens\ExtenInstance.cs" />
+    <Compile Include="Extens\ExtenItemUnload.cs" />
     <Compile Include="Extens\ExtenManag.cs" />
     <Compile Include="Extens\ExtenType.cs" />
     <Compile Include="Extens\IExtenType.cs" />
     <Compile Include="Extens\ItemLoad\Patch.cs" />
     <Compile Include="Extens\ItemLoad\ItemLoad.cs" />
-    <Compile Include="DeBug.cs" />
     <Compile Include="Extens\ExtenItem.cs" />
-    <Compile Include="ModifyInterfaceLayers.cs" />
+    <Compile Include="Extens\PlayerLoad\PlayerLoad.cs" />
+    <Compile Include="Extens\PlayerLoad\Patch.cs" />
+    <Compile Include="IO\PlayerExtenData.cs" />
     <Compile Include="PatchGame\PItem.cs" />
     <Compile Include="PatchGame\PLang.cs" />
+    <Compile Include="PatchGame\PMain.cs" />
     <Compile Include="PatchGame\PPlayer.cs" />
     <Compile Include="PatchGame\PSetFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

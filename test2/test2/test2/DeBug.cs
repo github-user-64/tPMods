@@ -1,31 +1,17 @@
 ﻿using ExtenContent.Extens;
 using ExtenContent.Utils;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using tContentPatch;
 using tContentPatch.ModLoad;
 using Terraria;
 using Terraria.ID;
 using Terraria.Localization;
-using Terraria.UI;
 
-namespace DeBug
+namespace test2
 {
     internal class DeBug : Mod
     {
-        public class DrawHeldItem : UIElement
-        {
-            protected override void DrawSelf(SpriteBatch spriteBatch)
-            {
-                base.DrawSelf(spriteBatch);
-
-                if (Main.keyState.IsKeyDown(Keys.NumPad2))
-                {
-                    ItemSlot.MouseHover(new Item[] { Main.LocalPlayer.HeldItem });
-                }
-            }
-        }
         private class Test : PatchMain
         {
             public override void DoUpdateInWorldPostfix()
