@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using ExtenContent.Extens;
+using Microsoft.Xna.Framework;
 using tContentPatch;
 using Terraria;
 
@@ -10,7 +11,10 @@ namespace ExtenContent.PatchGame
         {
             if (numLines < toolTipLine.Length == false) return;
 
-            toolTipLine[numLines] = $"卸载物品";
+            ExtenItem EItem = ExtenManag.GetExtenItem(item.type);
+            if (EItem is ExtenItemUnload != true) return;
+
+            toolTipLine[numLines] = $"卸载物品{ExtenItemUnload.GetUnloadItemFullName(item)}";
             numLines++;
         }
     }

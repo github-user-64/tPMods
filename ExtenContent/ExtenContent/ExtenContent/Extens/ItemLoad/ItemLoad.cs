@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework.Graphics;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -23,6 +24,7 @@ namespace ExtenContent.Extens
         /// </summary>
         public static int ItemCount { get; private set; } = ItemID.Count;
         private static readonly List<ExtenItem> items = new List<ExtenItem>();
+        private static readonly Dictionary<string, ExtenItem> itemsKey = new Dictionary<string, ExtenItem>();
 
         internal static void Load()
         {
@@ -35,11 +37,17 @@ namespace ExtenContent.Extens
         {
             ItemCount = ItemID.Count;
             items.Clear();
+            itemsKey.Clear();
         }
 
         internal static void Register(ExtenItem item)
         {
+            string key = item.FullName;
+            if (key == null) throw new Exception($"物品的{nameof(ExtenItem.FullName)}为null");
+            if (GetItem(key) != null) throw new Exception($"物品[{key}]已注册");
+
             items.Add(item);
+            itemsKey[key] = item;
             ++ItemCount;
         }
 
@@ -51,6 +59,17 @@ namespace ExtenContent.Extens
             if (TypeInRange(type) != true) return null;
 
             return items[type - ItemID.Count];
+        }
+
+        /// <summary>
+        /// 获取<see cref="ExtenType.FullName"/>对应的<see cref="ExtenItem"/>, 不存在返回<see langword="null"/>
+        /// </summary>
+        public static ExtenItem GetItem(string key)
+        {
+            if (key == null) return null;
+            if (itemsKey.ContainsKey(key) != true) return null;
+
+            return itemsKey[key];
         }
 
         /// <summary>

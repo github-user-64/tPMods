@@ -75,14 +75,15 @@
   <ItemGroup>
     <Compile Include="Extens\ExtenInstance.cs" />
     <Compile Include="Extens\ExtenItemUnload.cs" />
-    <Compile Include="Extens\ExtenManag.cs" />
+    <Compile Include="Extens\ExtenManag\Load.cs" />
+    <Compile Include="Extens\ExtenManag\ExtenManag.cs" />
     <Compile Include="Extens\ExtenType.cs" />
     <Compile Include="Extens\IExtenType.cs" />
+    <Compile Include="Extens\ItemLoad\ItemData.cs" />
     <Compile Include="Extens\ItemLoad\Patch.cs" />
     <Compile Include="Extens\ItemLoad\ItemLoad.cs" />
     <Compile Include="Extens\ExtenItem.cs" />
-    <Compile Include="Extens\PlayerLoad\PlayerLoad.cs" />
-    <Compile Include="Extens\PlayerLoad\Patch.cs" />
+    <Compile Include="IO\ExtenItemData.cs" />
     <Compile Include="IO\PlayerExtenData.cs" />
     <Compile Include="PatchGame\PItem.cs" />
     <Compile Include="PatchGame\PLang.cs" />

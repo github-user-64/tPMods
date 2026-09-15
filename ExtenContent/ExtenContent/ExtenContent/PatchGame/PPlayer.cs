@@ -14,12 +14,12 @@ namespace ExtenContent.PatchGame
 
         public override void LoadPlayerPostfix(PlayerFileData result, string playerPath, bool cloudSave)
         {
-            PlayerLoad.LoadPlayerPostfix(result, playerPath, cloudSave);
+            ItemLoad.LoadPlayerPostfix(result, playerPath, cloudSave);
         }
 
         public override void SavePlayerPrefix(PlayerFileData playerFile, bool skipMapSave)
         {
-            PlayerLoad.SavePlayerPrefix(playerFile, skipMapSave);
+            ItemLoad.SavePlayerPrefix(playerFile, skipMapSave);
         }
     }
 }
