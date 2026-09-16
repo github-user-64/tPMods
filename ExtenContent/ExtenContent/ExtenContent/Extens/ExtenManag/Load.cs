@@ -36,13 +36,11 @@ namespace ExtenContent.Extens
             IsLoad = true;
 
             ItemLoad.Load();
-            ExtenItemUnload.Load();
         }
 
         internal static void Unload()
         {
             ItemLoad.Unload();
-            ExtenItemUnload.Unload();
 
             foreach (IAssetRepository asset in Assets) asset.Dispose();
             Assets.Clear();

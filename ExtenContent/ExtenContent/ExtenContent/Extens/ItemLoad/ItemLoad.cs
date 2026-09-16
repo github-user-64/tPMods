@@ -25,6 +25,7 @@ namespace ExtenContent.Extens
         public static int ItemCount { get; private set; } = ItemID.Count;
         private static readonly List<ExtenItem> items = new List<ExtenItem>();
         private static readonly Dictionary<string, ExtenItem> itemsKey = new Dictionary<string, ExtenItem>();
+        private static readonly Dictionary<string, object> itemsUnload = new Dictionary<string, object>();
 
         internal static void Load()
         {
@@ -38,6 +39,7 @@ namespace ExtenContent.Extens
             ItemCount = ItemID.Count;
             items.Clear();
             itemsKey.Clear();
+            itemsUnload.Clear();
         }
 
         internal static void Register(ExtenItem item)
@@ -49,6 +51,14 @@ namespace ExtenContent.Extens
             items.Add(item);
             itemsKey[key] = item;
             ++ItemCount;
+        }
+
+        internal static void RegisterUnload(string key)
+        {
+            if (key == null) return;
+            if (itemsUnload.ContainsKey(key)) return;
+
+            itemsUnload[key] = null;
         }
 
         /// <summary>

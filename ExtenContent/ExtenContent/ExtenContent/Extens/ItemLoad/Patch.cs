@@ -1,4 +1,5 @@
-﻿using Terraria;
+﻿using Microsoft.Xna.Framework;
+using Terraria;
 using Terraria.GameContent.Items;
 using Terraria.ID;
 
@@ -44,6 +45,18 @@ namespace ExtenContent.Extens
 
             ExtenItem eitem = items[Type - ItemID.Count];
             eitem.Shoot(__instance, sItem, weaponDamage, withAudioVisualFeedback);
+        }
+
+        internal static void MouseText_DrawItemTooltip_GetLinesInfoPostfix(Item item, ref int yoyoLogo, ref float oldKB, ref int numLines, ref string[] toolTipLine, ref Color[] lineColors)
+        {
+            ExtenItem EItem = ExtenManag.GetExtenItem(item.type);
+            if (EItem is UnloadItem != true) return;
+
+            string tip = "卸载物品";
+            if (item.Name != null && itemsUnload.ContainsKey(item.Name)) tip += item.Name;
+
+            toolTipLine[numLines] = tip;
+            numLines++;
         }
     }
 }

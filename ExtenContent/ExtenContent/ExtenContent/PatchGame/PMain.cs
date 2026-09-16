@@ -11,11 +11,7 @@ namespace ExtenContent.PatchGame
         {
             if (numLines < toolTipLine.Length == false) return;
 
-            ExtenItem EItem = ExtenManag.GetExtenItem(item.type);
-            if (EItem is ExtenItemUnload != true) return;
-
-            toolTipLine[numLines] = $"卸载物品{ExtenItemUnload.GetUnloadItemFullName(item)}";
-            numLines++;
+            ItemLoad.MouseText_DrawItemTooltip_GetLinesInfoPostfix(item, ref yoyoLogo, ref oldKB, ref numLines, ref toolTipLine, ref lineColors);
         }
     }
 }
