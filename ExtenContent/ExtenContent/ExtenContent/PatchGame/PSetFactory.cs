@@ -11,7 +11,7 @@ namespace ExtenContent.PatchGame
         [HarmonyPatch(MethodType.Constructor)]
         [HarmonyPatch(new Type[] { typeof(int) })]
         [HarmonyPrefix]
-        public static void SetFactoryPrefix(ref int size)
+        private static void SetFactoryPrefix(ref int size)
         {
             if (size == ItemID.Count) size = ItemLoad.ItemCount;
         }

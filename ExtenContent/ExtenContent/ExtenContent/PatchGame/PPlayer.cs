@@ -1,10 +1,12 @@
 ﻿using ExtenContent.Extens;
+using HarmonyLib;
 using tContentPatch;
 using Terraria;
 using Terraria.IO;
 
 namespace ExtenContent.PatchGame
 {
+    [HarmonyPatch(typeof(Player))]
     internal class PPlayer : PatchPlayer
     {
         public override void ItemCheck_ShootPostfix(Player This, Item item, int weaponDamage, bool withAudioVisualFeedback)
@@ -20,6 +22,13 @@ namespace ExtenContent.PatchGame
         public override void SavePlayerPrefix(PlayerFileData playerFile, bool skipMapSave)
         {
             ItemLoad.SavePlayerPrefix(playerFile, skipMapSave);
+        }
+
+        [HarmonyPatch("ApplyItemAnimation")]
+        [HarmonyPostfix]
+        private static void ApplyItemAnimationPostfix(Player __instance, Item sItem)
+        {
+            ItemLoad.ApplyItemAnimationPostfix(__instance, sItem);
         }
     }
 }

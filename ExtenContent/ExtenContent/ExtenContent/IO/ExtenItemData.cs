@@ -27,7 +27,7 @@ namespace ExtenContent.IO
 
             if (EItem is UnloadItem)
             {
-                Name = item.Name;
+                Name = ExtenManag.GetUnloadItemKey(item.Name);
             }
             else
             {

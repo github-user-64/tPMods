@@ -32,5 +32,9 @@ namespace ExtenContent.Extens
         public virtual void SetDefault(Item This) { }
         /// <summary/>
         public virtual void Shoot(Player Player, Item This, int weaponDamage, bool withAudioVisualFeedback) { }
+        /// <summary>
+        /// 物品动画开始时
+        /// </summary>
+        public virtual void ApplyItemAnimationPostfix(Player This, Item item) { }
     }
 }

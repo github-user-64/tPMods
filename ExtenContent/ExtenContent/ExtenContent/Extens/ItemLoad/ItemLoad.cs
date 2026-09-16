@@ -61,6 +61,14 @@ namespace ExtenContent.Extens
             itemsUnload[key] = null;
         }
 
+        internal static string GetUnloadItemKey(string key)
+        {
+            if (key == null) return null;
+            if (itemsUnload.ContainsKey(key)) return key;
+
+            return null;
+        }
+
         /// <summary>
         /// 获取<see cref="Item.type"/>对应的<see cref="ExtenItem"/>, 不存在返回<see langword="null"/>
         /// </summary>
