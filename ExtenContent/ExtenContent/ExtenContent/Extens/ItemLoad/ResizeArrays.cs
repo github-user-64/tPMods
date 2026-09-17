@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Reflection;
 using Terraria;
 using Terraria.GameContent;
 using Terraria.GameContent.Prefixes;
@@ -20,9 +19,9 @@ namespace ExtenContent.Extens
             Array.Resize(ref TextureAssets.Item, ItemCount);
             Array.Resize(ref TextureAssets.ItemFlame, ItemCount);
 
-            ResetStaticMembers(typeof(ItemID.Sets));
-            ResetStaticMembers(typeof(AmmoID.Sets));
-            ResetStaticMembers(typeof(PrefixLegacy.ItemSets));
+            Utils.Utils.ResetStaticMembers(typeof(ItemID.Sets));
+            Utils.Utils.ResetStaticMembers(typeof(AmmoID.Sets));
+            Utils.Utils.ResetStaticMembers(typeof(PrefixLegacy.ItemSets));
 
             Array.Resize(ref Item.cachedItemSpawnsByType, ItemCount);
             Array.Resize(ref Item.staff, ItemCount);
@@ -47,14 +46,6 @@ namespace ExtenContent.Extens
 
             __itemNameCache.SetValue(null, _itemNameCache);
             __itemTooltipCache.SetValue(null, _itemTooltipCache);
-        }
-
-        private static void ResetStaticMembers(Type type)
-        {
-            ConstructorInfo init = type.TypeInitializer;
-            if (init == null) return;
-
-            init.Invoke(null, null);
         }
     }
 }

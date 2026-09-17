@@ -32,10 +32,14 @@ namespace ExtenContent.Extens
             ResizeArrays();
             FinishSetup();
             BuildLookup();
+
+            items.ForEach(i => i.Load());
         }
 
         internal static void Unload()
         {
+            items.ForEach(i => i.Unload());
+
             ItemCount = ItemID.Count;
             items.Clear();
             itemsKey.Clear();

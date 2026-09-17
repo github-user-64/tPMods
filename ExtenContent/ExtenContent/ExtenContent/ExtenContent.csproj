@@ -73,6 +73,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Extens\Enums\EquipType.cs" />
+    <Compile Include="Extens\EquipLoader\ResizeArrays.cs" />
+    <Compile Include="Extens\EquipLoader\EquipLoader.cs" />
+    <Compile Include="Extens\ExtenContents\ExtenEquip.cs" />
     <Compile Include="Extens\ExtenInstance.cs" />
     <Compile Include="Extens\UnloadItem.cs" />
     <Compile Include="Extens\ExtenManag\Load.cs" />
@@ -82,10 +86,11 @@
     <Compile Include="Extens\ItemLoad\ItemData.cs" />
     <Compile Include="Extens\ItemLoad\Patch.cs" />
     <Compile Include="Extens\ItemLoad\ItemLoad.cs" />
-    <Compile Include="Extens\ExtenItem.cs" />
+    <Compile Include="Extens\ExtenContents\ExtenItem.cs" />
     <Compile Include="IO\ExtenItemData.cs" />
     <Compile Include="IO\PlayerExtenData.cs" />
     <Compile Include="PatchGame\PItem.cs" />
+    <Compile Include="PatchGame\PWingStatsInitializer.cs" />
     <Compile Include="PatchGame\PLang.cs" />
     <Compile Include="PatchGame\PMain.cs" />
     <Compile Include="PatchGame\PPlayer.cs" />
@@ -94,6 +99,7 @@
     <Compile Include="Extens\ItemLoad\ResizeArrays.cs" />
     <Compile Include="ThisMod.cs" />
     <Compile Include="Utils\LanguageUtils.cs" />
+    <Compile Include="Utils\Utils.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

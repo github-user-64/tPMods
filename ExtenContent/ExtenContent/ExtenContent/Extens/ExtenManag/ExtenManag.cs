@@ -14,9 +14,18 @@ namespace ExtenContent.Extens
         public static int ItemType<T>() where T : ExtenItem
         {
             T instance = ExtenInstance<T>.Instance;
-            if (instance == null) return ItemID.None;
 
-            return instance.Type;
+            return instance?.Type ?? ItemID.None;
+        }
+
+        /// <summary>
+        /// 获取<see cref="ExtenEquip"/>对应的<see cref="ExtenEquip.Slot"/>, 不存在返回<see langword="-1"/>
+        /// </summary>
+        public static sbyte GetEquipSlot<T>() where T : ExtenEquip
+        {
+            T instance = ExtenInstance<T>.Instance;
+
+            return (sbyte?)instance?.Slot ?? -1;
         }
 
         /// <summary>

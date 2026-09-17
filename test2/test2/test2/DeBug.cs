@@ -5,6 +5,7 @@ using Microsoft.Xna.Framework.Input;
 using tContentPatch;
 using tContentPatch.ModLoad;
 using Terraria;
+using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.Localization;
 
@@ -82,14 +83,24 @@ namespace test2
 
             public override void SetDefault(Item This)
             {
-                int type = 3468;
-
                 This.width = 22;
                 This.height = 20;
                 This.accessory = true;
                 This.value = Item.buyPrice(0, 40);
                 This.rare = 10;
-                This.wingSlot = (sbyte)(29 + type - 3468);
+                This.wingSlot = ExtenManag.GetEquipSlot<MyWing>();
+            }
+        }
+
+        public class MyWing : ExtenEquip
+        {
+            public override EquipType EquipType => EquipType.Wings;
+            public override string Texture => "Wings_1";
+
+            public override void SetStaticDefaults()
+            {
+                //飞行时间,速度,加速倍数,悬浮,悬浮水平速度,悬浮水平加速倍数
+                ArmorIDs.Wing.Sets.Stats[Slot] = new WingStats(60 * 3, 16f, 16f, true, 16f, 16f);
             }
         }
     }

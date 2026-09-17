@@ -20,12 +20,14 @@ namespace ExtenContent.Extens
             public static Action<T> Foo;
         }
 
+        private static readonly List<ExtenType> extens = new List<ExtenType>();
         private static readonly List<IAssetRepository> Assets = new List<IAssetRepository>();
         private static bool IsLoad = false;
 
         static ExtenManag()
         {
             RegistFoo<ExtenItem>.Foo = ItemLoad.Register;
+            RegistFoo<ExtenEquip>.Foo = EquipLoader.Register;
 
             RegistMod(ThisMod.mo);
         }
@@ -35,15 +37,21 @@ namespace ExtenContent.Extens
             if (IsLoad) return;
             IsLoad = true;
 
+            EquipLoader.Load();
             ItemLoad.Load();
+
+            extens.ForEach(i => i.SetStaticDefaults());
         }
 
         internal static void Unload()
         {
+            EquipLoader.Unload();
             ItemLoad.Unload();
 
             foreach (IAssetRepository asset in Assets) asset.Dispose();
             Assets.Clear();
+
+            extens.Clear();
         }
 
         /// <summary>
@@ -58,6 +66,7 @@ namespace ExtenContent.Extens
             Assets.Add(asset);
 
             RegistExten<ExtenItem>(mo, asset);
+            RegistExten<ExtenEquip>(mo, asset);
         }
 
         private static void RegistExten<T>(ModObject mo, IAssetRepository asset) where T : ExtenType
@@ -73,6 +82,8 @@ namespace ExtenContent.Extens
                 ExtenInstance.Register(exten);
 
                 RegistFoo<T>.Foo(exten);
+
+                ExtenManag.extens.Add(exten);
             }
         }
 

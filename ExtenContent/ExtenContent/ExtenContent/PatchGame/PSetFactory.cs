@@ -1,6 +1,8 @@
 ﻿using ExtenContent.Extens;
 using HarmonyLib;
 using System;
+using System.Diagnostics;
+using System.Reflection;
 using Terraria.ID;
 
 namespace ExtenContent.PatchGame
@@ -13,7 +15,19 @@ namespace ExtenContent.PatchGame
         [HarmonyPrefix]
         private static void SetFactoryPrefix(ref int size)
         {
-            if (size == ItemID.Count) size = ItemLoad.ItemCount;
+            StackTrace st = new StackTrace();
+
+            StackFrame sf = st.GetFrame(2);
+            if (sf == null) return;
+
+            MethodBase mb = sf.GetMethod();
+            if (mb == null) return;
+
+            Type type = mb.DeclaringType;
+            if (type == null) return;
+
+            if (type == typeof(ItemID.Sets)) size = ItemLoad.ItemCount;
+            else if (type == typeof(ArmorIDs.Wing.Sets)) size = EquipLoader.WingCount;
         }
     }
 }

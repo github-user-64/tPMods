@@ -31,10 +31,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="ExtenContent">
-      <HintPath>..\..\..\..\tPlainModLoader\tPlainModLoader\tPlainModLoader\bin\Debug\Mods\ExtenContent\ExtenContent.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
     <Reference Include="Microsoft.Xna.Framework, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553, processorArchitecture=x86">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\tPlainModLoader\dll\Microsoft.Xna.Framework.dll</HintPath>
@@ -79,6 +75,13 @@
     <Compile Include="ModTool\CommandeEnumEntity.cs" />
     <Compile Include="ModTool\测试指令.cs" />
     <Compile Include="ThisMod.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\ExtenContent\ExtenContent\ExtenContent\ExtenContent.csproj">
+      <Project>{dfd8d331-362e-4006-8c48-b013b375ddc4}</Project>
+      <Name>ExtenContent</Name>
+      <Private>False</Private>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
