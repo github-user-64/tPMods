@@ -10,10 +10,17 @@ namespace ExtenContent.Extens
         internal static void MouseText_DrawItemTooltip_GetLinesInfoPostfix(Item item, ref int yoyoLogo, ref float oldKB, ref int numLines, ref string[] toolTipLine, ref Color[] lineColors)
         {
             ExtenItem EItem = ExtenManag.GetExtenItem(item.type);
-            if (EItem is UnloadItem != true) return;
+            if (EItem == null) return;
 
-            toolTipLine[numLines] = $"卸载物品{ExtenManag.GetUnloadItemKey(item.Name)}";
-            numLines++;
+            if (EItem is UnloadItem)
+            {
+                toolTipLine[numLines] = $"卸载物品{ExtenManag.GetUnloadItemKey(item.Name)}";
+                numLines++;
+
+                return;
+            }
+
+            EItem.ModifyTooltips(item, ref yoyoLogo, ref oldKB, ref numLines, ref toolTipLine, ref lineColors);
         }
 
         internal static void SetDefaults(Item item, int Type, ItemVariant variant = null)
@@ -46,14 +53,24 @@ namespace ExtenContent.Extens
             item.RebuildTooltip();
         }
 
-        internal static void ItemCheck_ShootPostfix(Player __instance, Item sItem, int weaponDamage, bool withAudioVisualFeedback)
+        internal static void ItemCheck_ShootPostfix(Player player, Item sItem, int weaponDamage, bool withAudioVisualFeedback)
         {
-            ExtenManag.GetExtenItem(sItem.type)?.Shoot(__instance, sItem, weaponDamage, withAudioVisualFeedback);
+            ExtenManag.GetExtenItem(sItem.type)?.Shoot(player, sItem, weaponDamage, withAudioVisualFeedback);
         }
 
-        internal static void ApplyItemAnimationPostfix(Player This, Item item)
+        internal static void ApplyItemAnimationPostfix(Player player, Item item)
         {
-            ExtenManag.GetExtenItem(item.type)?.ApplyItemAnimationPostfix(This, item);
+            ExtenManag.GetExtenItem(item.type)?.ApplyItemAnimationPostfix(player, item);
+        }
+
+        internal static void ApplyEquipFunctionalPostfix(Player player, int itemSlot, Item currentItem)
+        {
+            ExtenManag.GetExtenItem(currentItem.type)?.ApplyEquipFunctionalPostfix(player, itemSlot, currentItem);
+        }
+
+        internal static void ApplyEquipVanityPostfix(Player player, int itemSlot, Item currentItem)
+        {
+            ExtenManag.GetExtenItem(currentItem.type)?.ApplyEquipVanityPostfix(player, itemSlot, currentItem);
         }
     }
 }

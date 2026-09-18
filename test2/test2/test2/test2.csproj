@@ -75,6 +75,7 @@
     <Compile Include="ModTool\CommandeEnumEntity.cs" />
     <Compile Include="ModTool\测试指令.cs" />
     <Compile Include="ThisMod.cs" />
+    <Compile Include="Utils.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\ExtenContent\ExtenContent\ExtenContent\ExtenContent.csproj">

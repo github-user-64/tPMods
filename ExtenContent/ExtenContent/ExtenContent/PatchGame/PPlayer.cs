@@ -30,5 +30,21 @@ namespace ExtenContent.PatchGame
         {
             ItemLoad.ApplyItemAnimationPostfix(__instance, sItem);
         }
+
+        [HarmonyPatch("ApplyEquipFunctional")]
+        [HarmonyPostfix]
+        private static void ApplyEquipFunctionalPostfix(Player __instance, int itemSlot, Item currentItem)
+        {
+            ItemLoad.ApplyEquipFunctionalPostfix(__instance, itemSlot, currentItem);
+            EquipLoader.ApplyEquipFunctionalPostfix(__instance, itemSlot, currentItem);
+        }
+
+        [HarmonyPatch("ApplyEquipVanity")]
+        [HarmonyPostfix]
+        private static void ApplyEquipVanityPostfix(Player __instance, int itemSlot, Item currentItem)
+        {
+            ItemLoad.ApplyEquipVanityPostfix(__instance, itemSlot, currentItem);
+            EquipLoader.ApplyEquipVanityPostfix(__instance, itemSlot, currentItem);
+        }
     }
 }

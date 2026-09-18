@@ -1,4 +1,5 @@
 ﻿using ExtenContent.Utils;
+using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.Localization;
 
@@ -29,12 +30,24 @@ namespace ExtenContent.Extens
         public virtual LocalizedText Tooltip => LanguageUtils.GetOrRegister($"{FullName}.{nameof(Tooltip)}", string.Empty);
 
         /// <summary/>
-        public virtual void SetDefault(Item This) { }
+        public virtual void SetDefault(Item item) { }
         /// <summary/>
-        public virtual void Shoot(Player Player, Item This, int weaponDamage, bool withAudioVisualFeedback) { }
+        public virtual void Shoot(Player player, Item item, int weaponDamage, bool withAudioVisualFeedback) { }
         /// <summary>
         /// 物品动画开始时
         /// </summary>
-        public virtual void ApplyItemAnimationPostfix(Player This, Item item) { }
+        public virtual void ApplyItemAnimationPostfix(Player player, Item item) { }
+        /// <summary>
+        /// 
+        /// </summary>
+        public virtual void ApplyEquipFunctionalPostfix(Player player, int itemSlot, Item currentItem) { }
+        /// <summary>
+        /// 
+        /// </summary>
+        public virtual void ApplyEquipVanityPostfix(Player player, int itemSlot, Item currentItem) { }
+        /// <summary>
+        /// 
+        /// </summary>
+        public virtual void ModifyTooltips(Item item, ref int yoyoLogo, ref float oldKB, ref int numLines, ref string[] toolTipLine, ref Color[] lineColors) { }
     }
 }

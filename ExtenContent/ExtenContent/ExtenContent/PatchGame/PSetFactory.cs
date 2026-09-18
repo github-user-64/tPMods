@@ -3,6 +3,7 @@ using HarmonyLib;
 using System;
 using System.Diagnostics;
 using System.Reflection;
+using Terraria.GameContent.Prefixes;
 using Terraria.ID;
 
 namespace ExtenContent.PatchGame
@@ -27,6 +28,8 @@ namespace ExtenContent.PatchGame
             if (type == null) return;
 
             if (type == typeof(ItemID.Sets)) size = ItemLoad.ItemCount;
+            if (type == typeof(AmmoID.Sets)) size = ItemLoad.ItemCount;
+            if (type == typeof(PrefixLegacy.ItemSets)) size = ItemLoad.ItemCount;
             else if (type == typeof(ArmorIDs.Wing.Sets)) size = EquipLoader.WingCount;
         }
     }

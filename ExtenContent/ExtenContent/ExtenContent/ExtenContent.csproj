@@ -74,6 +74,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Extens\Enums\EquipType.cs" />
+    <Compile Include="Extens\EquipLoader\Patch.cs" />
     <Compile Include="Extens\EquipLoader\ResizeArrays.cs" />
     <Compile Include="Extens\EquipLoader\EquipLoader.cs" />
     <Compile Include="Extens\ExtenContents\ExtenEquip.cs" />

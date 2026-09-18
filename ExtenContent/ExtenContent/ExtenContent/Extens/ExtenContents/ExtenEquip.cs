@@ -1,4 +1,6 @@
-﻿namespace ExtenContent.Extens
+﻿using Terraria;
+
+namespace ExtenContent.Extens
 {
     /// <summary>
     /// 扩展装备
@@ -17,10 +19,13 @@
         /// 装备插槽
         /// </summary>
         public int Slot { get; internal set; }
-
         /// <summary>
         /// 
         /// </summary>
-        public virtual void UpdateEquips() { }
+        public virtual void ApplyEquipFunctionalPostfix(Player player, int itemSlot, Item currentItem) { }
+        /// <summary>
+        /// 
+        /// </summary>
+        public virtual void ApplyEquipVanityPostfix(Player player, int itemSlot, Item currentItem) { }
     }
 }
