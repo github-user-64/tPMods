@@ -72,5 +72,16 @@ namespace ExtenContent.Extens
         {
             ExtenManag.GetExtenItem(currentItem.type)?.ApplyEquipVanityPostfix(player, itemSlot, currentItem);
         }
+
+        internal static bool AltFunctionUse(Player player, Item item)
+        {
+            return ExtenManag.GetExtenItem(item.type)?.AltFunctionUse(player, item) == true;
+        }
+
+        internal static void CanUseItem(ref bool result, Player player, Item item)
+        {
+            ExtenItem ei = ExtenManag.GetExtenItem(item.type);
+            if (ei != null) result = ei.CanUseItem(player, item);
+        }
     }
 }

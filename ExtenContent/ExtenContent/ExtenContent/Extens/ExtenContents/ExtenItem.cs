@@ -49,5 +49,13 @@ namespace ExtenContent.Extens
         /// 
         /// </summary>
         public virtual void ModifyTooltips(Item item, ref int yoyoLogo, ref float oldKB, ref int numLines, ref string[] toolTipLine, ref Color[] lineColors) { }
+        /// <summary>
+        /// 允许通过右键单击使此项目可用,默认情况下返回false当通过右键单击使用此item时player.altFunctionUse将设置为2
+        /// </summary>
+        public virtual bool AltFunctionUse(Player player, Item item) => false;
+        /// <summary>
+        /// 
+        /// </summary>
+        public virtual bool CanUseItem(Player player, Item item) => true;
     }
 }

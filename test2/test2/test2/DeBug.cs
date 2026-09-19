@@ -49,6 +49,11 @@ namespace test2
             public override LocalizedText DisplayName => LanguageUtils.GetOrRegister($"{FullName}.{nameof(DisplayName)}", "蓝色搭建");
             public override LocalizedText Tooltip => LanguageUtils.GetOrRegister($"{FullName}.{nameof(Tooltip)}", "测试提示");
 
+            public override void SetStaticDefaults()
+            {
+                ItemID.Sets.ItemsThatAllowRepeatedRightClick[Type] = true;//有右键单击功能时,允许按住鼠标右键重复使用
+            }
+
             public override void SetDefault(Item item)
             {
                 item.shoot = 45;
@@ -77,6 +82,18 @@ namespace test2
                 Projectile.NewProjectile(null, player.Center, v, 274, weaponDamage, item.knockBack + 10, player.whoAmI);
                 Projectile.NewProjectile(null, player.Center, v2, 274, weaponDamage, item.knockBack + 10, player.whoAmI);
                 Projectile.NewProjectile(null, player.Center, v3, 274, weaponDamage, item.knockBack + 10, player.whoAmI);
+            }
+
+            public override bool CanUseItem(Player player, Item item)
+            {
+                Main.NewText($"{player.altFunctionUse}");
+
+                return true;
+            }
+
+            public override bool AltFunctionUse(Player player, Item item)
+            {
+                return true;
             }
         }
 

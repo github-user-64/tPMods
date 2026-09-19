@@ -62,6 +62,7 @@ namespace ExtenContent.Extens
         {
             if (IsLoad) throw new Exception("不可在加载后注册");
 
+            //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!处理Terraria/
             IAssetRepository asset = GetAssets(mo);
             Assets.Add(asset);
 
