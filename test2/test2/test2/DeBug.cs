@@ -56,7 +56,7 @@ namespace test2
 
             public override void SetDefault(Item item)
             {
-                item.shoot = 45;
+                item.shoot = ExtenManag.ProjectileType<MyProj1>();
                 item.shootSpeed = 8;
 
                 item.useStyle = 1;
@@ -71,17 +71,20 @@ namespace test2
                 item.rare = 3;
                 item.value = 27000;
                 item.melee = true;
+                item.noMelee = true;//true时该物品的使用动画不会造成伤害
+                item.noUseGraphic = true;//true时该物品的使用动画不会显示
+                item.useStyle = 5;
             }
 
             public override void Shoot(Player player, Item item, int weaponDamage, bool withAudioVisualFeedback)
             {
-                Vector2 v = Vector2.Normalize(Main.MouseWorld - player.Center) * 6;
-                Vector2 v2 = v.RotatedBy(-0.5f);
-                Vector2 v3 = v.RotatedBy(0.5f);
+                //Vector2 v = Vector2.Normalize(Main.MouseWorld - player.Center) * 6;
+                //Vector2 v2 = v.RotatedBy(-0.5f);
+                //Vector2 v3 = v.RotatedBy(0.5f);
 
-                Projectile.NewProjectile(null, player.Center, v, 274, weaponDamage, item.knockBack + 10, player.whoAmI);
-                Projectile.NewProjectile(null, player.Center, v2, 274, weaponDamage, item.knockBack + 10, player.whoAmI);
-                Projectile.NewProjectile(null, player.Center, v3, 274, weaponDamage, item.knockBack + 10, player.whoAmI);
+                //Projectile.NewProjectile(null, player.Center, v, 274, weaponDamage, item.knockBack + 10, player.whoAmI);
+                //Projectile.NewProjectile(null, player.Center, v2, 274, weaponDamage, item.knockBack + 10, player.whoAmI);
+                //Projectile.NewProjectile(null, player.Center, v3, 274, weaponDamage, item.knockBack + 10, player.whoAmI);
             }
 
             public override bool CanUseItem(Player player, Item item)
@@ -105,14 +108,14 @@ namespace test2
                 $"{Language.GetTextValue("CommonItemTooltip.FlightAndSlowfall")}\n" +
                 $"{Language.GetTextValue("CommonItemTooltip.PressDownToHover")}");
 
-            public override void SetDefault(Item This)
+            public override void SetDefault(Item item)
             {
-                This.width = 22;
-                This.height = 20;
-                This.accessory = true;
-                This.value = Item.buyPrice(0, 40);
-                This.rare = 10;
-                This.wingSlot = ExtenManag.GetEquipSlot<MyWing>();
+                item.width = 22;
+                item.height = 20;
+                item.accessory = true;
+                item.value = Item.buyPrice(0, 40);
+                item.rare = 10;
+                item.wingSlot = ExtenManag.GetEquipSlot<MyWing>();
             }
 
             public override void ModifyTooltips(Item item, ref int yoyoLogo, ref float oldKB, ref int numLines, ref string[] toolTipLine, ref Color[] lineColors)

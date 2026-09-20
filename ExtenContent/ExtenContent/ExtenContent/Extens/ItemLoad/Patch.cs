@@ -83,5 +83,10 @@ namespace ExtenContent.Extens
             ExtenItem ei = ExtenManag.GetExtenItem(item.type);
             if (ei != null) result = ei.CanUseItem(player, item);
         }
+
+        internal static void OnHitNPC(Player player, Item item, Rectangle itemRectangle, int originalDamage, float knockBack, NPC npc)
+        {
+            ExtenManag.GetExtenItem(item.type)?.OnHitNPC(player, item, itemRectangle, originalDamage, knockBack, npc);
+        }
     }
 }

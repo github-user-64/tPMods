@@ -1,15 +1,9 @@
-﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using ReLogic.Content;
-using ReLogic.Content.Readers;
-using ReLogic.Content.Sources;
-using ReLogic.Utilities;
+﻿using ReLogic.Content;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using tContentPatch.ModLoad;
-using Terraria;
 
 namespace ExtenContent.Extens
 {
@@ -27,7 +21,8 @@ namespace ExtenContent.Extens
         static ExtenManag()
         {
             RegistFoo<ExtenItem>.Foo = ItemLoad.Register;
-            RegistFoo<ExtenEquip>.Foo = EquipLoader.Register;
+            RegistFoo<ExtenEquip>.Foo = EquipLoad.Register;
+            RegistFoo<ExtenProjectile>.Foo = ProjectileLoad.Register;
 
             RegistMod(ThisMod.mo);
         }
@@ -37,16 +32,18 @@ namespace ExtenContent.Extens
             if (IsLoad) return;
             IsLoad = true;
 
-            EquipLoader.Load();
             ItemLoad.Load();
+            EquipLoad.Load();
+            ProjectileLoad.Load();
 
             extens.ForEach(i => i.SetStaticDefaults());
         }
 
         internal static void Unload()
         {
-            EquipLoader.Unload();
             ItemLoad.Unload();
+            EquipLoad.Unload();
+            ProjectileLoad.Unload();
 
             foreach (IAssetRepository asset in Assets) asset.Dispose();
             Assets.Clear();
@@ -62,12 +59,12 @@ namespace ExtenContent.Extens
         {
             if (IsLoad) throw new Exception("不可在加载后注册");
 
-            //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!处理Terraria/
-            IAssetRepository asset = GetAssets(mo);
+            IAssetRepository asset = Utils.ExtenAssetRepository.GetAssets(mo);
             Assets.Add(asset);
 
             RegistExten<ExtenItem>(mo, asset);
             RegistExten<ExtenEquip>(mo, asset);
+            RegistExten<ExtenProjectile>(mo, asset);
         }
 
         private static void RegistExten<T>(ModObject mo, IAssetRepository asset) where T : ExtenType
@@ -107,27 +104,6 @@ namespace ExtenContent.Extens
             }
 
             return instance;
-        }
-
-        private static IAssetRepository GetAssets(ModObject mo)
-        {
-            GameServiceContainer services = Main.instance.Services;
-
-            //AssetReaderCollection assetReaderCollection = XnaExtensions.Get<AssetReaderCollection>(Main.instance.Services);
-            AssetReaderCollection assetReaderCollection = new AssetReaderCollection();
-            assetReaderCollection.RegisterReader(new XnbReader(Main.instance.Services), ".xnb");
-            assetReaderCollection.RegisterReader(new PngReader(services.Get<IGraphicsDeviceService>().GraphicsDevice), ".png");
-
-            AsyncAssetLoader asyncAssetLoader = new AsyncAssetLoader(assetReaderCollection, 20);
-            //asyncAssetLoader.RequireTypeCreationOnTransfer(typeof(Texture2D));
-
-            AssetRepository Asset = new AssetRepository(new AssetLoader(assetReaderCollection), asyncAssetLoader);
-            Asset.SetSources(new IContentSource[]
-            {
-                new FileSystemContentSource(mo.modPath),
-            });
-
-            return Asset;
         }
     }
 }

@@ -30,7 +30,8 @@ namespace ExtenContent.PatchGame
             if (type == typeof(ItemID.Sets)) size = ItemLoad.ItemCount;
             if (type == typeof(AmmoID.Sets)) size = ItemLoad.ItemCount;
             if (type == typeof(PrefixLegacy.ItemSets)) size = ItemLoad.ItemCount;
-            else if (type == typeof(ArmorIDs.Wing.Sets)) size = EquipLoader.WingCount;
+            else if (type == typeof(ArmorIDs.Wing.Sets)) size = EquipLoad.WingCount;
+            else if (type == typeof(ProjectileID.Sets)) size = ProjectileLoad.ProjectileCount;
         }
     }
 }

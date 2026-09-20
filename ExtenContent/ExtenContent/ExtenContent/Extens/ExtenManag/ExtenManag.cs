@@ -29,6 +29,16 @@ namespace ExtenContent.Extens
         }
 
         /// <summary>
+        /// 获取<see cref="ExtenProjectile"/>对应的<see cref="ExtenProjectile.Type"/>, 不存在返回<see cref="ProjectileID.None"/>
+        /// </summary>
+        public static short ProjectileType<T>() where T : ExtenProjectile
+        {
+            T instance = ExtenInstance<T>.Instance;
+
+            return (short?)instance?.Type ?? ProjectileID.None;
+        }
+
+        /// <summary>
         /// 获取<see cref="Item.type"/>对应的<see cref="ExtenItem"/>, 不存在返回<see langword="null"/>
         /// </summary>
         public static ExtenItem GetExtenItem(int type) => ItemLoad.GetItem(type);

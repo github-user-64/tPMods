@@ -57,5 +57,9 @@ namespace ExtenContent.Extens
         /// 
         /// </summary>
         public virtual bool CanUseItem(Player player, Item item) => true;
+        /// <summary>
+        /// 
+        /// </summary>
+        public virtual void OnHitNPC(Player player, Item item, Rectangle itemRectangle, int originalDamage, float knockBack, NPC npc) { }
     }
 }

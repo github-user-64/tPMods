@@ -70,6 +70,7 @@
   <ItemGroup>
     <Compile Include="DeBug.cs" />
     <Compile Include="ModTool\测试指令2.cs" />
+    <Compile Include="MyProj1.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ModTool\CommandeEntityTagMethod.cs" />
     <Compile Include="ModTool\CommandeEnumEntity.cs" />

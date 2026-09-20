@@ -8,7 +8,7 @@ namespace ExtenContent.Extens
     /// <summary>
     /// 装备加载
     /// </summary>
-    public static partial class EquipLoader
+    public static partial class EquipLoad
     {
         /// <summary/>
         public static int WingCount { get; private set; } = ArmorIDs.Wing.Count;

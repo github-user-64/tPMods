@@ -2,7 +2,7 @@
 
 namespace ExtenContent.Extens
 {
-    public static partial class EquipLoader
+    public static partial class EquipLoad
     {
         internal static void ApplyEquipFunctionalPostfix(Player player, int itemSlot, Item currentItem)
         {

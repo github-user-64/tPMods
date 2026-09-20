@@ -21,6 +21,8 @@ namespace ExtenContent.PatchGame
         private static void DrawProjDirectPostfix(Projectile proj, Player overridePlayer = null)
         {
             Player player = overridePlayer ?? Main.player[proj.owner];
+
+            ProjectileLoad.DrawProjDirectPostfix(proj, player);
         }
     }
 }

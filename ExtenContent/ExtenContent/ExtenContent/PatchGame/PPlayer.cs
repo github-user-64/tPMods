@@ -1,9 +1,7 @@
 ﻿using ExtenContent.Extens;
 using HarmonyLib;
 using Microsoft.Xna.Framework;
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Reflection;
 using System.Reflection.Emit;
 using tContentPatch;
@@ -32,6 +30,13 @@ namespace ExtenContent.PatchGame
             ItemLoad.SavePlayerPrefix(playerFile, skipMapSave);
         }
 
+        [HarmonyPatch(MethodType.Constructor)]
+        [HarmonyPostfix]
+        private static void PlayerPostfix(Player __instance)
+        {
+            __instance.ownedProjectileCounts = new int[ProjectileLoad.ProjectileCount];
+        }
+
         [HarmonyPatch("ApplyItemAnimation")]
         [HarmonyPostfix]
         private static void ApplyItemAnimationPostfix(Player __instance, Item sItem)
@@ -44,7 +49,7 @@ namespace ExtenContent.PatchGame
         private static void ApplyEquipFunctionalPostfix(Player __instance, int itemSlot, Item currentItem)
         {
             ItemLoad.ApplyEquipFunctionalPostfix(__instance, itemSlot, currentItem);
-            EquipLoader.ApplyEquipFunctionalPostfix(__instance, itemSlot, currentItem);
+            EquipLoad.ApplyEquipFunctionalPostfix(__instance, itemSlot, currentItem);
         }
 
         [HarmonyPatch("ApplyEquipVanity")]
@@ -52,7 +57,7 @@ namespace ExtenContent.PatchGame
         private static void ApplyEquipVanityPostfix(Player __instance, int itemSlot, Item currentItem)
         {
             ItemLoad.ApplyEquipVanityPostfix(__instance, itemSlot, currentItem);
-            EquipLoader.ApplyEquipVanityPostfix(__instance, itemSlot, currentItem);
+            EquipLoad.ApplyEquipVanityPostfix(__instance, itemSlot, currentItem);
         }
 
         [HarmonyPatch("ItemCheck_CheckCanUse_Inner")]
@@ -92,11 +97,6 @@ namespace ExtenContent.PatchGame
         {
             CodeMatcher codeMatcher = new CodeMatcher(instructions);
 
-            List<CodeInstruction> ls = instructions.ToList().GetRange(594, 604 - 594);
-
-            object v1 = ls[5].operand;
-            Type type1 = v1.GetType();
-
             codeMatcher.MatchStartForward(
                new CodeMatch(OpCodes.Ldarg_0),//0是Player应该是this的意思
                new CodeMatch(OpCodes.Ldarg_1),
@@ -128,6 +128,8 @@ namespace ExtenContent.PatchGame
         private static void OnHitNPC(Player player, Item sItem, Rectangle itemRectangle, int originalDamage, float knockBack, int npcIndex)
         {
             NPC npc = Main.npc[npcIndex];
+
+            ItemLoad.OnHitNPC(player, sItem, itemRectangle, originalDamage, knockBack, npc);
         }
     }
 }
