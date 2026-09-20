@@ -66,7 +66,7 @@ namespace ExtenContent.Extens
                 }
                 else
                 {
-                    items[i].SetDefaults(ExtenManag.GetItem(EItems[i].Name).Type);
+                    items[i].SetDefaults(ExtenManag.GetExtenItem(EItems[i].Name).Type);
                 }
 
                 items[i].stack = EItems[i].Stack;

@@ -68,7 +68,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <None Include="Class1.cs" />
     <Compile Include="DeBug.cs" />
+    <Compile Include="EItem1.cs" />
     <Compile Include="ModTool\测试指令2.cs" />
     <Compile Include="MyProj1.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

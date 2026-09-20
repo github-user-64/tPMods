@@ -3,6 +3,7 @@ using ExtenContent.Utils;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
+using Terraria.GameContent;
 using Terraria.ID;
 using Terraria.Localization;
 
@@ -18,7 +19,7 @@ namespace test2
             Main.projFrames[Type] = 2;
             //存储路径的长度,用于绘制轨迹,每种射弹类型默认为10
             ///必须与<see cref ="ProjectileID.Settes.TrailingMode"/>一起使用才能正确使用
-            ProjectileID.Sets.TrailCacheLength[Type] = 6;
+            ProjectileID.Sets.TrailCacheLength[Type] = 5;
             // 追踪模式,确定弹丸轨迹将记住哪些数据,每种投射物类型默认为 - 1，这意味着不保存任何信息
             //0：只记住位置数据
             //1：不应使用
@@ -37,55 +38,41 @@ namespace test2
         {
             proj.width = 62;
             proj.height = 62;
+            proj.aiStyle = -1;
         }
 
-        public override void PostDraw(Projectile proj, Player player = null)
+        public override bool PreDraw(Projectile proj, Player player = null)
         {
-            if (proj.velocity == Vector2.Zero) return;
+            if (proj.velocity == Vector2.Zero) return true;
 
-            Texture2D img = Asset.Request<Texture2D>(Texture).Value;
+            Texture2D txt = Asset.Request<Texture2D>(Texture).Value;
 
-            for (int i = 0; i < ProjectileID.Sets.TrailCacheLength[Type]; ++i)
+            float offX = ((TextureAssets.Projectile[Type].Width() - proj.width) * 0.5f) + (proj.width * 0.5f);
+
+            for (int i = ProjectileID.Sets.TrailCacheLength[Type] - 1; i >= 0; --i)
+            //for (int i = 0; i < 1; ++i)
             {
-                Rectangle size = proj.getRect();
+                Rectangle size = new Rectangle(0, 0, proj.width, proj.height);
                 Vector2 pos = proj.oldPos[i];
-                float scale = 1 - (i * 0.1f);
+                float scale = 1 - ((i + 1) * 0.1f);
+                if (scale <= 0) break;
                 Color color = Color.White;
-                color.A = (byte)MathHelper.Clamp(color.A - scale * 10, 0, byte.MaxValue);
+                //color.A = (byte)MathHelper.Clamp(color.A * (scale * 0.8f), 0, byte.MaxValue);
+                color *= scale * 0.8f;
 
-                pos += Main.screenPosition;
+                pos.X += offX;
+                pos.Y += proj.height / 2f;
 
-                Main.EntitySpriteDraw(img, pos, new Rectangle(size), color,
-                    proj.velocity.ToRotation(),  size, scale, SpriteEffects.None);
+                //将添加到绘制位置的弹丸实际位置的偏移量,用于抵消一些持有的投射物以匹配玩家
+                //从而使投射物在视觉上与玩家保持同步
+                pos.Y += proj.gfxOffY;
+                pos -= Main.screenPosition;
+
+                Main.EntitySpriteDraw(txt, pos, size, color,
+                    proj.velocity.ToRotation(), size.Size() / 2f, scale, SpriteEffects.None);
             }
 
-            //int rect = glow.Height;
-            //int rect2 = 0;
-            //Rectangle glowrectangle = new Rectangle(0, rect2, glow.Width, rect);
-            //Vector2 gloworigin2 = glowrectangle.Size() / 2f;
-            //for (int i = 0; i < 8; i++)
-            //{
-            //    Color glowcolor = Color.Lerp(new Color(196, 247, 255, 0), Color.Transparent, 0.9f);
-            //    glowcolor *= proj.Opacity;
-            //    float increment = MathHelper.Lerp(1f, 0.05f, (float)i / 8f);
-            //    for (float j = 0f; j < (float)ProjectileID.Sets.TrailCacheLength[proj.type]; j += increment)
-            //    {
-            //        Color color27 = glowcolor;
-            //        color27 *= ((float)ProjectileID.Sets.TrailCacheLength[proj.type] - j) / (float)ProjectileID.Sets.TrailCacheLength[proj.type];
-            //        float scale = proj.scale * ((float)ProjectileID.Sets.TrailCacheLength[proj.type] - j) / (float)ProjectileID.Sets.TrailCacheLength[proj.type];
-            //        int max0 = (int)j - 1;
-            //        bool flag2 = max0 < 0;
-            //        if (!flag2)
-            //        {
-            //            Vector2 oldPos = Vector2.Lerp(proj.oldPos[(int)j], proj.oldPos[max0], 1f - j % 1f);
-            //            float oldRot = MathHelper.Lerp(proj.oldRot[(int)j], proj.oldRot[max0], 1f - j % 1f);
-            //            Vector2 trailOffset = Vector2.Normalize(oldRot.ToRotationVector2()) * 80f * proj.scale * (float)i;
-            //            Main.EntitySpriteDraw(glow, oldPos + proj.Size / 2f + trailOffset - Main.screenPosition + new Vector2(0f, proj.gfxOffY), new Rectangle?(glowrectangle), color27, proj.velocity.ToRotation() + 1.5707964f, gloworigin2, scale * 1.5f, 0, 0f);
-            //        }
-            //    }
-            //    glowcolor = Color.Lerp(new Color(255, 255, 255, 0), Color.Transparent, 0.85f);
-            //    Vector2 offset = Vector2.Normalize(proj.velocity) * 80f * proj.scale * (float)i;
-            //    Main.EntitySpriteDraw(glow, proj.position + proj.Size / 2f + offset - Main.screenPosition + new Vector2(0f, proj.gfxOffY), new Rectangle?(glowrectangle), glowcolor, proj.velocity.ToRotation() + 1.5707964f, gloworigin2, proj.scale * 1.5f, 0, 0f);
+            return true;
         }
     }
 }

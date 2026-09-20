@@ -33,7 +33,7 @@ namespace test2
 
                     });
 
-                    Item.NewItem(null, Main.MouseWorld, ExtenManag.ItemType<MyItem2>());
+                    Item.NewItem(null, Main.MouseWorld, ExtenManag.ItemType<EItem1>());
                 }
             }
         }

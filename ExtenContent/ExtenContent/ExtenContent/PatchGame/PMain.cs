@@ -17,6 +17,20 @@ namespace ExtenContent.PatchGame
         }
 
         [HarmonyPatch("DrawProjDirect")]
+        [HarmonyPrefix]
+        private static bool DrawProjDirectPrefix(Projectile proj, Player overridePlayer = null)
+        {
+            ExtenProjectile ep = ExtenManag.GetExtenProjectile(proj.type);
+            if (ep == null) return true;
+
+            Main.instance.PrepareDrawnProjectileDrawing(proj);//准备绘制射弹?
+
+            Player player = overridePlayer ?? Main.player[proj.owner];
+
+            return ep.PreDraw(proj, player);
+        }
+
+        [HarmonyPatch("DrawProjDirect")]
         [HarmonyPostfix]
         private static void DrawProjDirectPostfix(Projectile proj, Player overridePlayer = null)
         {
