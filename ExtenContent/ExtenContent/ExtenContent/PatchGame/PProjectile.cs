@@ -9,18 +9,9 @@ namespace ExtenContent.PatchGame
     [HarmonyPatch(typeof(Projectile))]
     internal class PProjectile : PatchProjectile
     {
-        [HarmonyPatch("Colliding")]
-        [HarmonyPostfix]
-        private static void CollidingPostfix(ref bool __result, Projectile __instance, Rectangle myRect, Rectangle targetRect)
+        public override void AIPostfix(Projectile This)
         {
-            ProjectileLoad.CollidingPostfix(ref __result, __instance, myRect, targetRect);
-        }
-
-        [HarmonyPatch("AI")]
-        [HarmonyPostfix]
-        private static void AIPostfix(Projectile __instance)
-        {
-            ProjectileLoad.AIPostfix(__instance);
+            ProjectileLoad.AIPostfix(This);
         }
 
         public override void SetDefaultsPostfix(Projectile This, int Type)
@@ -31,6 +22,13 @@ namespace ExtenContent.PatchGame
         public override void KillPostfix(Projectile This)
         {
             ProjectileLoad.KillPostfix(This);
+        }
+
+        [HarmonyPatch("Colliding")]
+        [HarmonyPostfix]
+        private static void CollidingPostfix(ref bool __result, Projectile __instance, Rectangle myRect, Rectangle targetRect)
+        {
+            ProjectileLoad.CollidingPostfix(ref __result, __instance, myRect, targetRect);
         }
     }
 }

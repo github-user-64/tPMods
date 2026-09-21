@@ -16,9 +16,7 @@ namespace ExtenContent.PatchGame
             ItemLoad.MouseText_DrawItemTooltip_GetLinesInfoPostfix(item, ref yoyoLogo, ref oldKB, ref numLines, ref toolTipLine, ref lineColors);
         }
 
-        [HarmonyPatch("DrawProjDirect")]
-        [HarmonyPrefix]
-        private static bool DrawProjDirectPrefix(Projectile proj, Player overridePlayer = null)
+        public override bool DrawProjDirectPrefix(Projectile proj, Player overridePlayer = null)
         {
             ExtenProjectile ep = ExtenManag.GetExtenProjectile(proj.type);
             if (ep == null) return true;
@@ -30,9 +28,7 @@ namespace ExtenContent.PatchGame
             return ep.PreDraw(proj, player);
         }
 
-        [HarmonyPatch("DrawProjDirect")]
-        [HarmonyPostfix]
-        private static void DrawProjDirectPostfix(Projectile proj, Player overridePlayer = null)
+        public override void DrawProjDirectPostfix(Projectile proj, Player overridePlayer = null)
         {
             Player player = overridePlayer ?? Main.player[proj.owner];
 

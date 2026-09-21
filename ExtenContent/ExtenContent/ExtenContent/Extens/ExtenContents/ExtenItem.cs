@@ -1,6 +1,7 @@
 ﻿using ExtenContent.Utils;
 using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.DataStructures;
 using Terraria.Localization;
 
 namespace ExtenContent.Extens
@@ -32,7 +33,7 @@ namespace ExtenContent.Extens
         /// <summary/>
         public virtual void SetDefault(Item item) { }
         /// <summary/>
-        public virtual void Shoot(Player player, Item item, int weaponDamage, bool withAudioVisualFeedback) { }
+        public virtual bool Shoot(Player player, Item item, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback) => true;
         /// <summary>
         /// 物品动画开始时
         /// </summary>

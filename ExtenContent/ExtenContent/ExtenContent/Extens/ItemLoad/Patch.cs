@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.DataStructures;
 using Terraria.GameContent.Items;
 using Terraria.ID;
 
@@ -53,9 +54,9 @@ namespace ExtenContent.Extens
             item.RebuildTooltip();
         }
 
-        internal static void ItemCheck_ShootPostfix(Player player, Item sItem, int weaponDamage, bool withAudioVisualFeedback)
+        internal static bool ItemCheck_Shoot(Player player, ExtenItem ei, Item item, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
-            ExtenManag.GetExtenItem(sItem.type)?.Shoot(player, sItem, weaponDamage, withAudioVisualFeedback);
+            return ei.Shoot(player, item, source, position, velocity, type, damage, knockback);
         }
 
         internal static void ApplyItemAnimationPostfix(Player player, Item item)

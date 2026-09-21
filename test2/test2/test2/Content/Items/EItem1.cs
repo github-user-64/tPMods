@@ -4,8 +4,9 @@ using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.Localization;
+using test2.Content.Projectiles;
 
-namespace test2
+namespace test2.Content.Items
 {
     internal class EItem1 : ExtenItem
     {
@@ -25,7 +26,7 @@ namespace test2
 
         public override void SetDefault(Item item)
         {
-            item.useStyle = 5;
+            item.useStyle = 1;
             item.useAnimation = 16;
             item.useTime = 16;
             item.noMelee = true;//item的使用动画能否造成伤害
@@ -37,15 +38,28 @@ namespace test2
             item.UseSound = SoundID.Item1;
             item.damage = 114;
             item.knockBack = 6f;
-            //item.shootSpeed = 6f;
-            //item.shoot = 0;
+            item.shoot = ExtenManag.ProjectileType<EProj1>();
+            item.shootSpeed = 0f;
             item.rare = 11;
             item.value = Item.sellPrice(0, 70, 0, 0);
         }
 
         public override bool CanUseItem(Player player, Item item)
         {
-            return base.CanUseItem(player, item);
+            if (player.altFunctionUse == 2)
+            {
+
+            }
+            else
+            {
+                item.useStyle = 1;
+                item.useAnimation = 16;
+                item.useTime = 16;
+                item.shoot = ExtenManag.ProjectileType<EProj1>();
+                item.shootSpeed = 0f;
+            }
+
+            return true;
         }
 
         public override bool AltFunctionUse(Player player, Item item) => true;

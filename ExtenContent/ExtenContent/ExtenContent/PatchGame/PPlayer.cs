@@ -13,13 +13,8 @@ using Terraria.IO;
 namespace ExtenContent.PatchGame
 {
     [HarmonyPatch(typeof(Player))]
-    internal class PPlayer : PatchPlayer
+    internal partial class PPlayer : PatchPlayer
     {
-        public override void ItemCheck_ShootPostfix(Player This, Item item, int weaponDamage, bool withAudioVisualFeedback)
-        {
-            ItemLoad.ItemCheck_ShootPostfix(This, item, weaponDamage, withAudioVisualFeedback);
-        }
-
         public override void LoadPlayerPostfix(PlayerFileData result, string playerPath, bool cloudSave)
         {
             ItemLoad.LoadPlayerPostfix(result, playerPath, cloudSave);
@@ -28,6 +23,18 @@ namespace ExtenContent.PatchGame
         public override void SavePlayerPrefix(PlayerFileData playerFile, bool skipMapSave)
         {
             ItemLoad.SavePlayerPrefix(playerFile, skipMapSave);
+        }
+
+        public override void ApplyEquipFunctionalPostfix(Player This, int itemSlot, Item currentItem)
+        {
+            ItemLoad.ApplyEquipFunctionalPostfix(This, itemSlot, currentItem);
+            EquipLoad.ApplyEquipFunctionalPostfix(This, itemSlot, currentItem);
+        }
+
+        public override void ApplyEquipVanityPostfix(Player This, int itemSlot, Item currentItem)
+        {
+            ItemLoad.ApplyEquipVanityPostfix(This, itemSlot, currentItem);
+            EquipLoad.ApplyEquipVanityPostfix(This, itemSlot, currentItem);
         }
 
         [HarmonyPatch(MethodType.Constructor)]
@@ -42,22 +49,6 @@ namespace ExtenContent.PatchGame
         private static void ApplyItemAnimationPostfix(Player __instance, Item sItem)
         {
             ItemLoad.ApplyItemAnimationPostfix(__instance, sItem);
-        }
-
-        [HarmonyPatch("ApplyEquipFunctional")]
-        [HarmonyPostfix]
-        private static void ApplyEquipFunctionalPostfix(Player __instance, int itemSlot, Item currentItem)
-        {
-            ItemLoad.ApplyEquipFunctionalPostfix(__instance, itemSlot, currentItem);
-            EquipLoad.ApplyEquipFunctionalPostfix(__instance, itemSlot, currentItem);
-        }
-
-        [HarmonyPatch("ApplyEquipVanity")]
-        [HarmonyPostfix]
-        private static void ApplyEquipVanityPostfix(Player __instance, int itemSlot, Item currentItem)
-        {
-            ItemLoad.ApplyEquipVanityPostfix(__instance, itemSlot, currentItem);
-            EquipLoad.ApplyEquipVanityPostfix(__instance, itemSlot, currentItem);
         }
 
         [HarmonyPatch("ItemCheck_CheckCanUse_Inner")]

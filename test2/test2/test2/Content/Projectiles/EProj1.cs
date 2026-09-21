@@ -1,18 +1,15 @@
 ﻿using ExtenContent.Extens;
-using ExtenContent.Utils;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.GameContent;
 using Terraria.ID;
-using Terraria.Localization;
 
-namespace test2
+namespace test2.Content.Projectiles
 {
-    internal class MyProj1 : ExtenProjectile
+    internal class EProj1 : ExtenProjectile
     {
         public override string Texture => "Terraria/Images/Projectile_454";
-        public override LocalizedText DisplayName => LanguageUtils.GetOrRegister($"{FullName}.{nameof(DisplayName)}", "蛇胆1");
 
         public override void SetStaticDefaults()
         {
@@ -38,7 +35,7 @@ namespace test2
         {
             proj.width = 62;
             proj.height = 62;
-            proj.aiStyle = -1;
+            proj.aiStyle = 0;
         }
 
         public override bool PreDraw(Projectile proj, Player player = null)

@@ -75,7 +75,7 @@ namespace ExtenContent.Extens
             foreach (T exten in extens)
             {
                 exten.Mod = mo;
-                exten.SetAsset(asset);
+                if (exten.Asset == null) exten.SetAsset(asset);
 
                 ExtenInstance.Register(exten);
 

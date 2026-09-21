@@ -95,6 +95,7 @@
     <Compile Include="IO\ExtenItemData.cs" />
     <Compile Include="IO\PlayerExtenData.cs" />
     <Compile Include="PatchGame\PItem.cs" />
+    <Compile Include="PatchGame\PPlayer_ItemCheck_Shoot.cs" />
     <Compile Include="PatchGame\PProjectile.cs" />
     <Compile Include="PatchGame\PWingStatsInitializer.cs" />
     <Compile Include="PatchGame\PLang.cs" />

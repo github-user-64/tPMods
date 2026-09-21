@@ -11,6 +11,7 @@ using Terraria.DataStructures;
 using Terraria.GameContent.Drawing;
 using Terraria.ID;
 using Terraria.Localization;
+using test2.Content.Projectiles;
 
 namespace test2
 {
@@ -33,7 +34,7 @@ namespace test2
 
                     });
 
-                    Item.NewItem(null, Main.MouseWorld, ExtenManag.ItemType<EItem1>());
+                    Item.NewItem(null, Main.MouseWorld, ExtenManag.ItemType<Content.Items.EItem1>());
                 }
             }
         }
@@ -56,7 +57,7 @@ namespace test2
 
             public override void SetDefault(Item item)
             {
-                item.shoot = ExtenManag.ProjectileType<MyProj1>();
+                item.shoot = ExtenManag.ProjectileType<EProj1>();
                 item.shootSpeed = 8;
 
                 item.useStyle = 1;
@@ -72,19 +73,20 @@ namespace test2
                 item.value = 27000;
                 item.melee = true;
                 item.noMelee = true;//true时该物品的使用动画不会造成伤害
-                item.noUseGraphic = true;//true时该物品的使用动画不会显示
-                item.useStyle = 5;
+                item.noUseGraphic = false;//true时该物品的使用动画不会显示
             }
 
-            public override void Shoot(Player player, Item item, int weaponDamage, bool withAudioVisualFeedback)
+            public override bool Shoot(Player player, Item item, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
             {
-                //Vector2 v = Vector2.Normalize(Main.MouseWorld - player.Center) * 6;
-                //Vector2 v2 = v.RotatedBy(-0.5f);
-                //Vector2 v3 = v.RotatedBy(0.5f);
+                Vector2 v = Vector2.Normalize(velocity) * 6;
+                Vector2 v2 = v.RotatedBy(-0.5f);
+                Vector2 v3 = v.RotatedBy(0.5f);
 
-                //Projectile.NewProjectile(null, player.Center, v, 274, weaponDamage, item.knockBack + 10, player.whoAmI);
-                //Projectile.NewProjectile(null, player.Center, v2, 274, weaponDamage, item.knockBack + 10, player.whoAmI);
-                //Projectile.NewProjectile(null, player.Center, v3, 274, weaponDamage, item.knockBack + 10, player.whoAmI);
+                Projectile.NewProjectile(null, position, v, 274, damage, item.knockBack + 10, player.whoAmI);
+                Projectile.NewProjectile(null, position, v2, 274, damage, item.knockBack + 10, player.whoAmI);
+                Projectile.NewProjectile(null, position, v3, 274, damage, item.knockBack + 10, player.whoAmI);
+
+                return true;
             }
 
             public override bool CanUseItem(Player player, Item item)
