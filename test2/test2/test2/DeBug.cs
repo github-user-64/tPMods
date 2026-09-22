@@ -78,13 +78,13 @@ namespace test2
 
             public override bool Shoot(Player player, Item item, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
             {
-                Vector2 v = Vector2.Normalize(velocity) * 6;
-                Vector2 v2 = v.RotatedBy(-0.5f);
-                Vector2 v3 = v.RotatedBy(0.5f);
+                //Vector2 v = Vector2.Normalize(velocity) * 6;
+                //Vector2 v2 = v.RotatedBy(-0.5f);
+                //Vector2 v3 = v.RotatedBy(0.5f);
 
-                Projectile.NewProjectile(null, position, v, 274, damage, item.knockBack + 10, player.whoAmI);
-                Projectile.NewProjectile(null, position, v2, 274, damage, item.knockBack + 10, player.whoAmI);
-                Projectile.NewProjectile(null, position, v3, 274, damage, item.knockBack + 10, player.whoAmI);
+                //Projectile.NewProjectile(null, position, v, 274, damage, item.knockBack + 10, player.whoAmI);
+                //Projectile.NewProjectile(null, position, v2, 274, damage, item.knockBack + 10, player.whoAmI);
+                //Projectile.NewProjectile(null, position, v3, 274, damage, item.knockBack + 10, player.whoAmI);
 
                 return true;
             }

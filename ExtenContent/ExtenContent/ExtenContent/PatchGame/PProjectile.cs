@@ -3,6 +3,7 @@ using HarmonyLib;
 using Microsoft.Xna.Framework;
 using tContentPatch;
 using Terraria;
+using Terraria.DataStructures;
 
 namespace ExtenContent.PatchGame
 {
@@ -22,6 +23,15 @@ namespace ExtenContent.PatchGame
         public override void KillPostfix(Projectile This)
         {
             ProjectileLoad.KillPostfix(This);
+        }
+
+        public override void NewProjectilePostfix(int result, IEntitySource spawnSource, float X, float Y, float SpeedX, float SpeedY, int Type, int Damage, float KnockBack, int Owner, float ai0, float ai1, float ai2, NewProjectileModifier modifer)
+        {
+            if (Main.projectile.IndexInRange(result) == false) return;
+
+            Projectile proj = Main.projectile[result];
+
+            ProjectileLoad.NewProjectilePostfix(proj, spawnSource);
         }
 
         [HarmonyPatch("Colliding")]

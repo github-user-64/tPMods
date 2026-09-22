@@ -69,6 +69,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Content\Projectiles\EProj1.cs" />
+    <Compile Include="Content\Projectiles\EProj2.cs" />
     <Compile Include="DeBug.cs" />
     <Compile Include="Content\Items\EItem1.cs" />
     <Compile Include="ModTool\测试指令2.cs" />

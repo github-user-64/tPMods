@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.DataStructures;
 using Terraria.ID;
 
 namespace ExtenContent.Extens
@@ -24,6 +25,11 @@ namespace ExtenContent.Extens
         internal static void KillPostfix(Projectile proj)
         {
             GetProj(proj.type)?.OnKill(proj);
+        }
+
+        internal static void NewProjectilePostfix(Projectile proj, IEntitySource spawnSource)
+        {
+            GetProj(proj.type)?.NewProjectilePostfix(proj, spawnSource);
         }
 
         internal static void CollidingPostfix(ref bool result, Projectile proj, Rectangle myRect, Rectangle targetRect)

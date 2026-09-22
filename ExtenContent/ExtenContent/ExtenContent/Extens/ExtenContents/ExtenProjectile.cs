@@ -1,6 +1,7 @@
 ﻿using ExtenContent.Utils;
 using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.DataStructures;
 using Terraria.Localization;
 
 namespace ExtenContent.Extens
@@ -29,6 +30,8 @@ namespace ExtenContent.Extens
         public virtual void AI(Projectile proj) { }
         /// <summary/>
         public virtual void OnKill(Projectile proj) { }
+        /// <summary/>
+        public virtual void NewProjectilePostfix(Projectile proj, IEntitySource spawnSource) { }
         /// <summary/>
         public virtual bool? Colliding(Projectile proj, Rectangle myRect, Rectangle targetRect) => null;
         /// <summary/>

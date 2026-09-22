@@ -1,5 +1,6 @@
 ﻿using ExtenContent.Extens;
 using ExtenContent.Utils;
+using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
@@ -26,6 +27,8 @@ namespace test2.Content.Items
 
         public override void SetDefault(Item item)
         {
+            item.width = 78;
+            item.height = 120;
             item.useStyle = 1;
             item.useAnimation = 16;
             item.useTime = 16;
@@ -33,13 +36,11 @@ namespace test2.Content.Items
             item.noUseGraphic = true;//item的使用动画是否显示
             item.autoReuse = true;//是否长按连续使用
             item.useTurn = true;//item的使用动画发生时,玩家能否转身
-            item.width = 78;
-            item.height = 120;
             item.UseSound = SoundID.Item1;
             item.damage = 114;
             item.knockBack = 6f;
             item.shoot = ExtenManag.ProjectileType<EProj1>();
-            item.shootSpeed = 0f;
+            item.shootSpeed = 1f;
             item.rare = 11;
             item.value = Item.sellPrice(0, 70, 0, 0);
         }
@@ -56,10 +57,51 @@ namespace test2.Content.Items
                 item.useAnimation = 16;
                 item.useTime = 16;
                 item.shoot = ExtenManag.ProjectileType<EProj1>();
-                item.shootSpeed = 0f;
+                item.shootSpeed = 1f;
             }
 
             return true;
+        }
+
+        public override bool Shoot(Player player, Item item, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
+        {
+            if (type == ExtenManag.ProjectileType<EProj1>())
+            {
+                if (velocity == Vector2.Zero) velocity = Vector2.UnitX;
+
+                float dir = velocity.X > 0 ? 1 : -1;
+                velocity = (-Vector2.UnitY).RotatedBy(MathHelper.TwoPi / 360f * 30f * -dir);
+                velocity = Vector2.Normalize(velocity) * 16f;
+
+                Projectile.NewProjectile(source, position, velocity, type, damage, knockback, player.whoAmI,
+                    dir);
+            }
+
+            return false;
+        }
+
+        public override void OnHitNPC(Player player, Item item, Rectangle itemRectangle, int originalDamage, float knockBack, NPC npc)
+        {
+            Projectile.NewProjectile(null, npc.Center, Vector2.Zero, ExtenManag.ProjectileType<EProj2>(),
+                originalDamage, knockBack, player.whoAmI,
+                3f);
+
+            Vector2 v = Vector2.Normalize(npc.Center - player.Center);
+
+            for (int i = 0; i < 5; ++i)
+            {
+                Projectile.NewProjectile(null, npc.Center, Vector2.Zero, ExtenManag.ProjectileType<EProj2>(),
+                originalDamage, knockBack, player.whoAmI,
+                3f,
+                modifer: p =>
+                {
+                    p.localAI[0] = 10;
+                    p.localAI[1] = v.X;
+                    p.localAI[2] = v.Y;
+                });
+
+                v = v.RotatedBy(MathHelper.TwoPi / 5);
+            }
         }
 
         public override bool AltFunctionUse(Player player, Item item) => true;
