@@ -2,7 +2,6 @@
 using ExtenContent.Utils;
 using Microsoft.Xna.Framework;
 using Terraria;
-using Terraria.Audio;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.Localization;
@@ -51,8 +50,8 @@ namespace test2.Content.Items
             if (player.altFunctionUse == 2)
             {
                 item.useStyle = 8;
-                item.useAnimation = 60;
-                item.useTime = 60;
+                item.useAnimation = 90;
+                item.useTime = 90;
                 item.shoot = ExtenManag.ProjectileType<EProj3>();
                 item.shootSpeed = 1f;
             }
@@ -83,7 +82,7 @@ namespace test2.Content.Items
             }
             else if (type == ExtenManag.ProjectileType<EProj3>())
             {
-                SoundEngine.PlaySound(SoundID.Item84);
+                Common.Neighborhood.Apply();
 
                 Projectile.NewProjectile(source, position, Vector2.Zero, type, damage, knockback, player.whoAmI);
             }

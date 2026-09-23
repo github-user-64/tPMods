@@ -188,7 +188,7 @@ namespace test2.Content.Projectiles
             });
         }
 
-        private void For(Vector2 position, Vector2 velocity, Projectile proj, Action<Vector2> foo)
+        protected void For(Vector2 position, Vector2 velocity, Projectile proj, Action<Vector2> foo)
         {
             float scale = proj.scale;
             if (scale <= 0) return;
