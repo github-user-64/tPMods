@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
+using tContentPatch;
 using Terraria;
 using Terraria.Audio;
 using Terraria.DataStructures;
@@ -13,6 +14,15 @@ namespace test2.Content.Projectiles
     {
         protected const int ProjLen = 8;
         public override string Texture => "Terraria/Images/Projectile_454";
+
+        private class CDTime : PatchMain
+        {
+            public static int cd = 0;
+            public override void DoUpdateInWorldPrefix()
+            {
+                if (cd > 0) --cd;
+            }
+        }
 
         public override void SetStaticDefaults()
         {
@@ -72,11 +82,9 @@ namespace test2.Content.Projectiles
             {
                 Projectile.NewProjectile(null, pos, Vector2.Zero, ExtenManag.ProjectileType<EProj2>(),
                     proj.damage, proj.knockBack, proj.owner,
-                    1.5f);
+                    1 + Utils.getRand(1, 10) * 0.1f);
             });
         }
-
-
 
         public override bool? Colliding(Projectile proj, Rectangle myRect, Rectangle targetRect)
         {
@@ -89,8 +97,44 @@ namespace test2.Content.Projectiles
 
             float collisionPoint = 0f;//碰撞点
 
-            return Collision.CheckAABBvLineCollision(targetRect.TopLeft(), targetRect.Size(),
+            bool rv = Collision.CheckAABBvLineCollision(targetRect.TopLeft(), targetRect.Size(),
                 start, end, proj.width / 2f * proj.scale, ref collisionPoint);
+
+            if (rv) OnHitNPC(proj, targetRect.Center.ToVector2());
+
+            return rv;
+        }
+
+        protected void OnHitNPC(Projectile proj, Vector2 pos)
+        {
+            if (Main.player.IndexInRange(proj.owner) != true) return;
+            Player player = Main.player[proj.owner];
+            if (player != Main.LocalPlayer) return;
+
+            Projectile.NewProjectile(null, pos, Vector2.Zero, ExtenManag.ProjectileType<EProj2>(),
+                proj.damage, proj.knockBack, player.whoAmI,
+                3f);
+
+            if (CDTime.cd > 0) return;
+            CDTime.cd = 120;
+
+            float r = Vector2.Normalize(pos - player.Center).ToRotation();
+
+            for (int i = 0; i < 5; ++i)
+            {
+                Projectile.NewProjectile(null, pos, Vector2.Zero, ExtenManag.ProjectileType<EProj2>(),
+                proj.damage, proj.knockBack, player.whoAmI,
+                3f,
+                modifer: p =>
+                {
+                    p.localAI[0] = 10;
+                    p.localAI[1] = r;
+                });
+
+                r += MathHelper.TwoPi / 5;
+            }
+
+            Common.Vibration.App(pos);
         }
 
         public override bool PreDraw(Projectile proj, Player player = null)

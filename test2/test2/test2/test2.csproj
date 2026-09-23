@@ -68,6 +68,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Common\Vibration.cs" />
+    <Compile Include="Content\Projectiles\EProj3.cs" />
     <Compile Include="Content\Projectiles\EProj1.cs" />
     <Compile Include="Content\Projectiles\EProj2.cs" />
     <Compile Include="DeBug.cs" />

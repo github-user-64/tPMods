@@ -2,6 +2,7 @@
 using ExtenContent.Utils;
 using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.Audio;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.Localization;
@@ -49,7 +50,11 @@ namespace test2.Content.Items
         {
             if (player.altFunctionUse == 2)
             {
-
+                item.useStyle = 8;
+                item.useAnimation = 60;
+                item.useTime = 60;
+                item.shoot = ExtenManag.ProjectileType<EProj3>();
+                item.shootSpeed = 1f;
             }
             else
             {
@@ -76,32 +81,14 @@ namespace test2.Content.Items
                 Projectile.NewProjectile(source, position, velocity, type, damage, knockback, player.whoAmI,
                     dir);
             }
+            else if (type == ExtenManag.ProjectileType<EProj3>())
+            {
+                SoundEngine.PlaySound(SoundID.Item84);
+
+                Projectile.NewProjectile(source, position, Vector2.Zero, type, damage, knockback, player.whoAmI);
+            }
 
             return false;
-        }
-
-        public override void OnHitNPC(Player player, Item item, Rectangle itemRectangle, int originalDamage, float knockBack, NPC npc)
-        {
-            Projectile.NewProjectile(null, npc.Center, Vector2.Zero, ExtenManag.ProjectileType<EProj2>(),
-                originalDamage, knockBack, player.whoAmI,
-                3f);
-
-            Vector2 v = Vector2.Normalize(npc.Center - player.Center);
-
-            for (int i = 0; i < 5; ++i)
-            {
-                Projectile.NewProjectile(null, npc.Center, Vector2.Zero, ExtenManag.ProjectileType<EProj2>(),
-                originalDamage, knockBack, player.whoAmI,
-                3f,
-                modifer: p =>
-                {
-                    p.localAI[0] = 10;
-                    p.localAI[1] = v.X;
-                    p.localAI[2] = v.Y;
-                });
-
-                v = v.RotatedBy(MathHelper.TwoPi / 5);
-            }
         }
 
         public override bool AltFunctionUse(Player player, Item item) => true;

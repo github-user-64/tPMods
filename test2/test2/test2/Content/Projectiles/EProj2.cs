@@ -1,4 +1,5 @@
 ﻿using ExtenContent.Extens;
+using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.DataStructures;
 
@@ -19,7 +20,7 @@ namespace test2.Content.Projectiles
             proj.height = 98;
             proj.scale = 1f;
             proj.aiStyle = 0;
-            //proj.timeLeft = 0;
+            proj.timeLeft = 60;
             proj.tileCollide = false;//图格碰撞
             proj.ignoreWater = true;//无视水
             proj.penetrate = -1;//穿透次数, -1无限
@@ -33,6 +34,8 @@ namespace test2.Content.Projectiles
 
         public override void AI(Projectile proj)
         {
+            if (Main.GameUpdateCount % 4 != 0) return;
+
             int frame = proj.frame + 1;
             if (frame >= Main.projFrames[Type])
             {
@@ -42,6 +45,25 @@ namespace test2.Content.Projectiles
             proj.frame = frame;
 
             proj.scale = proj.ai[0];
+
+            if (proj.localAI[0] < 1) return;
+            if (proj.frame < 2) return;
+
+            Vector2 pos = proj.Center;
+            Vector2 vect = proj.localAI[1].ToRotationVector2();
+            vect = Vector2.Normalize(vect) * (proj.width / 2f * proj.scale);
+            pos += vect;
+
+            Projectile.NewProjectile(null, pos, Vector2.Zero, ExtenManag.ProjectileType<EProj2>(),
+                proj.damage, proj.knockBack, proj.owner,
+                proj.ai[0],
+                modifer: p =>
+                {
+                    p.localAI[0] = proj.localAI[0] - 1;
+                    p.localAI[1] = proj.localAI[1];
+                });
+
+            proj.localAI[0] = 0;
         }
     }
 }
