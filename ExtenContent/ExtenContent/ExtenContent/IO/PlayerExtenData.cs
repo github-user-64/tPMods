@@ -54,15 +54,29 @@ namespace ExtenContent.IO
             bank4 = GetSaveData(player.bank4.item);//虚空保险库
 
             //装备
-            foreach (EquipmentLoadout items in player.Loadouts)
+            for (int i = 0; i < player.Loadouts.Length; ++i)
             {
-                LoadoutsArmor.Add(GetSaveData(items.Armor));
+                if (player.CurrentLoadoutIndex == i)
+                {
+                    LoadoutsArmor.Add(GetSaveData(player.armor));
+                }
+                else
+                {
+                    LoadoutsArmor.Add(GetSaveData(player.Loadouts[i].Armor));
+                }
             }
 
             //装备染料
-            foreach (EquipmentLoadout items in player.Loadouts)
+            for (int i = 0; i < player.Loadouts.Length; ++i)
             {
-                LoadoutsDye.Add(GetSaveData(items.Dye));
+                if (player.CurrentLoadoutIndex == i)
+                {
+                    LoadoutsArmor.Add(GetSaveData(player.dye));
+                }
+                else
+                {
+                    LoadoutsArmor.Add(GetSaveData(player.Loadouts[i].Dye));
+                }
             }
         }
 
