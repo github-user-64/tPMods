@@ -38,9 +38,20 @@ namespace ExtenContent.Extens
             if (v != null) result = v.Value;
         }
 
-        internal static void DrawProjDirectPostfix(Projectile proj, Player player = null)
+        internal static void GetAlphaPostfix(ref Color result, Projectile proj, Color newColor)
         {
-            GetProj(proj.type)?.PostDraw(proj, player);
+            Color? v = GetProj(proj.type)?.GetAlpha(proj, newColor);
+            if (v != null) result = v.Value;
+        }
+
+        internal static bool DrawProjDirectPrefix(Projectile proj, Color lightColor, Player player = null)
+        {
+            return GetProj(proj.type)?.PreDraw(proj, lightColor, player) ?? true;
+        }
+
+        internal static void DrawProjDirectPostfix(Projectile proj, Color lightColor, Player player = null)
+        {
+            GetProj(proj.type)?.PostDraw(proj, lightColor, player);
         }
     }
 }

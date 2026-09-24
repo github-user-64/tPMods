@@ -37,6 +37,7 @@ namespace test2.Content.Projectiles
             if (Main.GameUpdateCount % 4 != 0) return;
 
             int frame = proj.frame + 1;
+            if (frame > 3 && proj.ai[1]-- > 0) frame = 0;
             if (frame >= Main.projFrames[Type])
             {
                 proj.Kill();
@@ -46,24 +47,34 @@ namespace test2.Content.Projectiles
 
             proj.scale = proj.ai[0];
 
+            if (Main.player.IndexInRange(proj.owner) != true) return;
+            Player player = Main.player[proj.owner];
+            if (player != Main.LocalPlayer) return;
+
             if (proj.localAI[0] < 1) return;
             if (proj.frame < 2) return;
 
             Vector2 pos = proj.Center;
             Vector2 vect = proj.localAI[1].ToRotationVector2();
             vect = Vector2.Normalize(vect) * (proj.width / 2f * proj.scale);
+            vect = vect.RotatedBy(Utils.getRand(-10, 10) * 0.01f);
             pos += vect;
 
             Projectile.NewProjectile(null, pos, Vector2.Zero, ExtenManag.ProjectileType<EProj2>(),
                 proj.damage, proj.knockBack, proj.owner,
-                proj.ai[0],
+                proj.ai[0], proj.ai[1],
                 modifer: p =>
                 {
                     p.localAI[0] = proj.localAI[0] - 1;
-                    p.localAI[1] = proj.localAI[1];
+                    p.localAI[1] = proj.localAI[1] + (Utils.getRand(-10, 10) * 0.01f);
                 });
 
             proj.localAI[0] = 0;
+        }
+
+        public override Color? GetAlpha(Projectile proj, Color newColor)
+        {
+            return Color.White;
         }
     }
 }

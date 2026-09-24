@@ -16,21 +16,24 @@ namespace ExtenContent.PatchGame
 
         public override bool DrawProjDirectPrefix(Projectile proj, Player overridePlayer = null)
         {
-            ExtenProjectile ep = ExtenManag.GetExtenProjectile(proj.type);
-            if (ep == null) return true;
+            Player player = overridePlayer;
+            if (player == null && Main.player.IndexInRange(proj.owner) == true) player = Main.player[proj.owner];
+
+            Color projectileColor = Lighting.GetColor((int)(proj.position.X + proj.width * 0.5) / 16, (int)((proj.position.Y + proj.height * 0.5) / 16.0));
 
             Main.instance.PrepareDrawnProjectileDrawing(proj);//准备绘制射弹?
 
-            Player player = overridePlayer ?? Main.player[proj.owner];
-
-            return ep.PreDraw(proj, player);
+            return ProjectileLoad.DrawProjDirectPrefix(proj, projectileColor, player);
         }
 
         public override void DrawProjDirectPostfix(Projectile proj, Player overridePlayer = null)
         {
-            Player player = overridePlayer ?? Main.player[proj.owner];
+            Player player = overridePlayer;
+            if (player == null && Main.player.IndexInRange(proj.owner) == true) player = Main.player[proj.owner];
 
-            ProjectileLoad.DrawProjDirectPostfix(proj, player);
+            Color projectileColor = Lighting.GetColor((int)(proj.position.X + proj.width * 0.5) / 16, (int)((proj.position.Y + proj.height * 0.5) / 16.0));
+
+            ProjectileLoad.DrawProjDirectPostfix(proj, projectileColor, player);
         }
     }
 }

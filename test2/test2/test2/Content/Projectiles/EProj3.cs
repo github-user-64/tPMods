@@ -25,7 +25,7 @@ namespace test2.Content.Projectiles
             proj.height = 62;
             proj.scale = 1f;
             proj.aiStyle = 0;
-            proj.timeLeft = 60 * 8;
+            proj.timeLeft = 60 * 5;
             proj.tileCollide = false;//图格碰撞
             proj.ignoreWater = true;//无视水
             proj.penetrate = -1;//穿透次数, -1无限
@@ -42,13 +42,9 @@ namespace test2.Content.Projectiles
             SoundEngine.PlaySound(SoundID.Item84);
         }
 
-        public override void OnKill(Projectile proj)
-        {
-
-        }
-
         public override void AI(Projectile proj)
         {
+            if (Main.player.IndexInRange(proj.owner) != true) return;
             Player player = Main.player[proj.owner];
 
             if (player == Main.LocalPlayer)
@@ -56,9 +52,12 @@ namespace test2.Content.Projectiles
                 if (player.active != true || player.dead == true ||
                     (player.HeldItem.type == ExtenManag.ItemType<EItem1>() && Main.mouseRight) != true)
                 {
+                    SoundEngine.PlaySound(SoundID.NPCDeath6, proj.Center);
                     proj.Kill();
                     return;
                 }
+
+                AI(proj, player);
             }
 
             Vector2 v = new Vector2(proj.localAI[0], proj.localAI[1]);
@@ -72,7 +71,23 @@ namespace test2.Content.Projectiles
             proj.Center = pos;
         }
 
-        public override bool PreDraw(Projectile proj, Player player = null)
+        private void AI(Projectile proj, Player player)
+        {
+            if (Main.GameUpdateCount % 3 != 0) return;
+
+            float len = new Vector2(proj.localAI[0], proj.localAI[1]).Length();
+
+            for (int i = 0; i < Main.npc.Length; ++i)
+            {
+                NPC npc = Main.npc[i];
+                if (npc.CanBeChasedBy() == false && npc.type != NPCID.TargetDummy) continue;//是敌怪
+                if (npc.Center.Distance(proj.Center) > len) continue;
+
+                Projectile.SpawnMoonLordWhipProc(proj, npc, proj.damage, 0);
+            }
+        }
+
+        public override bool PreDraw(Projectile proj, Color lightColor, Player player = null)
         {
             Texture2D img = Asset.Request<Texture2D>("a1").Value;
 
@@ -89,7 +104,7 @@ namespace test2.Content.Projectiles
                 {
                     float scale = (proj.scale + 0.1f) * bl;
                     if (scale <= 0f) return;
-                    Color color = Color.White * 0.5f * bl;
+                    Color color = proj.GetAlpha(lightColor) * 0.5f * bl;
 
                     //将添加到绘制位置的弹丸实际位置的偏移量,用于抵消一些持有的投射物以匹配玩家
                     //从而使投射物在视觉上与玩家保持同步
@@ -104,13 +119,13 @@ namespace test2.Content.Projectiles
             return false;
         }
 
-        public override void PostDraw(Projectile proj, Player player = null)
+        public override void PostDraw(Projectile proj, Color lightColor, Player player = null)
         {
             Texture2D img = Asset.Request<Texture2D>(Texture).Value;
 
             Vector2 velocity = new Vector2(proj.localAI[0], proj.localAI[1]);
             Rectangle size = new Rectangle(0, 0, proj.width, proj.height);
-            Color color = Color.White;
+            Color color = proj.GetAlpha(lightColor);
 
             For(proj.Center, velocity, proj, pos =>
             {
@@ -122,6 +137,11 @@ namespace test2.Content.Projectiles
                 Main.EntitySpriteDraw(img, pos, size, color,
                     proj.velocity.ToRotation(), size.Size() / 2f, proj.scale, SpriteEffects.None);
             });
+        }
+
+        public override Color? GetAlpha(Projectile proj, Color newColor)
+        {
+            return Color.White;
         }
 
         protected void For(Vector2 position, Vector2 velocity, Projectile proj, Action<Vector2> foo)

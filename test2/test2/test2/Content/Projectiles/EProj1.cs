@@ -64,6 +64,7 @@ namespace test2.Content.Projectiles
 
         public override void AI(Projectile proj)
         {
+            if (Main.player.IndexInRange(proj.owner) != true) return;
             Player player = Main.player[proj.owner];
 
             proj.velocity = proj.velocity.RotatedBy(proj.ai[0] > 0 ? 0.17f : -0.17f);
@@ -124,7 +125,7 @@ namespace test2.Content.Projectiles
             {
                 Projectile.NewProjectile(null, pos, Vector2.Zero, ExtenManag.ProjectileType<EProj2>(),
                 proj.damage, proj.knockBack, player.whoAmI,
-                3f,
+                3f, 1,
                 modifer: p =>
                 {
                     p.localAI[0] = 10;
@@ -137,7 +138,7 @@ namespace test2.Content.Projectiles
             Common.Vibration.App(pos);
         }
 
-        public override bool PreDraw(Projectile proj, Player player = null)
+        public override bool PreDraw(Projectile proj, Color lightColor, Player player = null)
         {
             Texture2D img = Asset.Request<Texture2D>("a1").Value;
 
@@ -154,7 +155,7 @@ namespace test2.Content.Projectiles
                 {
                     float scale = (proj.scale + 0.1f) * bl;
                     if (scale <= 0f) return;
-                    Color color = Color.White * 0.5f * bl;
+                    Color color = proj.GetAlpha(lightColor) * 0.5f * bl;
 
                     //将添加到绘制位置的弹丸实际位置的偏移量,用于抵消一些持有的投射物以匹配玩家
                     //从而使投射物在视觉上与玩家保持同步
@@ -169,12 +170,12 @@ namespace test2.Content.Projectiles
             return false;
         }
 
-        public override void PostDraw(Projectile proj, Player player = null)
+        public override void PostDraw(Projectile proj, Color lightColor, Player player = null)
         {
             Texture2D img = Asset.Request<Texture2D>(Texture).Value;
 
             Rectangle size = new Rectangle(0, 0, proj.width, proj.height);
-            Color color = Color.White;
+            Color color = proj.GetAlpha(lightColor);
 
             For(proj.Center, proj.velocity, proj, pos =>
             {
@@ -186,6 +187,11 @@ namespace test2.Content.Projectiles
                 Main.EntitySpriteDraw(img, pos, size, color,
                     proj.velocity.ToRotation(), size.Size() / 2f, proj.scale, SpriteEffects.None);
             });
+        }
+
+        public override Color? GetAlpha(Projectile proj, Color newColor)
+        {
+            return Color.White;
         }
 
         protected void For(Vector2 position, Vector2 velocity, Projectile proj, Action<Vector2> foo)

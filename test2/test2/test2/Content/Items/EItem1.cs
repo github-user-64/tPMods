@@ -13,7 +13,10 @@ namespace test2.Content.Items
     {
         public override string Texture => "Terraria/Images/NPC_400";
         public override LocalizedText DisplayName => LanguageUtils.GetOrRegister($"{FullName}.{nameof(DisplayName)}", "刻意的眼球");
-        public override LocalizedText Tooltip => LanguageUtils.GetOrRegister($"{FullName}.{nameof(Tooltip)}", "\"祂没有瞳孔\"");
+        public override LocalizedText Tooltip => LanguageUtils.GetOrRegister($"{FullName}.{nameof(Tooltip)}",
+            "鼠标左键斩击\n" +
+            "长按鼠标右键展开献祭领域\n" +
+            "\"祂没有瞳孔\"");
 
         public override void SetStaticDefaults()
         {
@@ -82,8 +85,6 @@ namespace test2.Content.Items
             }
             else if (type == ExtenManag.ProjectileType<EProj3>())
             {
-                Common.Neighborhood.Apply();
-
                 Projectile.NewProjectile(source, position, Vector2.Zero, type, damage, knockback, player.whoAmI);
             }
 

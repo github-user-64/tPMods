@@ -40,5 +40,12 @@ namespace ExtenContent.PatchGame
         {
             ProjectileLoad.CollidingPostfix(ref __result, __instance, myRect, targetRect);
         }
+
+        [HarmonyPatch("GetAlpha")]
+        [HarmonyPostfix]
+        private static void GetAlphaPostfix(ref Color __result, Projectile __instance, Color newColor)
+        {
+            ProjectileLoad.GetAlphaPostfix(ref __result, __instance, newColor);
+        }
     }
 }

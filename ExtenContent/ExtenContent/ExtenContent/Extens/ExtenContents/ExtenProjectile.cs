@@ -35,8 +35,10 @@ namespace ExtenContent.Extens
         /// <summary/>
         public virtual bool? Colliding(Projectile proj, Rectangle myRect, Rectangle targetRect) => null;
         /// <summary/>
-        public virtual bool PreDraw(Projectile proj, Player player = null) => true;
+        public virtual Color? GetAlpha(Projectile proj, Color newColor) => null;
         /// <summary/>
-        public virtual void PostDraw(Projectile proj, Player player = null) { }
+        public virtual bool PreDraw(Projectile proj, Color lightColor, Player player = null) => true;
+        /// <summary/>
+        public virtual void PostDraw(Projectile proj, Color lightColor, Player player = null) { }
     }
 }

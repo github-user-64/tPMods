@@ -68,7 +68,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Common\Neighborhood.cs" />
     <Compile Include="Common\Vibration.cs" />
     <Compile Include="Content\Projectiles\EProj3.cs" />
     <Compile Include="Content\Projectiles\EProj1.cs" />
