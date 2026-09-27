@@ -25,7 +25,7 @@ namespace NewContents.Content.Items
 
         public override void ApplyEquipFunctionalPostfix(Player player, int itemSlot, Item currentItem)
         {
-            Common.ModifyMeleeScale.Val += EffectVal;
+            Common.ModifyMeleeScale.Add(player, EffectVal);
         }
     }
 }

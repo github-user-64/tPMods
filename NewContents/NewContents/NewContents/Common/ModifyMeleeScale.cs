@@ -7,11 +7,16 @@ namespace NewContents.Common
 {
     internal class ModifyMeleeScale : PatchMain
     {
-        public static float Val = 0;
+        protected static float[] Vals = new float[Main.player.Length];
 
         public override void DoUpdateInWorldPrefix()
         {
-            Val = 0;
+            for (int i = 0; i < Vals.Length; ++i) Vals[i] = 0;
+        }
+
+        public static void Add(Player player, float val)
+        {
+            Vals[player.whoAmI] += val;
         }
 
         private class PPlay : EPatchPlayer
@@ -20,7 +25,7 @@ namespace NewContents.Common
             {
                 if (item.melee != true) return;
 
-                result += Val;
+                result += Vals[player.whoAmI];
             }
         }
 
@@ -32,10 +37,11 @@ namespace NewContents.Common
                 if (s == null) return;
                 if (s.Item.melee != true) return;
 
-                if (Main.projectile.IndexInRange(result))
-                {
-                    Main.projectile[result].scale += Val;
-                }
+                if (Main.projectile.IndexInRange(result) != true) return;
+                Projectile proj = Main.projectile[result];
+                if (Vals.IndexInRange(proj.owner) != true) return;
+
+                proj.scale += Vals[proj.owner];
             }
         }
     }
