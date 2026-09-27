@@ -14,14 +14,14 @@ namespace NewContents.Content.Projectiles
 
         public override void SetStaticDefaults()
         {
-            Main.projFrames[Type] = Main.projFrames[645];
+            Main.projFrames[Type] = 7;
         }
 
         public override void SetDefault(Projectile proj)
         {
             proj.width = 98;
             proj.height = 98;
-            proj.scale = 1f;
+            proj.scale = 0f;
             proj.aiStyle = 0;
             proj.timeLeft = 60;
             proj.tileCollide = false;//图格碰撞
@@ -32,7 +32,7 @@ namespace NewContents.Content.Projectiles
 
         public override void NewProjectilePostfix(Projectile proj, IEntitySource spawnSource)
         {
-            proj.scale = proj.ai[0];
+            proj.scale += proj.ai[0];
         }
 
         public override void AI(Projectile proj)
@@ -47,8 +47,6 @@ namespace NewContents.Content.Projectiles
                 return;
             }
             proj.frame = frame;
-
-            proj.scale = proj.ai[0];
 
             if (Main.player.IndexInRange(proj.owner) != true) return;
             Player player = Main.player[proj.owner];

@@ -52,7 +52,9 @@ namespace NewContents.Content.Projectiles
             if (player == Main.LocalPlayer)
             {
                 if (player.active != true || player.dead == true ||
-                    (player.HeldItem.type == ExtenManag.ItemType<EItem1>() && Main.mouseRight) != true)
+                    Main.mouseRight != true ||
+                    player.HeldItem.type != ExtenManag.ItemType<EItem1>() ||
+                    player.HeldItem.shoot != ExtenManag.ProjectileType<EProj3>())
                 {
                     SoundEngine.PlaySound(SoundID.NPCDeath6, proj.Center);
                     proj.Kill();

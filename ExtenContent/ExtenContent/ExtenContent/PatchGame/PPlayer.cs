@@ -122,5 +122,12 @@ namespace ExtenContent.PatchGame
 
             ItemLoad.OnHitNPC(player, sItem, itemRectangle, originalDamage, knockBack, npc);
         }
+
+        [HarmonyPatch("GetAdjustedItemScale")]
+        [HarmonyPostfix]
+        private static void GetAdjustedItemScalePostfix(ref float __result, Player __instance, Item item)
+        {
+            PatchPlayerLoader.GetAdjustedItemScalePostfix(ref __result, __instance, item);
+        }
     }
 }
