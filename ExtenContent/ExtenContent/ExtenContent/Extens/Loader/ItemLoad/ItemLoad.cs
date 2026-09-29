@@ -112,7 +112,10 @@ namespace ExtenContent.Extens
                 ExtenItem item = items[i];
                 item.Item.SetDefaults(ItemID.Count + i);
 
-                TextureAssets.Item[item.Type] = item.Asset.Request<Texture2D>(item.Texture);
+                if (Main.dedServ != true)
+                {
+                    TextureAssets.Item[item.Type] = item.Asset.Request<Texture2D>(item.Texture);
+                }
 
                 _itemNameCache[item.Type] = item.DisplayName;
                 _itemTooltipCache[item.Type] = ItemTooltip.FromLanguageKey(item.Tooltip.Key);

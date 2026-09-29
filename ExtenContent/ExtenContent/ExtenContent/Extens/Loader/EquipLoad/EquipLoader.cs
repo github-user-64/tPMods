@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
+using Terraria;
 using Terraria.GameContent;
 using Terraria.ID;
 
@@ -56,6 +57,8 @@ namespace ExtenContent.Extens
 
         private static void Setup()
         {
+            if (Main.dedServ) return;
+
             foreach (ExtenEquip i in equips[EquipType.Wings])
             {
                 TextureAssets.Wings[i.Slot] = i.Asset.Request<Texture2D>(i.Texture);

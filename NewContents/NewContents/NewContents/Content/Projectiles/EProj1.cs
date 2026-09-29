@@ -82,6 +82,8 @@ namespace NewContents.Content.Projectiles
 
         public override void OnKill(Projectile proj)
         {
+            if (proj.owner != Main.myPlayer) return;
+
             For(proj.position, proj.velocity, proj, pos =>
             {
                 Projectile.NewProjectile(null, pos, Vector2.Zero, ExtenManag.ProjectileType<EProj2>(),
@@ -111,9 +113,8 @@ namespace NewContents.Content.Projectiles
 
         protected static void OnHitNPC(Projectile proj, Vector2 pos)
         {
-            if (Main.player.IndexInRange(proj.owner) != true) return;
+            if (proj.owner != Main.myPlayer) return;
             Player player = Main.player[proj.owner];
-            if (player != Main.LocalPlayer) return;
 
             Projectile.NewProjectile(null, pos, Vector2.Zero, ExtenManag.ProjectileType<EProj2>(),
                 proj.damage, proj.knockBack, player.whoAmI,

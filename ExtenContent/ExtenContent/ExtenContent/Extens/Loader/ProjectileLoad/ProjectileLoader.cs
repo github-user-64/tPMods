@@ -50,7 +50,11 @@ namespace ExtenContent.Extens
                 ExtenProjectile ep = projs[i];
                 ep.Projectile.SetDefaults(ProjectileID.Count + i);
 
-                TextureAssets.Projectile[ep.Type] = ep.Asset.Request<Texture2D>(ep.Texture);
+                if (Main.dedServ != true)
+                {
+                    TextureAssets.Projectile[ep.Type] = ep.Asset.Request<Texture2D>(ep.Texture);
+                }
+
                 _projectileNameCache[ep.Type] = ep.DisplayName;
             }
 

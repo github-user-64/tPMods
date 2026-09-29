@@ -48,9 +48,8 @@ namespace NewContents.Content.Projectiles
             }
             proj.frame = frame;
 
-            if (Main.player.IndexInRange(proj.owner) != true) return;
+            if (proj.owner != Main.myPlayer) return;
             Player player = Main.player[proj.owner];
-            if (player != Main.LocalPlayer) return;
 
             if (proj.localAI[0] < 1) return;
             if (proj.frame < 2) return;

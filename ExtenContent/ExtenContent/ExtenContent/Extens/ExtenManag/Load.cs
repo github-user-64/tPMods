@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using tContentPatch.ModLoad;
+using Terraria;
 
 namespace ExtenContent.Extens
 {
@@ -62,8 +63,12 @@ namespace ExtenContent.Extens
         {
             if (IsLoad) throw new Exception("不可在加载后注册");
 
-            IAssetRepository asset = Utils.ExtenAssetRepository.GetAssets(mo);
-            Assets.Add(asset);
+            IAssetRepository asset = null;
+            if (Main.dedServ != true)
+            {
+                asset = Utils.ExtenAssetRepository.GetAssets(mo);
+                Assets.Add(asset);
+            }
 
             RegistExten<ExtenItem>(mo, asset);
             RegistExten<ExtenEquip>(mo, asset);

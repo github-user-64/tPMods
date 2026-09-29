@@ -49,7 +49,7 @@ namespace NewContents.Content.Projectiles
             if (Main.player.IndexInRange(proj.owner) != true) return;
             Player player = Main.player[proj.owner];
 
-            if (player == Main.LocalPlayer)
+            if (proj.owner == Main.myPlayer)
             {
                 if (player.active != true || player.dead == true ||
                     Main.mouseRight != true ||
