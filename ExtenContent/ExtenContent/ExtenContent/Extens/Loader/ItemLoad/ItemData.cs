@@ -37,6 +37,8 @@ namespace ExtenContent.Extens
 
         internal static void SavePlayerPrefix(PlayerFileData playerFile, bool skipMapSave)
         {
+            if (Main.ServerSideCharacter) return;
+
             Player player = playerFile.Player;
             PlayerExtenData data = new PlayerExtenData(player);
 
