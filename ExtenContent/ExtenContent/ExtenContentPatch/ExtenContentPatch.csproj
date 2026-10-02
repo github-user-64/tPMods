@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{15BC82B2-2757-4DEA-BF70-9B64B91EC10A}</ProjectGuid>
+    <ProjectGuid>{408B685C-1230-4568-80F7-D317018C34DD}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>test2</RootNamespace>
-    <AssemblyName>test2</AssemblyName>
+    <RootNamespace>ExtenContentPatch</RootNamespace>
+    <AssemblyName>ExtenContentPatch</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
@@ -17,7 +17,7 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>..\..\..\..\tPlainModLoader\tPlainModLoader\tPlainModLoader\bin\Debug\Mods\test2\</OutputPath>
+    <OutputPath>..\..\..\..\tPlainModLoader\tPlainModLoader\tPlainModLoader\bin\Debug\Mods\ExtenContent\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -31,6 +31,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="0Harmony">
+      <HintPath>..\..\..\..\tPlainModLoader\tPlainModLoader\tPlainModLoader\bin\Debug\0Harmony.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
     <Reference Include="Microsoft.Xna.Framework, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553, processorArchitecture=x86">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\tPlainModLoader\dll\Microsoft.Xna.Framework.dll</HintPath>
@@ -41,23 +45,34 @@
       <HintPath>..\..\..\..\tPlainModLoader\dll\Microsoft.Xna.Framework.Game.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="Microsoft.Xna.Framework.Graphics, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553, processorArchitecture=x86">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\tPlainModLoader\dll\Microsoft.Xna.Framework.Graphics.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
     <Reference Include="ReLogic">
       <HintPath>..\..\..\..\tPlainModLoader\dll\ReLogic.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="System" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Net.Http" />
-    <Reference Include="System.Xml" />
+    <Reference Include="System">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Core">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Xml.Linq">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Data.DataSetExtensions">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Microsoft.CSharp">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Data">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Net.Http">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Xml">
+      <Private>False</Private>
+    </Reference>
     <Reference Include="tContentPatch">
       <HintPath>..\..\..\..\tPlainModLoader\tPlainModLoader\tPlainModLoader\bin\Debug\tContentPatch.dll</HintPath>
       <Private>False</Private>
@@ -68,17 +83,19 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DeBug.cs" />
-    <Compile Include="ModTool\测试指令2.cs" />
+    <Compile Include="PatchGame\PItem.cs" />
+    <Compile Include="PatchGame\PLang.cs" />
+    <Compile Include="PatchGame\PMain.cs" />
+    <Compile Include="PatchGame\PPlayer.cs" />
+    <Compile Include="PatchGame\PPlayer_ItemCheck_Shoot.cs" />
+    <Compile Include="PatchGame\PProjectile.cs" />
+    <Compile Include="PatchGame\PSetFactory.cs" />
+    <Compile Include="PatchGame\PWingStatsInitializer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ModTool\CommandeEntityTagMethod.cs" />
-    <Compile Include="ModTool\CommandeEnumEntity.cs" />
-    <Compile Include="ModTool\测试指令.cs" />
     <Compile Include="ThisMod.cs" />
-    <Compile Include="Utils.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\ExtenContent\ExtenContent\ExtenContent\ExtenContent.csproj">
+    <ProjectReference Include="..\ExtenContent\ExtenContent.csproj">
       <Project>{dfd8d331-362e-4006-8c48-b013b375ddc4}</Project>
       <Name>ExtenContent</Name>
       <Private>False</Private>

@@ -108,7 +108,7 @@ namespace ExtenContent.IO
                 MyJson1.Save(data, path, true);
 
                 return true;
-            });
+            }, ThisMod.mo);
         }
 
         /// <summary>
@@ -125,7 +125,7 @@ namespace ExtenContent.IO
                 data = MyJson1.Get2(path, typeof(PlayerExtenData));
 
                 return true;
-            });
+            }, ThisMod.mo);
 
             return data as PlayerExtenData;
         }

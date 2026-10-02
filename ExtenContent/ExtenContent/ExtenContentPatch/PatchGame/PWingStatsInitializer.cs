@@ -1,29 +1,28 @@
 ﻿using HarmonyLib;
 using System.Collections.Generic;
-using System.Reflection;
 using System.Reflection.Emit;
-using Terraria;
 using Terraria.ID;
+using Terraria.Initializers;
 
-namespace ExtenContent.PatchGame
+namespace ExtenContentPatch.PatchGame
 {
-    [HarmonyPatch(typeof(Lang))]
-    internal static class PLang
+    [HarmonyPatch(typeof(WingStatsInitializer))]
+    internal static class PWingStatsInitializer
     {
-        [HarmonyPatch(nameof(Lang.GetItemName))]
+        [HarmonyPatch(nameof(WingStatsInitializer.Load))]
         [HarmonyTranspiler]
-        private static IEnumerable<CodeInstruction> TranspilerGetItemName(IEnumerable<CodeInstruction> instructions)
+        private static IEnumerable<CodeInstruction> TranspilerLoad(IEnumerable<CodeInstruction> instructions)
         {
             CodeMatcher codeMatcher = new CodeMatcher(instructions);
 
             codeMatcher.MatchStartForward(
-               new CodeMatch(OpCodes.Ldsfld, typeof(ItemID).GetField(nameof(ItemID.Count)))
+               new CodeMatch(OpCodes.Ldsfld, typeof(ArmorIDs.Wing).GetField(nameof(ArmorIDs.Wing.Count)))
                )
                .ThrowIfInvalid("找不到IL位置")
                .Advance(0)
                .RemoveInstructions(1)
                .InsertAndAdvance(
-               new CodeMatch(OpCodes.Ldsfld, typeof(Lang).GetField("_itemNameCache", BindingFlags.NonPublic | BindingFlags.Static)),
+               new CodeMatch(OpCodes.Ldsfld, typeof(ArmorIDs.Wing.Sets).GetField(nameof(ArmorIDs.Wing.Sets.AlwaysAnimated))),
                new CodeInstruction(OpCodes.Ldlen)
                );
 

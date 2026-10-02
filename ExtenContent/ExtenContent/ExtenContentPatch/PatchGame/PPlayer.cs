@@ -10,31 +10,31 @@ using Terraria.Graphics.Capture;
 using Terraria.ID;
 using Terraria.IO;
 
-namespace ExtenContent.PatchGame
+namespace ExtenContentPatch.PatchGame
 {
     [HarmonyPatch(typeof(Player))]
     internal partial class PPlayer : PatchPlayer
     {
         public override void LoadPlayerPostfix(PlayerFileData result, string playerPath, bool cloudSave)
         {
-            ItemLoad.LoadPlayerPostfix(result, playerPath, cloudSave);
+            ThisMod.Api.Item.LoadPlayerPostfix(result, playerPath, cloudSave);
         }
 
         public override void SavePlayerPrefix(PlayerFileData playerFile, bool skipMapSave)
         {
-            ItemLoad.SavePlayerPrefix(playerFile, skipMapSave);
+            ThisMod.Api.Item.SavePlayerPrefix(playerFile, skipMapSave);
         }
 
         public override void ApplyEquipFunctionalPostfix(Player This, int itemSlot, Item currentItem)
         {
-            ItemLoad.ApplyEquipFunctionalPostfix(This, itemSlot, currentItem);
-            EquipLoad.ApplyEquipFunctionalPostfix(This, itemSlot, currentItem);
+            ThisMod.Api.Item.ApplyEquipFunctionalPostfix(This, itemSlot, currentItem);
+            ThisMod.Api.Equip.ApplyEquipFunctionalPostfix(This, itemSlot, currentItem);
         }
 
         public override void ApplyEquipVanityPostfix(Player This, int itemSlot, Item currentItem)
         {
-            ItemLoad.ApplyEquipVanityPostfix(This, itemSlot, currentItem);
-            EquipLoad.ApplyEquipVanityPostfix(This, itemSlot, currentItem);
+            ThisMod.Api.Item.ApplyEquipVanityPostfix(This, itemSlot, currentItem);
+            ThisMod.Api.Equip.ApplyEquipVanityPostfix(This, itemSlot, currentItem);
         }
 
         [HarmonyPatch(MethodType.Constructor)]
@@ -48,14 +48,14 @@ namespace ExtenContent.PatchGame
         [HarmonyPostfix]
         private static void ApplyItemAnimationPostfix(Player __instance, Item sItem)
         {
-            ItemLoad.ApplyItemAnimationPostfix(__instance, sItem);
+            ThisMod.Api.Item.ApplyItemAnimationPostfix(__instance, sItem);
         }
 
         [HarmonyPatch("ItemCheck_CheckCanUse_Inner")]
         [HarmonyPostfix]
         private static void ItemCheck_CheckCanUse_InnerPostfix(ref bool __result, Player __instance, Item sItem, bool ignoreCursed = false)
         {
-            ItemLoad.CanUseItem(ref __result, __instance, sItem);
+            ThisMod.Api.Item.CanUseItem(ref __result, __instance, sItem);
         }
 
         [HarmonyPatch("ItemCheck_ManageRightClickFeatures")]
@@ -75,7 +75,7 @@ namespace ExtenContent.PatchGame
                 flag = false;
             }
 
-            if (flag && player.altFunctionUse == 0 && ItemLoad.AltFunctionUse(player, item))
+            if (flag && player.altFunctionUse == 0 && ThisMod.Api.Item.AltFunctionUse(player, item))
             {
                 player.altFunctionUse = 1;
                 player.controlUseItem = true;
@@ -120,14 +120,14 @@ namespace ExtenContent.PatchGame
         {
             NPC npc = Main.npc[npcIndex];
 
-            ItemLoad.OnHitNPC(player, sItem, itemRectangle, originalDamage, knockBack, npc);
+            ThisMod.Api.Item.OnHitNPC(player, sItem, itemRectangle, originalDamage, knockBack, npc);
         }
 
         [HarmonyPatch("GetAdjustedItemScale")]
         [HarmonyPostfix]
         private static void GetAdjustedItemScalePostfix(ref float __result, Player __instance, Item item)
         {
-            PatchPlayerLoader.GetAdjustedItemScalePostfix(ref __result, __instance, item);
+            ThisMod.Api.PatchPlayer.GetAdjustedItemScalePostfix(ref __result, __instance, item);
         }
     }
 }

@@ -7,7 +7,7 @@ using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.Testing;
 
-namespace ExtenContent.PatchGame
+namespace ExtenContentPatch.PatchGame
 {
     internal partial class PPlayer
     {
@@ -348,7 +348,7 @@ namespace ExtenContent.PatchGame
                 NetMessage.SendData(41, -1, -1, null, player.whoAmI);
             }
 
-            return ItemLoad.ItemCheck_Shoot(player, ei, sItem,
+            return ThisMod.Api.Item.ItemCheck_Shoot(player, ei, sItem,
                 (EntitySource_ItemUse_WithAmmo)projectileSource_Item_WithPotentialAmmo,
                 pointPosition, new Vector2(num4, num5), projToShoot, Damage, KnockBack);
         }

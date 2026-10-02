@@ -49,8 +49,8 @@ namespace ExtenContent.Extens
         internal static void Register(ExtenItem item)
         {
             string key = item.FullName;
-            if (key == null) throw new Exception($"物品的{nameof(ExtenItem.FullName)}为null");
-            if (GetItem(key) != null) throw new Exception($"物品[{key}]已注册");
+            if (key == null) throw new Exception($"{nameof(ItemLoad)}:物品的{nameof(ExtenItem.FullName)}为null");
+            if (GetItem(key) != null) throw new Exception($"{nameof(ItemLoad)}:物品[{key}]已注册");
 
             items.Add(item);
             itemsKey[key] = item;

@@ -1,9 +1,8 @@
-﻿using ExtenContent.Extens;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using tContentPatch;
 using Terraria;
 
-namespace ExtenContent.PatchGame
+namespace ExtenContentPatch.PatchGame
 {
     internal class PMain : PatchMain
     {
@@ -11,7 +10,7 @@ namespace ExtenContent.PatchGame
         {
             if (numLines < toolTipLine.Length == false) return;
 
-            ItemLoad.MouseText_DrawItemTooltip_GetLinesInfoPostfix(item, ref yoyoLogo, ref oldKB, ref numLines, ref toolTipLine, ref lineColors);
+            ThisMod.Api.Item.MouseText_DrawItemTooltip_GetLinesInfoPostfix(item, ref yoyoLogo, ref oldKB, ref numLines, ref toolTipLine, ref lineColors);
         }
 
         public override bool DrawProjDirectPrefix(Projectile proj, Player overridePlayer = null)
@@ -23,7 +22,7 @@ namespace ExtenContent.PatchGame
 
             Main.instance.PrepareDrawnProjectileDrawing(proj);//准备绘制射弹?
 
-            return ProjectileLoad.DrawProjDirectPrefix(proj, projectileColor, player);
+            return ThisMod.Api.Projectile.DrawProjDirectPrefix(proj, projectileColor, player);
         }
 
         public override void DrawProjDirectPostfix(Projectile proj, Player overridePlayer = null)
@@ -33,7 +32,7 @@ namespace ExtenContent.PatchGame
 
             Color projectileColor = Lighting.GetColor((int)(proj.position.X + proj.width * 0.5) / 16, (int)((proj.position.Y + proj.height * 0.5) / 16.0));
 
-            ProjectileLoad.DrawProjDirectPostfix(proj, projectileColor, player);
+            ThisMod.Api.Projectile.DrawProjDirectPostfix(proj, projectileColor, player);
         }
     }
 }

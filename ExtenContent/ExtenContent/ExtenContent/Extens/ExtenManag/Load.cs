@@ -15,9 +15,11 @@ namespace ExtenContent.Extens
             public static Action<T> Foo;
         }
 
-        private static readonly List<ExtenType> extens = new List<ExtenType>();
+        private static readonly List<ExtenType> Extens = new List<ExtenType>();
         private static readonly List<IAssetRepository> Assets = new List<IAssetRepository>();
         private static bool IsLoad = false;
+        private static bool IsInited = false;
+        private static readonly object _lock = new object();
 
         static ExtenManag()
         {
@@ -25,21 +27,40 @@ namespace ExtenContent.Extens
             RegistFoo<ExtenEquip>.Foo = EquipLoad.Register;
             RegistFoo<ExtenProjectile>.Foo = ProjectileLoad.Register;
             RegistFoo<EPatchPlayer>.Foo = PatchPlayerLoader.Register;
+        }
 
-            RegistMod(ThisMod.mo);
+        internal static void Initialize(ModObject mo)
+        {
+            lock (_lock)
+            {
+                if (IsInited) return;
+            }
+
+            ThisMod.mo = mo;
+
+            ModObject newmo = new ModObject(new ModConfig());
+            newmo.modPath = ThisMod.mo.modPath;
+            newmo.assembly = Assembly.GetExecutingAssembly();
+
+            IsInited = true;
+
+            RegistMod(newmo);
         }
 
         internal static void Load()
         {
-            if (IsLoad) return;
-            IsLoad = true;
+            lock (_lock)
+            {
+                if (IsLoad) return;
+                IsLoad = true;
+            }
 
             ItemLoad.Load();
             EquipLoad.Load();
             ProjectileLoad.Load();
             PatchPlayerLoader.Load();
 
-            extens.ForEach(i => i.SetStaticDefaults());
+            Extens.ForEach(i => i.SetStaticDefaults());
         }
 
         internal static void Unload()
@@ -52,16 +73,23 @@ namespace ExtenContent.Extens
             foreach (IAssetRepository asset in Assets) asset.Dispose();
             Assets.Clear();
 
-            extens.Clear();
+            Extens.Clear();
+
+            IsInited = false;
+            IsLoad = false;
         }
 
         /// <summary>
-        /// 注册模组中所有的扩展内容<para/>
-        /// 应在<see cref="tContentPatch.Mod.Loaded"/>前调用
+        /// 注册模组中所有的扩展内容<br/>
+        /// 应在<br/>
+        /// <see cref="tContentPatch.Mod.Load(ModObject)"/>时<br/>
+        /// <see cref="tContentPatch.Mod.Loaded"/>前<br/>
+        /// 调用
         /// </summary>
         public static void RegistMod(ModObject mo)
         {
-            if (IsLoad) throw new Exception("不可在加载后注册");
+            if (IsInited != true) throw new Exception($"{nameof(ExtenManag)}:在初始化前不能注册");
+            if (IsLoad) throw new Exception($"{nameof(ExtenManag)}:不可在加载后注册");
 
             IAssetRepository asset = null;
             if (Main.dedServ != true)
@@ -90,7 +118,7 @@ namespace ExtenContent.Extens
 
                 RegistFoo<T>.Foo(exten);
 
-                ExtenManag.extens.Add(exten);
+                Extens.Add(exten);
             }
         }
 
