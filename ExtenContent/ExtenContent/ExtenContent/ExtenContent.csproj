@@ -73,7 +73,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Extens\Loader\ItemLoad\ItemData.cs" />
+    <Compile Include="Extens\ExtenPatchs\EPatchRecipe.cs" />
+    <Compile Include="Extens\Loader\EquipLoader\EquipLoader.cs" />
+    <Compile Include="Extens\Loader\EquipLoader\Patch.cs" />
+    <Compile Include="Extens\Loader\ItemLoader\ItemData.cs" />
     <Compile Include="PrivateApi\ApiExtenManag.cs" />
     <Compile Include="PrivateApi\ApiProjectileLoad.cs" />
     <Compile Include="PrivateApi\ApiItemLoad.cs" />
@@ -81,30 +84,28 @@
     <Compile Include="PrivateApi\ApiEquipLoad.cs" />
     <Compile Include="PrivateApi\Api.cs" />
     <Compile Include="Extens\Enums\EquipType.cs" />
-    <Compile Include="Extens\Loader\EquipLoad\Patch.cs" />
-    <Compile Include="Extens\Loader\EquipLoad\ResizeArrays.cs" />
-    <Compile Include="Extens\Loader\EquipLoad\EquipLoader.cs" />
+    <Compile Include="Extens\Loader\EquipLoader\ResizeArrays.cs" />
+    <Compile Include="Extens\Loader\PatchLoader\PatchRecipeLoader.cs" />
     <Compile Include="Extens\ExtenContents\ExtenEquip.cs" />
     <Compile Include="Extens\ExtenContents\ExtenProjectile.cs" />
     <Compile Include="Extens\ExtenInstance.cs" />
     <Compile Include="Extens\ExtenPatchs\EPatchPlayer.cs" />
-    <Compile Include="Extens\Loader\PatchLoad\Patch.cs" />
-    <Compile Include="Extens\Loader\PatchLoad\PatchPlayerLoader.cs" />
-    <Compile Include="Extens\Loader\ProjectileLoad\ProjectileLoader.cs" />
-    <Compile Include="Extens\Loader\ProjectileLoad\Patch.cs" />
-    <Compile Include="Extens\Loader\ProjectileLoad\ResizeArrays.cs" />
+    <Compile Include="Extens\Loader\PatchLoader\PatchPlayerLoader.cs" />
+    <Compile Include="Extens\Loader\ProjectileLoader\ProjectileLoader.cs" />
+    <Compile Include="Extens\Loader\ProjectileLoader\Patch.cs" />
+    <Compile Include="Extens\Loader\ProjectileLoader\ResizeArrays.cs" />
     <Compile Include="Extens\UnloadItem.cs" />
     <Compile Include="Extens\ExtenManag\Load.cs" />
     <Compile Include="Extens\ExtenManag\ExtenManag.cs" />
     <Compile Include="Extens\ExtenType.cs" />
     <Compile Include="Extens\IExtenType.cs" />
-    <Compile Include="Extens\Loader\ItemLoad\Patch.cs" />
-    <Compile Include="Extens\Loader\ItemLoad\ItemLoad.cs" />
+    <Compile Include="Extens\Loader\ItemLoader\Patch.cs" />
+    <Compile Include="Extens\Loader\ItemLoader\ItemLoader.cs" />
     <Compile Include="Extens\ExtenContents\ExtenItem.cs" />
     <Compile Include="IO\ExtenItemData.cs" />
     <Compile Include="IO\PlayerExtenData.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Extens\Loader\ItemLoad\ResizeArrays.cs" />
+    <Compile Include="Extens\Loader\ItemLoader\ResizeArrays.cs" />
     <Compile Include="ThisMod.cs" />
     <Compile Include="Utils\ExtenAssetRepository.cs" />
     <Compile Include="Utils\LanguageUtils.cs" />

@@ -97,5 +97,13 @@ namespace NewContents
         }
 
         public override bool AltFunctionUse(Player player, Item item) => true;
+
+        public override void AddRecipes()
+        {
+            CreateRecipe()
+                .AddIngredient(ItemID.TrueCopperShortsword)
+                .AddIngredient(ItemID.SuspiciousLookingTentacle)
+                .Register();
+        }
     }
 }

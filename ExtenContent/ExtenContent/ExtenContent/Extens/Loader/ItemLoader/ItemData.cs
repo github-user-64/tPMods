@@ -5,7 +5,7 @@ using Terraria.IO;
 
 namespace ExtenContent.Extens
 {
-    public static partial class ItemLoad
+    public static partial class ItemLoader
     {
         internal static void LoadPlayerPostfix(PlayerFileData result, string playerPath, bool cloudSave)
         {

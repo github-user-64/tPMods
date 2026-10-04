@@ -5,7 +5,7 @@ using Terraria.ID;
 
 namespace ExtenContent.Extens
 {
-    public static partial class ProjectileLoad
+    public static partial class ProjectileLoader
     {
         internal static void SetDefaultsPostfix(Projectile proj, int Type)
         {

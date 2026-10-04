@@ -6,7 +6,7 @@ using Terraria.Localization;
 
 namespace ExtenContent.Extens
 {
-    public static partial class ProjectileLoad
+    public static partial class ProjectileLoader
     {
         private static readonly int InitData_MaxNPCs = 200;
         private static void ResizeArrays()

@@ -22,23 +22,23 @@ namespace ExtenContent.Extens
         /// <summary>
         /// 获取<see cref="Item.type"/>对应的<see cref="ExtenItem"/>, 不存在返回<see langword="null"/>
         /// </summary>
-        public static ExtenItem GetExtenItem(int type) => ItemLoad.GetItem(type);
+        public static ExtenItem GetExtenItem(int type) => ItemLoader.GetItem(type);
 
         /// <summary>
         /// 获取<see cref="ExtenType.FullName"/>对应的<see cref="ExtenItem"/>, 不存在返回<see langword="null"/>
         /// </summary>
-        public static ExtenItem GetExtenItem(string key) => ItemLoad.GetItem(key);
+        public static ExtenItem GetExtenItem(string key) => ItemLoader.GetItem(key);
 
         /// <summary>
         /// <see cref="Item.type"/>是否是<see cref="ExtenItem"/>
         /// </summary>
-        public static bool IsExtenItem(int type) => ItemLoad.TypeInRange(type);
+        public static bool IsExtenItem(int type) => ItemLoader.TypeInRange(type);
 
         /// <summary>
         /// 获取卸载物品的<see cref="ExtenType.FullName"/>, 不存在返回<see langword="null"/><br/>
         /// 返回的key肯定和传入的参数一样, 该方法是用于判断是否有注册这个卸载物品
         /// </summary>
-        public static string GetUnloadItemKey(string key) => ItemLoad.GetUnloadItemKey(key);
+        public static string GetUnloadItemKey(string key) => ItemLoader.GetUnloadItemKey(key);
         #endregion
 
         /// <summary>
@@ -65,7 +65,7 @@ namespace ExtenContent.Extens
         /// <summary>
         /// 获取<see cref="Projectile.type"/>对应的<see cref="ExtenProjectile"/>, 不存在返回<see langword="null"/>
         /// </summary>
-        public static ExtenProjectile GetExtenProjectile(int type) => ProjectileLoad.GetProj(type);
+        public static ExtenProjectile GetExtenProjectile(int type) => ProjectileLoader.GetProj(type);
         #endregion
     }
 }

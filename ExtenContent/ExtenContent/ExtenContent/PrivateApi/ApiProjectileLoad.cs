@@ -13,49 +13,49 @@ namespace ExtenContent.PrivateApi
         /// <summary/>
         public void SetDefaultsPostfix(Projectile proj, int Type)
         {
-            ProjectileLoad.SetDefaultsPostfix(proj, Type);
+            ProjectileLoader.SetDefaultsPostfix(proj, Type);
         }
 
         /// <summary/>
         public void AIPostfix(Projectile proj)
         {
-            ProjectileLoad.AIPostfix(proj);
+            ProjectileLoader.AIPostfix(proj);
         }
 
         /// <summary/>
         public void KillPostfix(Projectile proj)
         {
-            ProjectileLoad.KillPostfix(proj);
+            ProjectileLoader.KillPostfix(proj);
         }
 
         /// <summary/>
         public void NewProjectilePostfix(Projectile proj, IEntitySource spawnSource)
         {
-            ProjectileLoad.NewProjectilePostfix(proj, spawnSource);
+            ProjectileLoader.NewProjectilePostfix(proj, spawnSource);
         }
 
         /// <summary/>
         public void CollidingPostfix(ref bool result, Projectile proj, Rectangle myRect, Rectangle targetRect)
         {
-            ProjectileLoad.CollidingPostfix(ref result, proj, myRect, targetRect);
+            ProjectileLoader.CollidingPostfix(ref result, proj, myRect, targetRect);
         }
 
         /// <summary/>
         public void GetAlphaPostfix(ref Color result, Projectile proj, Color newColor)
         {
-            ProjectileLoad.GetAlphaPostfix(ref result, proj, newColor);
+            ProjectileLoader.GetAlphaPostfix(ref result, proj, newColor);
         }
 
         /// <summary/>
         public bool DrawProjDirectPrefix(Projectile proj, Color lightColor, Player player = null)
         {
-            return ProjectileLoad.DrawProjDirectPrefix(proj, lightColor, player);
+            return ProjectileLoader.DrawProjDirectPrefix(proj, lightColor, player);
         }
 
         /// <summary/>
         public void DrawProjDirectPostfix(Projectile proj, Color lightColor, Player player = null)
         {
-            ProjectileLoad.DrawProjDirectPostfix(proj, lightColor, player);
+            ProjectileLoader.DrawProjDirectPostfix(proj, lightColor, player);
         }
     }
 }

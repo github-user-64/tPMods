@@ -27,5 +27,12 @@ namespace NewContents.Content.Items
         {
             Common.ModifyMeleeScale.Add(player, EffectVal);
         }
+
+        public override void AddRecipes()
+        {
+            CreateRecipe()
+                .AddIngredient(ExtenManag.ItemType<EItem2>())
+                .Register();
+        }
     }
 }

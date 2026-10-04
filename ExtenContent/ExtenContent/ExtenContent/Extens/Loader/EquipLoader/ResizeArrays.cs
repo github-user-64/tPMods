@@ -5,7 +5,7 @@ using Terraria.Initializers;
 
 namespace ExtenContent.Extens
 {
-    public static partial class EquipLoad
+    public static partial class EquipLoader
     {
         private static void ResizeArrays()
         {

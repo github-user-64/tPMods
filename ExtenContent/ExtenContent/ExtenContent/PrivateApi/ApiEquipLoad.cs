@@ -11,13 +11,13 @@ namespace ExtenContent.PrivateApi
         /// <summary/>
         public void ApplyEquipFunctionalPostfix(Player player, int itemSlot, Item currentItem)
         {
-            EquipLoad.ApplyEquipFunctionalPostfix(player, itemSlot, currentItem);
+            EquipLoader.ApplyEquipFunctionalPostfix(player, itemSlot, currentItem);
         }
 
         /// <summary/>
         public void ApplyEquipVanityPostfix(Player player, int itemSlot, Item currentItem)
         {
-            EquipLoad.ApplyEquipVanityPostfix(player, itemSlot, currentItem);
+            EquipLoader.ApplyEquipVanityPostfix(player, itemSlot, currentItem);
         }
     }
 }

@@ -13,7 +13,7 @@ using Terraria.UI;
 namespace ExtenContent.Extens
 {
     /// <summary/>
-    public static partial class ItemLoad
+    public static partial class ItemLoader
     {
         private static readonly FieldInfo __itemNameCache = typeof(Lang).GetField("_itemNameCache", BindingFlags.NonPublic | BindingFlags.Static);
         private static readonly FieldInfo __itemTooltipCache = typeof(Lang).GetField("_itemTooltipCache", BindingFlags.NonPublic | BindingFlags.Static);
@@ -49,8 +49,8 @@ namespace ExtenContent.Extens
         internal static void Register(ExtenItem item)
         {
             string key = item.FullName;
-            if (key == null) throw new Exception($"{nameof(ItemLoad)}:物品的{nameof(ExtenItem.FullName)}为null");
-            if (GetItem(key) != null) throw new Exception($"{nameof(ItemLoad)}:物品[{key}]已注册");
+            if (key == null) throw new Exception($"{nameof(ItemLoader)}:物品的{nameof(ExtenItem.FullName)}为null");
+            if (GetItem(key) != null) throw new Exception($"{nameof(ItemLoader)}:物品[{key}]已注册");
 
             items.Add(item);
             itemsKey[key] = item;

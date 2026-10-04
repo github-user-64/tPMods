@@ -9,7 +9,7 @@ using Terraria.Localization;
 namespace ExtenContent.Extens
 {
     /// <summary/>
-    public static partial class ProjectileLoad
+    public static partial class ProjectileLoader
     {
         private static readonly FieldInfo __projectileNameCache = typeof(Lang).GetField("_projectileNameCache", BindingFlags.NonPublic | BindingFlags.Static);
 

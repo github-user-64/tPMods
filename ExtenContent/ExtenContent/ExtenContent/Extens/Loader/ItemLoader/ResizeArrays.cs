@@ -9,7 +9,7 @@ using Terraria.UI;
 
 namespace ExtenContent.Extens
 {
-    public static partial class ItemLoad
+    public static partial class ItemLoader
     {
         private static void ResizeArrays()
         {

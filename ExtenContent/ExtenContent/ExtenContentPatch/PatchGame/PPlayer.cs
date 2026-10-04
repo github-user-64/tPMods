@@ -41,7 +41,7 @@ namespace ExtenContentPatch.PatchGame
         [HarmonyPostfix]
         private static void PlayerPostfix(Player __instance)
         {
-            __instance.ownedProjectileCounts = new int[ProjectileLoad.ProjectileCount];
+            __instance.ownedProjectileCounts = new int[ProjectileLoader.ProjectileCount];
         }
 
         [HarmonyPatch("ApplyItemAnimation")]

@@ -62,5 +62,15 @@ namespace ExtenContent.Extens
         /// 
         /// </summary>
         public virtual void OnHitNPC(Player player, Item item, Rectangle itemRectangle, int originalDamage, float knockBack, NPC npc) { }
+        /// <summary/>
+        public virtual void AddRecipes() { }
+
+        /// <summary>
+        /// 获取一个配方对象
+        /// </summary>
+        public Recipe CreateRecipe(int stack = 1)
+        {
+            return PatchRecipeLoader.Create(Type, stack);
+        }
     }
 }

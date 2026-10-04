@@ -7,9 +7,9 @@ using Terraria.ID;
 namespace ExtenContent.Extens
 {
     /// <summary>
-    /// 装备加载
+    /// 装备加载器
     /// </summary>
-    public static partial class EquipLoad
+    public static partial class EquipLoader
     {
         /// <summary/>
         public static int WingCount { get; private set; } = ArmorIDs.Wing.Count;

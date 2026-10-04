@@ -6,7 +6,7 @@ using Terraria.ID;
 
 namespace ExtenContent.Extens
 {
-    public static partial class ItemLoad
+    public static partial class ItemLoader
     {
         internal static void MouseText_DrawItemTooltip_GetLinesInfoPostfix(Item item, ref int yoyoLogo, ref float oldKB, ref int numLines, ref string[] toolTipLine, ref Color[] lineColors)
         {

@@ -23,10 +23,11 @@ namespace ExtenContent.Extens
 
         static ExtenManag()
         {
-            RegistFoo<ExtenItem>.Foo = ItemLoad.Register;
-            RegistFoo<ExtenEquip>.Foo = EquipLoad.Register;
-            RegistFoo<ExtenProjectile>.Foo = ProjectileLoad.Register;
+            RegistFoo<ExtenItem>.Foo = ItemLoader.Register;
+            RegistFoo<ExtenEquip>.Foo = EquipLoader.Register;
+            RegistFoo<ExtenProjectile>.Foo = ProjectileLoader.Register;
             RegistFoo<EPatchPlayer>.Foo = PatchPlayerLoader.Register;
+            RegistFoo<EPatchRecipe>.Foo = PatchRecipeLoader.Register;
         }
 
         internal static void Initialize(ModObject mo)
@@ -55,20 +56,22 @@ namespace ExtenContent.Extens
                 IsLoad = true;
             }
 
-            ItemLoad.Load();
-            EquipLoad.Load();
-            ProjectileLoad.Load();
+            ItemLoader.Load();
+            EquipLoader.Load();
+            ProjectileLoader.Load();
             PatchPlayerLoader.Load();
+            PatchRecipeLoader.Load();
 
             Extens.ForEach(i => i.SetStaticDefaults());
         }
 
         internal static void Unload()
         {
-            ItemLoad.Unload();
-            EquipLoad.Unload();
-            ProjectileLoad.Unload();
+            ItemLoader.Unload();
+            EquipLoader.Unload();
+            ProjectileLoader.Unload();
             PatchPlayerLoader.Unload();
+            PatchRecipeLoader.Unload();
 
             foreach (IAssetRepository asset in Assets) asset.Dispose();
             Assets.Clear();
@@ -102,6 +105,7 @@ namespace ExtenContent.Extens
             RegistExten<ExtenEquip>(mo, asset);
             RegistExten<ExtenProjectile>(mo, asset);
             RegistExten<EPatchPlayer>(mo, asset);
+            RegistExten<EPatchRecipe>(mo, asset);
         }
 
         private static void RegistExten<T>(ModObject mo, IAssetRepository asset) where T : ExtenType

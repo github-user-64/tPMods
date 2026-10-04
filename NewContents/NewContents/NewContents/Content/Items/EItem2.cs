@@ -36,6 +36,11 @@ namespace NewContents.Content.Items
             numLines++;
         }
 
-
+        public override void AddRecipes()
+        {
+            CreateRecipe()
+                .AddIngredient(ExtenManag.ItemType<EItem3>())
+                .Register();
+        }
     }
 }
