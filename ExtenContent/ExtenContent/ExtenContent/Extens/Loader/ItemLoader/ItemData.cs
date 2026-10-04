@@ -1,6 +1,7 @@
 ﻿using ExtenContent.IO;
 using System;
 using Terraria;
+using Terraria.ID;
 using Terraria.IO;
 
 namespace ExtenContent.Extens
@@ -25,13 +26,23 @@ namespace ExtenContent.Extens
             int LoadoutsArmorLen = Math.Min(player.Loadouts.Length, data.LoadoutsArmor?.Count ?? 0);
             for (int i = 0; i < LoadoutsArmorLen; ++i)
             {
+                if (player.CurrentLoadoutIndex == i)
+                {
+                    LoadData(player.armor, data.LoadoutsArmor[i]);
+                }
+
                 LoadData(player.Loadouts[i].Armor, data.LoadoutsArmor[i]);
             }
 
             int LoadoutsDyeLen = Math.Min(player.Loadouts.Length, data.LoadoutsDye?.Count ?? 0);
             for (int i = 0; i < LoadoutsDyeLen; ++i)
             {
-                LoadData(player.Loadouts[i].Armor, data.LoadoutsDye[i]);
+                if (player.CurrentLoadoutIndex == i)
+                {
+                    LoadData(player.dye, data.LoadoutsDye[i]);
+                }
+
+                LoadData(player.Loadouts[i].Dye, data.LoadoutsDye[i]);
             }
         }
 
@@ -47,6 +58,11 @@ namespace ExtenContent.Extens
 
         private static void LoadData(Item[] items, ExtenItemData[] EItems = null)
         {
+            foreach (Item i in items)
+            {
+                if (i.type >= ItemID.Count) i.SetDefaults(ItemID.None);
+            }
+
             int len = Math.Min(items.Length, EItems.Length);
             for (int i = 0; i < len; ++i)
             {

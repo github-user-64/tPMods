@@ -71,11 +71,11 @@ namespace ExtenContent.IO
             {
                 if (player.CurrentLoadoutIndex == i)
                 {
-                    LoadoutsArmor.Add(GetSaveData(player.dye));
+                    LoadoutsDye.Add(GetSaveData(player.dye));
                 }
                 else
                 {
-                    LoadoutsArmor.Add(GetSaveData(player.Loadouts[i].Dye));
+                    LoadoutsDye.Add(GetSaveData(player.Loadouts[i].Dye));
                 }
             }
         }
