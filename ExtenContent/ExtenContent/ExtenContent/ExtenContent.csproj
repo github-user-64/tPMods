@@ -77,6 +77,7 @@
     <Compile Include="Extens\Loader\EquipLoader\EquipLoader.cs" />
     <Compile Include="Extens\Loader\EquipLoader\Patch.cs" />
     <Compile Include="Extens\Loader\ItemLoader\ItemData.cs" />
+    <Compile Include="Extens\Loader\ItemLoader\Patch_SetDefaults.cs" />
     <Compile Include="PrivateApi\ApiExtenManag.cs" />
     <Compile Include="PrivateApi\ApiProjectileLoad.cs" />
     <Compile Include="PrivateApi\ApiItemLoad.cs" />

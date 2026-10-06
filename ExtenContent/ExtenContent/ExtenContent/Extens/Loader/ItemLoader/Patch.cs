@@ -1,8 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.DataStructures;
-using Terraria.GameContent.Items;
-using Terraria.ID;
 
 namespace ExtenContent.Extens
 {
@@ -22,36 +20,6 @@ namespace ExtenContent.Extens
             }
 
             EItem.ModifyTooltips(item, ref yoyoLogo, ref oldKB, ref numLines, ref toolTipLine, ref lineColors);
-        }
-
-        internal static void SetDefaults(Item item, int Type, ItemVariant variant = null)
-        {
-            if (TypeInRange(Type) != true) return;
-
-            item.ResetStats(Type);
-
-            //if (variant == null)
-            //{
-            //    variant = ItemVariants.SelectVariant(Type);
-            //}
-            //else if (!ItemVariants.HasVariant(Type, variant))
-            //{
-            //    variant = null;
-            //}
-
-            _itemVariant.SetValue(item, variant);
-
-            ExtenItem eitem = items[Type - ItemID.Count];
-            eitem.SetDefault(item);
-
-            if (Main.projHook[item.shoot])
-            {
-                item.useStyle = 0;
-                item.useTime = 0;
-                item.useAnimation = 0;
-            }
-
-            item.RebuildTooltip();
         }
 
         internal static bool ItemCheck_Shoot(Player player, ExtenItem ei, Item item, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
