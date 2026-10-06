@@ -30,6 +30,11 @@ namespace ExtenContent.Extens
         public static ExtenItem GetExtenItem(string key) => ItemLoader.GetItem(key);
 
         /// <summary>
+        /// 获取<see cref="ExtenType.FullName"/>对应的<see cref="Item.type"/>, 不存在返回<see cref="ItemID.None"/>
+        /// </summary>
+        public static int GetExtenItemType(string key) => ItemLoader.GetItemType(key);
+
+        /// <summary>
         /// <see cref="Item.type"/>是否是<see cref="ExtenItem"/>
         /// </summary>
         public static bool IsExtenItem(int type) => ItemLoader.TypeInRange(type);

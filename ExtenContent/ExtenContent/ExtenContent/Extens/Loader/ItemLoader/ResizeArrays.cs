@@ -1,6 +1,9 @@
-﻿using System;
+﻿using Microsoft.Xna.Framework.Graphics;
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using Terraria;
+using Terraria.DataStructures;
 using Terraria.GameContent;
 using Terraria.GameContent.Prefixes;
 using Terraria.ID;
@@ -46,6 +49,60 @@ namespace ExtenContent.Extens
 
             __itemNameCache.SetValue(null, _itemNameCache);
             __itemTooltipCache.SetValue(null, _itemTooltipCache);
+        }
+
+        private static void FinishSetup()
+        {
+            LocalizedText[] _itemNameCache = (LocalizedText[])__itemNameCache.GetValue(null);
+            ItemTooltip[] _itemTooltipCache = (ItemTooltip[])__itemTooltipCache.GetValue(null);
+
+            for (int i = 0; i < items.Count; ++i)
+            {
+                ExtenItem item = items[i];
+                item.Item.SetDefaults(ItemID.Count + i);
+
+                if (Main.dedServ != true)
+                {
+                    TextureAssets.Item[item.Type] = item.Asset.Request<Texture2D>(item.Texture);
+                }
+
+                _itemNameCache[item.Type] = item.DisplayName;
+                _itemTooltipCache[item.Type] = ItemTooltip.FromLanguageKey(item.Tooltip.Key);
+
+                ContentSamples.ItemsByType[item.Type] = item.Item;
+                ContentSamples.ItemsByType[item.Type].RebuildTooltip();
+            }
+
+            __itemNameCache.SetValue(null, _itemNameCache);
+            __itemTooltipCache.SetValue(null, _itemTooltipCache);
+        }
+
+        private static void BuildLookup()
+        {
+            ArmorSetBonus[] array = new ArmorSetBonus[0];
+            ArmorSetBonuses.SetsContaining = new ArmorSetBonus[ItemCount][];
+
+            for (int i = 0; i < ArmorSetBonuses.SetsContaining.Length; i++)
+            {
+                ArmorSetBonuses.SetsContaining[i] = array;
+            }
+
+            foreach (IGrouping<int, ArmorSetBonus> item in Enumerable.GroupBy(ArmorSetBonuses.All, set => set.Head))
+            {
+                ArmorSetBonuses.SetsContaining[item.Key] = Enumerable.ToArray(item);
+            }
+
+            foreach (IGrouping<int, ArmorSetBonus> item2 in Enumerable.GroupBy(ArmorSetBonuses.All, set => set.Body))
+            {
+                ArmorSetBonuses.SetsContaining[item2.Key] = Enumerable.ToArray(item2);
+            }
+
+            foreach (IGrouping<int, ArmorSetBonus> item3 in Enumerable.GroupBy(ArmorSetBonuses.All, set => set.Legs))
+            {
+                ArmorSetBonuses.SetsContaining[item3.Key] = Enumerable.ToArray(item3);
+            }
+
+            ArmorSetBonuses.SetsContaining[0] = array;
         }
     }
 }

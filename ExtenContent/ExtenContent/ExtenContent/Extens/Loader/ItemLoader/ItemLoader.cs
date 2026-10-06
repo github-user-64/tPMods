@@ -1,14 +1,8 @@
-﻿using Microsoft.Xna.Framework.Graphics;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Reflection;
 using Terraria;
-using Terraria.DataStructures;
-using Terraria.GameContent;
 using Terraria.ID;
-using Terraria.Localization;
-using Terraria.UI;
 
 namespace ExtenContent.Extens
 {
@@ -57,20 +51,41 @@ namespace ExtenContent.Extens
             ++ItemCount;
         }
 
-        internal static void RegisterUnload(string key)
+        /// <summary>
+        /// 注册一个卸载物品
+        /// </summary>
+        public static void RegisterUnload(string key)
         {
             if (key == null) return;
             if (itemsUnload.ContainsKey(key)) return;
 
-            itemsUnload[key] = null;
+            itemsUnload.Add(key, null);
         }
 
-        internal static string GetUnloadItemKey(string key)
+        /// <summary>
+        /// 获取卸载物品的<see cref="ExtenType.FullName"/>, 不存在返回<see langword="null"/><br/>
+        /// 返回的key肯定和传入的参数一样, 该方法是用于判断是否有注册这个卸载物品
+        /// </summary>
+        public static string GetUnloadItemKey(string key)
         {
             if (key == null) return null;
             if (itemsUnload.ContainsKey(key)) return key;
 
             return null;
+        }
+
+        /// <summary>
+        /// 将<paramref name="item"/>设为卸载物品并返回<see langword="true"/>, 不存在则不处理并返回<see langword="false"/>
+        /// </summary>
+        public static bool SetUnloadItem(Item item, string key)
+        {
+            string uk = GetUnloadItemKey(key);
+            if (uk == null) return false;
+
+            item.SetDefaults(ExtenManag.ItemType<UnloadItem>());
+            item.SetNameOverride(uk);
+
+            return true;
         }
 
         /// <summary>
@@ -95,65 +110,19 @@ namespace ExtenContent.Extens
         }
 
         /// <summary>
+        /// 获取<see cref="ExtenType.FullName"/>对应的<see cref="Item.type"/>, 不存在返回<see cref="ItemID.None"/>
+        /// </summary>
+        public static int GetItemType(string key)
+        {
+            return GetItem(key)?.Type ?? ItemID.None;
+        }
+
+        /// <summary>
         /// <see cref="Item.type"/>是否是<see cref="ExtenItem"/>
         /// </summary>
         public static bool TypeInRange(int type)
         {
             return ItemID.Count <= type && type < ItemCount;
-        }
-
-        private static void FinishSetup()
-        {
-            LocalizedText[] _itemNameCache = (LocalizedText[])__itemNameCache.GetValue(null);
-            ItemTooltip[] _itemTooltipCache = (ItemTooltip[])__itemTooltipCache.GetValue(null);
-
-            for (int i = 0; i < items.Count; ++i)
-            {
-                ExtenItem item = items[i];
-                item.Item.SetDefaults(ItemID.Count + i);
-
-                if (Main.dedServ != true)
-                {
-                    TextureAssets.Item[item.Type] = item.Asset.Request<Texture2D>(item.Texture);
-                }
-
-                _itemNameCache[item.Type] = item.DisplayName;
-                _itemTooltipCache[item.Type] = ItemTooltip.FromLanguageKey(item.Tooltip.Key);
-
-                ContentSamples.ItemsByType[item.Type] = item.Item;
-                ContentSamples.ItemsByType[item.Type].RebuildTooltip();
-            }
-
-            __itemNameCache.SetValue(null, _itemNameCache);
-            __itemTooltipCache.SetValue(null, _itemTooltipCache);
-        }
-
-        private static void BuildLookup()
-        {
-            ArmorSetBonus[] array = new ArmorSetBonus[0];
-            ArmorSetBonuses.SetsContaining = new ArmorSetBonus[ItemCount][];
-
-            for (int i = 0; i < ArmorSetBonuses.SetsContaining.Length; i++)
-            {
-                ArmorSetBonuses.SetsContaining[i] = array;
-            }
-
-            foreach (IGrouping<int, ArmorSetBonus> item in Enumerable.GroupBy(ArmorSetBonuses.All, set => set.Head))
-            {
-                ArmorSetBonuses.SetsContaining[item.Key] = Enumerable.ToArray(item);
-            }
-
-            foreach (IGrouping<int, ArmorSetBonus> item2 in Enumerable.GroupBy(ArmorSetBonuses.All, set => set.Body))
-            {
-                ArmorSetBonuses.SetsContaining[item2.Key] = Enumerable.ToArray(item2);
-            }
-
-            foreach (IGrouping<int, ArmorSetBonus> item3 in Enumerable.GroupBy(ArmorSetBonuses.All, set => set.Legs))
-            {
-                ArmorSetBonuses.SetsContaining[item3.Key] = Enumerable.ToArray(item3);
-            }
-
-            ArmorSetBonuses.SetsContaining[0] = array;
         }
     }
 }

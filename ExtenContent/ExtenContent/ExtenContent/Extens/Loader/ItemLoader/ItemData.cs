@@ -71,20 +71,20 @@ namespace ExtenContent.Extens
                 if (EItems[i].Name == null) continue;
                 if (EItems[i].Stack < 1) continue;
 
-                bool isUnload = GetItem(EItems[i].Name) == null;//物品没加载
-                if (isUnload) RegisterUnload(EItems[i].Name);//注册卸载物品
-
                 //对应格子已经有物品, 且不是扩展物品
                 if (items[i].IsAir != true && ExtenManag.IsExtenItem(items[i].type) != true) continue;
 
-                if (isUnload)
+                string key = EItems[i].Name;
+
+                if (GetItem(key) == null)//物品没加载
                 {
-                    items[i].SetDefaults(ExtenManag.ItemType<UnloadItem>());
-                    items[i].SetNameOverride(EItems[i].Name);
+                    RegisterUnload(key);//注册卸载物品
+
+                    SetUnloadItem(items[i], key);
                 }
                 else
                 {
-                    items[i].SetDefaults(ExtenManag.GetExtenItem(EItems[i].Name).Type);
+                    items[i].SetDefaults(ExtenManag.GetExtenItem(key).Type);
                 }
 
                 items[i].stack = EItems[i].Stack;

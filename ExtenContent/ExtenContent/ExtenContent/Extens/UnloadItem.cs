@@ -5,14 +5,16 @@ namespace ExtenContent.Extens
     /// <summary>
     /// 卸载物品
     /// </summary>
-    internal class UnloadItem : ExtenItem
+    public class UnloadItem : ExtenItem
     {
+        /// <inheritdoc/>
         public override string Texture => "ExtenItemUnload";
 
-        public override void SetDefault(Item This)
+        /// <inheritdoc/>
+        public override void SetDefault(Item item)
         {
-            This.width = 20;
-            This.height = 20;
+            item.width = 20;
+            item.height = 20;
         }
     }
 }
