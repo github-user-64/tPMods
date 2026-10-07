@@ -118,6 +118,14 @@ namespace ExtenContent.Extens
         }
 
         /// <summary>
+        /// 获取<see cref="Item.type"/>对应的<see cref="ExtenType.FullName"/>, 不存在返回<see langword="null"/>
+        /// </summary>
+        public static string GetItemKey(int type)
+        {
+            return GetItem(type)?.FullName;
+        }
+
+        /// <summary>
         /// <see cref="Item.type"/>是否是<see cref="ExtenItem"/>
         /// </summary>
         public static bool TypeInRange(int type)

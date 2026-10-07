@@ -35,6 +35,11 @@ namespace ExtenContent.Extens
         public static int GetExtenItemType(string key) => ItemLoader.GetItemType(key);
 
         /// <summary>
+        /// 获取<see cref="Item.type"/>对应的<see cref="ExtenType.FullName"/>, 不存在返回<see langword="null"/>
+        /// </summary>
+        public static string GetExtenItemKey(int type) => ItemLoader.GetItemKey(type);
+
+        /// <summary>
         /// <see cref="Item.type"/>是否是<see cref="ExtenItem"/>
         /// </summary>
         public static bool IsExtenItem(int type) => ItemLoader.TypeInRange(type);
@@ -44,6 +49,16 @@ namespace ExtenContent.Extens
         /// 返回的key肯定和传入的参数一样, 该方法是用于判断是否有注册这个卸载物品
         /// </summary>
         public static string GetUnloadItemKey(string key) => ItemLoader.GetUnloadItemKey(key);
+
+        /// <summary>
+        /// 注册一个卸载物品
+        /// </summary>
+        public static void RegisterUnloadItem(string key) => ItemLoader.RegisterUnload(key);
+
+        /// <summary>
+        /// 将<paramref name="item"/>设为卸载物品并返回<see langword="true"/>, 不存在则不处理并返回<see langword="false"/>
+        /// </summary>
+        public static bool SetUnloadItem(Item item, string key) => ItemLoader.SetUnloadItem(item, key);
         #endregion
 
         /// <summary>

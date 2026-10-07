@@ -2,6 +2,7 @@
 using ExtenContent.Utils;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using NewContents.Content.Items;
 using System;
 using Terraria;
 using Terraria.Audio;

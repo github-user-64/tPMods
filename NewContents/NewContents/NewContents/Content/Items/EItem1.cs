@@ -7,7 +7,7 @@ using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.Localization;
 
-namespace NewContents
+namespace NewContents.Content.Items
 {
     internal class EItem1 : ExtenItem
     {
