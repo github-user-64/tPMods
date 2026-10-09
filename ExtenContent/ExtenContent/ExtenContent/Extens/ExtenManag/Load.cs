@@ -40,7 +40,10 @@ namespace ExtenContent.Extens
             ThisMod.mo = mo;
 
             ModObject newmo = new ModObject(new ModConfig());
+            newmo.info = new ModInfo();
             newmo.modPath = ThisMod.mo.modPath;
+            newmo.info.name = ThisMod.mo.info.name;
+            newmo.config.key = ThisMod.mo.config.key;
             newmo.assembly = Assembly.GetExecutingAssembly();
 
             IsInited = true;
@@ -93,6 +96,7 @@ namespace ExtenContent.Extens
         {
             if (IsInited != true) throw new Exception($"{nameof(ExtenManag)}:在初始化前不能注册");
             if (IsLoad) throw new Exception($"{nameof(ExtenManag)}:不可在加载后注册");
+            Utils.Utils.LogPrint($"{nameof(ExtenManag)}:注册模组:[{mo.info.name ?? mo.config.key}]");
 
             IAssetRepository asset = null;
             if (Main.dedServ != true)

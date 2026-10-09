@@ -41,7 +41,13 @@ namespace NewContents.Common
                 Projectile proj = Main.projectile[result];
                 if (Vals.IndexInRange(proj.owner) != true) return;
 
-                proj.scale += Vals[proj.owner];
+                float v = Vals[proj.owner];
+                if (v == 0) return;
+
+                proj.scale += v;
+
+                //三叉戟,短剑
+                if (proj.aiStyle == 19 || proj.aiStyle == 161) proj.velocity += proj.velocity * v;
             }
         }
     }

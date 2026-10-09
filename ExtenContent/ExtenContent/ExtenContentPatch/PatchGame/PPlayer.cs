@@ -58,6 +58,9 @@ namespace ExtenContentPatch.PatchGame
             ThisMod.Api.Item.CanUseItem(ref __result, __instance, sItem);
         }
 
+        /// <summary>
+        /// <see cref="ExtenContent.ThisMod.TerrariaVersionCheck"/>
+        /// </summary>
         [HarmonyPatch("ItemCheck_ManageRightClickFeatures")]
         [HarmonyPostfix]
         private static void ItemCheck_ManageRightClickFeaturesPostfix(Player __instance)

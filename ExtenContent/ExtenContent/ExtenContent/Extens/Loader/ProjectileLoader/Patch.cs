@@ -7,14 +7,21 @@ namespace ExtenContent.Extens
 {
     public static partial class ProjectileLoader
     {
+        /// <summary>
+        /// <see cref="ThisMod.TerrariaVersionCheck"/>
+        /// </summary>
         internal static void SetDefaultsPostfix(Projectile proj, int Type)
         {
             ExtenProjectile ep = GetProj(Type);
             if (ep == null) return;
 
+            ep.SetDefault(proj);
+
             proj.active = Type != ProjectileID.None;
 
-            ep.SetDefault(proj);
+            proj.width = (int)(proj.width * proj.scale);
+            proj.height = (int)(proj.height * proj.scale);
+            proj.maxPenetrate = proj.penetrate;
         }
 
         internal static void AIPostfix(Projectile proj)

@@ -21,18 +21,21 @@ namespace NewContents.Content.Projectiles
         {
             proj.width = 98;
             proj.height = 98;
-            proj.scale = 0f;
+            proj.scale = 1f;
             proj.aiStyle = 0;
             proj.timeLeft = 60;
             proj.tileCollide = false;//图格碰撞
             proj.ignoreWater = true;//无视水
             proj.penetrate = -1;//穿透次数, -1无限
             proj.friendly = true;//友好
+
+            proj.usesLocalNPCImmunity = true;//使用局部免疫框架
+            proj.localNPCHitCooldown = 0;//当与usesLocalNPCImmunity结合使用时，确定此投射物必须经过多少滴答声才能再次对同一npc造成伤害。值-1表示它只能击中特定的npc一次。默认值-2无效
         }
 
         public override void NewProjectilePostfix(Projectile proj, IEntitySource spawnSource)
         {
-            proj.scale += proj.ai[0];
+            proj.scale = proj.ai[0];
         }
 
         public override void AI(Projectile proj)

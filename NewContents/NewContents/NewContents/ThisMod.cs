@@ -9,12 +9,15 @@ namespace NewContents
     {
         public static ModObject mo { get; protected set; } = null;
 
+        public ThisMod()
+        {
+            string targetVersion = "1-beta16-t1.4.5.8";
+            if (ContentPatch.VersionTPlainModLoader != targetVersion) throw new Exception($"扩展内容的目标tPlainModLoader版本为:{targetVersion}");
+        }
+
         public override void Load(ModObject mo)
         {
             ThisMod.mo = mo;
-
-            string targetVersion = "1-beta15-t1.4.5.8";
-            if (ContentPatch.VersionTPlainModLoader != targetVersion) throw new Exception($"扩展内容的目标tPlainModLoader版本为:{targetVersion}");
 
             RegistExten(ThisMod.mo);
         }

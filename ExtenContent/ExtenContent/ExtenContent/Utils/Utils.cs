@@ -13,5 +13,15 @@ namespace ExtenContent.Utils
 
             init.Invoke(null, null);
         }
+
+        internal static void LogPrint(string s)
+        {
+            if (s == null) return;
+
+            s = $"扩展内容:{s}";
+
+            tContentPatch.ContentPatch.PrintTry(s);
+            tContentPatch.Utils.Log.Add(s);
+        }
     }
 }
