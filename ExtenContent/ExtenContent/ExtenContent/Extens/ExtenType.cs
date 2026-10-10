@@ -15,7 +15,9 @@ namespace ExtenContent.Extens
         /// <inheritdoc/>
         public string FullName => $"{GetType().Namespace}.{Name}";
         /// <summary>
-        /// 用于请求资源, 请求目录默认为<see cref="ModObject.modPath"/>
+        /// 用于请求资源, 请求目录默认为<see cref="ModObject.modPath"/><br/>
+        /// 默认的<see cref="Asset"/>可在请求路径前加上"Terraria/"来请求原版资源<para/>
+        /// 可在<see cref="ExtenManag.RegistMod(ModObject)"/>前赋值
         /// </summary>
         public IAssetRepository Asset { get; protected set; } = null;
         /// <summary>

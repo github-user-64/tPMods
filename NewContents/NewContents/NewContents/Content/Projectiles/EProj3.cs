@@ -6,7 +6,6 @@ using NewContents.Content.Items;
 using System;
 using Terraria;
 using Terraria.Audio;
-using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.Localization;
 
@@ -40,11 +39,6 @@ namespace NewContents.Content.Projectiles
             return false;
         }
 
-        public override void NewProjectilePostfix(Projectile proj, IEntitySource spawnSource)
-        {
-            SoundEngine.PlaySound(SoundID.Item84);
-        }
-
         public override void AI(Projectile proj)
         {
             if (Main.player.IndexInRange(proj.owner) != true) return;
@@ -65,22 +59,27 @@ namespace NewContents.Content.Projectiles
                 AI(proj, player);
             }
 
-            Vector2 v = new Vector2(proj.localAI[0], proj.localAI[1]);
+            Vector2 v = proj.velocity;
             if (v == Vector2.Zero) v = Vector2.UnitX;
             v = v.RotatedBy(5f * (MathHelper.TwoPi / v.Length()));
             v += Vector2.Normalize(v) * 5;
-            proj.localAI[0] = v.X;
-            proj.localAI[1] = v.Y;
+            proj.velocity = v;
 
             Vector2 pos = player.RotatedRelativePoint(player.MountedCenter, false, true);
             proj.Center = pos;
+
+            if (proj.localAI[0] == 0)
+            {
+                proj.localAI[0] = 1;
+                SoundEngine.PlaySound(SoundID.Item84);
+            }
         }
 
         protected static void AI(Projectile proj, Player player)
         {
             if (Main.GameUpdateCount % 3 != 0) return;
 
-            float len = new Vector2(proj.localAI[0], proj.localAI[1]).Length();
+            float len = proj.velocity.Length();
 
             for (int i = 0; i < Main.npc.Length; ++i)
             {
@@ -96,7 +95,7 @@ namespace NewContents.Content.Projectiles
         {
             Texture2D img = Asset.Request<Texture2D>("a1").Value;
 
-            Vector2 velocity = new Vector2(proj.localAI[0], proj.localAI[1]);
+            Vector2 velocity = proj.velocity;
             Rectangle size = new Rectangle(0, 0, proj.width, proj.height);
             int len = 4;
 
@@ -128,7 +127,7 @@ namespace NewContents.Content.Projectiles
         {
             Texture2D img = Asset.Request<Texture2D>(Texture).Value;
 
-            Vector2 velocity = new Vector2(proj.localAI[0], proj.localAI[1]);
+            Vector2 velocity = proj.velocity;
             Rectangle size = new Rectangle(0, 0, proj.width, proj.height);
             Color color = proj.GetAlpha(lightColor);
 
@@ -144,10 +143,9 @@ namespace NewContents.Content.Projectiles
             });
         }
 
-        public override Color? GetAlpha(Projectile proj, Color newColor)
-        {
-            return Color.White;
-        }
+        public override bool CanUpdatePosition(Projectile proj, Vector2 wetVelocity) => false;
+
+        public override Color? GetAlpha(Projectile proj, Color newColor) => Color.White;
 
         protected static void For(Vector2 position, Vector2 velocity, Projectile proj, Action<Vector2> foo)
         {

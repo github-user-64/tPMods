@@ -57,5 +57,11 @@ namespace ExtenContent.PrivateApi
         {
             ProjectileLoader.DrawProjDirectPostfix(proj, lightColor, player);
         }
+
+        /// <summary/>
+        public bool UpdatePositionPrefix(Projectile proj, Vector2 wetVelocity)
+        {
+            return ProjectileLoader.UpdatePositionPrefix(proj, wetVelocity);
+        }
     }
 }

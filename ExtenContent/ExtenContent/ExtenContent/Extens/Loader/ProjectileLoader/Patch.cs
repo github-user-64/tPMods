@@ -60,5 +60,10 @@ namespace ExtenContent.Extens
         {
             GetProj(proj.type)?.PostDraw(proj, lightColor, player);
         }
+
+        internal static bool UpdatePositionPrefix(Projectile proj, Vector2 wetVelocity)
+        {
+            return GetProj(proj.type)?.CanUpdatePosition(proj, wetVelocity) ?? true;
+        }
     }
 }

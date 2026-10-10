@@ -40,5 +40,7 @@ namespace ExtenContent.Extens
         public virtual bool PreDraw(Projectile proj, Color lightColor, Player player = null) => true;
         /// <summary/>
         public virtual void PostDraw(Projectile proj, Color lightColor, Player player = null) { }
+        /// <summary/>
+        public virtual bool CanUpdatePosition(Projectile proj, Vector2 wetVelocity) => true;
     }
 }

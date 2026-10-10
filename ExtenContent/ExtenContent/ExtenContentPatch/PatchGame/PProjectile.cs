@@ -46,5 +46,12 @@ namespace ExtenContentPatch.PatchGame
         {
             ThisMod.Api.Projectile.GetAlphaPostfix(ref __result, __instance, newColor);
         }
+
+        [HarmonyPatch("UpdatePosition")]
+        [HarmonyPrefix]
+        private static bool UpdatePositionPrefix(Projectile __instance, Vector2 wetVelocity)
+        {
+            return ThisMod.Api.Projectile.UpdatePositionPrefix(__instance, wetVelocity);
+        }
     }
 }

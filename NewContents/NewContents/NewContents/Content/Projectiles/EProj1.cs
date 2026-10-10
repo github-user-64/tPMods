@@ -6,7 +6,6 @@ using System;
 using tContentPatch;
 using Terraria;
 using Terraria.Audio;
-using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.Localization;
 
@@ -63,11 +62,6 @@ namespace NewContents.Content.Projectiles
             proj.localNPCHitCooldown = 0;//当与usesLocalNPCImmunity结合使用时，确定此投射物必须经过多少滴答声才能再次对同一npc造成伤害。值-1表示它只能击中特定的npc一次。默认值-2无效
         }
 
-        public override void NewProjectilePostfix(Projectile proj, IEntitySource spawnSource)
-        {
-            SoundEngine.PlaySound(SoundID.Item88, -1, -1);
-        }
-
         public override void AI(Projectile proj)
         {
             if (Main.player.IndexInRange(proj.owner) != true) return;
@@ -81,6 +75,12 @@ namespace NewContents.Content.Projectiles
             proj.Center = pos;
 
             proj.rotation = proj.velocity.ToRotation();
+
+            if (proj.localAI[0] == 0)
+            {
+                proj.localAI[0] = 1;
+                SoundEngine.PlaySound(SoundID.Item88, -1, -1);
+            }
         }
 
         public override void OnKill(Projectile proj)
@@ -119,27 +119,26 @@ namespace NewContents.Content.Projectiles
             if (proj.owner != Main.myPlayer) return;
             Player player = Main.player[proj.owner];
 
-            Projectile.NewProjectile(null, pos, Vector2.Zero, ExtenManag.ProjectileType<EProj2>(),
+            Projectile.NewProjectile(null, pos, Vector2.UnitX.RotatedBy(MathHelper.TwoPi / 360f * Utils.getRand(0, 360)), ExtenManag.ProjectileType<EProj2>(),
                 proj.damage, proj.knockBack, player.whoAmI,
                 3f + Utils.getRand(-10, 10) * 0.1f);
 
             if (CDTime.cd > 0) return;
             CDTime.cd = 120;
 
-            float r = Vector2.Normalize(pos - player.Center).ToRotation();
+            Vector2 v = Vector2.Normalize(pos - player.Center);
 
             for (int i = 0; i < 5; ++i)
             {
-                Projectile.NewProjectile(null, pos, Vector2.Zero, ExtenManag.ProjectileType<EProj2>(),
+                Projectile.NewProjectile(null, pos, v, ExtenManag.ProjectileType<EProj2>(),
                 proj.damage, proj.knockBack, player.whoAmI,
                 3f, 1,
                 modifer: p =>
                 {
                     p.localAI[0] = 10;
-                    p.localAI[1] = r;
                 });
 
-                r += MathHelper.TwoPi / 5;
+                v = v.RotatedBy(MathHelper.TwoPi / 5f);
             }
 
             Common.Vibration.App(pos);

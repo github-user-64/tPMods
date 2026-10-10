@@ -2,7 +2,6 @@
 using ExtenContent.Utils;
 using Microsoft.Xna.Framework;
 using Terraria;
-using Terraria.DataStructures;
 using Terraria.Localization;
 
 namespace NewContents.Content.Projectiles
@@ -33,13 +32,15 @@ namespace NewContents.Content.Projectiles
             proj.localNPCHitCooldown = 0;//当与usesLocalNPCImmunity结合使用时，确定此投射物必须经过多少滴答声才能再次对同一npc造成伤害。值-1表示它只能击中特定的npc一次。默认值-2无效
         }
 
-        public override void NewProjectilePostfix(Projectile proj, IEntitySource spawnSource)
-        {
-            proj.scale = proj.ai[0];
-        }
-
         public override void AI(Projectile proj)
         {
+            if (proj.localAI[1] == 0)
+            {
+                proj.localAI[1] = 1;
+                proj.scale = proj.ai[0];
+                proj.rotation = MathHelper.TwoPi / 360f * Utils.getRand(0, 89);
+            }
+
             if (Main.GameUpdateCount % 4 != 0) return;
 
             int frame = proj.frame + 1;
@@ -58,26 +59,24 @@ namespace NewContents.Content.Projectiles
             if (proj.frame < 2) return;
 
             Vector2 pos = proj.Center;
-            Vector2 vect = proj.localAI[1].ToRotationVector2();
+            Vector2 vect = proj.velocity;
             vect = Vector2.Normalize(vect) * (proj.width / 2f * proj.scale);
             vect = vect.RotatedBy(Utils.getRand(-10, 10) * 0.01f);
             pos += vect;
 
-            Projectile.NewProjectile(null, pos, Vector2.Zero, ExtenManag.ProjectileType<EProj2>(),
+            Projectile.NewProjectile(null, pos, vect, ExtenManag.ProjectileType<EProj2>(),
                 proj.damage, proj.knockBack, proj.owner,
                 proj.ai[0], proj.ai[1],
                 modifer: p =>
                 {
                     p.localAI[0] = proj.localAI[0] - 1;
-                    p.localAI[1] = proj.localAI[1] + (Utils.getRand(-10, 10) * 0.01f);
                 });
 
             proj.localAI[0] = 0;
         }
 
-        public override Color? GetAlpha(Projectile proj, Color newColor)
-        {
-            return new Color(255, 255, 255, 127);
-        }
+        public override bool CanUpdatePosition(Projectile proj, Vector2 wetVelocity) => false;
+
+        public override Color? GetAlpha(Projectile proj, Color newColor) => new Color(255, 255, 255, 127);
     }
 }
