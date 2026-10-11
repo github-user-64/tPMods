@@ -5,6 +5,12 @@
     /// </summary>
     public enum EquipType
     {
+        /// <summary/>
+        Head,
+        /// <summary/>
+        Body,
+        /// <summary/>
+        Legs,
         /// <summary>
         /// 翅膀
         /// </summary>

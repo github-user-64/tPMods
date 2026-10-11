@@ -64,11 +64,11 @@ namespace ExtenContent.Extens
         /// <summary>
         /// 获取<see cref="ExtenEquip"/>对应的<see cref="ExtenEquip.Slot"/>, 不存在返回<see langword="-1"/>
         /// </summary>
-        public static sbyte GetEquipSlot<T>() where T : ExtenEquip
+        public static int GetEquipSlot<T>() where T : ExtenEquip
         {
             T instance = ExtenInstance<T>.Instance;
 
-            return (sbyte?)instance?.Slot ?? -1;
+            return instance?.Slot ?? -1;
         }
 
         #region 射弹

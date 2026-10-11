@@ -1,7 +1,5 @@
-﻿using Microsoft.Xna.Framework.Graphics;
+﻿using System;
 using System.Collections.Generic;
-using Terraria;
-using Terraria.GameContent;
 using Terraria.ID;
 
 namespace ExtenContent.Extens
@@ -12,9 +10,20 @@ namespace ExtenContent.Extens
     public static partial class EquipLoader
     {
         /// <summary/>
+        public static int HeadCount { get; private set; } = ArmorIDs.Head.Count;
+        /// <summary/>
+        public static int BodyCount { get; private set; } = ArmorIDs.Body.Count;
+        /// <summary/>
+        public static int LegsCount { get; private set; } = ArmorIDs.Legs.Count;
+        /// <summary/>
         public static int WingCount { get; private set; } = ArmorIDs.Wing.Count;
+        /// <summary/>
+        public static readonly EquipType[] EquipTypes = (EquipType[])Enum.GetValues(typeof(EquipType));
         private static readonly Dictionary<EquipType, List<ExtenEquip>> equips = new Dictionary<EquipType, List<ExtenEquip>>()
         {
+            { EquipType.Head, new List<ExtenEquip>() },
+            { EquipType.Body, new List<ExtenEquip>() },
+            { EquipType.Legs, new List<ExtenEquip>() },
             { EquipType.Wings, new List<ExtenEquip>() },
         };
 
@@ -36,6 +45,9 @@ namespace ExtenContent.Extens
                 ees.Value.ForEach(i => i.Unload());
             }
 
+            HeadCount = ArmorIDs.Head.Count;
+            BodyCount = ArmorIDs.Body.Count;
+            LegsCount = ArmorIDs.Legs.Count;
             WingCount = ArmorIDs.Wing.Count;
 
             foreach (List<ExtenEquip> i in equips.Values) i.Clear();
@@ -49,20 +61,13 @@ namespace ExtenContent.Extens
 
             switch (equip.EquipType)
             {
+                case EquipType.Head: slot = HeadCount++; break;
+                case EquipType.Body: slot = BodyCount++; break;
+                case EquipType.Legs: slot = LegsCount++; break;
                 case EquipType.Wings: slot = WingCount++; break;
             }
 
             equip.Slot = slot;
-        }
-
-        private static void Setup()
-        {
-            if (Main.dedServ) return;
-
-            foreach (ExtenEquip i in equips[EquipType.Wings])
-            {
-                TextureAssets.Wings[i.Slot] = i.Asset.Request<Texture2D>(i.Texture);
-            }
         }
 
         /// <summary>

@@ -78,6 +78,9 @@
     <Compile Include="Content\Projectiles\EProj1.cs" />
     <Compile Include="Content\Projectiles\EProj2.cs" />
     <Compile Include="Content\Projectiles\EProj3.cs" />
+    <Compile Include="cs1\EBody.cs" />
+    <Compile Include="cs1\ELegs.cs" />
+    <Compile Include="cs1\EHead.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ThisMod.cs" />
     <Compile Include="Utils.cs" />
