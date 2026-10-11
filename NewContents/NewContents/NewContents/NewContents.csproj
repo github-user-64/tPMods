@@ -68,6 +68,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Common\ExtenArmorSetBonus.cs" />
     <Compile Include="Common\ExtenRecipe.cs" />
     <Compile Include="Common\ModifyMeleeScale.cs" />
     <Compile Include="Common\Vibration.cs" />
@@ -79,6 +80,7 @@
     <Compile Include="Content\Projectiles\EProj2.cs" />
     <Compile Include="Content\Projectiles\EProj3.cs" />
     <Compile Include="cs1\EBody.cs" />
+    <Compile Include="cs1\EHead2.cs" />
     <Compile Include="cs1\ELegs.cs" />
     <Compile Include="cs1\EHead.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -12,7 +12,7 @@ namespace NewContents.Content.Items
         public override LocalizedText Tooltip => LanguageUtils.GetOrRegister($"{FullName}.{nameof(Tooltip)}",
             $"近战武器尺寸增加{EffectVal * 100}%");
 
-        public const float EffectVal = 0.5f;
+        public readonly static float EffectVal = 0.5f;
 
         public override void SetDefault(Item item)
         {

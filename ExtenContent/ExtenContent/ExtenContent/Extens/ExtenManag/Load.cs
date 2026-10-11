@@ -14,20 +14,31 @@ namespace ExtenContent.Extens
         {
             public static Action<T> Foo;
         }
+        private readonly static List<Action> Loads = new List<Action>();
+        private readonly static List<Action> Unloads = new List<Action>();
 
         private static readonly List<ExtenType> Extens = new List<ExtenType>();
         private static readonly List<IAssetRepository> Assets = new List<IAssetRepository>();
+
         private static bool IsLoad = false;
         private static bool IsInited = false;
         private static readonly object _lock = new object();
 
         static ExtenManag()
         {
-            RegistFoo<ExtenItem>.Foo = ItemLoader.Register;
-            RegistFoo<ExtenEquip>.Foo = EquipLoader.Register;
-            RegistFoo<ExtenProjectile>.Foo = ProjectileLoader.Register;
-            RegistFoo<EPatchPlayer>.Foo = PatchPlayerLoader.Register;
-            RegistFoo<EPatchRecipe>.Foo = PatchRecipeLoader.Register;
+            RegistLoader<ExtenItem>(ItemLoader.Register, ItemLoader.Load, ItemLoader.Unload);
+            RegistLoader<ExtenEquip>(EquipLoader.Register, EquipLoader.Load, EquipLoader.Unload);
+            RegistLoader<ExtenProjectile>(ProjectileLoader.Register, ProjectileLoader.Load, ProjectileLoader.Unload);
+            RegistLoader<EPatchPlayer>(PatchPlayerLoader.Register, PatchPlayerLoader.Load, PatchPlayerLoader.Unload);
+            RegistLoader<EPatchRecipe>(PatchRecipeLoader.Register, PatchRecipeLoader.Load, PatchRecipeLoader.Unload);
+            RegistLoader<EPatchArmorSetBonus>(PatchArmorSetBonusesLoader.Register, PatchArmorSetBonusesLoader.Load, PatchArmorSetBonusesLoader.Unload);
+        }
+
+        private static void RegistLoader<T>(Action<T> reg, Action load, Action unload) where T : ExtenType
+        {
+            RegistFoo<T>.Foo = reg;
+            Loads.Add(load);
+            Unloads.Add(unload);
         }
 
         internal static void Initialize(ModObject mo)
@@ -59,22 +70,14 @@ namespace ExtenContent.Extens
                 IsLoad = true;
             }
 
-            ItemLoader.Load();
-            EquipLoader.Load();
-            ProjectileLoader.Load();
-            PatchPlayerLoader.Load();
-            PatchRecipeLoader.Load();
+            Loads.ForEach(i => i());
 
             Extens.ForEach(i => i.SetStaticDefaults());
         }
 
         internal static void Unload()
         {
-            ItemLoader.Unload();
-            EquipLoader.Unload();
-            ProjectileLoader.Unload();
-            PatchPlayerLoader.Unload();
-            PatchRecipeLoader.Unload();
+            Unloads.ForEach(i => i());
 
             foreach (IAssetRepository asset in Assets) asset.Dispose();
             Assets.Clear();
@@ -110,6 +113,7 @@ namespace ExtenContent.Extens
             RegistExten<ExtenProjectile>(mo, asset);
             RegistExten<EPatchPlayer>(mo, asset);
             RegistExten<EPatchRecipe>(mo, asset);
+            RegistExten<EPatchArmorSetBonus>(mo, asset);
         }
 
         private static void RegistExten<T>(ModObject mo, IAssetRepository asset) where T : ExtenType

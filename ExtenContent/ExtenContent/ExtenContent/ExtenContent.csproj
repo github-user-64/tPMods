@@ -73,11 +73,13 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Extens\ExtenPatchs\EPatchArmorSetBonuses.cs" />
     <Compile Include="Extens\ExtenPatchs\EPatchRecipe.cs" />
     <Compile Include="Extens\Loader\EquipLoader\EquipLoader.cs" />
     <Compile Include="Extens\Loader\EquipLoader\Patch.cs" />
     <Compile Include="Extens\Loader\ItemLoader\ItemData.cs" />
     <Compile Include="Extens\Loader\ItemLoader\Patch_SetDefaults.cs" />
+    <Compile Include="Extens\Loader\PatchLoader\PatchArmorSetBonusesLoader.cs" />
     <Compile Include="PrivateApi\ApiExtenManag.cs" />
     <Compile Include="PrivateApi\ApiProjectileLoad.cs" />
     <Compile Include="PrivateApi\ApiItemLoad.cs" />

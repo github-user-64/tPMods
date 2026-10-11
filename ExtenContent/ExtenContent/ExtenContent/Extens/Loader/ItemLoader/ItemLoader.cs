@@ -25,7 +25,6 @@ namespace ExtenContent.Extens
         {
             ResizeArrays();
             FinishSetup();
-            BuildLookup();
 
             items.ForEach(i => i.Load());
         }

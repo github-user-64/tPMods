@@ -85,6 +85,7 @@
   <ItemGroup>
     <Compile Include="PatchGame\DataStructures\PlayerDrawHeadLayers.cs" />
     <Compile Include="PatchGame\DataStructures\PlayerDrawHeadSet.cs" />
+    <Compile Include="PatchGame\DataStructures\PArmorSetBonuses.cs" />
     <Compile Include="PatchGame\DataStructures\PlayerDrawSet.cs" />
     <Compile Include="PatchGame\DataStructures\PPlayerDrawLayers.cs" />
     <Compile Include="PatchGame\PItem.cs" />

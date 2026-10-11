@@ -10,9 +10,12 @@ namespace ExtenContentPatch
 {
     internal static class Utils
     {
+        public readonly static FieldInfo ItemID_Count = typeof(ItemID).GetField(nameof(ItemID.Count));
         public readonly static FieldInfo ArmorIDs_Head_Count = typeof(ArmorIDs.Head).GetField(nameof(ArmorIDs.Head.Count));
         public readonly static FieldInfo ArmorIDs_Body_Count = typeof(ArmorIDs.Body).GetField(nameof(ArmorIDs.Body.Count));
         public readonly static FieldInfo ArmorIDs_Legs_Count = typeof(ArmorIDs.Legs).GetField(nameof(ArmorIDs.Legs.Count));
+
+        public readonly static MethodInfo ItemLoader_ItemCount_Get = typeof(ItemLoader).GetMethod($"get_{nameof(ItemLoader.ItemCount)}");
         public readonly static MethodInfo EquipLoader_HeadCount_Get = typeof(EquipLoader).GetMethod($"get_{nameof(EquipLoader.HeadCount)}");
         public readonly static MethodInfo EquipLoader_BodyCount_Get = typeof(EquipLoader).GetMethod($"get_{nameof(EquipLoader.BodyCount)}");
         public readonly static MethodInfo EquipLoader_LegsCount_Get = typeof(EquipLoader).GetMethod($"get_{nameof(EquipLoader.LegsCount)}");
@@ -46,6 +49,13 @@ namespace ExtenContentPatch
             }
 
             return codeMatcher.Instructions();
+        }
+
+        public static IEnumerable<CodeInstruction> ItemToItemLoader(this IEnumerable<CodeInstruction> instructions)
+        {
+            return instructions.StaticFieldToMethod(
+                ItemID_Count,
+                ItemLoader_ItemCount_Get);
         }
 
         public static IEnumerable<CodeInstruction> HeadToEquipLoader(this IEnumerable<CodeInstruction> instructions)
