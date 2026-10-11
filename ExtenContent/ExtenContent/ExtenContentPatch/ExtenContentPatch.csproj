@@ -83,16 +83,22 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="PatchGame\DataStructures\PlayerDrawHeadLayers.cs" />
+    <Compile Include="PatchGame\DataStructures\PlayerDrawHeadSet.cs" />
+    <Compile Include="PatchGame\DataStructures\PlayerDrawSet.cs" />
+    <Compile Include="PatchGame\DataStructures\PPlayerDrawLayers.cs" />
     <Compile Include="PatchGame\PItem.cs" />
     <Compile Include="PatchGame\PLang.cs" />
     <Compile Include="PatchGame\PMain.cs" />
     <Compile Include="PatchGame\PPlayer.cs" />
     <Compile Include="PatchGame\PPlayer_ItemCheck_Shoot.cs" />
     <Compile Include="PatchGame\PProjectile.cs" />
-    <Compile Include="PatchGame\PSetFactory.cs" />
-    <Compile Include="PatchGame\PWingStatsInitializer.cs" />
+    <Compile Include="PatchGame\ID\PSetFactory.cs" />
+    <Compile Include="PatchGame\Initializers\PWingStatsInitializer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TerrariaVersionCheck.cs" />
     <Compile Include="ThisMod.cs" />
+    <Compile Include="Utils.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ExtenContent\ExtenContent.csproj">

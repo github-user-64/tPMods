@@ -12,7 +12,7 @@ namespace ExtenContentPatch.PatchGame
     {
         [HarmonyPatch(nameof(Lang.GetItemName))]
         [HarmonyTranspiler]
-        private static IEnumerable<CodeInstruction> TranspilerGetItemName(IEnumerable<CodeInstruction> instructions)
+        private static IEnumerable<CodeInstruction> Transpiler_GetItemName(IEnumerable<CodeInstruction> instructions)
         {
             CodeMatcher codeMatcher = new CodeMatcher(instructions);
 

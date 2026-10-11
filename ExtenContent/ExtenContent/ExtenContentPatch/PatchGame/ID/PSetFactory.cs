@@ -6,7 +6,7 @@ using System.Reflection;
 using Terraria.GameContent.Prefixes;
 using Terraria.ID;
 
-namespace ExtenContentPatch.PatchGame
+namespace ExtenContentPatch.PatchGame.ID
 {
     [HarmonyPatch(typeof(SetFactory))]
     internal static class PSetFactory

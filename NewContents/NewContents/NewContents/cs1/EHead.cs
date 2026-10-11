@@ -1,17 +1,11 @@
 ﻿using ExtenContent.Extens;
 using Terraria;
-using Terraria.ID;
 
 namespace NewContents.cs1
 {
     internal class EHead : ExtenItem
     {
         public override string Texture => "cs1/a1";
-
-        public override void SetStaticDefaults()
-        {
-            ArmorIDs.Head.Sets.HidesHead[ExtenManag.GetEquipSlot<EE>()] = true;
-        }
 
         public override void SetDefault(Item item)
         {

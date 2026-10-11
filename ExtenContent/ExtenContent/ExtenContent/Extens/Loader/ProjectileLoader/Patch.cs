@@ -7,9 +7,6 @@ namespace ExtenContent.Extens
 {
     public static partial class ProjectileLoader
     {
-        /// <summary>
-        /// <see cref="ThisMod.TerrariaVersionCheck"/>
-        /// </summary>
         internal static void SetDefaultsPostfix(Projectile proj, int Type)
         {
             ExtenProjectile ep = GetProj(Type);

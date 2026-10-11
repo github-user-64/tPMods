@@ -58,9 +58,6 @@ namespace ExtenContentPatch.PatchGame
             ThisMod.Api.Item.CanUseItem(ref __result, __instance, sItem);
         }
 
-        /// <summary>
-        /// <see cref="ExtenContent.ThisMod.TerrariaVersionCheck"/>
-        /// </summary>
         [HarmonyPatch("ItemCheck_ManageRightClickFeatures")]
         [HarmonyPostfix]
         private static void ItemCheck_ManageRightClickFeaturesPostfix(Player __instance)
@@ -87,7 +84,7 @@ namespace ExtenContentPatch.PatchGame
 
         [HarmonyPatch("ProcessHitAgainstNPC")]
         [HarmonyTranspiler]
-        private static IEnumerable<CodeInstruction> TranspilerProcessHitAgainstNPC(IEnumerable<CodeInstruction> instructions)
+        private static IEnumerable<CodeInstruction> Transpiler_ProcessHitAgainstNPC(IEnumerable<CodeInstruction> instructions)
         {
             CodeMatcher codeMatcher = new CodeMatcher(instructions);
 

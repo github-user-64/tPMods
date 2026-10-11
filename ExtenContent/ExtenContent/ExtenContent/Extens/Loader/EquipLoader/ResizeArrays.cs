@@ -56,6 +56,11 @@ namespace ExtenContent.Extens
                 }
             }
 
+            foreach (ExtenEquip e in equips[EquipType.Body])
+            {
+                ArmorIDs.Body.Sets.UsesNewFramingCode[e.Slot] = true;
+            }
+
             if (Main.dedServ) return;
 
             foreach (EquipType type in EquipTypes)

@@ -7,9 +7,6 @@ namespace ExtenContent.Extens
 {
     public static partial class ItemLoader
     {
-        /// <summary>
-        /// <see cref="ThisMod.TerrariaVersionCheck"/>
-        /// </summary>
         internal static void SetDefaults(Item item, int Type, ItemVariant variant = null)
         {
             if (TypeInRange(Type) != true) return;

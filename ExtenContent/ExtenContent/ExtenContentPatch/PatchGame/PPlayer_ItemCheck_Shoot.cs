@@ -11,9 +11,6 @@ namespace ExtenContentPatch.PatchGame
 {
     internal partial class PPlayer
     {
-        /// <summary>
-        /// <see cref="ExtenContent.ThisMod.TerrariaVersionCheck"/>
-        /// </summary>
         [HarmonyPatch("ItemCheck_Shoot")]
         [HarmonyPrefix]
         private static bool ItemCheck_ShootPrefix(Player __instance, int i, Item sItem, int weaponDamage, bool withAudioVisualFeedback)
