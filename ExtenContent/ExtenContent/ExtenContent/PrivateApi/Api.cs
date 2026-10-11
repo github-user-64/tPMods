@@ -6,6 +6,8 @@
         private Api() { }
 
         /// <summary/>
+        public void LogPrint(string s) => ThisMod.LogPrint(s);
+        /// <summary/>
         public ApiExtenManag ExtenManag = new ApiExtenManag();
         /// <summary/>
         public ApiPatchPlayerLoader PatchPlayer = new ApiPatchPlayerLoader();

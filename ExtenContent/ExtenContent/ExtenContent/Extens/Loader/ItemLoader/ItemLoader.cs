@@ -37,6 +37,8 @@ namespace ExtenContent.Extens
             items.Clear();
             itemsKey.Clear();
             itemsUnload.Clear();
+
+            ResizeArrays();
         }
 
         internal static void Register(ExtenItem item)

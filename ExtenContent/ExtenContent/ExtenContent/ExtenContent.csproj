@@ -73,8 +73,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Extens\ExtenPatchs\EPatchArmorSetBonuses.cs" />
-    <Compile Include="Extens\ExtenPatchs\EPatchRecipe.cs" />
+    <Compile Include="Extens\ExtenContents\ExtenPatchs\EPatchArmorSetBonuses.cs" />
+    <Compile Include="Extens\ExtenContents\ExtenPatchs\EPatchRecipe.cs" />
     <Compile Include="Extens\Loader\EquipLoader\EquipLoader.cs" />
     <Compile Include="Extens\Loader\EquipLoader\Patch.cs" />
     <Compile Include="Extens\Loader\ItemLoader\ItemData.cs" />
@@ -92,7 +92,7 @@
     <Compile Include="Extens\ExtenContents\ExtenEquip.cs" />
     <Compile Include="Extens\ExtenContents\ExtenProjectile.cs" />
     <Compile Include="Extens\ExtenInstance.cs" />
-    <Compile Include="Extens\ExtenPatchs\EPatchPlayer.cs" />
+    <Compile Include="Extens\ExtenContents\ExtenPatchs\EPatchPlayer.cs" />
     <Compile Include="Extens\Loader\PatchLoader\PatchPlayerLoader.cs" />
     <Compile Include="Extens\Loader\ProjectileLoader\ProjectileLoader.cs" />
     <Compile Include="Extens\Loader\ProjectileLoader\Patch.cs" />

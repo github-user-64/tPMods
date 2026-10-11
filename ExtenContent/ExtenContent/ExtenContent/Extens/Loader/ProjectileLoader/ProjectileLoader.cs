@@ -33,6 +33,8 @@ namespace ExtenContent.Extens
 
             ProjectileCount = ProjectileID.Count;
             projs.Clear();
+
+            ResizeArrays();
         }
 
         internal static void Register(ExtenProjectile proj)

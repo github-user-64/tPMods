@@ -70,6 +70,8 @@ namespace ExtenContent.Extens
                 IsLoad = true;
             }
 
+            ThisMod.LogPrint($"{nameof(ExtenManag)}:加载");
+
             Loads.ForEach(i => i());
 
             Extens.ForEach(i => i.SetStaticDefaults());
@@ -77,6 +79,8 @@ namespace ExtenContent.Extens
 
         internal static void Unload()
         {
+            ThisMod.LogPrint($"{nameof(ExtenManag)}:卸载");
+
             Unloads.ForEach(i => i());
 
             foreach (IAssetRepository asset in Assets) asset.Dispose();
@@ -99,7 +103,7 @@ namespace ExtenContent.Extens
         {
             if (IsInited != true) throw new Exception($"{nameof(ExtenManag)}:在初始化前不能注册");
             if (IsLoad) throw new Exception($"{nameof(ExtenManag)}:不可在加载后注册");
-            Utils.Utils.LogPrint($"{nameof(ExtenManag)}:注册模组:[{mo.info.name ?? mo.config.key}]");
+            ThisMod.LogPrint($"{nameof(ExtenManag)}:注册模组:[{mo.info.name ?? mo.config.key}]");
 
             IAssetRepository asset = null;
             if (Main.dedServ != true)

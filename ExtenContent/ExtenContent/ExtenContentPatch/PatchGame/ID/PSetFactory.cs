@@ -28,8 +28,8 @@ namespace ExtenContentPatch.PatchGame.ID
             if (type == null) return;
 
             if (type == typeof(ItemID.Sets)) size = ItemLoader.ItemCount;
-            if (type == typeof(AmmoID.Sets)) size = ItemLoader.ItemCount;
-            if (type == typeof(PrefixLegacy.ItemSets)) size = ItemLoader.ItemCount;
+            else if (type == typeof(AmmoID.Sets)) size = ItemLoader.ItemCount;
+            else if (type == typeof(PrefixLegacy.ItemSets)) size = ItemLoader.ItemCount;
             else if (type == typeof(ProjectileID.Sets)) size = ProjectileLoader.ProjectileCount;
             else if (type == typeof(ArmorIDs.Head.Sets)) size = EquipLoader.HeadCount;
             else if (type == typeof(ArmorIDs.Body.Sets)) size = EquipLoader.BodyCount;

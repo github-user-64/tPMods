@@ -14,11 +14,13 @@ namespace ExtenContentPatch
         public readonly static FieldInfo ArmorIDs_Head_Count = typeof(ArmorIDs.Head).GetField(nameof(ArmorIDs.Head.Count));
         public readonly static FieldInfo ArmorIDs_Body_Count = typeof(ArmorIDs.Body).GetField(nameof(ArmorIDs.Body.Count));
         public readonly static FieldInfo ArmorIDs_Legs_Count = typeof(ArmorIDs.Legs).GetField(nameof(ArmorIDs.Legs.Count));
+        public readonly static FieldInfo ArmorIDs_Wing_Count = typeof(ArmorIDs.Wing).GetField(nameof(ArmorIDs.Wing.Count));
 
         public readonly static MethodInfo ItemLoader_ItemCount_Get = typeof(ItemLoader).GetMethod($"get_{nameof(ItemLoader.ItemCount)}");
         public readonly static MethodInfo EquipLoader_HeadCount_Get = typeof(EquipLoader).GetMethod($"get_{nameof(EquipLoader.HeadCount)}");
         public readonly static MethodInfo EquipLoader_BodyCount_Get = typeof(EquipLoader).GetMethod($"get_{nameof(EquipLoader.BodyCount)}");
         public readonly static MethodInfo EquipLoader_LegsCount_Get = typeof(EquipLoader).GetMethod($"get_{nameof(EquipLoader.LegsCount)}");
+        public readonly static MethodInfo EquipLoader_WingCount_Get = typeof(EquipLoader).GetMethod($"get_{nameof(EquipLoader.WingCount)}");
 
         public static IEnumerable<CodeInstruction> StaticFieldToMethod(this IEnumerable<CodeInstruction> instructions, FieldInfo fi, MethodInfo mi)
         {
@@ -77,6 +79,13 @@ namespace ExtenContentPatch
             return instructions.StaticFieldToMethod(
                 ArmorIDs_Legs_Count,
                 EquipLoader_LegsCount_Get);
+        }
+
+        public static IEnumerable<CodeInstruction> WingToEquipLoader(this IEnumerable<CodeInstruction> instructions)
+        {
+            return instructions.StaticFieldToMethod(
+                ArmorIDs_Wing_Count,
+                EquipLoader_WingCount_Get);
         }
     }
 }

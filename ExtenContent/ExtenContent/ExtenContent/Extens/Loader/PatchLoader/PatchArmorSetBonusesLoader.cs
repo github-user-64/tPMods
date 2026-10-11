@@ -12,6 +12,7 @@ namespace ExtenContent.Extens
 
         internal static void Load()
         {
+            Utils.Utils.ResetStaticMembers(typeof(ArmorSetBonuses));
             ArmorSetBonuses.Initialize();
 
             PatchArmorSetBonuses.ForEach(i => i.AddArmorSetBonus());
@@ -23,6 +24,7 @@ namespace ExtenContent.Extens
         {
             PatchArmorSetBonuses.Clear();
 
+            Utils.Utils.ResetStaticMembers(typeof(ArmorSetBonuses));
             ArmorSetBonuses.Initialize();
             ArmorSetBonuses.BuildLookup();
         }

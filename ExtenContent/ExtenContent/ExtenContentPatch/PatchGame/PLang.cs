@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Reflection;
 using System.Reflection.Emit;
 using Terraria;
-using Terraria.ID;
 
 namespace ExtenContentPatch.PatchGame
 {
@@ -17,7 +16,7 @@ namespace ExtenContentPatch.PatchGame
             CodeMatcher codeMatcher = new CodeMatcher(instructions);
 
             codeMatcher.MatchStartForward(
-               new CodeMatch(OpCodes.Ldsfld, typeof(ItemID).GetField(nameof(ItemID.Count)))
+               new CodeMatch(OpCodes.Ldsfld, Utils.ItemID_Count)
                )
                .ThrowIfInvalid("找不到IL位置")
                .Advance(0)

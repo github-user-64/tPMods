@@ -51,6 +51,8 @@ namespace ExtenContent.Extens
             WingCount = ArmorIDs.Wing.Count;
 
             foreach (List<ExtenEquip> i in equips.Values) i.Clear();
+
+            ResizeArrays();
         }
 
         internal static void Register(ExtenEquip equip)

@@ -57,6 +57,8 @@ namespace ExtenContentPatch
 
         public override void AddPatch(IAddPatch addPatch)//添加修补
         {
+            Api.LogPrint("添加修补");
+
             harmony = new Harmony(patchId);
             harmony.PatchAll();//修补全部
         }
