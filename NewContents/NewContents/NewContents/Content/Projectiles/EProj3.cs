@@ -93,7 +93,7 @@ namespace NewContents.Content.Projectiles
 
         public override bool PreDraw(Projectile proj, Color lightColor, Player player = null)
         {
-            Texture2D img = Asset.Request<Texture2D>("a1").Value;
+            Texture2D img = Asset.Request<Texture2D>("Content/a1").Value;
 
             Vector2 velocity = proj.velocity;
             Rectangle size = new Rectangle(0, 0, proj.width, proj.height);

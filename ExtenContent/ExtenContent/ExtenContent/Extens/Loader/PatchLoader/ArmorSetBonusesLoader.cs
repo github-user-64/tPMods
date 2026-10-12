@@ -6,7 +6,7 @@ namespace ExtenContent.Extens
     /// <summary>
     /// 套装效果加载器
     /// </summary>
-    public static class PatchArmorSetBonusesLoader
+    public static class ArmorSetBonusesLoader
     {
         private static readonly List<EPatchArmorSetBonus> PatchArmorSetBonuses = new List<EPatchArmorSetBonus>();
 

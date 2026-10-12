@@ -37,11 +37,17 @@ namespace ExtenContentPatch.PatchGame
             ThisMod.Api.Equip.ApplyEquipVanityPostfix(This, itemSlot, currentItem);
         }
 
+        public override void UpdateBuffsPostfix(Player This, int i)
+        {
+            ThisMod.Api.Buff.UpdateBuffsPostfix(This);
+        }
+
         [HarmonyPatch(MethodType.Constructor)]
         [HarmonyPostfix]
-        private static void PlayerPostfix(Player __instance)
+        private static void ConstructorPostfix(Player __instance)
         {
             __instance.ownedProjectileCounts = new int[ProjectileLoader.ProjectileCount];
+            __instance.buffImmune = new bool[BuffLoader.BuffCount];
         }
 
         [HarmonyPatch("ApplyItemAnimation")]
@@ -128,6 +134,20 @@ namespace ExtenContentPatch.PatchGame
         private static void GetAdjustedItemScalePostfix(ref float __result, Player __instance, Item item)
         {
             ThisMod.Api.PatchPlayer.GetAdjustedItemScalePostfix(ref __result, __instance, item);
+        }
+
+        [HarmonyPatch(nameof(Player.Update))]
+        [HarmonyTranspiler]
+        private static IEnumerable<CodeInstruction> Transpiler_Update(IEnumerable<CodeInstruction> instructions)
+        {
+            return instructions.BuffToLoader();
+        }
+
+        [HarmonyPatch("UpdateSunScorch")]
+        [HarmonyTranspiler]
+        private static IEnumerable<CodeInstruction> Transpiler_UpdateSunScorch(IEnumerable<CodeInstruction> instructions)
+        {
+            return instructions.BuffToLoader();
         }
     }
 }

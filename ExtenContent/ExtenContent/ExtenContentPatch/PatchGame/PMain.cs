@@ -1,9 +1,12 @@
-﻿using Microsoft.Xna.Framework;
+﻿using HarmonyLib;
+using Microsoft.Xna.Framework;
+using System.Collections.Generic;
 using tContentPatch;
 using Terraria;
 
 namespace ExtenContentPatch.PatchGame
 {
+    [HarmonyPatch(typeof(Main))]
     internal class PMain : PatchMain
     {
         public override void MouseText_DrawItemTooltip_GetLinesInfoPostfix(Item item, ref int yoyoLogo, ref float oldKB, ref int numLines, ref string[] toolTipLine, ref Color[] lineColors)
@@ -33,6 +36,20 @@ namespace ExtenContentPatch.PatchGame
             Color projectileColor = Lighting.GetColor((int)(proj.position.X + proj.width * 0.5) / 16, (int)((proj.position.Y + proj.height * 0.5) / 16.0));
 
             ThisMod.Api.Projectile.DrawProjDirectPostfix(proj, projectileColor, player);
+        }
+
+        [HarmonyPatch(nameof(Main.GetNurseHealCost))]
+        [HarmonyTranspiler]
+        private static IEnumerable<CodeInstruction> Transpiler_GetNurseHealCost(IEnumerable<CodeInstruction> instructions)
+        {
+            return instructions.BuffToLoader();
+        }
+
+        [HarmonyPatch(nameof(Main.NPCChatText_DoNurseHeal))]
+        [HarmonyTranspiler]
+        private static IEnumerable<CodeInstruction> Transpiler_NPCChatText_DoNurseHeal(IEnumerable<CodeInstruction> instructions)
+        {
+            return instructions.BuffToLoader();
         }
     }
 }

@@ -17,5 +17,7 @@
         public ApiItemLoad Item = new ApiItemLoad();
         /// <summary/>
         public ApiProjectileLoad Projectile = new ApiProjectileLoad();
+        /// <summary/>
+        public ApiBuffLoader Buff = new ApiBuffLoader();
     }
 }

@@ -11,14 +11,14 @@ namespace ExtenContentPatch.PatchGame.DataStructures
         [HarmonyTranspiler]
         private static IEnumerable<CodeInstruction> Transpiler_BoringSetup(IEnumerable<CodeInstruction> instructions)
         {
-            return instructions.HeadToEquipLoader().BodyToEquipLoader().LegsToEquipLoader();
+            return instructions.HeadToLoader().BodyToLoader().LegsToLoader();
         }
 
         [HarmonyPatch("CreateCompositeData")]
         [HarmonyTranspiler]
         private static IEnumerable<CodeInstruction> Transpiler_CreateCompositeData(IEnumerable<CodeInstruction> instructions)
         {
-            return instructions.BodyToEquipLoader();
+            return instructions.BodyToLoader();
         }
     }
 }

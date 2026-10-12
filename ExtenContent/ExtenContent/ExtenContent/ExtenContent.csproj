@@ -75,11 +75,19 @@
   <ItemGroup>
     <Compile Include="Extens\ExtenContents\ExtenPatchs\EPatchArmorSetBonuses.cs" />
     <Compile Include="Extens\ExtenContents\ExtenPatchs\EPatchRecipe.cs" />
+    <Compile Include="Extens\ExtenContents\ExtenBuff.cs" />
+    <Compile Include="Extens\ExtenManag\Help\HelpBuff.cs" />
+    <Compile Include="Extens\ExtenManag\Help\HelpEquip.cs" />
+    <Compile Include="Extens\ExtenManag\Help\HelpProjectile.cs" />
     <Compile Include="Extens\Loader\EquipLoader\EquipLoader.cs" />
     <Compile Include="Extens\Loader\EquipLoader\Patch.cs" />
     <Compile Include="Extens\Loader\ItemLoader\ItemData.cs" />
     <Compile Include="Extens\Loader\ItemLoader\Patch_SetDefaults.cs" />
-    <Compile Include="Extens\Loader\PatchLoader\PatchArmorSetBonusesLoader.cs" />
+    <Compile Include="Extens\Loader\PatchLoader\ArmorSetBonusesLoader.cs" />
+    <Compile Include="Extens\Loader\BuffLoader\Patch.cs" />
+    <Compile Include="Extens\Loader\BuffLoader\BuffLoader.cs" />
+    <Compile Include="Extens\Loader\BuffLoader\ResizeArrays.cs" />
+    <Compile Include="PrivateApi\ApiBuffLoader.cs" />
     <Compile Include="PrivateApi\ApiExtenManag.cs" />
     <Compile Include="PrivateApi\ApiProjectileLoad.cs" />
     <Compile Include="PrivateApi\ApiItemLoad.cs" />
@@ -98,8 +106,8 @@
     <Compile Include="Extens\Loader\ProjectileLoader\Patch.cs" />
     <Compile Include="Extens\Loader\ProjectileLoader\ResizeArrays.cs" />
     <Compile Include="Extens\UnloadItem.cs" />
-    <Compile Include="Extens\ExtenManag\Load.cs" />
     <Compile Include="Extens\ExtenManag\ExtenManag.cs" />
+    <Compile Include="Extens\ExtenManag\Help\HelpItem.cs" />
     <Compile Include="Extens\ExtenType.cs" />
     <Compile Include="Extens\IExtenType.cs" />
     <Compile Include="Extens\Loader\ItemLoader\Patch.cs" />

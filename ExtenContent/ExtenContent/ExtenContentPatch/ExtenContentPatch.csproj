@@ -83,6 +83,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="PatchGame\DataStructures\PNPCDebuffImmunityData.cs" />
     <Compile Include="PatchGame\DataStructures\PlayerDrawHeadLayers.cs" />
     <Compile Include="PatchGame\DataStructures\PlayerDrawHeadSet.cs" />
     <Compile Include="PatchGame\DataStructures\PArmorSetBonuses.cs" />
@@ -91,6 +92,7 @@
     <Compile Include="PatchGame\PItem.cs" />
     <Compile Include="PatchGame\PLang.cs" />
     <Compile Include="PatchGame\PMain.cs" />
+    <Compile Include="PatchGame\PNPC.cs" />
     <Compile Include="PatchGame\PPlayer.cs" />
     <Compile Include="PatchGame\PPlayer_ItemCheck_Shoot.cs" />
     <Compile Include="PatchGame\PProjectile.cs" />

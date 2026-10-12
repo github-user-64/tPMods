@@ -1,10 +1,7 @@
-﻿using Microsoft.Xna.Framework.Graphics;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Reflection;
 using Terraria;
-using Terraria.GameContent;
 using Terraria.ID;
-using Terraria.Localization;
 
 namespace ExtenContent.Extens
 {
@@ -41,26 +38,6 @@ namespace ExtenContent.Extens
         {
             projs.Add(proj);
             ++ProjectileCount;
-        }
-
-        private static void Setup()
-        {
-            LocalizedText[] _projectileNameCache = (LocalizedText[])__projectileNameCache.GetValue(null);
-
-            for (int i = 0; i < projs.Count; ++i)
-            {
-                ExtenProjectile ep = projs[i];
-                ep.Projectile.SetDefaults(ProjectileID.Count + i);
-
-                if (Main.dedServ != true)
-                {
-                    TextureAssets.Projectile[ep.Type] = ep.Asset.Request<Texture2D>(ep.Texture);
-                }
-
-                _projectileNameCache[ep.Type] = ep.DisplayName;
-            }
-
-            __projectileNameCache.SetValue(null, _projectileNameCache);
         }
 
         /// <summary>

@@ -11,7 +11,7 @@ namespace ExtenContentPatch.PatchGame.DataStructures
         [HarmonyTranspiler]
         private static IEnumerable<CodeInstruction> Transpiler_BuildLookup(IEnumerable<CodeInstruction> instructions)
         {
-            return instructions.ItemToItemLoader();
+            return instructions.ItemToLoader();
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Xna.Framework.Graphics;
+using System;
 using Terraria;
 using Terraria.GameContent;
 using Terraria.ID;
@@ -49,6 +50,26 @@ namespace ExtenContent.Extens
             }
 
             array = arr;
+        }
+
+        private static void Setup()
+        {
+            LocalizedText[] _projectileNameCache = (LocalizedText[])__projectileNameCache.GetValue(null);
+
+            for (int i = 0; i < projs.Count; ++i)
+            {
+                ExtenProjectile ep = projs[i];
+                ep.Projectile.SetDefaults(ProjectileID.Count + i);
+
+                if (Main.dedServ != true)
+                {
+                    TextureAssets.Projectile[ep.Type] = ep.Asset.Request<Texture2D>(ep.Texture);
+                }
+
+                _projectileNameCache[ep.Type] = ep.DisplayName;
+            }
+
+            __projectileNameCache.SetValue(null, _projectileNameCache);
         }
     }
 }

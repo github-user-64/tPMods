@@ -12,7 +12,7 @@ namespace NewContents.cs1
             item.width = 18;
             item.height = 18;
             item.defense = 1;
-            item.headSlot = ExtenManag.GetEquipSlot<EE>();
+            item.headSlot = ExtenManag.EquipSlot<EE>();
         }
 
         internal class EE : ExtenEquip

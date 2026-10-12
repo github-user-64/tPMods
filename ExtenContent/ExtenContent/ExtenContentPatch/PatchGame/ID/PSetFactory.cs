@@ -14,7 +14,7 @@ namespace ExtenContentPatch.PatchGame.ID
         [HarmonyPatch(MethodType.Constructor)]
         [HarmonyPatch(new Type[] { typeof(int) })]
         [HarmonyPrefix]
-        private static void SetFactoryPrefix(ref int size)
+        private static void ConstructorPrefix(ref int size)
         {
             StackTrace st = new StackTrace();
 
@@ -35,6 +35,7 @@ namespace ExtenContentPatch.PatchGame.ID
             else if (type == typeof(ArmorIDs.Body.Sets)) size = EquipLoader.BodyCount;
             else if (type == typeof(ArmorIDs.Legs.Sets)) size = EquipLoader.LegsCount;
             else if (type == typeof(ArmorIDs.Wing.Sets)) size = EquipLoader.WingCount;
+            else if (type == typeof(BuffID.Sets)) size = BuffLoader.BuffCount;
         }
     }
 }

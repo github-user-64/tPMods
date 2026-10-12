@@ -11,7 +11,7 @@ namespace ExtenContentPatch.PatchGame.DataStructures
         [HarmonyTranspiler]
         private static IEnumerable<CodeInstruction> Transpiler_BoringSetup(IEnumerable<CodeInstruction> instructions)
         {
-            return instructions.HeadToEquipLoader();
+            return instructions.HeadToLoader();
         }
     }
 }

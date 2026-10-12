@@ -11,7 +11,7 @@ namespace NewContents.Content.Equips
     internal class EEquip1 : ExtenEquip
     {
         public override EquipType EquipType => EquipType.Wings;
-        public override string Texture => "Wings_1";
+        public override string Texture => "Content/Wings1";
         protected Vector2 oldVelocity = Vector2.Zero;
 
         public override void SetStaticDefaults()

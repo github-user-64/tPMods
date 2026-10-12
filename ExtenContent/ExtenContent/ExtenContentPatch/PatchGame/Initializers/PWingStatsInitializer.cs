@@ -11,7 +11,7 @@ namespace ExtenContentPatch.PatchGame.Initializers
         [HarmonyTranspiler]
         private static IEnumerable<CodeInstruction> Transpiler_Load(IEnumerable<CodeInstruction> instructions)
         {
-            return instructions.WingToEquipLoader();
+            return instructions.WingToLoader();
         }
     }
 }

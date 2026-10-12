@@ -10,7 +10,7 @@ namespace NewContents.Content.Items
 {
     internal class EItem2 : ExtenItem
     {
-        public override string Texture => "Item_1";
+        public override string Texture => "Content/Item1";
         public override LocalizedText DisplayName => LanguageUtils.GetOrRegister($"{FullName}.{nameof(DisplayName)}", "姿色恣意");
         public override LocalizedText Tooltip => LanguageUtils.GetOrRegister($"{FullName}.{nameof(Tooltip)}",
             $"{Language.GetTextValue("CommonItemTooltip.FlightAndSlowfall")}\n" +
@@ -23,7 +23,7 @@ namespace NewContents.Content.Items
             item.accessory = true;
             item.value = Item.buyPrice(0, 40);
             item.rare = 10;
-            item.wingSlot = (sbyte)ExtenManag.GetEquipSlot<EEquip1>();
+            item.wingSlot = (sbyte)ExtenManag.EquipSlot<EEquip1>();
         }
 
         public override void ModifyTooltips(Item item, ref int yoyoLogo, ref float oldKB, ref int numLines, ref string[] toolTipLine, ref Color[] lineColors)

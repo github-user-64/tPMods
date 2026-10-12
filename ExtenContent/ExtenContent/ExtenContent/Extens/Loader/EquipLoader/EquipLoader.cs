@@ -73,13 +73,51 @@ namespace ExtenContent.Extens
         }
 
         /// <summary>
-        /// 获取<see cref="WingCount"/>对应的<see cref="ExtenEquip"/>, 不存在返回<see langword="null"/>
+        /// <see cref="EquipType.Head"/>-><see cref="ArmorIDs.Head.Count"/>
         /// </summary>
-        public static ExtenEquip GetEquipWing(int slot)
+        public static int GetEquipOriginCount(EquipType type)
         {
-            if ((ArmorIDs.Wing.Count <= slot && slot < WingCount) != true) return null;
+            switch (type)
+            {
+                case EquipType.Head: return ArmorIDs.Head.Count;
+                case EquipType.Body: return ArmorIDs.Body.Count;
+                case EquipType.Legs: return ArmorIDs.Legs.Count;
+                case EquipType.Wings: return ArmorIDs.Wing.Count;
+                default: return 0;
+            }
+        }
 
-            return equips[EquipType.Wings][slot - ArmorIDs.Wing.Count];
+        /// <summary>
+        /// <see cref="EquipType.Head"/>-><see cref="HeadCount"/>
+        /// </summary>
+        public static int GetEquipCount(EquipType type)
+        {
+            switch (type)
+            {
+                case EquipType.Head: return HeadCount;
+                case EquipType.Body: return BodyCount;
+                case EquipType.Legs: return LegsCount;
+                case EquipType.Wings: return WingCount;
+                default: return 0;
+            }
+        }
+
+        /// <summary>
+        /// 是否是<see cref="ExtenEquip"/>
+        /// </summary>
+        public static bool TypeInRange(EquipType type, int slot)
+        {
+            return GetEquipOriginCount(type) <= slot && slot < GetEquipCount(type);
+        }
+
+        /// <summary>
+        /// 获取<see cref="ExtenEquip"/>, 不存在返回<see langword="null"/>
+        /// </summary>
+        public static ExtenEquip GetEquip(EquipType type, int slot)
+        {
+            if (TypeInRange(type, slot) != true) return null;
+
+            return equips[type][slot - GetEquipOriginCount(type)];
         }
     }
 }
