@@ -1,4 +1,5 @@
 ﻿using ExtenContent.Extens;
+using NewContents.Content.Items.Armor;
 using Terraria;
 
 namespace NewContents.Common
@@ -10,11 +11,11 @@ namespace NewContents.Common
             CreateArmorSetBonus(GotBuff1, nameof(GotBuff1), $"获取来自异界的力量")
                 .Set(new int[]
                 {
-                    ExtenManag.ItemType<cs1.EHead>(),
-                    ExtenManag.ItemType<cs1.EHead2>(),
+                    ExtenManag.ItemType<EHead>(),
+                    ExtenManag.ItemType<EHead2>(),
                 },
-                new int[] { ExtenManag.ItemType<cs1.EBody>() },
-                new int[] { ExtenManag.ItemType<cs1.ELegs>() })
+                new int[] { ExtenManag.ItemType<EBody>() },
+                new int[] { ExtenManag.ItemType<ELegs>() })
                 .Add();
         }
 

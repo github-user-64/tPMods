@@ -1,11 +1,14 @@
 ﻿using ExtenContent.Extens;
+using ExtenContent.Utils;
 using Terraria;
+using Terraria.Localization;
 
-namespace NewContents.cs1
+namespace NewContents.Content.Items.Armor
 {
     internal class EHead2 : ExtenItem
     {
-        public override string Texture => "cs1/b1";
+        public override string Texture => "Terraria/Images/Item_1742";
+        public override LocalizedText Tooltip => LanguageUtils.GetOrRegister($"{FullName}.{nameof(Tooltip)}", "[W]已损坏");
 
         public override void SetDefault(Item item)
         {
@@ -18,7 +21,7 @@ namespace NewContents.cs1
         internal class EE : ExtenEquip
         {
             public override EquipType EquipType => EquipType.Head;
-            public override string Texture => "cs1/b1_Head";
+            public override string Texture => "Terraria/Images/Armor_Head_116";
         }
     }
 }

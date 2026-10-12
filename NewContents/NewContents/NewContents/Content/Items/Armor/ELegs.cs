@@ -1,11 +1,11 @@
 ﻿using ExtenContent.Extens;
 using Terraria;
 
-namespace NewContents.cs1
+namespace NewContents.Content.Items.Armor
 {
     internal class ELegs : ExtenItem
     {
-        public override string Texture => "cs1/a3";
+        public override string Texture => "Content/Armor/Item1_2";
 
         public override void SetDefault(Item item)
         {
@@ -18,7 +18,7 @@ namespace NewContents.cs1
         internal class EE : ExtenEquip
         {
             public override EquipType EquipType => EquipType.Legs;
-            public override string Texture => "cs1/a3_Legs";
+            public override string Texture => "Content/Armor/Item1_Legs";
         }
     }
 }
