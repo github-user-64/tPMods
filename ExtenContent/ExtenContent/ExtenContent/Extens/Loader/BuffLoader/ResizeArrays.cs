@@ -55,7 +55,10 @@ namespace ExtenContent.Extens
                 _buffNameCache[eb.Type] = eb.DisplayName;
                 _buffDescriptionCache[eb.Type] = eb.Description;
 
-                TextureAssets.Buff[eb.Type] = eb.Asset.Request<Texture2D>(eb.Texture);
+                if (Main.dedServ != true)
+                {
+                    TextureAssets.Buff[eb.Type] = eb.Asset.Request<Texture2D>(eb.Texture);
+                }
                 BuffID.Search.Add(eb.FullName, eb.Type);
             }
 
