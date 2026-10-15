@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ExtenContent.Extens;
+using System;
 using System.Reflection;
 using Terraria.Localization;
 
@@ -27,6 +28,17 @@ namespace ExtenContent.Utils
         public static LocalizedText GetOrRegister(Type type, string key, string val)
         {
             return GetOrRegister($"{type.Namespace}.{type.Name}.{key}", val);
+        }
+
+        /// <summary/>
+        public interface ILanguageUtils : IExtenType { }
+
+        /// <summary>
+        /// <see cref="LocalizedText.Key"/>=><see cref="IExtenType.FullName"/>.<paramref name="name"/>
+        /// </summary>
+        public static LocalizedText GetLocalization(this ILanguageUtils i, string name, string val)
+        {
+            return GetOrRegister($"{i.FullName}.{name}", val);
         }
     }
 }

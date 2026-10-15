@@ -9,7 +9,7 @@ namespace ExtenContent.Extens
     /// <summary>
     /// 扩展物品
     /// </summary>
-    public abstract class ExtenItem : ExtenType
+    public abstract class ExtenItem : ExtenType, LanguageUtils.ILanguageUtils
     {
         /// <summary/>
         public Item Item { get; } = new Item();
@@ -24,11 +24,11 @@ namespace ExtenContent.Extens
         /// <summary>
         /// 物品名
         /// </summary>
-        public virtual LocalizedText DisplayName => LanguageUtils.GetOrRegister($"{FullName}.{nameof(DisplayName)}", Name);
+        public virtual LocalizedText DisplayName => this.GetLocalization($"{nameof(DisplayName)}", Name);
         /// <summary>
         /// 物品工具提示
         /// </summary>
-        public virtual LocalizedText Tooltip => LanguageUtils.GetOrRegister($"{FullName}.{nameof(Tooltip)}", string.Empty);
+        public virtual LocalizedText Tooltip => this.GetLocalization($"{nameof(Tooltip)}", string.Empty);
 
         /// <summary/>
         public virtual void SetDefault(Item item) { }

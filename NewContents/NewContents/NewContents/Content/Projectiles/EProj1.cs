@@ -15,7 +15,7 @@ namespace NewContents.Content.Projectiles
     {
         protected const int ProjLen = 8;
         public override string Texture => "Terraria/Images/Projectile_454";
-        public override LocalizedText DisplayName => LanguageUtils.GetOrRegister($"{FullName}.{nameof(DisplayName)}", "刻意的眼球");
+        public override LocalizedText DisplayName => this.GetLocalization($"{nameof(DisplayName)}", "刻意的眼球");
 
         protected class CDTime : PatchMain
         {

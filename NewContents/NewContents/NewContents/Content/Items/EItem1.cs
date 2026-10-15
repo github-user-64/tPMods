@@ -12,8 +12,8 @@ namespace NewContents.Content.Items
     internal class EItem1 : ExtenItem
     {
         public override string Texture => "Terraria/Images/NPC_400";
-        public override LocalizedText DisplayName => LanguageUtils.GetOrRegister($"{FullName}.{nameof(DisplayName)}", "刻意的眼球");
-        public override LocalizedText Tooltip => LanguageUtils.GetOrRegister($"{FullName}.{nameof(Tooltip)}",
+        public override LocalizedText DisplayName => this.GetLocalization($"{nameof(DisplayName)}", "刻意的眼球");
+        public override LocalizedText Tooltip => this.GetLocalization($"{nameof(Tooltip)}",
             "鼠标左键斩击\n" +
             "长按鼠标右键展开献祭领域\n" +
             "\"祂没有瞳孔\"");

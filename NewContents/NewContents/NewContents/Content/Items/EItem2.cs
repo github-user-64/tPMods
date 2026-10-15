@@ -11,8 +11,8 @@ namespace NewContents.Content.Items
     internal class EItem2 : ExtenItem
     {
         public override string Texture => "Content/Item1";
-        public override LocalizedText DisplayName => LanguageUtils.GetOrRegister($"{FullName}.{nameof(DisplayName)}", "姿色恣意");
-        public override LocalizedText Tooltip => LanguageUtils.GetOrRegister($"{FullName}.{nameof(Tooltip)}",
+        public override LocalizedText DisplayName => this.GetLocalization($"{nameof(DisplayName)}", "姿色恣意");
+        public override LocalizedText Tooltip => this.GetLocalization($"{nameof(Tooltip)}",
             $"{Language.GetTextValue("CommonItemTooltip.FlightAndSlowfall")}\n" +
             $"{Language.GetTextValue("CommonItemTooltip.PressDownToHover")}");
 

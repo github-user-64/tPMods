@@ -8,8 +8,8 @@ namespace NewContents.Content.Items
     internal class EItem3 : ExtenItem
     {
         public override string Texture => "Terraria/Images/Item_701";
-        public override LocalizedText DisplayName => LanguageUtils.GetOrRegister($"{FullName}.{nameof(DisplayName)}", "钨宽石");
-        public override LocalizedText Tooltip => LanguageUtils.GetOrRegister($"{FullName}.{nameof(Tooltip)}",
+        public override LocalizedText DisplayName => this.GetLocalization($"{nameof(DisplayName)}", "钨宽石");
+        public override LocalizedText Tooltip => this.GetLocalization($"{nameof(Tooltip)}",
             $"近战武器尺寸增加{EffectVal * 100}%");
 
         public readonly static float EffectVal = 0.5f;

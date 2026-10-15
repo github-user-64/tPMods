@@ -10,9 +10,9 @@ namespace NewContents.Content.Buffs
     internal class EBuff1 : ExtenBuff
     {
         public override string Texture => "Content/Buff1";
-        public override LocalizedText DisplayName => LanguageUtils.GetOrRegister($"{FullName}.{nameof(DisplayName)}", "力量");
-        public override LocalizedText Description => LanguageUtils.GetOrRegister($"{FullName}.{nameof(Description)}",
-            $"力量!!!\n近战伤害增加{val * 100}%");
+        public override LocalizedText DisplayName => this.GetLocalization($"{nameof(DisplayName)}", "力量");
+        public override LocalizedText Description => this.GetLocalization($"{nameof(Description)}",
+            $"近战伤害增加{val * 100}%\n力量!!!");
 
         public override void SetStaticDefaults()
         {
@@ -23,9 +23,9 @@ namespace NewContents.Content.Buffs
         public readonly static float val = 1f;
         public override void UpdateBuffs(Player player)
         {
-            ArmorSetBonus.QueryContext context2 = new ArmorSetBonus.QueryContext(player);
+            ArmorSetBonus.QueryContext context = new ArmorSetBonus.QueryContext(player);
 
-            if (ArmorSetBonuses.GetCompleteSet(context2)?.Effect == ExtenArmorSetBonus.GotBuff1)
+            if (ArmorSetBonuses.GetCompleteSet(context)?.Effect == ExtenArmorSetBonus.GotBuff1)
             {
                 player.meleeDamage += val;
                 return;

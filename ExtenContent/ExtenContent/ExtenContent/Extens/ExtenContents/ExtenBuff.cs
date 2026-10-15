@@ -7,7 +7,7 @@ namespace ExtenContent.Extens
     /// <summary>
     /// 扩展buff
     /// </summary>
-    public abstract class ExtenBuff : ExtenType
+    public abstract class ExtenBuff : ExtenType, LanguageUtils.ILanguageUtils
     {
         /// <summary>
         /// 对应的buffType
@@ -18,9 +18,9 @@ namespace ExtenContent.Extens
         /// </summary>
         public virtual string Texture { get; } = null;
         /// <summary/>
-        public virtual LocalizedText DisplayName => LanguageUtils.GetOrRegister($"{FullName}.{nameof(DisplayName)}", Name);
+        public virtual LocalizedText DisplayName => this.GetLocalization($"{nameof(DisplayName)}", Name);
         /// <summary/>
-        public virtual LocalizedText Description => LanguageUtils.GetOrRegister($"{FullName}.{nameof(Description)}", null);
+        public virtual LocalizedText Description => this.GetLocalization($"{nameof(Description)}", null);
 
         /// <summary/>
         public virtual void UpdateBuffs(Player player) { }

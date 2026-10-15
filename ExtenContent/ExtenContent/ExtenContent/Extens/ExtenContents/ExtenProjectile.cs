@@ -9,7 +9,7 @@ namespace ExtenContent.Extens
     /// <summary>
     /// 扩展射弹
     /// </summary>
-    public abstract class ExtenProjectile : ExtenType
+    public abstract class ExtenProjectile : ExtenType, LanguageUtils.ILanguageUtils
     {
         /// <summary/>
         public Projectile Projectile { get; } = new Projectile();
@@ -22,7 +22,7 @@ namespace ExtenContent.Extens
         /// </summary>
         public virtual string Texture { get; } = null;
         /// <summary/>
-        public virtual LocalizedText DisplayName => LanguageUtils.GetOrRegister($"{FullName}.{nameof(DisplayName)}", Name);
+        public virtual LocalizedText DisplayName => this.GetLocalization($"{nameof(DisplayName)}", Name);
 
         /// <summary/>
         public virtual void SetDefault(Projectile proj) { }

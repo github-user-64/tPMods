@@ -8,7 +8,7 @@ namespace NewContents.Content.Items.Armor
     internal class EHead2 : ExtenItem
     {
         public override string Texture => "Terraria/Images/Item_1742";
-        public override LocalizedText Tooltip => LanguageUtils.GetOrRegister($"{FullName}.{nameof(Tooltip)}", "[W]已损坏");
+        public override LocalizedText Tooltip => this.GetLocalization($"{nameof(Tooltip)}", "[W]已损坏");
 
         public override void SetDefault(Item item)
         {

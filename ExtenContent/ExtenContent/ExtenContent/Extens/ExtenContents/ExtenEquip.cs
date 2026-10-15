@@ -19,13 +19,10 @@ namespace ExtenContent.Extens
         /// 装备插槽
         /// </summary>
         public int Slot { get; internal set; }
-        /// <summary>
-        /// 
-        /// </summary>
+
+        /// <summary/>
         public virtual void ApplyEquipFunctionalPostfix(Player player, int itemSlot, Item currentItem) { }
-        /// <summary>
-        /// 
-        /// </summary>
+        /// <summary/>
         public virtual void ApplyEquipVanityPostfix(Player player, int itemSlot, Item currentItem) { }
     }
 }

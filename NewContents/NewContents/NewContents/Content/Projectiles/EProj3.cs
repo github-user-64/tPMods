@@ -14,7 +14,7 @@ namespace NewContents.Content.Projectiles
     internal class EProj3 : ExtenProjectile
     {
         public override string Texture => "Terraria/Images/Projectile_454";
-        public override LocalizedText DisplayName => LanguageUtils.GetOrRegister($"{FullName}.{nameof(DisplayName)}", "刻意的献祭");
+        public override LocalizedText DisplayName => this.GetLocalization($"{nameof(DisplayName)}", "刻意的献祭");
 
         public override void SetStaticDefaults()
         {
