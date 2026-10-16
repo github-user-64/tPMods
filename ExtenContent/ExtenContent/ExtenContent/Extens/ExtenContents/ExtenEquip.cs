@@ -1,16 +1,17 @@
-﻿using Terraria;
+﻿using ExtenContent.Utils;
+using Terraria;
 
 namespace ExtenContent.Extens
 {
     /// <summary>
     /// 扩展装备
     /// </summary>
-    public abstract class ExtenEquip : ExtenType
+    public abstract class ExtenEquip : ExtenType, TextureUtils.ITextureUtils
     {
         /// <summary>
         /// 纹理位置
         /// </summary>
-        public virtual string Texture { get; } = null;
+        public virtual string Texture => this.GetTexture();
         /// <summary>
         /// 装备类型
         /// </summary>

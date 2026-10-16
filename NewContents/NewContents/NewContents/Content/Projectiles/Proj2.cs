@@ -6,7 +6,7 @@ using Terraria.Localization;
 
 namespace NewContents.Content.Projectiles
 {
-    internal class EProj2 : ExtenProjectile
+    internal class Proj2 : ExtenProjectile
     {
         public override string Texture => "Terraria/Images/Projectile_645";
         public override LocalizedText DisplayName => this.GetLocalization($"{nameof(DisplayName)}", "刻意的爆炸");
@@ -64,7 +64,7 @@ namespace NewContents.Content.Projectiles
             vect = vect.RotatedBy(Utils.getRand(-10, 10) * 0.01f);
             pos += vect;
 
-            Projectile.NewProjectile(null, pos, vect, ExtenManag.ProjectileType<EProj2>(),
+            Projectile.NewProjectile(null, pos, vect, ExtenManag.ProjectileType<Proj2>(),
                 proj.damage, proj.knockBack, proj.owner,
                 proj.ai[0], proj.ai[1],
                 modifer: p =>

@@ -7,9 +7,9 @@ using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.Localization;
 
-namespace NewContents.Content.Items
+namespace NewContents.Content.Items.Weapons
 {
-    internal class EItem1 : ExtenItem
+    internal class Item1 : ExtenItem
     {
         public override string Texture => "Terraria/Images/NPC_400";
         public override LocalizedText DisplayName => this.GetLocalization($"{nameof(DisplayName)}", "刻意的眼球");
@@ -43,7 +43,7 @@ namespace NewContents.Content.Items
             item.damage = 114;
             item.melee = true;//近战伤害
             item.knockBack = 6f;
-            item.shoot = ExtenManag.ProjectileType<EProj1>();
+            item.shoot = ExtenManag.ProjectileType<Proj1>();
             item.shootSpeed = 1f;
             item.rare = 11;
             item.value = Item.sellPrice(0, 70, 0, 0);
@@ -58,7 +58,7 @@ namespace NewContents.Content.Items
                 item.useTime = 90;
                 item.melee = false;//近战伤害
                 item.magic = true;//魔法伤害
-                item.shoot = ExtenManag.ProjectileType<EProj3>();
+                item.shoot = ExtenManag.ProjectileType<Proj3>();
                 item.shootSpeed = 1f;
             }
             else
@@ -68,7 +68,7 @@ namespace NewContents.Content.Items
                 item.useTime = 16;
                 item.melee = true;//近战伤害
                 item.magic = false;//魔法伤害
-                item.shoot = ExtenManag.ProjectileType<EProj1>();
+                item.shoot = ExtenManag.ProjectileType<Proj1>();
                 item.shootSpeed = 1f;
             }
 
@@ -77,7 +77,7 @@ namespace NewContents.Content.Items
 
         public override bool Shoot(Player player, Item item, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
-            if (type == ExtenManag.ProjectileType<EProj1>())
+            if (type == ExtenManag.ProjectileType<Proj1>())
             {
                 if (velocity == Vector2.Zero) velocity = Vector2.UnitX;
 
@@ -88,7 +88,7 @@ namespace NewContents.Content.Items
                 Projectile.NewProjectile(source, position, velocity, type, damage, knockback, player.whoAmI,
                     dir);
             }
-            else if (type == ExtenManag.ProjectileType<EProj3>())
+            else if (type == ExtenManag.ProjectileType<Proj3>())
             {
                 Projectile.NewProjectile(source, position, Vector2.Zero, type, damage, knockback, player.whoAmI);
             }

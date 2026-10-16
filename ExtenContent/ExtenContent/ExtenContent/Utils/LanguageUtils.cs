@@ -34,7 +34,7 @@ namespace ExtenContent.Utils
         public interface ILanguageUtils : IExtenType { }
 
         /// <summary>
-        /// <see cref="LocalizedText.Key"/>=><see cref="IExtenType.FullName"/>.<paramref name="name"/>
+        /// <see cref="LocalizedText.Key"/> = <see cref="IExtenType.FullName"/>.<paramref name="name"/>
         /// </summary>
         public static LocalizedText GetLocalization(this ILanguageUtils i, string name, string val)
         {

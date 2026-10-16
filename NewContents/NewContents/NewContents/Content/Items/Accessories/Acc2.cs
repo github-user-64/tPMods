@@ -3,9 +3,9 @@ using ExtenContent.Utils;
 using Terraria;
 using Terraria.Localization;
 
-namespace NewContents.Content.Items
+namespace NewContents.Content.Items.Accessories
 {
-    internal class EItem3 : ExtenItem
+    internal class Acc2 : ExtenItem
     {
         public override string Texture => "Terraria/Images/Item_701";
         public override LocalizedText DisplayName => this.GetLocalization($"{nameof(DisplayName)}", "钨宽石");
@@ -31,7 +31,7 @@ namespace NewContents.Content.Items
         public override void AddRecipes()
         {
             CreateRecipe()
-                .AddIngredient(ExtenManag.ItemType<EItem2>())
+                .AddIngredient(ExtenManag.ItemType<Acc1>())
                 .Register();
         }
     }

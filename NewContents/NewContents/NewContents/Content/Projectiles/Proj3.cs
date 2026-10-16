@@ -2,7 +2,7 @@
 using ExtenContent.Utils;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using NewContents.Content.Items;
+using NewContents.Content.Items.Weapons;
 using System;
 using Terraria;
 using Terraria.Audio;
@@ -11,7 +11,7 @@ using Terraria.Localization;
 
 namespace NewContents.Content.Projectiles
 {
-    internal class EProj3 : ExtenProjectile
+    internal class Proj3 : ExtenProjectile
     {
         public override string Texture => "Terraria/Images/Projectile_454";
         public override LocalizedText DisplayName => this.GetLocalization($"{nameof(DisplayName)}", "刻意的献祭");
@@ -48,8 +48,8 @@ namespace NewContents.Content.Projectiles
             {
                 if (player.active != true || player.dead == true ||
                     Main.mouseRight != true ||
-                    player.HeldItem.type != ExtenManag.ItemType<EItem1>() ||
-                    player.HeldItem.shoot != ExtenManag.ProjectileType<EProj3>())
+                    player.HeldItem.type != ExtenManag.ItemType<Item1>() ||
+                    player.HeldItem.shoot != ExtenManag.ProjectileType<Proj3>())
                 {
                     SoundEngine.PlaySound(SoundID.NPCDeath6, proj.Center);
                     proj.Kill();
@@ -93,7 +93,7 @@ namespace NewContents.Content.Projectiles
 
         public override bool PreDraw(Projectile proj, Color lightColor, Player player = null)
         {
-            Texture2D img = Asset.Request<Texture2D>("Content/a1").Value;
+            Texture2D img = Asset.Request<Texture2D>("Assets/a1").Value;
 
             Vector2 velocity = proj.velocity;
             Rectangle size = new Rectangle(0, 0, proj.width, proj.height);

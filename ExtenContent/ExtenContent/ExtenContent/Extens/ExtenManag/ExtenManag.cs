@@ -32,10 +32,10 @@ namespace ExtenContent.Extens
             RegistLoader<ExtenItem>(ItemLoader.Register, ItemLoader.Load, ItemLoader.Unload);
             RegistLoader<ExtenEquip>(EquipLoader.Register, EquipLoader.Load, EquipLoader.Unload);
             RegistLoader<ExtenProjectile>(ProjectileLoader.Register, ProjectileLoader.Load, ProjectileLoader.Unload);
+            RegistLoader<ExtenBuff>(BuffLoader.Register, BuffLoader.Load, BuffLoader.Unload);
             RegistLoader<EPatchPlayer>(PatchPlayerLoader.Register, PatchPlayerLoader.Load, PatchPlayerLoader.Unload);
             RegistLoader<EPatchRecipe>(PatchRecipeLoader.Register, PatchRecipeLoader.Load, PatchRecipeLoader.Unload);
             RegistLoader<EPatchArmorSetBonus>(ArmorSetBonusesLoader.Register, ArmorSetBonusesLoader.Load, ArmorSetBonusesLoader.Unload);
-            RegistLoader<ExtenBuff>(BuffLoader.Register, BuffLoader.Load, BuffLoader.Unload);
         }
 
         private static void RegistLoader<T>(Action<T> reg, Action load, Action unload) where T : ExtenType
@@ -119,10 +119,10 @@ namespace ExtenContent.Extens
             RegistExten<ExtenItem>(mo, asset);
             RegistExten<ExtenEquip>(mo, asset);
             RegistExten<ExtenProjectile>(mo, asset);
+            RegistExten<ExtenBuff>(mo, asset);
             RegistExten<EPatchPlayer>(mo, asset);
             RegistExten<EPatchRecipe>(mo, asset);
             RegistExten<EPatchArmorSetBonus>(mo, asset);
-            RegistExten<ExtenBuff>(mo, asset);
         }
 
         private static void RegistExten<T>(ModObject mo, IAssetRepository asset) where T : ExtenType

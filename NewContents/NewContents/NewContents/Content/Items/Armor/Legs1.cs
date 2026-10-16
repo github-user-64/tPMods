@@ -3,22 +3,20 @@ using Terraria;
 
 namespace NewContents.Content.Items.Armor
 {
-    internal class EHead : ExtenItem
+    internal class Legs1 : ExtenItem
     {
-        public override string Texture => "Content/Armor/Item1_0";
-
         public override void SetDefault(Item item)
         {
             item.width = 18;
             item.height = 18;
             item.defense = 1;
-            item.headSlot = ExtenManag.EquipSlot<EE>();
+            item.legSlot = ExtenManag.EquipSlot<EE>();
         }
 
         internal class EE : ExtenEquip
         {
-            public override EquipType EquipType => EquipType.Head;
-            public override string Texture => "Content/Armor/Item1_Head";
+            public override EquipType EquipType => EquipType.Legs;
+            public override string Texture => "Content/Items/Armor/Item1_Legs";
         }
     }
 }

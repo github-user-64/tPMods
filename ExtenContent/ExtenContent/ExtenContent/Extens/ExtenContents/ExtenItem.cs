@@ -9,7 +9,7 @@ namespace ExtenContent.Extens
     /// <summary>
     /// 扩展物品
     /// </summary>
-    public abstract class ExtenItem : ExtenType, LanguageUtils.ILanguageUtils
+    public abstract class ExtenItem : ExtenType, LanguageUtils.ILanguageUtils, TextureUtils.ITextureUtils
     {
         /// <summary/>
         public Item Item { get; } = new Item();
@@ -20,7 +20,7 @@ namespace ExtenContent.Extens
         /// <summary>
         /// 物品图标位置
         /// </summary>
-        public virtual string Texture { get; } = null;
+        public virtual string Texture => this.GetTexture();
         /// <summary>
         /// 物品名
         /// </summary>

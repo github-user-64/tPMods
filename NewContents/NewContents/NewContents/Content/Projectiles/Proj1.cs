@@ -11,7 +11,7 @@ using Terraria.Localization;
 
 namespace NewContents.Content.Projectiles
 {
-    internal class EProj1 : ExtenProjectile
+    internal class Proj1 : ExtenProjectile
     {
         protected const int ProjLen = 8;
         public override string Texture => "Terraria/Images/Projectile_454";
@@ -89,7 +89,7 @@ namespace NewContents.Content.Projectiles
 
             For(proj.position, proj.velocity, proj, pos =>
             {
-                Projectile.NewProjectile(null, pos, Vector2.Zero, ExtenManag.ProjectileType<EProj2>(),
+                Projectile.NewProjectile(null, pos, Vector2.Zero, ExtenManag.ProjectileType<Proj2>(),
                     proj.damage, proj.knockBack, proj.owner,
                     1 + Utils.getRand(1, 10) * 0.1f);
             });
@@ -119,7 +119,7 @@ namespace NewContents.Content.Projectiles
             if (proj.owner != Main.myPlayer) return;
             Player player = Main.player[proj.owner];
 
-            Projectile.NewProjectile(null, pos, Vector2.UnitX.RotatedBy(MathHelper.TwoPi / 360f * Utils.getRand(0, 360)), ExtenManag.ProjectileType<EProj2>(),
+            Projectile.NewProjectile(null, pos, Vector2.UnitX.RotatedBy(MathHelper.TwoPi / 360f * Utils.getRand(0, 360)), ExtenManag.ProjectileType<Proj2>(),
                 proj.damage, proj.knockBack, player.whoAmI,
                 3f + Utils.getRand(-10, 10) * 0.1f);
 
@@ -130,7 +130,7 @@ namespace NewContents.Content.Projectiles
 
             for (int i = 0; i < 5; ++i)
             {
-                Projectile.NewProjectile(null, pos, v, ExtenManag.ProjectileType<EProj2>(),
+                Projectile.NewProjectile(null, pos, v, ExtenManag.ProjectileType<Proj2>(),
                 proj.damage, proj.knockBack, player.whoAmI,
                 3f, 1,
                 modifer: p =>
@@ -146,7 +146,7 @@ namespace NewContents.Content.Projectiles
 
         public override bool PreDraw(Projectile proj, Color lightColor, Player player = null)
         {
-            Texture2D img = Asset.Request<Texture2D>("Content/a1").Value;
+            Texture2D img = Asset.Request<Texture2D>("Assets/a1").Value;
 
             Rectangle size = new Rectangle(0, 0, proj.width, proj.height);
             int len = ProjectileID.Sets.TrailCacheLength[Type];

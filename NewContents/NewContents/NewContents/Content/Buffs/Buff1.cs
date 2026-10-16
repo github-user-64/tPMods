@@ -7,9 +7,8 @@ using Terraria.Localization;
 
 namespace NewContents.Content.Buffs
 {
-    internal class EBuff1 : ExtenBuff
+    internal class Buff1 : ExtenBuff
     {
-        public override string Texture => "Content/Buff1";
         public override LocalizedText DisplayName => this.GetLocalization($"{nameof(DisplayName)}", "力量");
         public override LocalizedText Description => this.GetLocalization($"{nameof(Description)}",
             $"近战伤害增加{val * 100}%\n力量!!!");

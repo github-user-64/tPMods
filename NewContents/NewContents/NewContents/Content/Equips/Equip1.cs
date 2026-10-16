@@ -8,10 +8,9 @@ using Terraria.ID;
 
 namespace NewContents.Content.Equips
 {
-    internal class EEquip1 : ExtenEquip
+    internal class Equip1 : ExtenEquip
     {
         public override EquipType EquipType => EquipType.Wings;
-        public override string Texture => "Content/Wings1";
         protected Vector2 oldVelocity = Vector2.Zero;
 
         public override void SetStaticDefaults()
