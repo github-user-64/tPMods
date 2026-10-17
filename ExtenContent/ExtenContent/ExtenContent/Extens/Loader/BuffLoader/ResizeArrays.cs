@@ -16,8 +16,8 @@ namespace ExtenContent.Extens
 
             Array.Resize(ref TextureAssets.Buff, BuffCount);
 
-            Utils.Utils.ResetStaticMembers(typeof(BuffID));
-            Utils.Utils.ResetStaticMembers(typeof(BuffID.Sets));
+            LoaderUtils.ResetStaticMembers(typeof(BuffID));
+            LoaderUtils.ResetStaticMembers(typeof(BuffID.Sets));
 
             Array.Resize(ref Main.pvpBuff, BuffCount);
             Array.Resize(ref Main.persistentBuff, BuffCount);

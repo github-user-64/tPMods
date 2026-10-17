@@ -73,13 +73,17 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Extens\Attributes\AutoloadEquip.cs" />
     <Compile Include="Extens\ExtenContents\ExtenPatchs\EPatchArmorSetBonuses.cs" />
     <Compile Include="Extens\ExtenContents\ExtenPatchs\EPatchRecipe.cs" />
     <Compile Include="Extens\ExtenContents\ExtenBuff.cs" />
     <Compile Include="Extens\ExtenManag\Help\HelpBuff.cs" />
     <Compile Include="Extens\ExtenManag\Help\HelpEquip.cs" />
     <Compile Include="Extens\ExtenManag\Help\HelpProjectile.cs" />
+    <Compile Include="Extens\Interfaces\ILoadable.cs" />
+    <Compile Include="Extens\LoaderUtils.cs" />
     <Compile Include="Extens\Loader\EquipLoader\EquipLoader.cs" />
+    <Compile Include="Extens\Loader\EquipLoader\ExtenItemEquip.cs" />
     <Compile Include="Extens\Loader\EquipLoader\Patch.cs" />
     <Compile Include="Extens\Loader\ItemLoader\ItemData.cs" />
     <Compile Include="Extens\Loader\ItemLoader\Patch_SetDefaults.cs" />
@@ -109,7 +113,7 @@
     <Compile Include="Extens\ExtenManag\ExtenManag.cs" />
     <Compile Include="Extens\ExtenManag\Help\HelpItem.cs" />
     <Compile Include="Extens\ExtenType.cs" />
-    <Compile Include="Extens\IExtenType.cs" />
+    <Compile Include="Extens\Interfaces\IExtenType.cs" />
     <Compile Include="Extens\Loader\ItemLoader\Patch.cs" />
     <Compile Include="Extens\Loader\ItemLoader\ItemLoader.cs" />
     <Compile Include="Extens\ExtenContents\ExtenItem.cs" />
@@ -121,7 +125,6 @@
     <Compile Include="Utils\ExtenAssetRepository.cs" />
     <Compile Include="Utils\TextureUtils.cs" />
     <Compile Include="Utils\LanguageUtils.cs" />
-    <Compile Include="Utils\Utils.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="info.json">

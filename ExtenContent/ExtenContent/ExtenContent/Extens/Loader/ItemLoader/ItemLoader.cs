@@ -50,6 +50,8 @@ namespace ExtenContent.Extens
             items.Add(item);
             itemsKey[key] = item;
             ++ItemCount;
+
+            EquipLoader.Register(item);
         }
 
         /// <summary>

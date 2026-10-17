@@ -13,27 +13,27 @@ namespace ExtenContent.Extens
     {
         private static void ResizeArrays()
         {
-            Array.Resize(ref TextureAssets.ArmorHead, HeadCount);
+            Array.Resize(ref TextureAssets.ArmorHead, EquipCount[EquipType.Head]);
 
-            Array.Resize(ref TextureAssets.ArmorBody, BodyCount);
-            Array.Resize(ref TextureAssets.ArmorBodyComposite, BodyCount);
-            Array.Resize(ref TextureAssets.FemaleBody, BodyCount);
-            Array.Resize(ref TextureAssets.ArmorArm, BodyCount);
+            Array.Resize(ref TextureAssets.ArmorBody, EquipCount[EquipType.Body]);
+            Array.Resize(ref TextureAssets.ArmorBodyComposite, EquipCount[EquipType.Body]);
+            Array.Resize(ref TextureAssets.FemaleBody, EquipCount[EquipType.Body]);
+            Array.Resize(ref TextureAssets.ArmorArm, EquipCount[EquipType.Body]);
 
-            Array.Resize(ref TextureAssets.ArmorLeg, LegsCount);
+            Array.Resize(ref TextureAssets.ArmorLeg, EquipCount[EquipType.Legs]);
 
-            Array.Resize(ref TextureAssets.Wings, WingCount);
+            Array.Resize(ref TextureAssets.Wings, EquipCount[EquipType.Wings]);
 
-            Utils.Utils.ResetStaticMembers(typeof(ArmorIDs.Head.Sets));
-            Utils.Utils.ResetStaticMembers(typeof(ArmorIDs.Body.Sets));
-            Utils.Utils.ResetStaticMembers(typeof(ArmorIDs.Legs.Sets));
-            Utils.Utils.ResetStaticMembers(typeof(ArmorIDs.Wing.Sets));
+            LoaderUtils.ResetStaticMembers(typeof(ArmorIDs.Head.Sets));
+            LoaderUtils.ResetStaticMembers(typeof(ArmorIDs.Body.Sets));
+            LoaderUtils.ResetStaticMembers(typeof(ArmorIDs.Legs.Sets));
+            LoaderUtils.ResetStaticMembers(typeof(ArmorIDs.Wing.Sets));
 
             WingStatsInitializer.Load();
 
-            Array.Resize(ref Item.headType, HeadCount);
-            Array.Resize(ref Item.bodyType, BodyCount);
-            Array.Resize(ref Item.legType, LegsCount);
+            Array.Resize(ref Item.headType, EquipCount[EquipType.Head]);
+            Array.Resize(ref Item.bodyType, EquipCount[EquipType.Body]);
+            Array.Resize(ref Item.legType, EquipCount[EquipType.Legs]);
         }
 
         private static void Setup()
@@ -82,7 +82,7 @@ namespace ExtenContent.Extens
                 case EquipType.Body: return TextureAssets.ArmorBodyComposite;
                 case EquipType.Legs: return TextureAssets.ArmorLeg;
                 case EquipType.Wings: return TextureAssets.Wings;
-                default: throw new Exception($"no {type}");
+                default: throw new Exception($"没有该纹理类型:{type}");
             }
         }
     }

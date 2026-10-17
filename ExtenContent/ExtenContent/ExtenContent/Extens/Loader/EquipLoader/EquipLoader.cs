@@ -1,5 +1,8 @@
-﻿using System;
+﻿using ExtenContent.Extens.Attributes;
+using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Reflection;
 using Terraria.ID;
 
 namespace ExtenContent.Extens
@@ -10,22 +13,20 @@ namespace ExtenContent.Extens
     public static partial class EquipLoader
     {
         /// <summary/>
-        public static int HeadCount { get; private set; } = ArmorIDs.Head.Count;
-        /// <summary/>
-        public static int BodyCount { get; private set; } = ArmorIDs.Body.Count;
-        /// <summary/>
-        public static int LegsCount { get; private set; } = ArmorIDs.Legs.Count;
-        /// <summary/>
-        public static int WingCount { get; private set; } = ArmorIDs.Wing.Count;
-        /// <summary/>
         public static readonly EquipType[] EquipTypes = (EquipType[])Enum.GetValues(typeof(EquipType));
-        private static readonly Dictionary<EquipType, List<ExtenEquip>> equips = new Dictionary<EquipType, List<ExtenEquip>>()
-        {
-            { EquipType.Head, new List<ExtenEquip>() },
-            { EquipType.Body, new List<ExtenEquip>() },
-            { EquipType.Legs, new List<ExtenEquip>() },
-            { EquipType.Wings, new List<ExtenEquip>() },
-        };
+        /// <summary/>
+        public static int HeadCount => EquipCount[EquipType.Head];
+        /// <summary/>
+        public static int BodyCount => EquipCount[EquipType.Body];
+        /// <summary/>
+        public static int LegsCount => EquipCount[EquipType.Legs];
+        /// <summary/>
+        public static int WingCount => EquipCount[EquipType.Wings];
+
+        private static readonly Dictionary<EquipType, int> EquipCount = EquipTypes.ToDictionary(i => i, i => GetEquipOriginCount(i));
+        private static readonly Dictionary<EquipType, List<ExtenEquip>> equips = EquipTypes.ToDictionary(i => i, i => new List<ExtenEquip>());
+
+        private static readonly Dictionary<int, Dictionary<EquipType, int>> itemToSlot = new Dictionary<int, Dictionary<EquipType, int>>();
 
         internal static void Load()
         {
@@ -45,10 +46,12 @@ namespace ExtenContent.Extens
                 ees.Value.ForEach(i => i.Unload());
             }
 
-            HeadCount = ArmorIDs.Head.Count;
-            BodyCount = ArmorIDs.Body.Count;
-            LegsCount = ArmorIDs.Legs.Count;
-            WingCount = ArmorIDs.Wing.Count;
+            foreach (EquipType i in EquipTypes)
+            {
+                EquipCount[i] = GetEquipOriginCount(i);
+            }
+
+            itemToSlot.Clear();
 
             foreach (List<ExtenEquip> i in equips.Values) i.Clear();
 
@@ -59,21 +62,30 @@ namespace ExtenContent.Extens
         {
             equips[equip.EquipType].Add(equip);
 
-            int slot = -1;
-
-            switch (equip.EquipType)
-            {
-                case EquipType.Head: slot = HeadCount++; break;
-                case EquipType.Body: slot = BodyCount++; break;
-                case EquipType.Legs: slot = LegsCount++; break;
-                case EquipType.Wings: slot = WingCount++; break;
-            }
-
-            equip.Slot = slot;
+            equip.Slot = EquipCount[equip.EquipType]++;
         }
 
         /// <summary>
-        /// <see cref="EquipType.Head"/>-><see cref="ArmorIDs.Head.Count"/>
+        /// 根据<paramref name="item"/>的<see cref="AutoloadEquip"/>注册
+        /// </summary>
+        internal static void Register(ExtenItem item)
+        {
+            AutoloadEquip al = item.GetType().GetCustomAttribute<AutoloadEquip>();
+            if (al?.equipTypes == null) return;
+
+            foreach (EquipType i in al.equipTypes)
+            {
+                ExtenEquip e = new ExtenItemEquip(item, i);
+
+                Register(e);
+
+                if (itemToSlot.ContainsKey(item.Type) != true) itemToSlot[item.Type] = new Dictionary<EquipType, int>();
+                itemToSlot[item.Type][i] = e.Slot;
+            }
+        }
+
+        /// <summary>
+        /// 获取原版装备数量
         /// </summary>
         public static int GetEquipOriginCount(EquipType type)
         {
@@ -88,18 +100,11 @@ namespace ExtenContent.Extens
         }
 
         /// <summary>
-        /// <see cref="EquipType.Head"/>-><see cref="HeadCount"/>
+        /// 获取装备数量
         /// </summary>
         public static int GetEquipCount(EquipType type)
         {
-            switch (type)
-            {
-                case EquipType.Head: return HeadCount;
-                case EquipType.Body: return BodyCount;
-                case EquipType.Legs: return LegsCount;
-                case EquipType.Wings: return WingCount;
-                default: return 0;
-            }
+            return EquipCount[type];
         }
 
         /// <summary>

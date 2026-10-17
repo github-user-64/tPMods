@@ -1,7 +1,6 @@
 ﻿using ReLogic.Content;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Reflection;
 using tContentPatch.ModLoad;
 using Terraria;
@@ -127,7 +126,7 @@ namespace ExtenContent.Extens
 
         private static void RegistExten<T>(ModObject mo, IAssetRepository asset) where T : ExtenType
         {
-            List<T> extens = CreateInstance<T>(mo.assembly);
+            List<T> extens = LoaderUtils.CreateInstance<T>(mo.assembly);
             if (extens == null) return;
 
             foreach (T exten in extens)
@@ -141,27 +140,6 @@ namespace ExtenContent.Extens
 
                 Extens.Add(exten);
             }
-        }
-
-        private static List<targetType> CreateInstance<targetType>(Assembly assembly)
-        {
-            Type[] type = assembly.GetTypes();
-
-            List<Type> types = type.ToList().FindAll(
-                t => t.IsClass && t.IsAbstract == false &&
-                typeof(targetType).IsAssignableFrom(t));
-
-            if (types.Count < 1) return null;
-
-            List<targetType> instance = new List<targetType>();
-
-            foreach (Type t in types)
-            {
-                targetType obj = (targetType)Activator.CreateInstance(t);
-                instance.Add(obj);
-            }
-
-            return instance;
         }
     }
 }

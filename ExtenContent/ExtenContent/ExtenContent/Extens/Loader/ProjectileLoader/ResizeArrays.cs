@@ -14,7 +14,7 @@ namespace ExtenContent.Extens
         {
             LocalizedText[] _projectileNameCache = (LocalizedText[])__projectileNameCache.GetValue(null);
 
-            Utils.Utils.ResetStaticMembers(typeof(ProjectileID.Sets));
+            LoaderUtils.ResetStaticMembers(typeof(ProjectileID.Sets));
 
             Array.Resize(ref TextureAssets.Projectile, ProjectileCount);
             Array.Resize(ref Main.projHostile, ProjectileCount);

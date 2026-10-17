@@ -20,9 +20,9 @@ namespace ExtenContent.Extens
             Array.Resize(ref TextureAssets.Item, ItemCount);
             Array.Resize(ref TextureAssets.ItemFlame, ItemCount);
 
-            Utils.Utils.ResetStaticMembers(typeof(ItemID.Sets));
-            Utils.Utils.ResetStaticMembers(typeof(AmmoID.Sets));
-            Utils.Utils.ResetStaticMembers(typeof(PrefixLegacy.ItemSets));
+            LoaderUtils.ResetStaticMembers(typeof(ItemID.Sets));
+            LoaderUtils.ResetStaticMembers(typeof(AmmoID.Sets));
+            LoaderUtils.ResetStaticMembers(typeof(PrefixLegacy.ItemSets));
 
             Array.Resize(ref Item.cachedItemSpawnsByType, ItemCount);
             Array.Resize(ref Item.staff, ItemCount);
