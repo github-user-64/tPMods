@@ -22,6 +22,8 @@ namespace ExtenContent.Extens
             Setup();
 
             projs.ForEach(i => i.Load());
+
+            ThisMod.LogPrint($"{typeof(ProjectileLoader)}:加载完成:新射弹:{ProjectileCount - ProjectileID.Count}");
         }
 
         internal static void Unload()

@@ -22,7 +22,7 @@ namespace NewContents.Content.Items.Accessories
             item.accessory = true;
             item.value = Item.buyPrice(0, 40);
             item.rare = 10;
-            item.wingSlot = (sbyte)ExtenManag.EquipSlot<Equip1>();
+            item.wingSlot = (sbyte)ExtenManag.EquipSlot<Wing1>();
         }
 
         public override void ModifyTooltips(Item item, ref int yoyoLogo, ref float oldKB, ref int numLines, ref string[] toolTipLine, ref Color[] lineColors)

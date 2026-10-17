@@ -26,6 +26,7 @@ namespace ExtenContent.Extens
             item.material = ItemID.Sets.IsAMaterial[item.type];
 
             ExtenItem eitem = GetItem(item.type);
+            eitem.AutoDefaults(item);
             eitem.SetDefault(item);
 
             item.dye = (byte)GameShaders.Armor.GetShaderIdFromItemId(item.type);

@@ -64,13 +64,14 @@ namespace ExtenContent.Extens
         public virtual void OnHitNPC(Player player, Item item, Rectangle itemRectangle, int originalDamage, float knockBack, NPC npc) { }
         /// <summary/>
         public virtual void AddRecipes() { }
+        /// <summary>
+        /// <see cref="SetDefault(Item)"/>前调用, 默认实现用于设置装备slot
+        /// </summary>
+        public virtual void AutoDefaults(Item item) => EquipLoader.SetSlot(item);
 
         /// <summary>
         /// 获取一个配方对象
         /// </summary>
-        public Recipe CreateRecipe(int stack = 1)
-        {
-            return PatchRecipeLoader.Create(Type, stack);
-        }
+        public Recipe CreateRecipe(int stack = 1) => PatchRecipeLoader.Create(Type, stack);
     }
 }

@@ -54,21 +54,20 @@ namespace ExtenContent.Extens
             LocalizedText[] _itemNameCache = (LocalizedText[])__itemNameCache.GetValue(null);
             ItemTooltip[] _itemTooltipCache = (ItemTooltip[])__itemTooltipCache.GetValue(null);
 
-            for (int i = 0; i < items.Count; ++i)
+            foreach (ExtenItem i in items)
             {
-                ExtenItem item = items[i];
-                item.Item.SetDefaults(ItemID.Count + i);
+                i.Item.SetDefaults(i.Type);
 
                 if (Main.dedServ != true)
                 {
-                    TextureAssets.Item[item.Type] = item.Asset.Request<Texture2D>(item.Texture);
+                    TextureAssets.Item[i.Type] = i.Asset.Request<Texture2D>(i.Texture);
                 }
 
-                _itemNameCache[item.Type] = item.DisplayName;
-                _itemTooltipCache[item.Type] = ItemTooltip.FromLanguageKey(item.Tooltip.Key);
+                _itemNameCache[i.Type] = i.DisplayName;
+                _itemTooltipCache[i.Type] = ItemTooltip.FromLanguageKey(i.Tooltip.Key);
 
-                ContentSamples.ItemsByType[item.Type] = item.Item;
-                ContentSamples.ItemsByType[item.Type].RebuildTooltip();
+                ContentSamples.ItemsByType[i.Type] = i.Item;
+                ContentSamples.ItemsByType[i.Type].RebuildTooltip();
             }
 
             __itemNameCache.SetValue(null, _itemNameCache);

@@ -10,6 +10,8 @@
                 _EquipType = equipType;
 
                 _Texture = $"{item.Texture}_{_EquipType}";
+
+                SetAsset(item.Asset);
             }
 
             protected EquipType _EquipType;

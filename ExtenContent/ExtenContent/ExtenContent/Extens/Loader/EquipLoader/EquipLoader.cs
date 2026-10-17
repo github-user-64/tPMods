@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using Terraria;
 using Terraria.ID;
 
 namespace ExtenContent.Extens
@@ -36,6 +37,11 @@ namespace ExtenContent.Extens
             foreach (KeyValuePair<EquipType, List<ExtenEquip>> ees in equips)
             {
                 ees.Value.ForEach(i => i.Load());
+            }
+
+            foreach (EquipType i in EquipTypes)
+            {
+                ThisMod.LogPrint($"{typeof(EquipLoader)}:加载完成:新{i}:{GetEquipCount(i) - GetEquipOriginCount(i)}");
             }
         }
 
@@ -81,6 +87,24 @@ namespace ExtenContent.Extens
 
                 if (itemToSlot.ContainsKey(item.Type) != true) itemToSlot[item.Type] = new Dictionary<EquipType, int>();
                 itemToSlot[item.Type][i] = e.Slot;
+            }
+        }
+
+        internal static void SetSlot(Item item)
+        {
+            if (ExtenManag.IsExtenItem(item.type) != true) return;
+
+            if (itemToSlot.TryGetValue(item.type, out Dictionary<EquipType, int> v) != true) return;
+
+            foreach (KeyValuePair<EquipType, int> i in v)
+            {
+                switch (i.Key)
+                {
+                    case EquipType.Head: item.headSlot = i.Value; break;
+                    case EquipType.Body: item.bodySlot = i.Value; break;
+                    case EquipType.Legs: item.legSlot = i.Value; break;
+                    case EquipType.Wings: item.wingSlot = (sbyte)i.Value; break;
+                }
             }
         }
 

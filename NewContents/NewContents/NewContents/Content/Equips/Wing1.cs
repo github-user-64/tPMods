@@ -8,7 +8,7 @@ using Terraria.ID;
 
 namespace NewContents.Content.Equips
 {
-    internal class Equip1 : ExtenEquip
+    internal class Wing1 : ExtenEquip
     {
         public override EquipType EquipType => EquipType.Wings;
         protected Vector2 oldVelocity = Vector2.Zero;

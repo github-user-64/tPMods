@@ -11,11 +11,11 @@ namespace NewContents.Common
             CreateArmorSetBonus(GotBuff1, nameof(GotBuff1), $"获取来自异界的力量")
                 .Set(new int[]
                 {
-                    ExtenManag.ItemType<Head1>(),
-                    ExtenManag.ItemType<Head2>(),
+                    ExtenManag.ItemType<Equip1Head>(),
+                    ExtenManag.ItemType<Equip2>(),
                 },
-                new int[] { ExtenManag.ItemType<Body1>() },
-                new int[] { ExtenManag.ItemType<Legs1>() })
+                new int[] { ExtenManag.ItemType<Equip1Body>() },
+                new int[] { ExtenManag.ItemType<Equip1Legs>() })
                 .Add();
         }
 

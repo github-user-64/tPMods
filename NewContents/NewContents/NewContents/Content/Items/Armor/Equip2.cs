@@ -5,18 +5,18 @@ using Terraria.Localization;
 
 namespace NewContents.Content.Items.Armor
 {
-    internal class Head2 : ExtenItem
+    internal class Equip2 : EquipTemplate
     {
         public override string Texture => "Terraria/Images/Item_1742";
-        public override LocalizedText Tooltip => this.GetLocalization($"{nameof(Tooltip)}", "[W]已损坏");
+        public override LocalizedText Tooltip => this.GetLocalization($"{nameof(Tooltip)}", "\"[W]已损坏，你无法思考\"");
 
         public override void SetDefault(Item item)
         {
-            item.width = 18;
-            item.height = 18;
-            item.defense = 1;
+            item.defense = 11;
             item.headSlot = ExtenManag.EquipSlot<EE>();
         }
+
+        public override bool CanLoad() => true;
 
         internal class EE : ExtenEquip
         {

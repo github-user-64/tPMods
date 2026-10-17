@@ -73,17 +73,16 @@
     <Compile Include="Common\ModifyMeleeScale.cs" />
     <Compile Include="Common\Vibration.cs" />
     <Compile Include="Content\Buffs\Buff1.cs" />
-    <Compile Include="Content\Equips\Equip1.cs" />
+    <Compile Include="Content\Equips\Wing1.cs" />
+    <Compile Include="Content\Items\Armor\EquipTemplate.cs" />
     <Compile Include="Content\Items\Weapons\Item1.cs" />
     <Compile Include="Content\Items\Accessories\Acc2.cs" />
     <Compile Include="Content\Items\Accessories\Acc1.cs" />
     <Compile Include="Content\Projectiles\Proj1.cs" />
     <Compile Include="Content\Projectiles\Proj2.cs" />
     <Compile Include="Content\Projectiles\Proj3.cs" />
-    <Compile Include="Content\Items\Armor\Body1.cs" />
-    <Compile Include="Content\Items\Armor\Head2.cs" />
-    <Compile Include="Content\Items\Armor\Legs1.cs" />
-    <Compile Include="Content\Items\Armor\Head1.cs" />
+    <Compile Include="Content\Items\Armor\Equip1.cs" />
+    <Compile Include="Content\Items\Armor\Equip2.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ThisMod.cs" />
     <Compile Include="Utils.cs" />
@@ -110,28 +109,28 @@
     <Content Include="Content\Buffs\Buff1.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\Equips\Equip1.png">
+    <Content Include="Content\Equips\Wing1.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\Items\Accessories\Acc1.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\Items\Armor\Body1.png">
+    <Content Include="Content\Items\Armor\Equip1Body.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\Items\Armor\Head1.png">
+    <Content Include="Content\Items\Armor\Equip1Head.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\Items\Armor\Item1_Body.png">
+    <Content Include="Content\Items\Armor\Equip1Body_Body.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\Items\Armor\Item1_Head.png">
+    <Content Include="Content\Items\Armor\Equip1Head_Head.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\Items\Armor\Item1_Legs.png">
+    <Content Include="Content\Items\Armor\Equip1Legs_Legs.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\Items\Armor\Legs1.png">
+    <Content Include="Content\Items\Armor\Equip1Legs.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="ico.png">

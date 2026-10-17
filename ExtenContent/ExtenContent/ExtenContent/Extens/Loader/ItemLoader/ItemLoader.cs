@@ -27,6 +27,8 @@ namespace ExtenContent.Extens
             FinishSetup();
 
             items.ForEach(i => i.Load());
+
+            ThisMod.LogPrint($"{typeof(ItemLoader)}:加载完成:新物品:{ItemCount - ItemID.Count}");
         }
 
         internal static void Unload()
@@ -49,7 +51,7 @@ namespace ExtenContent.Extens
 
             items.Add(item);
             itemsKey[key] = item;
-            ++ItemCount;
+            item.Item.type = ItemCount++;
 
             EquipLoader.Register(item);
         }

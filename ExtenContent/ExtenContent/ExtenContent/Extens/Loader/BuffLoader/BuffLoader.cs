@@ -23,6 +23,8 @@ namespace ExtenContent.Extens
             Setup();
 
             buffs.ForEach(i => i.Load());
+
+            ThisMod.LogPrint($"{typeof(BuffLoader)}:加载完成:新buff:{BuffCount - BuffID.Count}");
         }
 
         internal static void Unload()
