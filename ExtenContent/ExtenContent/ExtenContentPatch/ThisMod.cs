@@ -57,10 +57,12 @@ namespace ExtenContentPatch
 
         public override void AddPatch(IAddPatch addPatch)//添加修补
         {
-            Api.LogPrint("添加修补");
+            Api.Log(out DateTime time);
 
             harmony = new Harmony(patchId);
             harmony.PatchAll();//修补全部
+
+            Api.Log("添加修补", time);
         }
 
         public override void Loaded()
@@ -70,10 +72,21 @@ namespace ExtenContentPatch
 
         public override void Unload()
         {
-            Api?.ExtenManag.Unload();
+            if (Api == null)
+            {
+                harmony?.UnpatchAll(patchId);//卸载修补
+                harmony = null;
+                return;
+            }
+
+            Api.ExtenManag.Unload();
+
+            Api.Log(out DateTime unloadPatch);
 
             harmony?.UnpatchAll(patchId);//卸载修补
             harmony = null;
+
+            Api.Log("卸载修补", unloadPatch);
         }
     }
 }

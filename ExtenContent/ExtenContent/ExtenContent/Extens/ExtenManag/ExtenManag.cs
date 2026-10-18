@@ -73,16 +73,18 @@ namespace ExtenContent.Extens
                 IsLoad = true;
             }
 
-            ThisMod.LogPrint($"{nameof(ExtenManag)}:加载");
+            ThisMod.Log(out DateTime time, $"{nameof(ExtenManag)}:加载");
 
             Loads.ForEach(i => i());
 
             Extens.ForEach(i => i.SetStaticDefaults());
+
+            ThisMod.Log($"{nameof(ExtenManag)}:加载完成", time);
         }
 
         internal static void Unload()
         {
-            ThisMod.LogPrint($"{nameof(ExtenManag)}:卸载");
+            ThisMod.Log(out DateTime time);
 
             Unloads.ForEach(i => i());
 
@@ -93,6 +95,8 @@ namespace ExtenContent.Extens
 
             IsInited = false;
             IsLoad = false;
+
+            ThisMod.Log($"{nameof(ExtenManag)}:卸载完成", time);
         }
 
         /// <summary>
@@ -106,7 +110,8 @@ namespace ExtenContent.Extens
         {
             if (IsInited != true) throw new Exception($"{nameof(ExtenManag)}:在初始化前不能注册");
             if (IsLoad) throw new Exception($"{nameof(ExtenManag)}:不可在加载后注册");
-            ThisMod.LogPrint($"{nameof(ExtenManag)}:注册模组:[{mo.info.name ?? mo.config.key}]");
+
+            ThisMod.Log(out DateTime time);
 
             IAssetRepository asset = null;
             if (Main.dedServ != true)
@@ -122,6 +127,8 @@ namespace ExtenContent.Extens
             RegistExten<EPatchPlayer>(mo, asset);
             RegistExten<EPatchRecipe>(mo, asset);
             RegistExten<EPatchArmorSetBonus>(mo, asset);
+
+            ThisMod.Log($"{nameof(ExtenManag)}:注册模组:[{mo.info.name ?? mo.config.key}]", time);
         }
 
         private static void RegistExten<T>(ModObject mo, IAssetRepository asset) where T : ExtenType

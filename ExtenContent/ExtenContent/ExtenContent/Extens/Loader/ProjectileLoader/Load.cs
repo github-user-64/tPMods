@@ -9,11 +9,12 @@ namespace ExtenContent.Extens
 {
     public static partial class ProjectileLoader
     {
-        private static readonly int InitData_MaxNPCs = 200;
-        private static void ResizeArrays()
+        private static readonly int InitData_MaxNPCs = Main.maxNPCs;//200
+        private static void ContentInit()
         {
             LocalizedText[] _projectileNameCache = (LocalizedText[])__projectileNameCache.GetValue(null);
 
+            LoaderUtils.ResetStaticMembers(typeof(ProjectileID));
             LoaderUtils.ResetStaticMembers(typeof(ProjectileID.Sets));
 
             Array.Resize(ref TextureAssets.Projectile, ProjectileCount);
@@ -52,21 +53,19 @@ namespace ExtenContent.Extens
             array = arr;
         }
 
-        private static void Setup()
+        private static void ContentLoad()
         {
             LocalizedText[] _projectileNameCache = (LocalizedText[])__projectileNameCache.GetValue(null);
 
-            for (int i = 0; i < projs.Count; ++i)
+            foreach (ExtenProjectile i in projs)
             {
-                ExtenProjectile ep = projs[i];
-                ep.Projectile.SetDefaults(ProjectileID.Count + i);
+                _projectileNameCache[i.Type] = i.DisplayName;
 
-                if (Main.dedServ != true)
-                {
-                    TextureAssets.Projectile[ep.Type] = ep.Asset.Request<Texture2D>(ep.Texture);
-                }
+                ProjectileID.Search.Add(i.FullName, i.Type);
 
-                _projectileNameCache[ep.Type] = ep.DisplayName;
+                if (Main.dedServ) continue;
+
+                TextureAssets.Projectile[i.Type] = i.Asset.Request<Texture2D>(i.Texture);
             }
 
             __projectileNameCache.SetValue(null, _projectileNameCache);

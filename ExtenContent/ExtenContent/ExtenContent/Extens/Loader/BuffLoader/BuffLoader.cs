@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Reflection;
 using Terraria;
 using Terraria.ID;
@@ -19,12 +20,14 @@ namespace ExtenContent.Extens
 
         internal static void Load()
         {
-            ResizeArrays();
-            Setup();
+            ThisMod.Log(out DateTime time);
+
+            ContentInit();
+            ContentLoad();
 
             buffs.ForEach(i => i.Load());
 
-            ThisMod.LogPrint($"{typeof(BuffLoader)}:加载完成:新buff:{BuffCount - BuffID.Count}");
+            ThisMod.Log($"{typeof(BuffLoader)}:加载完成:新buff:{BuffCount - BuffID.Count}", time);
         }
 
         internal static void Unload()
@@ -34,13 +37,13 @@ namespace ExtenContent.Extens
             BuffCount = BuffID.Count;
             buffs.Clear();
 
-            ResizeArrays();
+            ContentInit();
         }
 
-        internal static void Register(ExtenBuff proj)
+        internal static void Register(ExtenBuff eb)
         {
-            buffs.Add(proj);
-            ++BuffCount;
+            buffs.Add(eb);
+            eb.Type = BuffCount++;
         }
 
         /// <summary>

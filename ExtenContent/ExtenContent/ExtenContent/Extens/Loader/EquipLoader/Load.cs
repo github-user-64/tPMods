@@ -11,8 +11,13 @@ namespace ExtenContent.Extens
 {
     public static partial class EquipLoader
     {
-        private static void ResizeArrays()
+        private static void ContentInit()
         {
+            LoaderUtils.ResetStaticMembers(typeof(ArmorIDs.Head.Sets));
+            LoaderUtils.ResetStaticMembers(typeof(ArmorIDs.Body.Sets));
+            LoaderUtils.ResetStaticMembers(typeof(ArmorIDs.Legs.Sets));
+            LoaderUtils.ResetStaticMembers(typeof(ArmorIDs.Wing.Sets));
+
             Array.Resize(ref TextureAssets.ArmorHead, EquipCount[EquipType.Head]);
 
             Array.Resize(ref TextureAssets.ArmorBody, EquipCount[EquipType.Body]);
@@ -24,19 +29,14 @@ namespace ExtenContent.Extens
 
             Array.Resize(ref TextureAssets.Wings, EquipCount[EquipType.Wings]);
 
-            LoaderUtils.ResetStaticMembers(typeof(ArmorIDs.Head.Sets));
-            LoaderUtils.ResetStaticMembers(typeof(ArmorIDs.Body.Sets));
-            LoaderUtils.ResetStaticMembers(typeof(ArmorIDs.Legs.Sets));
-            LoaderUtils.ResetStaticMembers(typeof(ArmorIDs.Wing.Sets));
-
-            WingStatsInitializer.Load();
-
             Array.Resize(ref Item.headType, EquipCount[EquipType.Head]);
             Array.Resize(ref Item.bodyType, EquipCount[EquipType.Body]);
             Array.Resize(ref Item.legType, EquipCount[EquipType.Legs]);
+
+            WingStatsInitializer.Load();
         }
 
-        private static void Setup()
+        private static void ContentLoad()
         {
             Item item = new Item();
             for (int i = ItemID.Count; i < ItemLoader.ItemCount; ++i)

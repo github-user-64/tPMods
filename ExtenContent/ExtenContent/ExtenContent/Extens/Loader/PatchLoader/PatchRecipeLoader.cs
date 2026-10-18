@@ -32,7 +32,6 @@ namespace ExtenContent.Extens
             PatchRecipes.Clear();
 
             Reset();
-
             Recipe.SetupRecipes();
         }
 

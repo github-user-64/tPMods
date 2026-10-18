@@ -1,4 +1,5 @@
-﻿using tContentPatch.ModLoad;
+﻿using System;
+using tContentPatch.ModLoad;
 
 namespace ExtenContent
 {
@@ -11,7 +12,7 @@ namespace ExtenContent
         public const string ModName = "扩展内容";
         internal static ModObject mo = null;
 
-        internal static void LogPrint(string s)
+        internal static void Log(string s)
         {
             if (s == null) return;
 
@@ -19,6 +20,20 @@ namespace ExtenContent
 
             tContentPatch.ContentPatch.PrintTry(s);
             tContentPatch.Utils.Log.Add(s);
+        }
+
+        internal static void Log(out DateTime time, string s = null)
+        {
+            time = DateTime.Now;
+
+            if (s != null) Log(s);
+        }
+
+        internal static void Log(string s, DateTime time)
+        {
+            TimeSpan len = DateTime.Now - time;
+
+            Log($"{s}:{len.TotalSeconds}秒");
         }
     }
 }

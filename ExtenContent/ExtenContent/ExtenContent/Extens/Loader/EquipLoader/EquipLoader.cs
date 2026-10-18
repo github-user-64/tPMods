@@ -31,8 +31,10 @@ namespace ExtenContent.Extens
 
         internal static void Load()
         {
-            ResizeArrays();
-            Setup();
+            ThisMod.Log(out DateTime time);
+
+            ContentInit();
+            ContentLoad();
 
             foreach (KeyValuePair<EquipType, List<ExtenEquip>> ees in equips)
             {
@@ -41,7 +43,7 @@ namespace ExtenContent.Extens
 
             foreach (EquipType i in EquipTypes)
             {
-                ThisMod.LogPrint($"{typeof(EquipLoader)}:加载完成:新{i}:{GetEquipCount(i) - GetEquipOriginCount(i)}");
+                ThisMod.Log($"{typeof(EquipLoader)}:加载完成:新{i}:{GetEquipCount(i) - GetEquipOriginCount(i)}", time);
             }
         }
 
@@ -61,7 +63,7 @@ namespace ExtenContent.Extens
 
             foreach (List<ExtenEquip> i in equips.Values) i.Clear();
 
-            ResizeArrays();
+            ContentInit();
         }
 
         internal static void Register(ExtenEquip equip)

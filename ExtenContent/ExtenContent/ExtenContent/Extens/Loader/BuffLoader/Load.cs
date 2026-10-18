@@ -9,16 +9,15 @@ namespace ExtenContent.Extens
 {
     public static partial class BuffLoader
     {
-        private static void ResizeArrays()
+        private static void ContentInit()
         {
             LocalizedText[] _buffNameCache = (LocalizedText[])__buffNameCache.GetValue(null);
             LocalizedText[] _buffDescriptionCache = (LocalizedText[])__buffDescriptionCache.GetValue(null);
 
-            Array.Resize(ref TextureAssets.Buff, BuffCount);
-
             LoaderUtils.ResetStaticMembers(typeof(BuffID));
             LoaderUtils.ResetStaticMembers(typeof(BuffID.Sets));
 
+            Array.Resize(ref TextureAssets.Buff, BuffCount);
             Array.Resize(ref Main.pvpBuff, BuffCount);
             Array.Resize(ref Main.persistentBuff, BuffCount);
             Array.Resize(ref Main.vanityPet, BuffCount);
@@ -42,24 +41,21 @@ namespace ExtenContent.Extens
             __buffDescriptionCache.SetValue(null, _buffDescriptionCache);
         }
 
-        private static void Setup()
+        private static void ContentLoad()
         {
             LocalizedText[] _buffNameCache = (LocalizedText[])__buffNameCache.GetValue(null);
             LocalizedText[] _buffDescriptionCache = (LocalizedText[])__buffDescriptionCache.GetValue(null);
 
-            for (int i = 0; i < buffs.Count; ++i)
+            foreach (ExtenBuff i in buffs)
             {
-                ExtenBuff eb = buffs[i];
-                eb.Type = BuffID.Count + i;
+                _buffNameCache[i.Type] = i.DisplayName;
+                _buffDescriptionCache[i.Type] = i.Description;
 
-                _buffNameCache[eb.Type] = eb.DisplayName;
-                _buffDescriptionCache[eb.Type] = eb.Description;
+                BuffID.Search.Add(i.FullName, i.Type);
 
-                if (Main.dedServ != true)
-                {
-                    TextureAssets.Buff[eb.Type] = eb.Asset.Request<Texture2D>(eb.Texture);
-                }
-                BuffID.Search.Add(eb.FullName, eb.Type);
+                if (Main.dedServ) continue;
+
+                TextureAssets.Buff[i.Type] = i.Asset.Request<Texture2D>(i.Texture);
             }
 
             __buffNameCache.SetValue(null, _buffNameCache);

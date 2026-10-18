@@ -23,12 +23,14 @@ namespace ExtenContent.Extens
 
         internal static void Load()
         {
-            ResizeArrays();
-            FinishSetup();
+            ThisMod.Log(out DateTime time);
+
+            ContentInit();
+            ContentLoad();
 
             items.ForEach(i => i.Load());
 
-            ThisMod.LogPrint($"{typeof(ItemLoader)}:加载完成:新物品:{ItemCount - ItemID.Count}");
+            ThisMod.Log($"{typeof(ItemLoader)}:加载完成:新物品:{ItemCount - ItemID.Count}", time);
         }
 
         internal static void Unload()
@@ -40,7 +42,7 @@ namespace ExtenContent.Extens
             itemsKey.Clear();
             itemsUnload.Clear();
 
-            ResizeArrays();
+            ContentInit();
         }
 
         internal static void Register(ExtenItem item)

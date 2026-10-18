@@ -12,17 +12,18 @@ namespace ExtenContent.Extens
 {
     public static partial class ItemLoader
     {
-        private static void ResizeArrays()
+        private static void ContentInit()
         {
             LocalizedText[] _itemNameCache = (LocalizedText[])__itemNameCache.GetValue(null);
             ItemTooltip[] _itemTooltipCache = (ItemTooltip[])__itemTooltipCache.GetValue(null);
 
-            Array.Resize(ref TextureAssets.Item, ItemCount);
-            Array.Resize(ref TextureAssets.ItemFlame, ItemCount);
-
+            LoaderUtils.ResetStaticMembers(typeof(ItemID));
             LoaderUtils.ResetStaticMembers(typeof(ItemID.Sets));
             LoaderUtils.ResetStaticMembers(typeof(AmmoID.Sets));
             LoaderUtils.ResetStaticMembers(typeof(PrefixLegacy.ItemSets));
+
+            Array.Resize(ref TextureAssets.Item, ItemCount);
+            Array.Resize(ref TextureAssets.ItemFlame, ItemCount);
 
             Array.Resize(ref Item.cachedItemSpawnsByType, ItemCount);
             Array.Resize(ref Item.staff, ItemCount);
@@ -49,7 +50,7 @@ namespace ExtenContent.Extens
             __itemTooltipCache.SetValue(null, _itemTooltipCache);
         }
 
-        private static void FinishSetup()
+        private static void ContentLoad()
         {
             LocalizedText[] _itemNameCache = (LocalizedText[])__itemNameCache.GetValue(null);
             ItemTooltip[] _itemTooltipCache = (ItemTooltip[])__itemTooltipCache.GetValue(null);
@@ -58,16 +59,17 @@ namespace ExtenContent.Extens
             {
                 i.Item.SetDefaults(i.Type);
 
-                if (Main.dedServ != true)
-                {
-                    TextureAssets.Item[i.Type] = i.Asset.Request<Texture2D>(i.Texture);
-                }
-
                 _itemNameCache[i.Type] = i.DisplayName;
                 _itemTooltipCache[i.Type] = ItemTooltip.FromLanguageKey(i.Tooltip.Key);
 
                 ContentSamples.ItemsByType[i.Type] = i.Item;
                 ContentSamples.ItemsByType[i.Type].RebuildTooltip();
+
+                ItemID.Search.Add(i.FullName, i.Type);
+
+                if (Main.dedServ) continue;
+
+                TextureAssets.Item[i.Type] = i.Asset.Request<Texture2D>(i.Texture);
             }
 
             __itemNameCache.SetValue(null, _itemNameCache);
