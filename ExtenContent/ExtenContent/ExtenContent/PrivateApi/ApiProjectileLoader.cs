@@ -6,9 +6,9 @@ using Terraria.DataStructures;
 namespace ExtenContent.PrivateApi
 {
     /// <summary/>
-    public class ApiProjectileLoad
+    public class ApiProjectileLoader
     {
-        internal ApiProjectileLoad() { }
+        internal ApiProjectileLoader() { }
 
         /// <summary/>
         public void SetDefaultsPostfix(Projectile proj, int Type)

@@ -8,7 +8,7 @@ using Terraria.ID;
 
 namespace ExtenContentPatch
 {
-    internal static class Utils
+    internal static class ILUtils
     {
         public readonly static FieldInfo ItemID_Count = typeof(ItemID).GetField(nameof(ItemID.Count));
         public readonly static FieldInfo ArmorIDs_Head_Count = typeof(ArmorIDs.Head).GetField(nameof(ArmorIDs.Head.Count));
@@ -28,6 +28,7 @@ namespace ExtenContentPatch
         {
             CodeMatcher codeMatcher = new CodeMatcher(instructions);
 
+            int count = 0;
             while (true)
             {
                 try
@@ -41,6 +42,8 @@ namespace ExtenContentPatch
                         .InsertAndAdvance(
                         new CodeMatch(OpCodes.Call, mi)
                         );
+
+                    ++count;
                 }
                 catch (InvalidOperationException)
                 {
@@ -51,6 +54,8 @@ namespace ExtenContentPatch
                     throw new Exception($"替换失败:{fi?.Name}->{mi?.Name}", ex);
                 }
             }
+
+            if (count < 1) throw new Exception($"替换失败:没有可替换:{fi?.Name}->{mi?.Name}");
 
             return codeMatcher.Instructions();
         }

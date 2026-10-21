@@ -4,9 +4,9 @@ using Terraria;
 namespace ExtenContent.PrivateApi
 {
     /// <summary/>
-    public class ApiEquipLoad
+    public class ApiEquipLoader
     {
-        internal ApiEquipLoad() { }
+        internal ApiEquipLoader() { }
 
         /// <summary/>
         public void ApplyEquipFunctionalPostfix(Player player, int itemSlot, Item currentItem)

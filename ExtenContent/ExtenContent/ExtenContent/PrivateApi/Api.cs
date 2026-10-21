@@ -18,12 +18,16 @@ namespace ExtenContent.PrivateApi
         /// <summary/>
         public ApiPatchPlayerLoader PatchPlayer = new ApiPatchPlayerLoader();
         /// <summary/>
-        public ApiEquipLoad Equip = new ApiEquipLoad();
+        public ApiEquipLoader Equip = new ApiEquipLoader();
         /// <summary/>
-        public ApiItemLoad Item = new ApiItemLoad();
+        public ApiItemLoader Item = new ApiItemLoader();
         /// <summary/>
-        public ApiProjectileLoad Projectile = new ApiProjectileLoad();
+        public ApiProjectileLoader Projectile = new ApiProjectileLoader();
         /// <summary/>
         public ApiBuffLoader Buff = new ApiBuffLoader();
+        /// <summary/>
+        public ApiSurfaceBackgroundLoader Back = new ApiSurfaceBackgroundLoader();
+        /// <summary/>
+        public ApiMenuStyleLoader MenuStyle = new ApiMenuStyleLoader();
     }
 }

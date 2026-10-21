@@ -1,13 +1,18 @@
 ﻿using HarmonyLib;
 using Microsoft.Xna.Framework;
+using System;
 using System.Collections.Generic;
+using System.IO;
 using tContentPatch;
 using Terraria;
+using Terraria.Audio;
+using Terraria.DataStructures;
+using Terraria.ID;
 
 namespace ExtenContentPatch.PatchGame
 {
     [HarmonyPatch(typeof(Main))]
-    internal class PMain : PatchMain
+    internal partial class PMain : PatchMain
     {
         public override void MouseText_DrawItemTooltip_GetLinesInfoPostfix(Item item, ref int yoyoLogo, ref float oldKB, ref int numLines, ref string[] toolTipLine, ref Color[] lineColors)
         {
@@ -38,18 +43,70 @@ namespace ExtenContentPatch.PatchGame
             ThisMod.Api.Projectile.DrawProjDirectPostfix(proj, projectileColor, player);
         }
 
-        [HarmonyPatch(nameof(Main.GetNurseHealCost))]
-        [HarmonyTranspiler]
-        private static IEnumerable<CodeInstruction> Transpiler_GetNurseHealCost(IEnumerable<CodeInstruction> instructions)
+        //[HarmonyPatch(nameof(Main.GetPreferredBGStyleForPlayer))]
+        //[HarmonyPostfix]
+        //private static void GetPreferredBGStyleForPlayerPostfix(ref int __result)
+        //{
+
+        //}
+
+        [HarmonyPatch("UpdateBGVisibility_BackLayer")]
+        [HarmonyPrefix]
+        private static bool UpdateBGVisibility_BackLayerPrefix(int? targetBiomeOverride, float? transitionAmountOverride)
         {
-            return instructions.BuffToLoader();
+            return ThisMod.Api.Back.UpdateBGVisibility_BackLayerPrefix(targetBiomeOverride, transitionAmountOverride);
         }
 
-        [HarmonyPatch(nameof(Main.NPCChatText_DoNurseHeal))]
-        [HarmonyTranspiler]
-        private static IEnumerable<CodeInstruction> Transpiler_NPCChatText_DoNurseHeal(IEnumerable<CodeInstruction> instructions)
+        [HarmonyPatch("DrawSurfaceBG")]
+        [HarmonyPostfix]
+        private static void DrawSurfaceBGPostfix(SpriteBatchBeginner parentSpriteBatchBeginner, float? verticalParallaxOverride)
         {
-            return instructions.BuffToLoader();
+            ThisMod.Api.Back.DrawSurfaceBGPostfix(parentSpriteBatchBeginner, verticalParallaxOverride);
+        }
+
+        [HarmonyPatch("DrawBG")]
+        [HarmonyPrefix]
+        private static bool DrawBGPrefix(SpriteBatchBeginner parentSpriteBatchBeginner)
+        {
+            return ThisMod.Api.MenuStyle.DrawBGPrefix(parentSpriteBatchBeginner);
+        }
+
+        public static List<int> soundSlot = new List<int>();
+        public static int MusicCount { get; set; }
+        [HarmonyPatch("UpdateAudio_DecideOnNewMusic")]
+        [HarmonyPrefix]
+        private static bool UpdateAudio_DecideOnNewMusic()
+        {
+            return true;
+        }
+
+        public static void ASD()
+        {
+            return;
+
+            LegacyAudioSystem legacyAudioSystem = Main.audioSystem as LegacyAudioSystem;
+            if (legacyAudioSystem == null) return;
+
+            int MusicCount = MusicID.Count;
+            soundSlot.Clear();
+            soundSlot.Add(MusicCount++);
+
+            Array.Resize(ref legacyAudioSystem.AudioTracks, MusicCount);
+            Array.Resize(ref legacyAudioSystem.TrackLoopCounts, MusicCount);
+            Array.Resize(ref legacyAudioSystem.PlayCallbacks, MusicCount);
+            Array.Resize(ref Main.musicFade, MusicCount);
+            Array.Resize(ref Main.musicNoCrossFade, MusicCount);
+
+            FileStream read = File.OpenRead("F:/F_MY1/快速存储(记得清理)/sound_long.mp3");
+            foreach (int slot in soundSlot)
+            {
+                if (Main.audioSystem is DisabledAudioSystem) return;
+                legacyAudioSystem.AudioTracks[slot] = new MP3AudioTrack(read);
+            }
+
+            Main.audioSystem = legacyAudioSystem;
+
+            PMain.MusicCount = MusicCount;
         }
     }
 }

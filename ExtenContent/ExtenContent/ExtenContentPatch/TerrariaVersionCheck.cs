@@ -1,5 +1,4 @@
-﻿using ExtenContent.Extens;
-using ExtenContentPatch.PatchGame;
+﻿using ExtenContentPatch.PatchGame;
 
 namespace ExtenContentPatch
 {
@@ -10,6 +9,7 @@ namespace ExtenContentPatch
     /// <see cref="ProjectileLoader.SetDefaultsPostfix(Terraria.Projectile, int)"/>
     /// <see cref="PPlayer.ItemCheck_ManageRightClickFeaturesPostfix(Terraria.Player)"/>
     /// <see cref="PPlayer.ItemCheck_ShootPrefix(Terraria.Player, int, Terraria.Item, int, bool)"/>
+    /// <see cref="MenuStyleLoader.DrawBGPrefix(Terraria.DataStructures.SpriteBatchBeginner)"/>
     /// </summary>
     internal enum TerrariaVersionCheck { }
 }

@@ -1,4 +1,6 @@
-﻿namespace ExtenContent.Extens
+﻿using Terraria.ID;
+
+namespace ExtenContent.Extens
 {
     public static partial class ExtenManag
     {
@@ -14,7 +16,7 @@
         }
 
         /// <summary>
-        /// 是否是<see cref="ExtenEquip"/>
+        /// <see cref="ArmorIDs"/>是否是<see cref="ExtenEquip"/>
         /// </summary>
         public static bool IsExtenEquip(EquipType type, int slot) => EquipLoader.TypeInRange(type, slot);
 

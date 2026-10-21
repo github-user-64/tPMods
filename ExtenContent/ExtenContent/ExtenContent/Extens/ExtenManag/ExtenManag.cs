@@ -28,20 +28,27 @@ namespace ExtenContent.Extens
 
         static ExtenManag()
         {
-            RegistLoader<ExtenItem>(ItemLoader.Register, ItemLoader.Load, ItemLoader.Unload);
-            RegistLoader<ExtenEquip>(EquipLoader.Register, EquipLoader.Load, EquipLoader.Unload);
-            RegistLoader<ExtenProjectile>(ProjectileLoader.Register, ProjectileLoader.Load, ProjectileLoader.Unload);
-            RegistLoader<ExtenBuff>(BuffLoader.Register, BuffLoader.Load, BuffLoader.Unload);
-            RegistLoader<EPatchPlayer>(PatchPlayerLoader.Register, PatchPlayerLoader.Load, PatchPlayerLoader.Unload);
-            RegistLoader<EPatchRecipe>(PatchRecipeLoader.Register, PatchRecipeLoader.Load, PatchRecipeLoader.Unload);
-            RegistLoader<EPatchArmorSetBonus>(ArmorSetBonusesLoader.Register, ArmorSetBonusesLoader.Load, ArmorSetBonusesLoader.Unload);
+            RegistLoader<ExtenItem>(typeof(ItemLoader));
+            RegistLoader<ExtenEquip>(typeof(EquipLoader));
+            RegistLoader<ExtenProjectile>(typeof(ProjectileLoader));
+            RegistLoader<ExtenBuff>(typeof(BuffLoader));
+            RegistLoader<ExtenSurfaceBackground>(typeof(SurfaceBackgroundLoader));
+            RegistLoader<ExtenMenuStyle>(typeof(MenuStyleLoader));
+
+            RegistLoader<EPatchPlayer>(typeof(PatchPlayerLoader));
+            RegistLoader<EPatchRecipe>(typeof(PatchRecipeLoader));
+            RegistLoader<EPatchArmorSetBonus>(typeof(PatchArmorSetBonusesLoader));
         }
 
-        private static void RegistLoader<T>(Action<T> reg, Action load, Action unload) where T : ExtenType
+        private static void RegistLoader<T>(Type type) where T : ExtenType
         {
-            RegistFoo<T>.Foo = reg;
-            Loads.Add(load);
-            Unloads.Add(unload);
+            Delegate register = Delegate.CreateDelegate(typeof(Action<T>), type.GetMethod("Register", BindingFlags.Static | BindingFlags.NonPublic));
+            Delegate load = Delegate.CreateDelegate(typeof(Action), type.GetMethod("Load", BindingFlags.Static | BindingFlags.NonPublic));
+            Delegate unload = Delegate.CreateDelegate(typeof(Action), type.GetMethod("Unload", BindingFlags.Static | BindingFlags.NonPublic));
+
+            RegistFoo<T>.Foo = (Action<T>)register;
+            Loads.Add((Action)load);
+            Unloads.Add((Action)unload);
         }
 
         internal static void Initialize(ModObject mo)
@@ -124,6 +131,9 @@ namespace ExtenContent.Extens
             RegistExten<ExtenEquip>(mo, asset);
             RegistExten<ExtenProjectile>(mo, asset);
             RegistExten<ExtenBuff>(mo, asset);
+            RegistExten<ExtenSurfaceBackground>(mo, asset);
+            RegistExten<ExtenMenuStyle>(mo, asset);
+
             RegistExten<EPatchPlayer>(mo, asset);
             RegistExten<EPatchRecipe>(mo, asset);
             RegistExten<EPatchArmorSetBonus>(mo, asset);

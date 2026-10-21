@@ -55,7 +55,7 @@ namespace ExtenContent.Extens
             itemsKey[key] = item;
             item.Item.type = ItemCount++;
 
-            EquipLoader.Register(item);
+            EquipLoader.RegisterItem(item);
         }
 
         /// <summary>

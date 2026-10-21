@@ -1,4 +1,6 @@
-﻿namespace ExtenContent.Extens
+﻿using Terraria.ID;
+
+namespace ExtenContent.Extens
 {
     public static partial class ExtenManag
     {
@@ -14,12 +16,12 @@
         }
 
         /// <summary>
-        /// buffType是否是<see cref="ExtenBuff"/>
+        /// <see cref="BuffID"/>是否是<see cref="ExtenBuff"/>
         /// </summary>
         public static bool IsExtenBuff(int type) => BuffLoader.TypeInRange(type);
 
         /// <summary>
-        /// 获取buffType对应的<see cref="ExtenBuff"/>, 不存在返回<see langword="null"/>
+        /// 获取对应的<see cref="ExtenBuff"/>, 不存在返回<see langword="null"/>
         /// </summary>
         public static ExtenBuff GetExtenBuff(int type) => BuffLoader.GetBuff(type);
         #endregion

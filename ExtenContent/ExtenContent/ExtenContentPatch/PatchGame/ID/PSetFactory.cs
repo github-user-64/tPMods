@@ -36,6 +36,7 @@ namespace ExtenContentPatch.PatchGame.ID
             else if (type == typeof(ArmorIDs.Legs.Sets)) size = EquipLoader.LegsCount;
             else if (type == typeof(ArmorIDs.Wing.Sets)) size = EquipLoader.WingCount;
             else if (type == typeof(BuffID.Sets)) size = BuffLoader.BuffCount;
+            else if (type == typeof(SurfaceBackgroundID.Sets)) size = SurfaceBackgroundLoader.BackCount;
         }
     }
 }

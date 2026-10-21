@@ -47,7 +47,7 @@ namespace ExtenContent.Extens
         }
 
         /// <summary>
-        /// 获取buffType对应的<see cref="ExtenBuff"/>, 不存在返回<see langword="null"/>
+        /// 获取对应的<see cref="ExtenBuff"/>, 不存在返回<see langword="null"/>
         /// </summary>
         public static ExtenBuff GetBuff(int type)
         {
@@ -57,7 +57,7 @@ namespace ExtenContent.Extens
         }
 
         /// <summary>
-        /// buffType是否是<see cref="ExtenBuff"/>
+        /// <see cref="BuffID"/>是否是<see cref="ExtenBuff"/>
         /// </summary>
         public static bool TypeInRange(int type)
         {

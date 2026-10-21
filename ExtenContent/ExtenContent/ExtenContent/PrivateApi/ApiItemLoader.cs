@@ -8,9 +8,9 @@ using Terraria.IO;
 namespace ExtenContent.PrivateApi
 {
     /// <summary/>
-    public partial class ApiItemLoad
+    public partial class ApiItemLoader
     {
-        internal ApiItemLoad() { }
+        internal ApiItemLoader() { }
 
         /// <summary/>
         public void LoadPlayerPostfix(PlayerFileData result, string playerPath, bool cloudSave)

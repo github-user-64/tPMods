@@ -16,7 +16,7 @@ namespace ExtenContentPatch.PatchGame
             CodeMatcher codeMatcher = new CodeMatcher(instructions);
 
             codeMatcher.MatchStartForward(
-               new CodeMatch(OpCodes.Ldsfld, Utils.ItemID_Count)
+               new CodeMatch(OpCodes.Ldsfld, ILUtils.ItemID_Count)
                )
                .ThrowIfInvalid("找不到IL位置")
                .Advance(0)

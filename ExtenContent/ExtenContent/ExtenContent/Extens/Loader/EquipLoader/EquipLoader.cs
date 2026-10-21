@@ -76,7 +76,7 @@ namespace ExtenContent.Extens
         /// <summary>
         /// 根据<paramref name="item"/>的<see cref="AutoloadEquip"/>注册
         /// </summary>
-        internal static void Register(ExtenItem item)
+        internal static void RegisterItem(ExtenItem item)
         {
             AutoloadEquip al = item.GetType().GetCustomAttribute<AutoloadEquip>();
             if (al?.equipTypes == null) return;
@@ -134,7 +134,7 @@ namespace ExtenContent.Extens
         }
 
         /// <summary>
-        /// 是否是<see cref="ExtenEquip"/>
+        /// <see cref="ArmorIDs"/>是否是<see cref="ExtenEquip"/>
         /// </summary>
         public static bool TypeInRange(EquipType type, int slot)
         {
