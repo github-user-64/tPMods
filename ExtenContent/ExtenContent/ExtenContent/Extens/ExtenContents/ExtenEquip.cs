@@ -21,9 +21,17 @@ namespace ExtenContent.Extens
         /// </summary>
         public int Slot { get; internal set; }
 
-        /// <summary/>
+        /// <summary>
+        /// 只对饰品有效
+        /// </summary>
         public virtual void ApplyEquipFunctionalPostfix(Player player, int itemSlot, Item currentItem) { }
-        /// <summary/>
+        /// <summary>
+        /// 只对饰品有效
+        /// </summary>
         public virtual void ApplyEquipVanityPostfix(Player player, int itemSlot, Item currentItem) { }
+        /// <summary>
+        /// 应用盔甲和饰品的效果
+        /// </summary>
+        public virtual void UpdateEquip(Player player, Item armorPiece) { }
     }
 }

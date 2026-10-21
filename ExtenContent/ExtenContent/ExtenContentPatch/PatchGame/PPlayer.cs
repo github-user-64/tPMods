@@ -37,6 +37,12 @@ namespace ExtenContentPatch.PatchGame
             ThisMod.Api.Equip.ApplyEquipVanityPostfix(This, itemSlot, currentItem);
         }
 
+        public override void GrantArmorBenefitsPostfix(Player This, Item armorPiece)
+        {
+            ThisMod.Api.Item.GrantArmorBenefitsPostfix(This, armorPiece);
+            ThisMod.Api.Equip.GrantArmorBenefitsPostfix(This, armorPiece);
+        }
+
         public override void UpdateBuffsPostfix(Player This, int i)
         {
             ThisMod.Api.Buff.UpdateBuffsPostfix(This);

@@ -25,7 +25,7 @@ namespace ExtenContent.Extens
 
             item.material = ItemID.Sets.IsAMaterial[item.type];
 
-            ExtenItem eitem = GetItem(item.type);
+            ExtenItem eitem = GetExtenItem(item.type);
             eitem.AutoDefaults(item);
             eitem.SetDefault(item);
 

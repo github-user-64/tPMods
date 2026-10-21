@@ -61,6 +61,12 @@ namespace ExtenContent.PrivateApi
         }
 
         /// <summary/>
+        public void GrantArmorBenefitsPostfix(Player player, Item armorPiece)
+        {
+            ItemLoader.GrantArmorBenefitsPostfix(player, armorPiece);
+        }
+
+        /// <summary/>
         public bool AltFunctionUse(Player player, Item item)
         {
             return ItemLoader.AltFunctionUse(player, item);

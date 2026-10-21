@@ -19,5 +19,11 @@ namespace ExtenContent.PrivateApi
         {
             EquipLoader.ApplyEquipVanityPostfix(player, itemSlot, currentItem);
         }
+
+        /// <summary/>
+        public void GrantArmorBenefitsPostfix(Player player, Item armorPiece)
+        {
+            EquipLoader.GrantArmorBenefitsPostfix(player, armorPiece);
+        }
     }
 }

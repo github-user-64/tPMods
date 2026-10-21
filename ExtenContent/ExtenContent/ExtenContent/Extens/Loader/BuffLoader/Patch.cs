@@ -10,7 +10,7 @@ namespace ExtenContent.Extens
             {
                 if (player.buffType[i] <= 0 || player.buffTime[i] <= 0) continue;
 
-                GetBuff(player.buffType[i])?.UpdateBuffs(player);
+                GetExtenBuff(player.buffType[i])?.UpdateBuffs(player);
             }
         }
 
@@ -20,7 +20,7 @@ namespace ExtenContent.Extens
             {
                 if (npc.buffType[i] <= 0 || npc.buffTime[i] <= 0) continue;
 
-                GetBuff(npc.buffType[i])?.UpdateBuffs(npc, lowerBuffTime);
+                GetExtenBuff(npc.buffType[i])?.UpdateBuffs(npc, lowerBuffTime);
             }
         }
     }

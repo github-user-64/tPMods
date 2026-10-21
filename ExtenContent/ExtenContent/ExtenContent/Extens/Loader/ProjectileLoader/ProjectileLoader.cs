@@ -26,7 +26,7 @@ namespace ExtenContent.Extens
 
             projs.ForEach(i => i.Load());
 
-            ThisMod.Log($"{typeof(ProjectileLoader)}:加载完成:新射弹:{ProjectileCount - ProjectileID.Count}", time);
+            ThisMod.Log($"{typeof(ProjectileLoader)}:加载完成:新射弹:{ProjectileCount - ProjectileID.Count}个", time);
         }
 
         internal static void Unload()
@@ -48,7 +48,7 @@ namespace ExtenContent.Extens
         /// <summary>
         /// 获取<see cref="Projectile.type"/>对应的<see cref="ExtenProjectile"/>, 不存在返回<see langword="null"/>
         /// </summary>
-        public static ExtenProjectile GetProj(int type)
+        public static ExtenProjectile GetExtenProj(int type)
         {
             if (TypeInRange(type) != true) return null;
 

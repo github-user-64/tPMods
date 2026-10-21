@@ -76,7 +76,7 @@ namespace ExtenContent.Extens
 
                 string key = EItems[i].Name;
 
-                if (GetItem(key) == null)//物品没加载
+                if (GetExtenItem(key) == null)//物品没加载
                 {
                     RegisterUnload(key);//注册卸载物品
 

@@ -24,7 +24,7 @@ namespace ExtenContent.Extens
         /// <summary>
         /// 获取<see cref="Projectile.type"/>对应的<see cref="ExtenProjectile"/>, 不存在返回<see langword="null"/>
         /// </summary>
-        public static ExtenProjectile GetExtenProjectile(int type) => ProjectileLoader.GetProj(type);
+        public static ExtenProjectile GetExtenProjectile(int type) => ProjectileLoader.GetExtenProj(type);
         #endregion
     }
 }

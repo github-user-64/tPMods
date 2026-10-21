@@ -9,7 +9,7 @@ namespace ExtenContent.Extens
     {
         internal static void SetDefaultsPostfix(Projectile proj, int Type)
         {
-            ExtenProjectile ep = GetProj(Type);
+            ExtenProjectile ep = GetExtenProj(Type);
             if (ep == null) return;
 
             ep.SetDefault(proj);
@@ -23,44 +23,44 @@ namespace ExtenContent.Extens
 
         internal static void AIPostfix(Projectile proj)
         {
-            GetProj(proj.type)?.AI(proj);
+            GetExtenProj(proj.type)?.AI(proj);
         }
 
         internal static void KillPostfix(Projectile proj)
         {
-            GetProj(proj.type)?.OnKill(proj);
+            GetExtenProj(proj.type)?.OnKill(proj);
         }
 
         internal static void NewProjectilePostfix(Projectile proj, IEntitySource spawnSource)
         {
-            GetProj(proj.type)?.NewProjectilePostfix(proj, spawnSource);
+            GetExtenProj(proj.type)?.NewProjectilePostfix(proj, spawnSource);
         }
 
         internal static void CollidingPostfix(ref bool result, Projectile proj, Rectangle myRect, Rectangle targetRect)
         {
-            bool? v = GetProj(proj.type)?.Colliding(proj, myRect, targetRect);
+            bool? v = GetExtenProj(proj.type)?.Colliding(proj, myRect, targetRect);
             if (v != null) result = v.Value;
         }
 
         internal static void GetAlphaPostfix(ref Color result, Projectile proj, Color newColor)
         {
-            Color? v = GetProj(proj.type)?.GetAlpha(proj, newColor);
+            Color? v = GetExtenProj(proj.type)?.GetAlpha(proj, newColor);
             if (v != null) result = v.Value;
         }
 
         internal static bool DrawProjDirectPrefix(Projectile proj, Color lightColor, Player player = null)
         {
-            return GetProj(proj.type)?.PreDraw(proj, lightColor, player) ?? true;
+            return GetExtenProj(proj.type)?.PreDraw(proj, lightColor, player) ?? true;
         }
 
         internal static void DrawProjDirectPostfix(Projectile proj, Color lightColor, Player player = null)
         {
-            GetProj(proj.type)?.PostDraw(proj, lightColor, player);
+            GetExtenProj(proj.type)?.PostDraw(proj, lightColor, player);
         }
 
         internal static bool UpdatePositionPrefix(Projectile proj, Vector2 wetVelocity)
         {
-            return GetProj(proj.type)?.CanUpdatePosition(proj, wetVelocity) ?? true;
+            return GetExtenProj(proj.type)?.CanUpdatePosition(proj, wetVelocity) ?? true;
         }
     }
 }

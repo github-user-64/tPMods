@@ -79,7 +79,7 @@
     <Compile Include="Content\Projectiles\Proj3.cs" />
     <Compile Include="Content\Items\Armor\Equip1.cs" />
     <Compile Include="Content\Items\Armor\Equip2.cs" />
-    <Compile Include="MenuStyle\Back1.cs" />
+    <Compile Include="Back\Back1.cs" />
     <Compile Include="MenuStyle\Style1.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ThisMod.cs" />
@@ -128,5 +128,6 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

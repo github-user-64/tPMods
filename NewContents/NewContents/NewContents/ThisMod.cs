@@ -15,7 +15,7 @@ namespace NewContents
             ModObject mo = ContentPatch.GetModObjects()?.FirstOrDefault(i => i.config.key == ExtenContent.ThisMod.ModKey);
             if (mo == null) throw new Exception($"找不到:{ExtenContent.ThisMod.ModName}");
 
-            string targetVersion = "1.1";
+            string targetVersion = "1.2";
             if (mo.config.version != targetVersion) throw new Exception($"NewContents的{ExtenContent.ThisMod.ModName}目标版本为:{targetVersion}");
         }
 

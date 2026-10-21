@@ -4,7 +4,7 @@ using Microsoft.Xna.Framework.Graphics;
 using System;
 using Terraria;
 
-namespace NewContents.MenuStyle
+namespace NewContents.Back
 {
     internal class Back1 : ExtenSurfaceBackground
     {

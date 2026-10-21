@@ -29,17 +29,22 @@ namespace ExtenContentPatch
 
         public override void UpdateUIStatesPostfix(GameTime gameTime)
         {
-            if (ui == null || Main.mouseRight)
+            if (ui == null)
             {
                 UserInterface ui = new UserInterface();
                 state = new UIState();
 
-                text = new UIText("");
+                text = new UIText("主菜单样式切换按钮");
                 text.HAlign = 0.5f;
                 text.VAlign = 1f;
                 text.MarginBottom = 10;
                 text.OnMouseOver += (e, s) => SoundEngine.PlaySound(12);
-                text.OnLeftClick += Text_OnLeftClick;
+                text.OnLeftClick += (e, s) =>
+                {
+                    SoundEngine.PlaySound(12);
+
+                    NextStyle();
+                };
                 state.Append(text);
 
                 this.ui = ui;
@@ -57,15 +62,16 @@ namespace ExtenContentPatch
             text.TextColor = text.IsMouseHovering ? Colors.FancyUIFatButtonMouseOver : Color.White * 0.8f;
             text.ShadowColor = text.IsMouseHovering ? Color.Black : Color.Black * 0.8f;
 
+            //
+
             ExtenMenuStyle style = MenuStyleLoader.CurrentStyle;
+
             if (style == null) text.SetText($"{count}个新样式");
-            else text.SetText(style.DisplayName ?? style.Name);
+            else text.SetText(GetDiaplayName(style));
         }
 
-        private void Text_OnLeftClick(UIMouseEvent evt, UIElement listeningElement)
+        private static void NextStyle()
         {
-            SoundEngine.PlaySound(12);
-
             int style;
             ExtenMenuStyle now = MenuStyleLoader.CurrentStyle;
 
@@ -75,6 +81,20 @@ namespace ExtenContentPatch
             if (MenuStyleLoader.TypeInRange(style) != true) style = MenuStyleLoader.OriginCount - 1;
 
             MenuStyleLoader.CurrentStyle = MenuStyleLoader.GetStyle(style);
+        }
+
+        private static string GetDiaplayName(ExtenMenuStyle style)
+        {
+            string name = style.DisplayName ?? style.Name;
+            if (name == null) return "未知样式名";
+
+            name = name.Trim();
+            if (name.Length < 1) return "未知样式名";
+
+            int max = 40;
+            if (name.Length > max) name = name.Substring(0, max) + "...";
+
+            return name;
         }
     }
 }

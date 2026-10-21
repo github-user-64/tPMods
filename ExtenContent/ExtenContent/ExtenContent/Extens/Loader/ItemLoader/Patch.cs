@@ -57,5 +57,10 @@ namespace ExtenContent.Extens
         {
             ExtenManag.GetExtenItem(item.type)?.OnHitNPC(player, item, itemRectangle, originalDamage, knockBack, npc);
         }
+
+        internal static void GrantArmorBenefitsPostfix(Player player, Item armorPiece)
+        {
+            ExtenManag.GetExtenItem(armorPiece.type)?.UpdateEquip(player, armorPiece);
+        }
     }
 }

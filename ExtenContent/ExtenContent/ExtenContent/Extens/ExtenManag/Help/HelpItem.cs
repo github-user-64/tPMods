@@ -19,22 +19,22 @@ namespace ExtenContent.Extens
         /// <summary>
         /// 获取<see cref="Item.type"/>对应的<see cref="ExtenItem"/>, 不存在返回<see langword="null"/>
         /// </summary>
-        public static ExtenItem GetExtenItem(int type) => ItemLoader.GetItem(type);
+        public static ExtenItem GetExtenItem(int type) => ItemLoader.GetExtenItem(type);
 
         /// <summary>
         /// 获取<see cref="ExtenType.FullName"/>对应的<see cref="ExtenItem"/>, 不存在返回<see langword="null"/>
         /// </summary>
-        public static ExtenItem GetExtenItem(string key) => ItemLoader.GetItem(key);
+        public static ExtenItem GetExtenItem(string key) => ItemLoader.GetExtenItem(key);
 
         /// <summary>
         /// 获取<see cref="ExtenType.FullName"/>对应的<see cref="Item.type"/>, 不存在返回<see cref="ItemID.None"/>
         /// </summary>
-        public static int GetExtenItemType(string key) => ItemLoader.GetItemType(key);
+        public static int GetExtenItemType(string key) => ItemLoader.GetExtenItemType(key);
 
         /// <summary>
         /// 获取<see cref="Item.type"/>对应的<see cref="ExtenType.FullName"/>, 不存在返回<see langword="null"/>
         /// </summary>
-        public static string GetExtenItemKey(int type) => ItemLoader.GetItemKey(type);
+        public static string GetExtenItemKey(int type) => ItemLoader.GetExtenItemKey(type);
 
         /// <summary>
         /// <see cref="Item.type"/>是否是<see cref="ExtenItem"/>

@@ -21,7 +21,7 @@ namespace ExtenContent.Extens
 
             backs.ForEach(i => i.Load());
 
-            ThisMod.Log($"{typeof(SurfaceBackgroundLoader)}:加载完成:新背景:{BackCount - SurfaceBackgroundID.Count}", time);
+            ThisMod.Log($"{typeof(SurfaceBackgroundLoader)}:加载完成:新背景:{BackCount - SurfaceBackgroundID.Count}个", time);
         }
 
         internal static void Unload()

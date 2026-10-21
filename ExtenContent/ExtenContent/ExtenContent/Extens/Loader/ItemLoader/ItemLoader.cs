@@ -30,7 +30,7 @@ namespace ExtenContent.Extens
 
             items.ForEach(i => i.Load());
 
-            ThisMod.Log($"{typeof(ItemLoader)}:加载完成:新物品:{ItemCount - ItemID.Count}", time);
+            ThisMod.Log($"{typeof(ItemLoader)}:加载完成:新物品:{ItemCount - ItemID.Count}个", time);
         }
 
         internal static void Unload()
@@ -49,7 +49,7 @@ namespace ExtenContent.Extens
         {
             string key = item.FullName;
             if (key == null) throw new Exception($"{nameof(ItemLoader)}:物品的{nameof(ExtenItem.FullName)}为null");
-            if (GetItem(key) != null) throw new Exception($"{nameof(ItemLoader)}:物品[{key}]已注册");
+            if (GetExtenItem(key) != null) throw new Exception($"{nameof(ItemLoader)}:物品[{key}]已注册");
 
             items.Add(item);
             itemsKey[key] = item;
@@ -98,7 +98,7 @@ namespace ExtenContent.Extens
         /// <summary>
         /// 获取<see cref="Item.type"/>对应的<see cref="ExtenItem"/>, 不存在返回<see langword="null"/>
         /// </summary>
-        public static ExtenItem GetItem(int type)
+        public static ExtenItem GetExtenItem(int type)
         {
             if (TypeInRange(type) != true) return null;
 
@@ -108,7 +108,7 @@ namespace ExtenContent.Extens
         /// <summary>
         /// 获取<see cref="ExtenType.FullName"/>对应的<see cref="ExtenItem"/>, 不存在返回<see langword="null"/>
         /// </summary>
-        public static ExtenItem GetItem(string key)
+        public static ExtenItem GetExtenItem(string key)
         {
             if (key == null) return null;
             if (itemsKey.ContainsKey(key) != true) return null;
@@ -119,17 +119,17 @@ namespace ExtenContent.Extens
         /// <summary>
         /// 获取<see cref="ExtenType.FullName"/>对应的<see cref="Item.type"/>, 不存在返回<see cref="ItemID.None"/>
         /// </summary>
-        public static int GetItemType(string key)
+        public static int GetExtenItemType(string key)
         {
-            return GetItem(key)?.Type ?? ItemID.None;
+            return GetExtenItem(key)?.Type ?? ItemID.None;
         }
 
         /// <summary>
         /// 获取<see cref="Item.type"/>对应的<see cref="ExtenType.FullName"/>, 不存在返回<see langword="null"/>
         /// </summary>
-        public static string GetItemKey(int type)
+        public static string GetExtenItemKey(int type)
         {
-            return GetItem(type)?.FullName;
+            return GetExtenItem(type)?.FullName;
         }
 
         /// <summary>

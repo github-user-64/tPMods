@@ -39,28 +39,26 @@ namespace ExtenContent.Extens
         /// </summary>
         public virtual void ApplyItemAnimationPostfix(Player player, Item item) { }
         /// <summary>
-        /// 
+        /// 只对饰品有效
         /// </summary>
         public virtual void ApplyEquipFunctionalPostfix(Player player, int itemSlot, Item currentItem) { }
         /// <summary>
-        /// 
+        /// 只对饰品有效
         /// </summary>
         public virtual void ApplyEquipVanityPostfix(Player player, int itemSlot, Item currentItem) { }
         /// <summary>
-        /// 
+        /// 应用盔甲和饰品的效果
         /// </summary>
+        public virtual void UpdateEquip(Player player, Item armorPiece) { }
+        /// <summary/>
         public virtual void ModifyTooltips(Item item, ref int yoyoLogo, ref float oldKB, ref int numLines, ref string[] toolTipLine, ref Color[] lineColors) { }
         /// <summary>
         /// 允许通过右键单击使此项目可用,默认情况下返回false当通过右键单击使用此item时player.altFunctionUse将设置为2
         /// </summary>
         public virtual bool AltFunctionUse(Player player, Item item) => false;
-        /// <summary>
-        /// 
-        /// </summary>
+        /// <summary/>
         public virtual bool CanUseItem(Player player, Item item) => true;
-        /// <summary>
-        /// 
-        /// </summary>
+        /// <summary/>
         public virtual void OnHitNPC(Player player, Item item, Rectangle itemRectangle, int originalDamage, float knockBack, NPC npc) { }
         /// <summary/>
         public virtual void AddRecipes() { }

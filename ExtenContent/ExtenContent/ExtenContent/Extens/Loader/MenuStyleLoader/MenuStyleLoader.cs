@@ -24,7 +24,7 @@ namespace ExtenContent.Extens
 
             styles.ForEach(i => i.Load());
 
-            ThisMod.Log($"{typeof(MenuStyleLoader)}:加载完成:新菜单样式:{StyleCount - OriginCount}", time);
+            ThisMod.Log($"{typeof(MenuStyleLoader)}:加载完成:新菜单样式:{StyleCount - OriginCount}个", time);
         }
 
         internal static void Unload()

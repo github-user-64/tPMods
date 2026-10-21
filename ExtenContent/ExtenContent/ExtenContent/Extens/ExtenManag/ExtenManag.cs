@@ -22,6 +22,8 @@ namespace ExtenContent.Extens
         private static readonly List<ExtenType> Extens = new List<ExtenType>();
         private static readonly List<IAssetRepository> Assets = new List<IAssetRepository>();
 
+        /// <summary/>
+        public static bool IsLoaded { get; private set; } = false;
         private static bool IsLoad = false;
         private static bool IsInited = false;
         private static readonly object _lock = new object();
@@ -80,17 +82,20 @@ namespace ExtenContent.Extens
                 IsLoad = true;
             }
 
+            IsLoaded = false;
             ThisMod.Log(out DateTime time, $"{nameof(ExtenManag)}:加载");
 
             Loads.ForEach(i => i());
 
             Extens.ForEach(i => i.SetStaticDefaults());
 
+            IsLoaded = true;
             ThisMod.Log($"{nameof(ExtenManag)}:加载完成", time);
         }
 
         internal static void Unload()
         {
+            IsLoaded = false;
             ThisMod.Log(out DateTime time);
 
             Unloads.ForEach(i => i());

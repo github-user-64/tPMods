@@ -23,7 +23,7 @@ namespace ExtenContent.Extens
         /// <summary>
         /// 获取<see cref="ExtenEquip"/>, 不存在返回<see langword="null"/>
         /// </summary>
-        public static ExtenEquip GetExtenEquip(EquipType type, int slot) => EquipLoader.GetEquip(type, slot);
+        public static ExtenEquip GetExtenEquip(EquipType type, int slot) => EquipLoader.GetExtenEquip(type, slot);
         #endregion
     }
 }

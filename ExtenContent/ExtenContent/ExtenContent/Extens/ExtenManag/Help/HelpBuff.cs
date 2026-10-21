@@ -23,7 +23,7 @@ namespace ExtenContent.Extens
         /// <summary>
         /// 获取对应的<see cref="ExtenBuff"/>, 不存在返回<see langword="null"/>
         /// </summary>
-        public static ExtenBuff GetExtenBuff(int type) => BuffLoader.GetBuff(type);
+        public static ExtenBuff GetExtenBuff(int type) => BuffLoader.GetExtenBuff(type);
         #endregion
     }
 }

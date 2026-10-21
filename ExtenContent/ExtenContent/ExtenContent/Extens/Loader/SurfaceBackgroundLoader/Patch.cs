@@ -8,9 +8,9 @@ namespace ExtenContent.Extens
     {
         internal static bool UpdateBGVisibility_BackLayerPrefix(int? targetBiomeOverride, float? transitionAmountOverride)
         {
-            if (TypeInRange(Main.bgStyle) != true) return true;
-
             int value = Main.bgStyle;
+            if (TypeInRange(value) != true) return true;
+
             if (targetBiomeOverride.HasValue) value = targetBiomeOverride.Value;
 
             MainR.DrawBG_ModifyBGFarBackLayerAlpha(value, null, transitionAmountOverride);
@@ -21,6 +21,7 @@ namespace ExtenContent.Extens
         internal static void DrawSurfaceBGPostfix(SpriteBatchBeginner parentSpriteBatchBeginner, float? verticalParallaxOverride)
         {
             if (Main.BackgroundEnabled != true) return;
+            if (ExtenManag.IsLoaded != true) return;
 
             foreach (ExtenSurfaceBackground i in backs)
             {

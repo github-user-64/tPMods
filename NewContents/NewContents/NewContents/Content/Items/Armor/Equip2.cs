@@ -23,5 +23,13 @@ namespace NewContents.Content.Items.Armor
             public override EquipType EquipType => EquipType.Head;
             public override string Texture => "Terraria/Images/Armor_Head_116";
         }
+
+        public override void UpdateEquip(Player player, Item armorPiece)
+        {
+            if (player != Main.LocalPlayer) return;
+            if (Main.dedServ) return;
+
+            Main.bgStyle = ExtenInstance<Back.Back1>.Instance.Type;
+        }
     }
 }

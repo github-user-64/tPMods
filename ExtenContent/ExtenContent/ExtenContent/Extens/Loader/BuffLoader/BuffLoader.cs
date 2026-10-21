@@ -27,7 +27,7 @@ namespace ExtenContent.Extens
 
             buffs.ForEach(i => i.Load());
 
-            ThisMod.Log($"{typeof(BuffLoader)}:加载完成:新buff:{BuffCount - BuffID.Count}", time);
+            ThisMod.Log($"{typeof(BuffLoader)}:加载完成:新buff:{BuffCount - BuffID.Count}个", time);
         }
 
         internal static void Unload()
@@ -49,7 +49,7 @@ namespace ExtenContent.Extens
         /// <summary>
         /// 获取对应的<see cref="ExtenBuff"/>, 不存在返回<see langword="null"/>
         /// </summary>
-        public static ExtenBuff GetBuff(int type)
+        public static ExtenBuff GetExtenBuff(int type)
         {
             if (TypeInRange(type) != true) return null;
 

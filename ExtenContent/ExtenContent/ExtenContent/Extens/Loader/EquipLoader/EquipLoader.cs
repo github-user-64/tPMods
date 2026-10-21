@@ -43,7 +43,7 @@ namespace ExtenContent.Extens
 
             foreach (EquipType i in EquipTypes)
             {
-                ThisMod.Log($"{typeof(EquipLoader)}:加载完成:新{i}:{GetEquipCount(i) - GetEquipOriginCount(i)}", time);
+                ThisMod.Log($"{typeof(EquipLoader)}:加载完成:新{i}:{GetEquipCount(i) - GetEquipOriginCount(i)}个", time);
             }
         }
 
@@ -111,6 +111,21 @@ namespace ExtenContent.Extens
         }
 
         /// <summary>
+        /// 获取物品的slot
+        /// </summary>
+        public static int GetItemSlot(EquipType type, Item item)
+        {
+            switch (type)
+            {
+                case EquipType.Head: return item.headSlot;
+                case EquipType.Body: return item.bodySlot;
+                case EquipType.Legs: return item.legSlot;
+                case EquipType.Wings: return item.wingSlot;
+                default: return -1;
+            }
+        }
+
+        /// <summary>
         /// 获取原版装备数量
         /// </summary>
         public static int GetEquipOriginCount(EquipType type)
@@ -144,7 +159,7 @@ namespace ExtenContent.Extens
         /// <summary>
         /// 获取<see cref="ExtenEquip"/>, 不存在返回<see langword="null"/>
         /// </summary>
-        public static ExtenEquip GetEquip(EquipType type, int slot)
+        public static ExtenEquip GetExtenEquip(EquipType type, int slot)
         {
             if (TypeInRange(type, slot) != true) return null;
 
