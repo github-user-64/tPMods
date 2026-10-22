@@ -62,11 +62,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Extens\Attributes\AutoloadEquip.cs" />
+    <Compile Include="Extens\Enums\FileType.cs" />
+    <Compile Include="Extens\ExtenContents\ExtenMusic.cs" />
     <Compile Include="Extens\ExtenContents\ExtenMenuStyle.cs" />
     <Compile Include="Extens\ExtenContents\ExtenPatchs\EPatchArmorSetBonuses.cs" />
     <Compile Include="Extens\ExtenContents\ExtenPatchs\EPatchRecipe.cs" />
     <Compile Include="Extens\ExtenContents\ExtenBuff.cs" />
     <Compile Include="Extens\ExtenContents\ExtenSurfaceBackground.cs" />
+    <Compile Include="Extens\ExtenManag\Help\HelpMusic.cs" />
     <Compile Include="Extens\ExtenManag\Help\HelpBack.cs" />
     <Compile Include="Extens\ExtenManag\Help\HelpBuff.cs" />
     <Compile Include="Extens\ExtenManag\Help\HelpEquip.cs" />
@@ -78,6 +81,8 @@
     <Compile Include="Extens\Loader\EquipLoader\Patch.cs" />
     <Compile Include="Extens\Loader\ItemLoader\ItemData.cs" />
     <Compile Include="Extens\Loader\ItemLoader\Patch_SetDefaults.cs" />
+    <Compile Include="Extens\Loader\MusicLoader\Load.cs" />
+    <Compile Include="Extens\Loader\MusicLoader\MusicLoader.cs" />
     <Compile Include="Extens\Loader\MenuStyleLoader\MenuStyleLoader.cs" />
     <Compile Include="Extens\Loader\MenuStyleLoader\Patch.cs" />
     <Compile Include="Extens\Loader\BuffLoader\Patch.cs" />
@@ -121,9 +126,12 @@
     <Compile Include="Extens\Loader\ItemLoader\Load.cs" />
     <Compile Include="ThisMod.cs" />
     <Compile Include="Utils\ExtenAssetRepository.cs" />
+    <Compile Include="Utils\Readers\AssetRead.cs" />
+    <Compile Include="Utils\Readers\WAVReader.cs" />
+    <Compile Include="Utils\Readers\MP3Reader.cs" />
     <Compile Include="Utils\ReflectionUtils\MainR.cs" />
     <Compile Include="Utils\ReflectionUtils\ReflectionUtils.cs" />
-    <Compile Include="Utils\TextureUtils.cs" />
+    <Compile Include="Utils\ClassPathUtils.cs" />
     <Compile Include="Utils\LanguageUtils.cs" />
   </ItemGroup>
   <ItemGroup>

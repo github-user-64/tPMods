@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using ExtenContent.Utils.Readers;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
 using ReLogic.Content.Readers;
@@ -21,6 +22,8 @@ namespace ExtenContent.Utils
             AssetReaderCollection assetReaderCollection = new AssetReaderCollection();
             assetReaderCollection.RegisterReader(new XnbReader(Main.instance.Services), ".xnb");
             assetReaderCollection.RegisterReader(new PngReader(services.Get<IGraphicsDeviceService>().GraphicsDevice), ".png");
+            assetReaderCollection.RegisterReader(new MP3Reader(), ".mp3");
+            assetReaderCollection.RegisterReader(new WAVReader(), ".wav");
 
             AsyncAssetLoader asyncAssetLoader = new AsyncAssetLoader(assetReaderCollection, 20);
             //asyncAssetLoader.RequireTypeCreationOnTransfer(typeof(Texture2D));

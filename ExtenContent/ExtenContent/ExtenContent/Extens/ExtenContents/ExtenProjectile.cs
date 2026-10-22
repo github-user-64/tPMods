@@ -9,7 +9,7 @@ namespace ExtenContent.Extens
     /// <summary>
     /// 扩展射弹
     /// </summary>
-    public abstract class ExtenProjectile : ExtenType, LanguageUtils.ILanguageUtils, TextureUtils.ITextureUtils
+    public abstract class ExtenProjectile : ExtenType, LanguageUtils.ILanguageUtils, ClassPathUtils.IClassPathUtils
     {
         /// <summary/>
         public Projectile Projectile { get; } = new Projectile();
@@ -20,7 +20,7 @@ namespace ExtenContent.Extens
         /// <summary>
         /// 纹理位置
         /// </summary>
-        public virtual string Texture => this.GetTexture();
+        public virtual string Texture => this.GetPath();
         /// <summary/>
         public virtual LocalizedText DisplayName => this.GetLocalization($"{nameof(DisplayName)}", Name);
 

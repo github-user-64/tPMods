@@ -6,12 +6,12 @@ namespace ExtenContent.Extens
     /// <summary>
     /// 扩展装备
     /// </summary>
-    public abstract class ExtenEquip : ExtenType, TextureUtils.ITextureUtils
+    public abstract class ExtenEquip : ExtenType, ClassPathUtils.IClassPathUtils
     {
         /// <summary>
         /// 纹理位置
         /// </summary>
-        public virtual string Texture => this.GetTexture();
+        public virtual string Texture => this.GetPath();
         /// <summary>
         /// 装备类型
         /// </summary>

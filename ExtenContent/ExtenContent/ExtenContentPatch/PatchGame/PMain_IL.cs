@@ -25,8 +25,14 @@ namespace ExtenContentPatch.PatchGame
         [HarmonyTranspiler]
         private static IEnumerable<CodeInstruction> Transpiler_UpdateAudio(IEnumerable<CodeInstruction> instructions)
         {
-            //return instructions.StaticFieldToMethod(typeof(Main).GetField("maxMusic"), typeof(PMain).GetMethod("get_MusicCount"));
-            return instructions;
+            return instructions.MusicToLoader();
+        }
+
+        [HarmonyPatch("UpdateAudio_DecideOnNewMusic")]
+        [HarmonyTranspiler]
+        private static IEnumerable<CodeInstruction> Transpiler_UpdateAudio_DecideOnNewMusic(IEnumerable<CodeInstruction> instructions)
+        {
+            return instructions.MusicToLoader();
         }
     }
 }

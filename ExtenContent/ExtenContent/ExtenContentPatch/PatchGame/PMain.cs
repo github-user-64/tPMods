@@ -1,13 +1,8 @@
 ﻿using HarmonyLib;
 using Microsoft.Xna.Framework;
-using System;
-using System.Collections.Generic;
-using System.IO;
 using tContentPatch;
 using Terraria;
-using Terraria.Audio;
 using Terraria.DataStructures;
-using Terraria.ID;
 
 namespace ExtenContentPatch.PatchGame
 {
@@ -76,42 +71,11 @@ namespace ExtenContentPatch.PatchGame
             return ThisMod.Api.MenuStyle.DrawBGPrefix(parentSpriteBatchBeginner);
         }
 
-        public static List<int> soundSlot = new List<int>();
-        public static int MusicCount { get; set; }
         [HarmonyPatch("UpdateAudio_DecideOnNewMusic")]
         [HarmonyPrefix]
         private static bool UpdateAudio_DecideOnNewMusic()
         {
             return true;
-        }
-
-        public static void ASD()
-        {
-            return;
-
-            LegacyAudioSystem legacyAudioSystem = Main.audioSystem as LegacyAudioSystem;
-            if (legacyAudioSystem == null) return;
-
-            int MusicCount = MusicID.Count;
-            soundSlot.Clear();
-            soundSlot.Add(MusicCount++);
-
-            Array.Resize(ref legacyAudioSystem.AudioTracks, MusicCount);
-            Array.Resize(ref legacyAudioSystem.TrackLoopCounts, MusicCount);
-            Array.Resize(ref legacyAudioSystem.PlayCallbacks, MusicCount);
-            Array.Resize(ref Main.musicFade, MusicCount);
-            Array.Resize(ref Main.musicNoCrossFade, MusicCount);
-
-            FileStream read = File.OpenRead("F:/F_MY1/快速存储(记得清理)/sound_long.mp3");
-            foreach (int slot in soundSlot)
-            {
-                if (Main.audioSystem is DisabledAudioSystem) return;
-                legacyAudioSystem.AudioTracks[slot] = new MP3AudioTrack(read);
-            }
-
-            Main.audioSystem = legacyAudioSystem;
-
-            PMain.MusicCount = MusicCount;
         }
     }
 }

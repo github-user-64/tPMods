@@ -3,16 +3,16 @@
 namespace ExtenContent.Utils
 {
     /// <summary/>
-    public static class TextureUtils
+    public static class ClassPathUtils
     {
         /// <summary/>
-        public interface ITextureUtils : IExtenType { }
+        public interface IClassPathUtils : IExtenType { }
 
         /// <summary>
         /// 如果<paramref name="i"/>是MyMod.Content.Items.A1<br/>
         /// 那么返回"Content.Items.A1"
         /// </summary>
-        public static string GetTexture(this ITextureUtils i)
+        public static string GetPath(this IClassPathUtils i)
         {
             char c = '/';
 

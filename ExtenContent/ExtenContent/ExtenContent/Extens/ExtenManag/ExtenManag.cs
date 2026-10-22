@@ -35,6 +35,7 @@ namespace ExtenContent.Extens
             RegistLoader<ExtenProjectile>(typeof(ProjectileLoader));
             RegistLoader<ExtenBuff>(typeof(BuffLoader));
             RegistLoader<ExtenSurfaceBackground>(typeof(SurfaceBackgroundLoader));
+            RegistLoader<ExtenMusic>(typeof(MusicLoader));
             RegistLoader<ExtenMenuStyle>(typeof(MenuStyleLoader));
 
             RegistLoader<EPatchPlayer>(typeof(PatchPlayerLoader));
@@ -137,6 +138,7 @@ namespace ExtenContent.Extens
             RegistExten<ExtenProjectile>(mo, asset);
             RegistExten<ExtenBuff>(mo, asset);
             RegistExten<ExtenSurfaceBackground>(mo, asset);
+            RegistExten<ExtenMusic>(mo, asset);
             RegistExten<ExtenMenuStyle>(mo, asset);
 
             RegistExten<EPatchPlayer>(mo, asset);

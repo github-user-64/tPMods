@@ -16,6 +16,7 @@ namespace ExtenContentPatch
         public readonly static FieldInfo ArmorIDs_Legs_Count = typeof(ArmorIDs.Legs).GetField(nameof(ArmorIDs.Legs.Count));
         public readonly static FieldInfo ArmorIDs_Wing_Count = typeof(ArmorIDs.Wing).GetField(nameof(ArmorIDs.Wing.Count));
         public readonly static FieldInfo BuffID_Count = typeof(BuffID).GetField(nameof(BuffID.Count));
+        public readonly static FieldInfo MusicID_Count = typeof(MusicID).GetField(nameof(MusicID.Count));
 
         public readonly static MethodInfo ItemLoader_ItemCount_Get = typeof(ItemLoader).GetMethod($"get_{nameof(ItemLoader.ItemCount)}");
         public readonly static MethodInfo EquipLoader_HeadCount_Get = typeof(EquipLoader).GetMethod($"get_{nameof(EquipLoader.HeadCount)}");
@@ -23,6 +24,7 @@ namespace ExtenContentPatch
         public readonly static MethodInfo EquipLoader_LegsCount_Get = typeof(EquipLoader).GetMethod($"get_{nameof(EquipLoader.LegsCount)}");
         public readonly static MethodInfo EquipLoader_WingCount_Get = typeof(EquipLoader).GetMethod($"get_{nameof(EquipLoader.WingCount)}");
         public readonly static MethodInfo BuffLoader_BuffCount_Get = typeof(BuffLoader).GetMethod($"get_{nameof(BuffLoader.BuffCount)}");
+        public readonly static MethodInfo MusicLoader_MusicCount_Get = typeof(MusicLoader).GetMethod($"get_{nameof(MusicLoader.MusicCount)}");
 
         public static IEnumerable<CodeInstruction> StaticFieldToMethod(this IEnumerable<CodeInstruction> instructions, FieldInfo fi, MethodInfo mi)
         {
@@ -100,6 +102,13 @@ namespace ExtenContentPatch
             return instructions.StaticFieldToMethod(
                 BuffID_Count,
                 BuffLoader_BuffCount_Get);
+        }
+
+        public static IEnumerable<CodeInstruction> MusicToLoader(this IEnumerable<CodeInstruction> instructions)
+        {
+            return instructions.StaticFieldToMethod(
+                MusicID_Count,
+                MusicLoader_MusicCount_Get);
         }
     }
 }
