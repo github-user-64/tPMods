@@ -1,6 +1,7 @@
 ﻿using System;
 using Terraria;
 using Terraria.DataStructures;
+using Terraria.ID;
 using static ExtenContent.Utils.ReflectionUtils;
 
 namespace ExtenContent.Extens
@@ -14,11 +15,8 @@ namespace ExtenContent.Extens
             ExtenMenuStyle style = CurrentStyle;
             if (style == null) return true;
 
-            ExtenSurfaceBackground back = style.Back;
-            if (back == null) return true;
-
-            int bg = back.Type;
-            if (ExtenManag.IsExtenBack(bg) != true) return true;
+            int back = style.Back;
+            if (back < SurfaceBackgroundID.Forest1 || SurfaceBackgroundLoader.BackCount <= back) return true;
 
             MainR.scAdj = MainR.ComputeScAdj(Main.screenPosition.Y, Main.screenHeight);
             if (Main.gameMenu)
@@ -54,7 +52,7 @@ namespace ExtenContent.Extens
 
             if (Main.gameMenu)
             {
-                Main.bgStyle = bg;
+                Main.bgStyle = back;
             }
 
             if (Main.instantBGTransitionCounter > 0)
@@ -85,6 +83,11 @@ namespace ExtenContent.Extens
             }
 
             return false;
+        }
+
+        internal static void DrawMenuPostfix()
+        {
+            CurrentStyle?.Update();
         }
     }
 }

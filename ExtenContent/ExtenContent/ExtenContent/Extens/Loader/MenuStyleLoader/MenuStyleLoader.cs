@@ -15,8 +15,9 @@ namespace ExtenContent.Extens
         /// <summary>
         /// 当前菜单样式, 没有为<see langword="null"/>
         /// </summary>
-        public static ExtenMenuStyle CurrentStyle { get; set; } = null;
+        public static ExtenMenuStyle CurrentStyle { get; private set; } = null;
         private static readonly List<ExtenMenuStyle> styles = new List<ExtenMenuStyle>();
+        private static readonly Dictionary<string, ExtenMenuStyle> keyToStyle = new Dictionary<string, ExtenMenuStyle>();
 
         internal static void Load()
         {
@@ -37,11 +38,13 @@ namespace ExtenContent.Extens
 
             StyleCount = OriginCount;
             styles.Clear();
+            keyToStyle.Clear();
         }
 
         internal static void Register(ExtenMenuStyle style)
         {
             styles.Add(style);
+            keyToStyle[style.FullName] = style;
             style.Type = StyleCount++;
         }
 
@@ -61,6 +64,23 @@ namespace ExtenContent.Extens
         public static bool TypeInRange(int type)
         {
             return OriginCount <= type && type < StyleCount;
+        }
+
+        /// <summary>
+        /// 根据<see cref="ExtenType.FullName"/>设置样式, 不存在则设为<see langword="null"/>
+        /// </summary>
+        public static void SetStyle(string key = null)
+        {
+            CurrentStyle?.OnDeselected();
+
+            if (key == null || keyToStyle.TryGetValue(key, out ExtenMenuStyle style) != true)
+            {
+                CurrentStyle = null;
+                return;
+            }
+
+            CurrentStyle = style;
+            CurrentStyle.OnSelected();
         }
     }
 }

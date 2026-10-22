@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using tContentPatch;
+using tContentPatch.Utils;
 using Terraria;
 using Terraria.Audio;
 using Terraria.GameContent.UI.Elements;
@@ -70,6 +71,33 @@ namespace ExtenContentPatch
             else text.SetText(GetDiaplayName(style));
         }
 
+        public override void SaveSettingsPostfix()
+        {
+            Save();
+        }
+
+        public static void Save()
+        {
+            string key = MenuStyleLoader.CurrentStyle?.FullName;
+
+            ModFile.SaveFileTry("MenuStyle.txt", path =>
+            {
+                MyJson1.Save(key, path);
+                return true;
+            }, ThisMod.mo);
+        }
+
+        public static void Load()
+        {
+            ModFile.ReadFileTry("MenuStyle.txt", path =>
+            {
+                string key = MyJson1.Get2<string>(path);
+
+                MenuStyleLoader.SetStyle(key);
+                return true;
+            }, ThisMod.mo);
+        }
+
         private static void NextStyle()
         {
             int style;
@@ -80,7 +108,7 @@ namespace ExtenContentPatch
 
             if (MenuStyleLoader.TypeInRange(style) != true) style = MenuStyleLoader.OriginCount - 1;
 
-            MenuStyleLoader.CurrentStyle = MenuStyleLoader.GetStyle(style);
+            MenuStyleLoader.SetStyle(MenuStyleLoader.GetStyle(style)?.FullName);
         }
 
         private static string GetDiaplayName(ExtenMenuStyle style)

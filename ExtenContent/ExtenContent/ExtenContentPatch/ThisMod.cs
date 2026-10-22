@@ -72,6 +72,8 @@ namespace ExtenContentPatch
             Api.ExtenManag.Load();
 
             Api.Log("加载总用时", time);
+
+            SwitchMenuStyle.Load();
         }
 
         public override void Unload()
@@ -82,6 +84,8 @@ namespace ExtenContentPatch
                 harmony = null;
                 return;
             }
+
+            SwitchMenuStyle.Save();
 
             Api.ExtenManag.Unload();
 

@@ -43,6 +43,11 @@ namespace ExtenContentPatch.PatchGame
             ThisMod.Api.Projectile.DrawProjDirectPostfix(proj, projectileColor, player);
         }
 
+        public override void DrawMenuPostfix(GameTime gameTime)
+        {
+            ThisMod.Api.MenuStyle.DrawMenuPostfix(gameTime);
+        }
+
         //[HarmonyPatch(nameof(Main.GetPreferredBGStyleForPlayer))]
         //[HarmonyPostfix]
         //private static void GetPreferredBGStyleForPlayerPostfix(ref int __result)
