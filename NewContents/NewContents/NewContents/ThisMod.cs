@@ -1,8 +1,13 @@
 ﻿using ExtenContent.Extens;
+using ExtenContent.Utils;
+using Microsoft.Xna.Framework;
+using ReLogic.Content;
 using System;
 using System.Linq;
 using tContentPatch;
 using tContentPatch.ModLoad;
+using Terraria;
+using Terraria.Audio;
 
 namespace NewContents
 {
@@ -29,6 +34,25 @@ namespace NewContents
         protected static void RegistExten(ModObject mo)
         {
             ExtenManag.RegistMod(mo);
+        }
+
+        public class asd : EPatchPlayer
+        {
+            public static IAssetRepository a;
+            public override void Load()
+            {
+                a = Asset;
+            }
+        }
+        public class asd2 : PatchMain
+        {
+            public override void UpdatePostfix(GameTime gameTime)
+            {
+                if (Main.mouseRight)
+                {
+                    SoundEngine.PlayTrackedSound(new MySoundStyle("Assets/Sounds/Music1", asd.a, 3), Main.LocalPlayer.Center);
+                }
+            }
         }
     }
 }

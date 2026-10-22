@@ -25,14 +25,16 @@ namespace ExtenContentPatch.PatchGame
         [HarmonyTranspiler]
         private static IEnumerable<CodeInstruction> Transpiler_UpdateAudio(IEnumerable<CodeInstruction> instructions)
         {
-            return instructions.MusicToLoader();
+            //return instructions;
+            return instructions.MaxMusicToLoader();
         }
 
-        [HarmonyPatch("UpdateAudio_DecideOnNewMusic")]
-        [HarmonyTranspiler]
-        private static IEnumerable<CodeInstruction> Transpiler_UpdateAudio_DecideOnNewMusic(IEnumerable<CodeInstruction> instructions)
-        {
-            return instructions.MusicToLoader();
-        }
+        //[HarmonyPatch("UpdateAudio_DecideOnNewMusic")]
+        //[HarmonyTranspiler]
+        //private static IEnumerable<CodeInstruction> Transpiler_UpdateAudio_DecideOnNewMusic(IEnumerable<CodeInstruction> instructions)
+        //{
+        //    //return instructions;
+        //    return instructions.MaxMusicToLoader();
+        //}
     }
 }

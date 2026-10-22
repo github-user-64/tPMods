@@ -89,5 +89,20 @@ namespace ExtenContent.Extens
         {
             CurrentStyle?.Update();
         }
+
+        internal static bool UpdateAudio_DecideOnNewMusicPostfix()
+        {
+            if (Main.gameMenu != true) return true;
+
+            ExtenMenuStyle style = CurrentStyle;
+            if (style == null) return true;
+
+            int music = style.Music;
+            if (music < MusicID.None || MusicLoader.MusicCount <= music) return true;
+
+            Main.newMusic = music;
+
+            return false;
+        }
     }
 }

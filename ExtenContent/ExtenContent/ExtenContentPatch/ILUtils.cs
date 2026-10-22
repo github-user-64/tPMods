@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Reflection;
 using System.Reflection.Emit;
+using Terraria;
 using Terraria.ID;
 
 namespace ExtenContentPatch
@@ -16,7 +17,7 @@ namespace ExtenContentPatch
         public readonly static FieldInfo ArmorIDs_Legs_Count = typeof(ArmorIDs.Legs).GetField(nameof(ArmorIDs.Legs.Count));
         public readonly static FieldInfo ArmorIDs_Wing_Count = typeof(ArmorIDs.Wing).GetField(nameof(ArmorIDs.Wing.Count));
         public readonly static FieldInfo BuffID_Count = typeof(BuffID).GetField(nameof(BuffID.Count));
-        public readonly static FieldInfo MusicID_Count = typeof(MusicID).GetField(nameof(MusicID.Count));
+        public readonly static FieldInfo Main_maxMusic = typeof(Main).GetField(nameof(Main.maxMusic));
 
         public readonly static MethodInfo ItemLoader_ItemCount_Get = typeof(ItemLoader).GetMethod($"get_{nameof(ItemLoader.ItemCount)}");
         public readonly static MethodInfo EquipLoader_HeadCount_Get = typeof(EquipLoader).GetMethod($"get_{nameof(EquipLoader.HeadCount)}");
@@ -104,10 +105,10 @@ namespace ExtenContentPatch
                 BuffLoader_BuffCount_Get);
         }
 
-        public static IEnumerable<CodeInstruction> MusicToLoader(this IEnumerable<CodeInstruction> instructions)
+        public static IEnumerable<CodeInstruction> MaxMusicToLoader(this IEnumerable<CodeInstruction> instructions)
         {
             return instructions.StaticFieldToMethod(
-                MusicID_Count,
+                Main_maxMusic,
                 MusicLoader_MusicCount_Get);
         }
     }

@@ -64,6 +64,7 @@
     <Reference Include="Microsoft.Xna.Framework.Graphics, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Sounds\Musics.cs" />
     <Compile Include="Common\ExtenArmorSetBonus.cs" />
     <Compile Include="Common\ExtenRecipe.cs" />
     <Compile Include="Common\ModifyMeleeScale.cs" />

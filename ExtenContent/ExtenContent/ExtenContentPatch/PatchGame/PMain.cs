@@ -75,7 +75,7 @@ namespace ExtenContentPatch.PatchGame
         [HarmonyPrefix]
         private static bool UpdateAudio_DecideOnNewMusic()
         {
-            return true;
+            return ThisMod.Api.MenuStyle.UpdateAudio_DecideOnNewMusicPostfix();
         }
     }
 }

@@ -126,6 +126,7 @@
     <Compile Include="Extens\Loader\ItemLoader\Load.cs" />
     <Compile Include="ThisMod.cs" />
     <Compile Include="Utils\ExtenAssetRepository.cs" />
+    <Compile Include="Utils\MySoundStyle.cs" />
     <Compile Include="Utils\Readers\AssetRead.cs" />
     <Compile Include="Utils\Readers\WAVReader.cs" />
     <Compile Include="Utils\Readers\MP3Reader.cs" />

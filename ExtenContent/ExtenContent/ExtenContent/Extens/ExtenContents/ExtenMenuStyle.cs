@@ -9,12 +9,16 @@ namespace ExtenContent.Extens
     {
         /// <summary/>
         public int Type { get; internal set; }
+        /// <summary/>
+        public virtual string DisplayName => null;
         /// <summary>
         /// 背景, 为<see langword="-1"/>则不变
         /// </summary>
         public virtual int Back => SurfaceBackgroundID.Forest1 - 1;
-        /// <summary/>
-        public virtual string DisplayName => null;
+        /// <summary>
+        /// 音乐, 为<see cref="MusicID.None"/>则不变
+        /// </summary>
+        public virtual int Music => MusicID.None;
 
         /// <summary/>
         public virtual void OnSelected() { }

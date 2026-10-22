@@ -16,9 +16,9 @@ namespace ExtenContent.Utils.Readers
     {
         static AssetRead()
         {
-            AssetRead<MP3AudioTrack>.Read = s => new MP3AudioTrack(s);
-            AssetRead<WAVAudioTrack>.Read = s => new WAVAudioTrack(s);
-            AssetRead<SoundEffect>.Read = SoundEffect.FromStream;
+            AssetRead<MP3AudioTrack>.Read = s => new MP3AudioTrack(s);//mp3
+            AssetRead<WAVAudioTrack>.Read = s => new WAVAudioTrack(s);//wav
+            AssetRead<SoundEffect>.Read = SoundEffect.FromStream;//wav
         }
 
         public T FromStream<T>(Stream stream) where T : class

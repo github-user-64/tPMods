@@ -20,5 +20,11 @@ namespace ExtenContent.PrivateApi
         {
             MenuStyleLoader.DrawMenuPostfix();
         }
+
+        /// <summary/>
+        public bool UpdateAudio_DecideOnNewMusicPostfix()
+        {
+            return MenuStyleLoader.UpdateAudio_DecideOnNewMusicPostfix();
+        }
     }
 }
