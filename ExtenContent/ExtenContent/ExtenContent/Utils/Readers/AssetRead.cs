@@ -16,7 +16,7 @@ namespace ExtenContent.Utils.Readers
     {
         static AssetRead()
         {
-            AssetRead<MP3AudioTrack>.Read = s => new MP3AudioTrack(s);//mp3
+            AssetRead<MP3AudioTrack>.Read = s => ReadNoClose(s, ss => new MP3AudioTrack(ss));//mp3
             AssetRead<WAVAudioTrack>.Read = s => new WAVAudioTrack(s);//wav
             AssetRead<SoundEffect>.Read = SoundEffect.FromStream;//wav
         }
@@ -27,5 +27,17 @@ namespace ExtenContent.Utils.Readers
 
             return AssetRead<T>.Read(stream);
         }
+
+        private static T ReadNoClose<T>(Stream stream, Func<Stream, T> fun)
+        {
+            MemoryStream copy = new MemoryStream();
+            stream.CopyTo(copy);
+            copy.Seek(0, SeekOrigin.Begin);
+
+            return fun(copy);
+        }
     }
+
+    internal class MP3Reader : AssetRead { }
+    internal class WAVReader : AssetRead { }
 }

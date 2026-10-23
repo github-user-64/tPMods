@@ -1,7 +1,9 @@
 ﻿using HarmonyLib;
 using Microsoft.Xna.Framework;
+using System.Diagnostics;
 using tContentPatch;
 using Terraria;
+using Terraria.Audio;
 using Terraria.DataStructures;
 
 namespace ExtenContentPatch.PatchGame
@@ -73,8 +75,19 @@ namespace ExtenContentPatch.PatchGame
 
         [HarmonyPatch("UpdateAudio_DecideOnNewMusic")]
         [HarmonyPrefix]
-        private static bool UpdateAudio_DecideOnNewMusic()
+        private static bool UpdateAudio_DecideOnNewMusicPostfix()
         {
+            //string s = string.Empty;
+
+            //for (int i = 0; i < Main.musicFade.Length; ++i)
+            //{
+            //    float v = Main.musicFade[i];
+
+            //    if (v > 0) s += $"[{i}:{v}],";
+            //}
+
+            //Debug.WriteLine(s);
+
             return ThisMod.Api.MenuStyle.UpdateAudio_DecideOnNewMusicPostfix();
         }
     }

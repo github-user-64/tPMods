@@ -128,8 +128,6 @@
     <Compile Include="Utils\ExtenAssetRepository.cs" />
     <Compile Include="Utils\MySoundStyle.cs" />
     <Compile Include="Utils\Readers\AssetRead.cs" />
-    <Compile Include="Utils\Readers\WAVReader.cs" />
-    <Compile Include="Utils\Readers\MP3Reader.cs" />
     <Compile Include="Utils\ReflectionUtils\MainR.cs" />
     <Compile Include="Utils\ReflectionUtils\ReflectionUtils.cs" />
     <Compile Include="Utils\ClassPathUtils.cs" />

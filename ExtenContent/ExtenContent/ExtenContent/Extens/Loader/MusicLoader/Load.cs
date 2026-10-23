@@ -36,10 +36,10 @@ namespace ExtenContent.Extens
                 switch (i.FileType)
                 {
                     case FileType.MP3: legacyAudioSystem.AudioTracks[i.Type] = i.Asset.Request<MP3AudioTrack>(i.Path).Value; break;
-                    //case FileType.WAV: legacyAudioSystem.AudioTracks[i.Type] = i.Asset.Request<WAVAudioTrack>(i.Path).Value; break;
-                    case FileType.WAV:
-                        legacyAudioSystem.AudioTracks[i.Type] = new MP3AudioTrack(File.Open(Path.Combine(a, i.Path), FileMode.Open));
-                        break;
+                    case FileType.WAV: legacyAudioSystem.AudioTracks[i.Type] = i.Asset.Request<WAVAudioTrack>(i.Path).Value; break;
+                    //case FileType.WAV:
+                    //    legacyAudioSystem.AudioTracks[i.Type] = new WAVAudioTrack(File.OpenRead(Path.Combine(a, i.Path) + ".wav"));
+                    //    break;
                     default: throw new Exception($"没有该类型的加载方法:{i.FileType}");
                 }
             }

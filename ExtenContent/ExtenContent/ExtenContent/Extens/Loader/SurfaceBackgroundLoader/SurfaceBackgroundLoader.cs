@@ -30,6 +30,8 @@ namespace ExtenContent.Extens
 
             BackCount = SurfaceBackgroundID.Count;
             backs.Clear();
+
+            ContentInit();
         }
 
         internal static void Register(ExtenSurfaceBackground back)

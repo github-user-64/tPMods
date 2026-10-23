@@ -31,6 +31,8 @@ namespace ExtenContent.Extens
 
             MusicCount = MusicID.Count;
             musics.Clear();
+
+            ContentInit();
         }
 
         internal static void Register(ExtenMusic music)
