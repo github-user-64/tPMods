@@ -9,5 +9,7 @@
         MP3,
         /// <summary/>
         WAV,
+        /// <summary/>
+        OGG,
     }
 }

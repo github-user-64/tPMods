@@ -1,13 +1,8 @@
 ﻿using ExtenContent.Extens;
-using ExtenContent.Utils;
-using Microsoft.Xna.Framework;
-using ReLogic.Content;
 using System;
 using System.Linq;
 using tContentPatch;
 using tContentPatch.ModLoad;
-using Terraria;
-using Terraria.Audio;
 
 namespace NewContents
 {

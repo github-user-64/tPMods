@@ -1,9 +1,7 @@
 ﻿using HarmonyLib;
 using Microsoft.Xna.Framework;
-using System.Diagnostics;
 using tContentPatch;
 using Terraria;
-using Terraria.Audio;
 using Terraria.DataStructures;
 
 namespace ExtenContentPatch.PatchGame

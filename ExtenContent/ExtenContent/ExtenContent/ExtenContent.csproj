@@ -125,9 +125,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Extens\Loader\ItemLoader\Load.cs" />
     <Compile Include="ThisMod.cs" />
-    <Compile Include="Utils\ExtenAssetRepository.cs" />
+    <Compile Include="Utils\Asset\GameAndExtenAssetRepository.cs" />
     <Compile Include="Utils\MySoundStyle.cs" />
-    <Compile Include="Utils\Readers\AssetRead.cs" />
+    <Compile Include="Utils\Asset\Readers\CompositeAssetRead.cs" />
     <Compile Include="Utils\ReflectionUtils\MainR.cs" />
     <Compile Include="Utils\ReflectionUtils\ReflectionUtils.cs" />
     <Compile Include="Utils\ClassPathUtils.cs" />

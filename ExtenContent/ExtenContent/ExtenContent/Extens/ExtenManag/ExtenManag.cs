@@ -129,7 +129,7 @@ namespace ExtenContent.Extens
             IAssetRepository asset = null;
             if (Main.dedServ != true)
             {
-                asset = Utils.ExtenAssetRepository.GetAssets(mo);
+                asset = Utils.AssetUtils.GameAndExtenAssetRepository.GetAssets(mo);
                 Assets.Add(asset);
             }
 
