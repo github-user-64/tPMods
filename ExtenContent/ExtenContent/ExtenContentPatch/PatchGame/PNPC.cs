@@ -14,6 +14,13 @@ namespace ExtenContentPatch.PatchGame
             ThisMod.Api.Buff.UpdateNPC_BuffSetFlagsPostfix(This, lowerBuffTime);
         }
 
+        public override void SetDefaultsPrefix(NPC This, int Type, NPCSpawnParams spawnparams)
+        {
+            if (This.buffImmune.Length >= BuffLoader.BuffCount) return;
+
+            This.buffImmune = new bool[BuffLoader.BuffCount];
+        }
+
         [HarmonyPatch(MethodType.Constructor)]
         [HarmonyPostfix]
         private static void ConstructorPostfix(NPC __instance)

@@ -13,10 +13,10 @@ namespace ExtenContent.PrivateApi
         public void Log(out DateTime time, string s = null) => ThisMod.Log(out time, s);
         /// <summary/>
         public void Log(string s, DateTime time) => ThisMod.Log(s, time);
+
         /// <summary/>
         public ApiExtenManag ExtenManag = new ApiExtenManag();
-        /// <summary/>
-        public ApiPatchPlayerLoader PatchPlayer = new ApiPatchPlayerLoader();
+
         /// <summary/>
         public ApiEquipLoader Equip = new ApiEquipLoader();
         /// <summary/>
@@ -29,5 +29,10 @@ namespace ExtenContent.PrivateApi
         public ApiSurfaceBackgroundLoader Back = new ApiSurfaceBackgroundLoader();
         /// <summary/>
         public ApiMenuStyleLoader MenuStyle = new ApiMenuStyleLoader();
+
+        /// <summary/>
+        public ApiPatchPlayerLoader PatchPlayer = new ApiPatchPlayerLoader();
+        /// <summary/>
+        public ApiPatchMainLoader PatchMain = new ApiPatchMainLoader();
     }
 }

@@ -13,6 +13,7 @@ namespace ExtenContent.Extens
             patchs.ForEach(i => i.Load());
         }
 
+        internal static void UnloadPrefix() { }
         internal static void Unload()
         {
             patchs.ForEach(i => i.Unload());

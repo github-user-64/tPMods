@@ -9,6 +9,26 @@ namespace ExtenContentPatch.PatchGame
     [HarmonyPatch(typeof(Main))]
     internal partial class PMain : PatchMain
     {
+        public override void UpdatePrefix(GameTime gameTime)
+        {
+            ThisMod.Api.PatchMain.UpdatePrefix(gameTime);
+        }
+
+        public override void UpdatePostfix(GameTime gameTime)
+        {
+            ThisMod.Api.PatchMain.UpdatePostfix(gameTime);
+        }
+
+        public override void DoUpdateInWorldPrefix()
+        {
+            ThisMod.Api.PatchMain.DoUpdateInWorldPrefix();
+        }
+
+        public override void DoUpdateInWorldPostfix()
+        {
+            ThisMod.Api.PatchMain.DoUpdateInWorldPostfix();
+        }
+
         public override void MouseText_DrawItemTooltip_GetLinesInfoPostfix(Item item, ref int yoyoLogo, ref float oldKB, ref int numLines, ref string[] toolTipLine, ref Color[] lineColors)
         {
             if (numLines < toolTipLine.Length == false) return;
@@ -43,12 +63,12 @@ namespace ExtenContentPatch.PatchGame
             ThisMod.Api.MenuStyle.DrawMenuPostfix(gameTime);
         }
 
-        //[HarmonyPatch(nameof(Main.GetPreferredBGStyleForPlayer))]
-        //[HarmonyPostfix]
-        //private static void GetPreferredBGStyleForPlayerPostfix(ref int __result)
-        //{
-
-        //}
+        [HarmonyPatch(nameof(Main.GetPreferredBGStyleForPlayer))]
+        [HarmonyPostfix]
+        private static void GetPreferredBGStyleForPlayerPostfix(ref int __result)
+        {
+            ThisMod.Api.PatchMain.GetPreferredBGStyleForPlayerPostfix(ref __result);
+        }
 
         [HarmonyPatch("UpdateBGVisibility_BackLayer")]
         [HarmonyPrefix]
@@ -73,7 +93,7 @@ namespace ExtenContentPatch.PatchGame
 
         [HarmonyPatch("UpdateAudio_DecideOnNewMusic")]
         [HarmonyPrefix]
-        private static bool UpdateAudio_DecideOnNewMusicPostfix()
+        private static bool UpdateAudio_DecideOnNewMusicPrefix()
         {
             //string s = string.Empty;
 
@@ -86,7 +106,9 @@ namespace ExtenContentPatch.PatchGame
 
             //Debug.WriteLine(s);
 
-            return ThisMod.Api.MenuStyle.UpdateAudio_DecideOnNewMusicPostfix();
+            bool v = ThisMod.Api.MenuStyle.UpdateAudio_DecideOnNewMusicPrefix();
+            if (v) v &= ThisMod.Api.PatchMain.UpdateAudio_DecideOnNewMusicPrefix();
+            return v;
         }
     }
 }

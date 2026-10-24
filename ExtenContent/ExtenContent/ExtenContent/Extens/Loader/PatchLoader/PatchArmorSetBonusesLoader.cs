@@ -20,6 +20,7 @@ namespace ExtenContent.Extens
             ArmorSetBonuses.BuildLookup();
         }
 
+        internal static void UnloadPrefix() { }
         internal static void Unload()
         {
             PatchArmorSetBonuses.Clear();

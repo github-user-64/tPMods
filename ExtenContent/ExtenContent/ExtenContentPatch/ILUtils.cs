@@ -25,7 +25,9 @@ namespace ExtenContentPatch
         public readonly static MethodInfo EquipLoader_LegsCount_Get = typeof(EquipLoader).GetMethod($"get_{nameof(EquipLoader.LegsCount)}");
         public readonly static MethodInfo EquipLoader_WingCount_Get = typeof(EquipLoader).GetMethod($"get_{nameof(EquipLoader.WingCount)}");
         public readonly static MethodInfo BuffLoader_BuffCount_Get = typeof(BuffLoader).GetMethod($"get_{nameof(BuffLoader.BuffCount)}");
-        public readonly static MethodInfo MusicLoader_MusicCount_Get = typeof(MusicLoader).GetMethod($"get_{nameof(MusicLoader.MusicCount)}");
+
+        public static int MusicCount => ExtenManag.IsLoaded ? MusicLoader.MusicCount : Main.maxMusic;
+        public readonly static MethodInfo Util_MusicCount_Get = typeof(ILUtils).GetMethod($"get_{nameof(MusicCount)}");
 
         public static IEnumerable<CodeInstruction> StaticFieldToMethod(this IEnumerable<CodeInstruction> instructions, FieldInfo fi, MethodInfo mi)
         {
@@ -105,11 +107,11 @@ namespace ExtenContentPatch
                 BuffLoader_BuffCount_Get);
         }
 
-        public static IEnumerable<CodeInstruction> MaxMusicToLoader(this IEnumerable<CodeInstruction> instructions)
+        public static IEnumerable<CodeInstruction> MaxMusicToUtil(this IEnumerable<CodeInstruction> instructions)
         {
             return instructions.StaticFieldToMethod(
                 Main_maxMusic,
-                MusicLoader_MusicCount_Get);
+                Util_MusicCount_Get);
         }
     }
 }

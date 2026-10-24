@@ -18,6 +18,7 @@ namespace ExtenContent.Extens
         }
         private readonly static List<Action> Loads = new List<Action>();
         private readonly static List<Action> Unloads = new List<Action>();
+        private readonly static List<Action> UnloadPrefixs = new List<Action>();
 
         private static readonly List<ExtenType> Extens = new List<ExtenType>();
         private static readonly List<IAssetRepository> Assets = new List<IAssetRepository>();
@@ -30,14 +31,16 @@ namespace ExtenContent.Extens
 
         static ExtenManag()
         {
-            RegistLoader<ExtenItem>(typeof(ItemLoader));
-            RegistLoader<ExtenEquip>(typeof(EquipLoader));
             RegistLoader<ExtenProjectile>(typeof(ProjectileLoader));
+            RegistLoader<ExtenItem>(typeof(ItemLoader));
             RegistLoader<ExtenBuff>(typeof(BuffLoader));
+            RegistLoader<ExtenEquip>(typeof(EquipLoader));
             RegistLoader<ExtenSurfaceBackground>(typeof(SurfaceBackgroundLoader));
+            RegistLoader<ExtenSound>(typeof(SoundLoader));
             RegistLoader<ExtenMusic>(typeof(MusicLoader));
             RegistLoader<ExtenMenuStyle>(typeof(MenuStyleLoader));
 
+            RegistLoader<EPatchMain>(typeof(PatchMainLoader));
             RegistLoader<EPatchPlayer>(typeof(PatchPlayerLoader));
             RegistLoader<EPatchRecipe>(typeof(PatchRecipeLoader));
             RegistLoader<EPatchArmorSetBonus>(typeof(PatchArmorSetBonusesLoader));
@@ -47,10 +50,12 @@ namespace ExtenContent.Extens
         {
             Delegate register = Delegate.CreateDelegate(typeof(Action<T>), type.GetMethod("Register", BindingFlags.Static | BindingFlags.NonPublic));
             Delegate load = Delegate.CreateDelegate(typeof(Action), type.GetMethod("Load", BindingFlags.Static | BindingFlags.NonPublic));
+            Delegate unloadpr = Delegate.CreateDelegate(typeof(Action), type.GetMethod("UnloadPrefix", BindingFlags.Static | BindingFlags.NonPublic));
             Delegate unload = Delegate.CreateDelegate(typeof(Action), type.GetMethod("Unload", BindingFlags.Static | BindingFlags.NonPublic));
 
             RegistFoo<T>.Foo = (Action<T>)register;
             Loads.Add((Action)load);
+            UnloadPrefixs.Add((Action)unloadpr);
             Unloads.Add((Action)unload);
         }
 
@@ -99,6 +104,7 @@ namespace ExtenContent.Extens
             IsLoaded = false;
             ThisMod.Log(out DateTime time);
 
+            UnloadPrefixs.ForEach(i => i());
             Unloads.ForEach(i => i());
 
             foreach (IAssetRepository asset in Assets) asset.Dispose();
@@ -138,9 +144,11 @@ namespace ExtenContent.Extens
             RegistExten<ExtenProjectile>(mo, asset);
             RegistExten<ExtenBuff>(mo, asset);
             RegistExten<ExtenSurfaceBackground>(mo, asset);
+            RegistExten<ExtenSound>(mo, asset);
             RegistExten<ExtenMusic>(mo, asset);
             RegistExten<ExtenMenuStyle>(mo, asset);
 
+            RegistExten<EPatchMain>(mo, asset);
             RegistExten<EPatchPlayer>(mo, asset);
             RegistExten<EPatchRecipe>(mo, asset);
             RegistExten<EPatchArmorSetBonus>(mo, asset);

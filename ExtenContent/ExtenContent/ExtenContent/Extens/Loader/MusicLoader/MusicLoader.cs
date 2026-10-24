@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using Terraria;
+using Terraria.Audio;
 using Terraria.ID;
 
 namespace ExtenContent.Extens
@@ -12,27 +14,35 @@ namespace ExtenContent.Extens
         /// </summary>
         public static int MusicCount { get; private set; } = MusicID.Count;
         private static readonly List<ExtenMusic> musics = new List<ExtenMusic>();
+        private static readonly List<IAudioTrack> audios = new List<IAudioTrack>();
 
         internal static void Load()
         {
             ThisMod.Log(out DateTime time);
 
             ContentInit();
-            ContentLoad();
+            //服务端没有MP3AudioTrack, OGGAudioTrack
+            if (Main.dedServ != true) ContentLoad();
 
             musics.ForEach(i => i.Load());
 
             ThisMod.Log($"{typeof(MusicLoader)}:加载完成:新音乐:{MusicCount - MusicID.Count}个", time);
         }
 
+        internal static void UnloadPrefix()
+        {
+            MusicCount = MusicID.Count;
+        }
+
         internal static void Unload()
         {
             musics.ForEach(i => i.Unload());
-
-            MusicCount = MusicID.Count;
             musics.Clear();
 
             ContentInit();
+
+            foreach (IAudioTrack i in audios) i.Dispose();
+            audios.Clear();
         }
 
         internal static void Register(ExtenMusic music)

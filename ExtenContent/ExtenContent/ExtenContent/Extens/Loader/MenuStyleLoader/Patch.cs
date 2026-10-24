@@ -11,6 +11,7 @@ namespace ExtenContent.Extens
         internal static bool DrawBGPrefix(SpriteBatchBeginner parentSpriteBatchBeginner)
         {
             if (Main.gameMenu != true) return true;
+            if (ExtenManag.IsLoaded != true) return true;
 
             ExtenMenuStyle style = CurrentStyle;
             if (style == null) return true;
@@ -90,9 +91,10 @@ namespace ExtenContent.Extens
             CurrentStyle?.Update();
         }
 
-        internal static bool UpdateAudio_DecideOnNewMusicPostfix()
+        internal static bool UpdateAudio_DecideOnNewMusicPrefix()
         {
             if (Main.gameMenu != true) return true;
+            if (ExtenManag.IsLoaded != true) return true;
 
             ExtenMenuStyle style = CurrentStyle;
             if (style == null) return true;

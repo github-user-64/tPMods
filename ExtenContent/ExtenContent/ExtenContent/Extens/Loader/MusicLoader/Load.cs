@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
@@ -25,27 +26,36 @@ namespace ExtenContent.Extens
 
         private static void ContentLoad()
         {
-            if (Main.dedServ) return;
-
             LegacyAudioSystem legacyAudioSystem = Main.audioSystem as LegacyAudioSystem;
             if (legacyAudioSystem == null) return;
 
             //MP3AudioTrack, WAVAudioTrack这些的Stream关闭后会不可用
             foreach (ExtenMusic i in musics)
             {
-                string a = "F:\\F_MY1\\File\\RJWJ\\C#\\Projects\\tPlainModLoader\\tPlainModLoader\\tPlainModLoader\\bin\\Debug\\Mods\\NewContents";
-                return;
-                //直接用new MP3AudioTrack(File.OpenStream)加载, 然后卸载时在这释放
-                //不然用Asset.Request估计Stream不会自动关闭, 这样不好管理
-                switch (i.FileType)
+                string path = Path.Combine(i.Mod.modPath, i.Path);
+                Stream stream = null;
+                IAudioTrack audio = null;
+
+                try
                 {
-                    case FileType.MP3: legacyAudioSystem.AudioTracks[i.Type] = i.Asset.Request<MP3AudioTrack>(i.Path).Value; break;
-                    case FileType.WAV: legacyAudioSystem.AudioTracks[i.Type] = i.Asset.Request<WAVAudioTrack>(i.Path).Value; break;
-                    //case FileType.WAV:
-                    //    legacyAudioSystem.AudioTracks[i.Type] = new WAVAudioTrack(File.OpenRead(Path.Combine(a, i.Path) + ".wav"));
-                    //    break;
-                    default: throw new Exception($"没有该类型的加载方法:{i.FileType}");
+                    switch (i.FileType)
+                    {
+                        case FileType.MP3: audio = new MP3AudioTrack(stream = File.OpenRead($"{Path.Combine(i.Mod.modPath, i.Path)}.mp3")); break;
+                        case FileType.WAV: audio = new WAVAudioTrack(stream = File.OpenRead($"{Path.Combine(i.Mod.modPath, i.Path)}.wav")); break;
+                        case FileType.OGG: audio = new OGGAudioTrack(stream = File.OpenRead($"{Path.Combine(i.Mod.modPath, i.Path)}.ogg")); break;
+                        default: throw new Exception($"没有该类型的加载方法:{i.FileType}");
+                    }
                 }
+                catch
+                {
+                    stream?.Close();
+                    stream?.Dispose();
+                    throw;
+                }
+
+                audios.Add(audio);
+
+                legacyAudioSystem.AudioTracks[i.Type] = audio;
             }
 
             Main.audioSystem = legacyAudioSystem;

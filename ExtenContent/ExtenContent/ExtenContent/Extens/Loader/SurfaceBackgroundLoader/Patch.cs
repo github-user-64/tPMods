@@ -10,6 +10,7 @@ namespace ExtenContent.Extens
         {
             int value = Main.bgStyle;
             if (TypeInRange(value) != true) return true;
+            if (ExtenManag.IsLoaded != true) return true;
 
             if (targetBiomeOverride.HasValue) value = targetBiomeOverride.Value;
 

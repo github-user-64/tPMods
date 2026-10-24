@@ -65,10 +65,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Sounds\Musics.cs" />
+    <Compile Include="Assets\Sounds\Sounds.cs" />
     <Compile Include="Common\ExtenArmorSetBonus.cs" />
     <Compile Include="Common\ExtenRecipe.cs" />
     <Compile Include="Common\ModifyMeleeScale.cs" />
     <Compile Include="Common\Vibration.cs" />
+    <Compile Include="Common\WOW.cs" />
     <Compile Include="Content\Buffs\Buff1.cs" />
     <Compile Include="Content\Equips\Wing1.cs" />
     <Compile Include="Content\Items\Armor\EquipTemplate.cs" />

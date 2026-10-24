@@ -28,15 +28,16 @@ namespace ExtenContent.Extens
             ThisMod.Log($"{typeof(MenuStyleLoader)}:加载完成:新菜单样式:{StyleCount - OriginCount}个", time);
         }
 
+        internal static void UnloadPrefix()
+        {
+            StyleCount = OriginCount;
+        }
+
         internal static void Unload()
         {
-            CurrentStyle = null;
+            SetStyle();
 
             styles.ForEach(i => i.Unload());
-
-            CurrentStyle = null;
-
-            StyleCount = OriginCount;
             styles.Clear();
             keyToStyle.Clear();
         }
@@ -78,6 +79,8 @@ namespace ExtenContent.Extens
                 CurrentStyle = null;
                 return;
             }
+
+            if (ExtenManag.IsLoaded != true) return;
 
             CurrentStyle = style;
             CurrentStyle.OnSelected();

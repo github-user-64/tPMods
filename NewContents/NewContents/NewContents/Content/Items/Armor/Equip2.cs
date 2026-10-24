@@ -1,5 +1,6 @@
 ﻿using ExtenContent.Extens;
 using ExtenContent.Utils;
+using NewContents.Common;
 using Terraria;
 using Terraria.Localization;
 
@@ -27,9 +28,8 @@ namespace NewContents.Content.Items.Armor
         public override void UpdateEquip(Player player, Item armorPiece)
         {
             if (player != Main.LocalPlayer) return;
-            if (Main.dedServ) return;
 
-            Main.bgStyle = ExtenInstance<Back.Back1>.Instance.Type;
+            ExtenInstance<WOW>.Instance.ok = true;
         }
     }
 }

@@ -22,9 +22,9 @@ namespace ExtenContent.PrivateApi
         }
 
         /// <summary/>
-        public bool UpdateAudio_DecideOnNewMusicPostfix()
+        public bool UpdateAudio_DecideOnNewMusicPrefix()
         {
-            return MenuStyleLoader.UpdateAudio_DecideOnNewMusicPostfix();
+            return MenuStyleLoader.UpdateAudio_DecideOnNewMusicPrefix();
         }
     }
 }

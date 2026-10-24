@@ -1,33 +1,54 @@
 ﻿using Microsoft.Xna.Framework.Audio;
 using ReLogic.Content;
+using System;
 using Terraria.Audio;
 
 namespace ExtenContent.Utils
 {
     /// <inheritdoc/>
-    public class MySoundStyle : SoundStyle
+    public class MySoundStyle : SoundStyle, IDisposable
     {
         /// <inheritdoc/>
         public override bool IsTrackable => true;
         /// <inheritdoc/>
         public override int MaxTrackedInstances => _MaxTrackedInstances;
-        /// <inheritdoc/>
-        public SoundEffect se = null;
         private readonly int _MaxTrackedInstances = 0;
+        /// <summary/>
+        public SoundEffect Sound = null;
+        /// <summary/>
+        public string Path = null;
+        /// <summary/>
+        public IAssetRepository Asset = null;
 
         /// <inheritdoc/>
-        public MySoundStyle(SoundEffect se, int maxTrackedInstances = 1)
+        public MySoundStyle(SoundEffect se = null, int maxTrackedInstances = 1)
         {
-            this.se = se;
+            Sound = se;
             _MaxTrackedInstances = maxTrackedInstances;
         }
 
         /// <inheritdoc/>
-        public MySoundStyle(string path, IAssetRepository asset, int maxTrackedInstances = 1) : this(
-            asset.Request<SoundEffect>(path).Value, maxTrackedInstances)
-        { }
+        public MySoundStyle(string path, IAssetRepository asset, int maxTrackedInstances = 1) : this(null, maxTrackedInstances)
+        {
+            Path = path;
+            Asset = asset;
+        }
 
         /// <inheritdoc/>
-        public override SoundEffect GetRandomSound() => se;
+        public override SoundEffect GetRandomSound()
+        {
+            if (Sound == null) Sound = Asset.Request<SoundEffect>(Path).Value;
+
+            return Sound;
+        }
+
+        /// <inheritdoc/>
+        public virtual void Dispose()
+        {
+            Asset = null;
+            Path = null;
+            Sound?.Dispose();
+            Sound = null;
+        }
     }
 }

@@ -9,7 +9,7 @@ namespace ExtenContent.Utils.AssetUtils.Readers
     public static class CompositeAssetRead<FileType, AssetType>
     {
         /// <summary>
-        /// FileType类型的文件读取为AssetType类型的资源
+        /// <typeparamref name="FileType"/>类型的文件读取为<typeparamref name="AssetType"/>类型的资源
         /// </summary>
         public static Func<Stream, AssetType> Read = null;
     }

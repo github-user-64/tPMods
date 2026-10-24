@@ -63,9 +63,11 @@
   <ItemGroup>
     <Compile Include="Extens\Attributes\AutoloadEquip.cs" />
     <Compile Include="Extens\Enums\FileType.cs" />
+    <Compile Include="Extens\ExtenContents\ExtenSound.cs" />
     <Compile Include="Extens\ExtenContents\ExtenMusic.cs" />
     <Compile Include="Extens\ExtenContents\ExtenMenuStyle.cs" />
     <Compile Include="Extens\ExtenContents\ExtenPatchs\EPatchArmorSetBonuses.cs" />
+    <Compile Include="Extens\ExtenContents\ExtenPatchs\EPatchMain.cs" />
     <Compile Include="Extens\ExtenContents\ExtenPatchs\EPatchRecipe.cs" />
     <Compile Include="Extens\ExtenContents\ExtenBuff.cs" />
     <Compile Include="Extens\ExtenContents\ExtenSurfaceBackground.cs" />
@@ -89,11 +91,15 @@
     <Compile Include="Extens\Loader\BuffLoader\BuffLoader.cs" />
     <Compile Include="Extens\Loader\BuffLoader\Load.cs" />
     <Compile Include="Extens\Loader\PatchLoader\PatchArmorSetBonusesLoader.cs" />
+    <Compile Include="Extens\Loader\PatchLoader\PatchMainLoader.cs" />
+    <Compile Include="Extens\Loader\SoundLoader\Load.cs" />
+    <Compile Include="Extens\Loader\SoundLoader\SoundLoader.cs" />
     <Compile Include="Extens\Loader\SurfaceBackgroundLoader\Load.cs" />
     <Compile Include="Extens\Loader\SurfaceBackgroundLoader\Patch.cs" />
     <Compile Include="Extens\Loader\SurfaceBackgroundLoader\SurfaceBackgroundLoader.cs" />
     <Compile Include="PrivateApi\ApiBuffLoader.cs" />
     <Compile Include="PrivateApi\ApiEquipLoader.cs" />
+    <Compile Include="PrivateApi\ApiPatchMainLoader.cs" />
     <Compile Include="PrivateApi\ApiExtenManag.cs" />
     <Compile Include="PrivateApi\ApiItemLoader.cs" />
     <Compile Include="PrivateApi\ApiMenuStyleLoader.cs" />
