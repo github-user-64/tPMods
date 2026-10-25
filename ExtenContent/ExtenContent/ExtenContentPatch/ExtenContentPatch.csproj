@@ -68,6 +68,7 @@
     <Compile Include="PatchGame\DataStructures\PPlayerDrawLayers.cs" />
     <Compile Include="PatchGame\PItem.cs" />
     <Compile Include="PatchGame\PLang.cs" />
+    <Compile Include="PatchGame\PMain_IL_DrawMenu.cs" />
     <Compile Include="PatchGame\PMain_IL.cs" />
     <Compile Include="PatchGame\PMain.cs" />
     <Compile Include="PatchGame\PNPC.cs" />

@@ -26,5 +26,11 @@ namespace ExtenContent.PrivateApi
         {
             return MenuStyleLoader.UpdateAudio_DecideOnNewMusicPrefix();
         }
+
+        /// <summary/>
+        public void DrawLogo(bool playOldTile, bool boulderLogo, float logoRotation, float logoScale)
+        {
+            MenuStyleLoader.DrawLogo(playOldTile, boulderLogo, logoRotation, logoScale);
+        }
     }
 }
