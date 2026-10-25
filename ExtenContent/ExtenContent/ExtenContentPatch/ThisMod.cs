@@ -6,7 +6,6 @@ using System.Reflection;
 using tContentPatch;
 using tContentPatch.ModLoad;
 using tContentPatch.Patch;
-using Terraria;
 
 namespace ExtenContentPatch
 {
@@ -75,16 +74,6 @@ namespace ExtenContentPatch
             Api.Log("加载总用时", time);
 
             SwitchMenuStyle.Load();
-
-            try
-            {
-                NPC npc = new NPC();
-                npc.SetDefaults(492, npc.GetMatchingSpawnParams());
-            }
-            catch (Exception ex)
-            {
-
-            }
         }
 
         public override void Unload()

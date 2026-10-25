@@ -121,14 +121,6 @@ namespace ExtenContent.Extens
             Vector2 pos = new Vector2(Main.screenWidth / 2, 100f);
             Vector2 origin = new Vector2(TextureAssets.Logo.Width() / 2, TextureAssets.Logo.Height() / 2);
 
-            if (Main.mouseRight)
-            {
-                color3.R = (byte)Main.rand.Next(0, byte.MaxValue);
-                color3.G = (byte)Main.rand.Next(0, byte.MaxValue);
-                color3.B = (byte)Main.rand.Next(0, byte.MaxValue);
-                pos = Main.MouseScreen;
-            }
-
             if (playOldTile)
             {
                 Main.spriteBatch.Draw(TextureAssets.Logo3.Value, pos, new Rectangle(0, 0, TextureAssets.Logo.Width(), TextureAssets.Logo.Height()), color2, logoRotation, origin, logoScale, SpriteEffects.None, 0f);

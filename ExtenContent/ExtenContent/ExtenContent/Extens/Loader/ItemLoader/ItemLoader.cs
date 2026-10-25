@@ -103,7 +103,7 @@ namespace ExtenContent.Extens
         /// </summary>
         public static ExtenItem GetExtenItem(int type)
         {
-            if (TypeInRange(type) != true) return null;
+            if (IsExten(type) != true) return null;
 
             return items[type - ItemID.Count];
         }
@@ -138,7 +138,7 @@ namespace ExtenContent.Extens
         /// <summary>
         /// <see cref="Item.type"/>是否是<see cref="ExtenItem"/>
         /// </summary>
-        public static bool TypeInRange(int type)
+        public static bool IsExten(int type)
         {
             return ItemID.Count <= type && type < ItemCount;
         }

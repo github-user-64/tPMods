@@ -9,7 +9,7 @@ namespace ExtenContent.Extens
         internal static bool UpdateBGVisibility_BackLayerPrefix(int? targetBiomeOverride, float? transitionAmountOverride)
         {
             int value = Main.bgStyle;
-            if (TypeInRange(value) != true) return true;
+            if (IsExten(value) != true) return true;
             if (ExtenManag.IsLoaded != true) return true;
 
             if (targetBiomeOverride.HasValue) value = targetBiomeOverride.Value;

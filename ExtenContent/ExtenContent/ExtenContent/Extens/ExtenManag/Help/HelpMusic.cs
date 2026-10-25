@@ -18,7 +18,7 @@ namespace ExtenContent.Extens
         /// <summary>
         /// <see cref="MusicID"/>是否是<see cref="ExtenMusic"/>
         /// </summary>
-        public static bool IsExtenMusic(int type) => MusicLoader.TypeInRange(type);
+        public static bool IsExtenMusic(int type) => MusicLoader.IsExten(type);
         #endregion
     }
 }

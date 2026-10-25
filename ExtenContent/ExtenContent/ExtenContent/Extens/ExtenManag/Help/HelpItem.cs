@@ -39,7 +39,7 @@ namespace ExtenContent.Extens
         /// <summary>
         /// <see cref="Item.type"/>是否是<see cref="ExtenItem"/>
         /// </summary>
-        public static bool IsExtenItem(int type) => ItemLoader.TypeInRange(type);
+        public static bool IsExtenItem(int type) => ItemLoader.IsExten(type);
 
         /// <summary>
         /// 获取卸载物品的<see cref="ExtenType.FullName"/>, 不存在返回<see langword="null"/><br/>

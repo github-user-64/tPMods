@@ -18,7 +18,7 @@ namespace ExtenContent.Extens
         /// <summary>
         /// <see cref="SurfaceBackgroundID"/>是否是<see cref="ExtenSurfaceBackground"/>
         /// </summary>
-        public static bool IsExtenBack(int type) => SurfaceBackgroundLoader.TypeInRange(type);
+        public static bool IsExtenBack(int type) => SurfaceBackgroundLoader.IsExten(type);
         #endregion
     }
 }

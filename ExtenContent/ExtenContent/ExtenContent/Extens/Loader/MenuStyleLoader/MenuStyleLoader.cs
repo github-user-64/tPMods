@@ -6,7 +6,9 @@ namespace ExtenContent.Extens
     /// <summary/>
     public static partial class MenuStyleLoader
     {
-        /// <summary/>
+        /// <summary>
+        /// 表示原版的
+        /// </summary>
         public static readonly int OriginCount = 1;
         /// <summary>
         /// 样式数量
@@ -52,9 +54,9 @@ namespace ExtenContent.Extens
         /// <summary>
         /// 获取对应的<see cref="ExtenMenuStyle"/>, 不存在返回<see langword="null"/>
         /// </summary>
-        public static ExtenMenuStyle GetStyle(int type)
+        public static ExtenMenuStyle GetExtenStyle(int type)
         {
-            if (TypeInRange(type) != true) return null;
+            if (IsExten(type) != true) return null;
 
             return styles[type - OriginCount];
         }
@@ -62,7 +64,7 @@ namespace ExtenContent.Extens
         /// <summary>
         /// 是否是<see cref="ExtenMenuStyle"/>
         /// </summary>
-        public static bool TypeInRange(int type)
+        public static bool IsExten(int type)
         {
             return OriginCount <= type && type < StyleCount;
         }

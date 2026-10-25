@@ -153,7 +153,7 @@ namespace ExtenContent.Extens
         /// <summary>
         /// <see cref="ArmorIDs"/>是否是<see cref="ExtenEquip"/>
         /// </summary>
-        public static bool TypeInRange(EquipType type, int slot)
+        public static bool IsExten(EquipType type, int slot)
         {
             return GetEquipOriginCount(type) <= slot && slot < GetEquipCount(type);
         }
@@ -163,7 +163,7 @@ namespace ExtenContent.Extens
         /// </summary>
         public static ExtenEquip GetExtenEquip(EquipType type, int slot)
         {
-            if (TypeInRange(type, slot) != true) return null;
+            if (IsExten(type, slot) != true) return null;
 
             return equips[type][slot - GetEquipOriginCount(type)];
         }

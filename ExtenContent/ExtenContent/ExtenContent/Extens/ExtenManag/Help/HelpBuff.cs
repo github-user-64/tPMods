@@ -18,7 +18,7 @@ namespace ExtenContent.Extens
         /// <summary>
         /// <see cref="BuffID"/>是否是<see cref="ExtenBuff"/>
         /// </summary>
-        public static bool IsExtenBuff(int type) => BuffLoader.TypeInRange(type);
+        public static bool IsExtenBuff(int type) => BuffLoader.IsExten(type);
 
         /// <summary>
         /// 获取对应的<see cref="ExtenBuff"/>, 不存在返回<see langword="null"/>

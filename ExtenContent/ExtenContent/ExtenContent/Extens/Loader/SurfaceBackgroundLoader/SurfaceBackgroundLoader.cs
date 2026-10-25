@@ -46,9 +46,9 @@ namespace ExtenContent.Extens
         /// <summary>
         /// 获取对应的<see cref="ExtenSurfaceBackground"/>, 不存在返回<see langword="null"/>
         /// </summary>
-        public static ExtenSurfaceBackground GetBack(int type)
+        public static ExtenSurfaceBackground GetExtenBack(int type)
         {
-            if (TypeInRange(type) != true) return null;
+            if (IsExten(type) != true) return null;
 
             return backs[type - SurfaceBackgroundID.Count];
         }
@@ -56,7 +56,7 @@ namespace ExtenContent.Extens
         /// <summary>
         /// <see cref="SurfaceBackgroundID"/>是否是<see cref="ExtenSurfaceBackground"/>
         /// </summary>
-        public static bool TypeInRange(int type)
+        public static bool IsExten(int type)
         {
             return SurfaceBackgroundID.Count <= type && type < BackCount;
         }

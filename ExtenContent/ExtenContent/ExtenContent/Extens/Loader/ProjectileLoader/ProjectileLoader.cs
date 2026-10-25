@@ -53,7 +53,7 @@ namespace ExtenContent.Extens
         /// </summary>
         public static ExtenProjectile GetExtenProj(int type)
         {
-            if (TypeInRange(type) != true) return null;
+            if (IsExten(type) != true) return null;
 
             return projs[type - ProjectileID.Count];
         }
@@ -61,7 +61,7 @@ namespace ExtenContent.Extens
         /// <summary>
         /// <see cref="Projectile.type"/>是否是<see cref="ExtenProjectile"/>
         /// </summary>
-        public static bool TypeInRange(int type)
+        public static bool IsExten(int type)
         {
             return ProjectileID.Count <= type && type < ProjectileCount;
         }

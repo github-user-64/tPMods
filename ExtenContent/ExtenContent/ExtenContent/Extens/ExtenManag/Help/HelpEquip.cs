@@ -18,7 +18,7 @@ namespace ExtenContent.Extens
         /// <summary>
         /// <see cref="ArmorIDs"/>是否是<see cref="ExtenEquip"/>
         /// </summary>
-        public static bool IsExtenEquip(EquipType type, int slot) => EquipLoader.TypeInRange(type, slot);
+        public static bool IsExtenEquip(EquipType type, int slot) => EquipLoader.IsExten(type, slot);
 
         /// <summary>
         /// 获取<see cref="ExtenEquip"/>, 不存在返回<see langword="null"/>

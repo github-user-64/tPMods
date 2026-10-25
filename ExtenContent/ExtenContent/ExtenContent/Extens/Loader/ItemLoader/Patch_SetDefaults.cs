@@ -9,7 +9,7 @@ namespace ExtenContent.Extens
     {
         internal static void SetDefaults(Item item, int Type, ItemVariant variant = null)
         {
-            if (TypeInRange(Type) != true) return;
+            if (IsExten(Type) != true) return;
 
             item.ResetStats(Type);
 

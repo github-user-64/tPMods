@@ -54,9 +54,9 @@ namespace ExtenContent.Extens
         /// <summary>
         /// 获取对应的<see cref="ExtenMusic"/>, 不存在返回<see langword="null"/>
         /// </summary>
-        public static ExtenMusic GetStyle(int type)
+        public static ExtenMusic GetExtenMusic(int type)
         {
-            if (TypeInRange(type) != true) return null;
+            if (IsExten(type) != true) return null;
 
             return musics[type - MusicID.Count];
         }
@@ -64,7 +64,7 @@ namespace ExtenContent.Extens
         /// <summary>
         /// 是否是<see cref="ExtenMusic"/>
         /// </summary>
-        public static bool TypeInRange(int type)
+        public static bool IsExten(int type)
         {
             return MusicID.Count <= type && type < MusicCount;
         }

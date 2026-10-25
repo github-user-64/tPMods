@@ -54,7 +54,7 @@ namespace ExtenContent.Extens
         /// </summary>
         public static ExtenBuff GetExtenBuff(int type)
         {
-            if (TypeInRange(type) != true) return null;
+            if (IsExten(type) != true) return null;
 
             return buffs[type - BuffID.Count];
         }
@@ -62,7 +62,7 @@ namespace ExtenContent.Extens
         /// <summary>
         /// <see cref="BuffID"/>是否是<see cref="ExtenBuff"/>
         /// </summary>
-        public static bool TypeInRange(int type)
+        public static bool IsExten(int type)
         {
             return BuffID.Count <= type && type < BuffCount;
         }

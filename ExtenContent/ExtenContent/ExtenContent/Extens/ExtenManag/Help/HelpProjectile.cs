@@ -19,7 +19,7 @@ namespace ExtenContent.Extens
         /// <summary>
         /// <see cref="Projectile.type"/>是否是<see cref="ExtenProjectile"/>
         /// </summary>
-        public static bool IsExtenProjectile(int type) => ProjectileLoader.TypeInRange(type);
+        public static bool IsExtenProjectile(int type) => ProjectileLoader.IsExten(type);
 
         /// <summary>
         /// 获取<see cref="Projectile.type"/>对应的<see cref="ExtenProjectile"/>, 不存在返回<see langword="null"/>

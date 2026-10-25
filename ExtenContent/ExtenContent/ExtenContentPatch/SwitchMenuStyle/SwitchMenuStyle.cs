@@ -106,9 +106,9 @@ namespace ExtenContentPatch
             if (now == null) style = MenuStyleLoader.OriginCount;
             else style = now.Type + 1;
 
-            if (MenuStyleLoader.TypeInRange(style) != true) style = MenuStyleLoader.OriginCount - 1;
+            if (MenuStyleLoader.IsExten(style) != true) style = MenuStyleLoader.OriginCount - 1;
 
-            MenuStyleLoader.SetStyle(MenuStyleLoader.GetStyle(style)?.FullName);
+            MenuStyleLoader.SetStyle(MenuStyleLoader.GetExtenStyle(style)?.FullName);
         }
 
         private static string GetDiaplayName(ExtenMenuStyle style)
