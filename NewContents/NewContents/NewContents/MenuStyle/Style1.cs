@@ -1,4 +1,6 @@
 ﻿using ExtenContent.Extens;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace NewContents.MenuStyle
 {
@@ -7,5 +9,12 @@ namespace NewContents.MenuStyle
         public override string DisplayName => "欸嘿";
         public override int Back => ExtenManag.BackType<Back.Back1>();
         public override int Music => ExtenManag.MusicType<Assets.Sounds.Music1>();
+
+        public override bool DrawLogoPrefix(SpriteBatch spriteBatch, ref Vector2 logoDrawCenter, ref float logoRotation, ref float logoScale, ref Color drawColor)
+        {
+            logoRotation *= 500;
+
+            return true;
+        }
     }
 }

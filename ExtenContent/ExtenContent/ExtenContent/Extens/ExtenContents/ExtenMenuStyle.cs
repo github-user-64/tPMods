@@ -1,4 +1,7 @@
-﻿using Terraria.ID;
+﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using ReLogic.Content;
+using Terraria.ID;
 
 namespace ExtenContent.Extens
 {
@@ -19,6 +22,10 @@ namespace ExtenContent.Extens
         /// 音乐, 为<see cref="MusicID.None"/>则不变
         /// </summary>
         public virtual int Music => MusicID.None;
+        /// <summary>
+        /// 为<see langword="null"/>则使用原版
+        /// </summary>
+        public virtual Asset<Texture2D> Logo => null;
 
         /// <summary/>
         public virtual void OnSelected() { }
@@ -26,5 +33,13 @@ namespace ExtenContent.Extens
         public virtual void OnDeselected() { }
         /// <summary/>
         public virtual void Update() { }
+        /// <summary>
+        /// 绘制<see cref="Logo"/>前, 返回<see langword="false"/>则不绘制
+        /// </summary>
+        public virtual bool DrawLogoPrefix(SpriteBatch spriteBatch, ref Vector2 logoDrawCenter, ref float logoRotation, ref float logoScale, ref Color drawColor) => true;
+        /// <summary>
+        /// 绘制<see cref="Logo"/>后
+        /// </summary>
+        public virtual void DrawLogoPostfix(SpriteBatch spriteBatch, Vector2 logoDrawCenter, float logoRotation, float logoScale, Color drawColor) { }
     }
 }

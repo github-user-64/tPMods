@@ -66,7 +66,7 @@ namespace ExtenContent.Extens
                 if (IsInited) return;
             }
 
-            ThisMod.mo = mo;
+            ThisMod.Init(mo);
 
             ModObject newmo = new ModObject(new ModConfig());
             newmo.info = new ModInfo();

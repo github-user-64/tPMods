@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ReLogic.Content;
+using System;
 using tContentPatch.ModLoad;
 
 namespace ExtenContent
@@ -10,7 +11,14 @@ namespace ExtenContent
         public const string ModKey = "StaticTile.ExtenContent";
         /// <summary/>
         public const string ModName = "扩展内容";
-        internal static ModObject mo = null;
+        internal static ModObject mo { get; private set; } = null;
+        internal static IAssetRepository Asset { get; private set; } = null;
+
+        internal static void Init(ModObject mo)
+        {
+            ThisMod.mo = mo;
+            Asset = Utils.AssetUtils.GameAndExtenAssetRepository.GetAssets(ThisMod.mo);
+        }
 
         internal static void Log(string s)
         {
