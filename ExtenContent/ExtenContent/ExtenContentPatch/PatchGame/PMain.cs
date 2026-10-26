@@ -115,7 +115,7 @@ namespace ExtenContentPatch.PatchGame
         [HarmonyPrefix]
         private static bool DrawSunAndMoon(Main.SceneArea sceneArea, Color moonColor, Color sunColor, float tempMushroomInfluence)
         {
-            return ThisMod.Api.MenuStyle.DrawSunAndMoon(sceneArea, moonColor, sunColor, tempMushroomInfluence);
+            return ThisMod.Api.Back.DrawSunAndMoon(sceneArea, moonColor, sunColor, tempMushroomInfluence);
         }
     }
 }

@@ -7,12 +7,14 @@ using Terraria.GameContent.Achievements;
 
 namespace ExtenContent.Extens
 {
-    public static partial class MenuStyleLoader
+    public static partial class SurfaceBackgroundLoader
     {
         internal static bool DrawSunAndMoon(Main.SceneArea sceneArea, Color moonColor, Color sunColor, float tempMushroomInfluence)
         {
-            ExtenMenuStyle style = ExtenManag.IsLoaded ? CurrentStyle : null;
-            if (style == null) return true;
+            if (ExtenManag.IsLoaded != true) return true;
+
+            ExtenSurfaceBackground back = GetExtenBack(Main.bgStyle);
+            if (back == null) return true;
 
             Texture2D value = TextureAssets.Sun.Value;
             int num = Main.moonType;
@@ -111,9 +113,9 @@ namespace ExtenContent.Extens
                 Vector2 origin = value.Size() / 2f;
                 Vector2 vector = new Vector2(num3, num4 + Main.sunModY);
 
-                if (style.DrawSunPrefix(Main.spriteBatch, ref vector, ref rotation, ref num5, ref color))
+                if (back.DrawSunPrefix(Main.spriteBatch, ref vector, ref rotation, ref num5, ref color))
                 {
-                    Texture2D sunimg = style.Sun?.Value;
+                    Texture2D sunimg = back.Sun?.Value;
                     if (sunimg == null)
                     {
                         Main.spriteBatch.Draw(value, vector, null, color, rotation, origin, num5, SpriteEffects.None, 0f);
@@ -131,7 +133,7 @@ namespace ExtenContent.Extens
                         Main.spriteBatch.Draw(sunimg, vector, null, color, rotation, origin, num5, SpriteEffects.None, 0f);
                     }
                 }
-                style.DrawSunPostfix(Main.spriteBatch, vector, rotation, num5, color);
+                back.DrawSunPostfix(Main.spriteBatch, vector, rotation, num5, color);
             }
             if (!Main.dayTime)
             {
@@ -143,9 +145,9 @@ namespace ExtenContent.Extens
                 moonColor *= num13;
                 Vector2 position = new Vector2(num6, num7 + Main.moonModY);
 
-                if (style.DrawMoonPrefix(Main.spriteBatch, ref position, ref num9, ref num8, ref moonColor))
+                if (back.DrawMoonPrefix(Main.spriteBatch, ref position, ref num9, ref num8, ref moonColor))
                 {
-                    Texture2D moonimg = style.Moon?.Value;
+                    Texture2D moonimg = back.Moon?.Value;
                     if (moonimg == null)
                     {
                         if (WorldGen.drunkWorldGen)
@@ -170,7 +172,7 @@ namespace ExtenContent.Extens
                         Main.spriteBatch.Draw(moonimg, position, null, moonColor, num9, moonimg.Size() / 2f, num8, SpriteEffects.None, 0f);
                     }
                 }
-                style.DrawMoonPostfix(Main.spriteBatch, position, num9, num8, moonColor);
+                back.DrawMoonPostfix(Main.spriteBatch, position, num9, num8, moonColor);
             }
             Rectangle value4 = (Main.dayTime ? new Rectangle((int)((double)num3 - (double)TextureAssets.Sun.Width() * 0.5 * (double)num5), (int)((double)num4 - (double)TextureAssets.Sun.Height() * 0.5 * (double)num5 + (double)Main.sunModY), (int)((float)TextureAssets.Sun.Width() * num5), (int)((float)TextureAssets.Sun.Width() * num5)) : new Rectangle((int)((double)num6 - (double)TextureAssets.Moon[num].Width() * 0.5 * (double)num8), (int)((double)num7 - (double)TextureAssets.Moon[num].Width() * 0.5 * (double)num8 + (double)Main.moonModY), (int)((float)TextureAssets.Moon[num].Width() * num8), (int)((float)TextureAssets.Moon[num].Width() * num8)));
             Rectangle rectangle = new Rectangle(Main.mouseX, Main.mouseY, 1, 1);
