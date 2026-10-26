@@ -11,6 +11,7 @@ namespace ExtenContentPatch
     /// <see cref="ProjectileLoader.SetDefaultsPostfix(Projectile, int)"/>
     /// <see cref="MenuStyleLoader.DrawBGPrefix(Terraria.DataStructures.SpriteBatchBeginner)"/>
     /// <see cref="MenuStyleLoader.DrawLogo(bool, bool, float, float)"/>
+    /// <see cref="MenuStyleLoader.DrawSunAndMoon(Main.SceneArea, Microsoft.Xna.Framework.Color, Microsoft.Xna.Framework.Color, float)"/>
     /// <see cref="PPlayer.ItemCheck_ManageRightClickFeaturesPostfix(Player)"/>
     /// <see cref="PPlayer.ItemCheck_ShootPrefix(Player, int, Item, int, bool)"/>
     /// <see cref="PMain.Transpiler_DrawMenu(System.Collections.Generic.IEnumerable{HarmonyLib.CodeInstruction})"/>

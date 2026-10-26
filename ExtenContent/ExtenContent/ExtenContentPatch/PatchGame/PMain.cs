@@ -110,5 +110,12 @@ namespace ExtenContentPatch.PatchGame
             if (v) v &= ThisMod.Api.PatchMain.UpdateAudio_DecideOnNewMusicPrefix();
             return v;
         }
+
+        [HarmonyPatch("DrawSunAndMoon")]
+        [HarmonyPrefix]
+        private static bool DrawSunAndMoon(Main.SceneArea sceneArea, Color moonColor, Color sunColor, float tempMushroomInfluence)
+        {
+            return ThisMod.Api.MenuStyle.DrawSunAndMoon(sceneArea, moonColor, sunColor, tempMushroomInfluence);
+        }
     }
 }

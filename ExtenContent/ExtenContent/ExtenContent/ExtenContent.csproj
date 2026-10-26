@@ -83,6 +83,8 @@
     <Compile Include="Extens\Loader\EquipLoader\Patch.cs" />
     <Compile Include="Extens\Loader\ItemLoader\ItemData.cs" />
     <Compile Include="Extens\Loader\ItemLoader\Patch_SetDefaults.cs" />
+    <Compile Include="Extens\Loader\MenuStyleLoader\Patch_DrawSunAndMoon.cs" />
+    <Compile Include="Extens\Loader\MenuStyleLoader\Patch_Logo.cs" />
     <Compile Include="Extens\Loader\MusicLoader\Load.cs" />
     <Compile Include="Extens\Loader\MusicLoader\MusicLoader.cs" />
     <Compile Include="Extens\Loader\MenuStyleLoader\MenuStyleLoader.cs" />

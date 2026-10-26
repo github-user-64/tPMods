@@ -1,5 +1,6 @@
 ﻿using ExtenContent.Extens;
 using Microsoft.Xna.Framework;
+using Terraria;
 using Terraria.DataStructures;
 
 namespace ExtenContent.PrivateApi
@@ -31,6 +32,12 @@ namespace ExtenContent.PrivateApi
         public void DrawLogo(bool playOldTile, bool boulderLogo, float logoRotation, float logoScale)
         {
             MenuStyleLoader.DrawLogo(playOldTile, boulderLogo, logoRotation, logoScale);
+        }
+
+        /// <summary/>
+        public bool DrawSunAndMoon(Main.SceneArea sceneArea, Color moonColor, Color sunColor, float tempMushroomInfluence)
+        {
+            return MenuStyleLoader.DrawSunAndMoon(sceneArea, moonColor, sunColor, tempMushroomInfluence);
         }
     }
 }
