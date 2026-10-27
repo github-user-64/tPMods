@@ -21,7 +21,6 @@ namespace ExtenContent.Extens
             ThisMod.Log($"{typeof(SoundLoader)}:加载完成:新声音:{sounds.Count}个", time);
         }
 
-        internal static void UnloadPrefix() { }
         internal static void Unload()
         {
             sounds.ForEach(i =>

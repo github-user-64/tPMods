@@ -29,13 +29,10 @@ namespace ExtenContent.Extens
             ThisMod.Log($"{typeof(ProjectileLoader)}:加载完成:新射弹:{ProjectileCount - ProjectileID.Count}个", time);
         }
 
-        internal static void UnloadPrefix()
-        {
-            ProjectileCount = ProjectileID.Count;
-        }
-
         internal static void Unload()
         {
+            ProjectileCount = ProjectileID.Count;
+
             projs.ForEach(i => i.Unload());
             projs.Clear();
 

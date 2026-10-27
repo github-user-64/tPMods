@@ -29,13 +29,10 @@ namespace ExtenContent.Extens
             ThisMod.Log($"{typeof(MusicLoader)}:加载完成:新音乐:{MusicCount - MusicID.Count}个", time);
         }
 
-        internal static void UnloadPrefix()
-        {
-            MusicCount = MusicID.Count;
-        }
-
         internal static void Unload()
         {
+            MusicCount = MusicID.Count;
+
             musics.ForEach(i => i.Unload());
             musics.Clear();
 

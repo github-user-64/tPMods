@@ -25,13 +25,9 @@ namespace ExtenContent.Extens
             ThisMod.Log($"{typeof(SurfaceBackgroundLoader)}:加载完成:新背景:{BackCount - SurfaceBackgroundID.Count}个", time);
         }
 
-        internal static void UnloadPrefix()
-        {
-            BackCount = SurfaceBackgroundID.Count;
-        }
-
         internal static void Unload()
         {
+            BackCount = SurfaceBackgroundID.Count;
             Main.bgStyle = SurfaceBackgroundID.Forest1;
 
             backs.ForEach(i => i.Unload());

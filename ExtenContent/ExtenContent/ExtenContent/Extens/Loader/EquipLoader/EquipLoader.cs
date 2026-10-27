@@ -47,16 +47,13 @@ namespace ExtenContent.Extens
             }
         }
 
-        internal static void UnloadPrefix()
+        internal static void Unload()
         {
             foreach (EquipType i in EquipTypes)
             {
                 EquipCount[i] = GetEquipOriginCount(i);
             }
-        }
 
-        internal static void Unload()
-        {
             foreach (KeyValuePair<EquipType, List<ExtenEquip>> ees in equips)
             {
                 ees.Value.ForEach(i => i.Unload());

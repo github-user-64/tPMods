@@ -27,7 +27,6 @@ namespace ExtenContent.Extens
             Recipe.SetupRecipes();
         }
 
-        internal static void UnloadPrefix() { }
         internal static void Unload()
         {
             PatchRecipes.Clear();

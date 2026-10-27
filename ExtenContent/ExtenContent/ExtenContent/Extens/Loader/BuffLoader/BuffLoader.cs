@@ -30,13 +30,10 @@ namespace ExtenContent.Extens
             ThisMod.Log($"{typeof(BuffLoader)}:加载完成:新buff:{BuffCount - BuffID.Count}个", time);
         }
 
-        internal static void UnloadPrefix()
-        {
-            BuffCount = BuffID.Count;
-        }
-
         internal static void Unload()
         {
+            BuffCount = BuffID.Count;
+
             buffs.ForEach(i => i.Unload());
             buffs.Clear();
 

@@ -18,7 +18,6 @@ namespace ExtenContent.Extens
         }
         private readonly static List<Action> Loads = new List<Action>();
         private readonly static List<Action> Unloads = new List<Action>();
-        private readonly static List<Action> UnloadPrefixs = new List<Action>();
 
         private static readonly List<ExtenType> Extens = new List<ExtenType>();
         private static readonly List<IAssetRepository> Assets = new List<IAssetRepository>();
@@ -50,12 +49,10 @@ namespace ExtenContent.Extens
         {
             Delegate register = Delegate.CreateDelegate(typeof(Action<T>), type.GetMethod("Register", BindingFlags.Static | BindingFlags.NonPublic));
             Delegate load = Delegate.CreateDelegate(typeof(Action), type.GetMethod("Load", BindingFlags.Static | BindingFlags.NonPublic));
-            Delegate unloadpr = Delegate.CreateDelegate(typeof(Action), type.GetMethod("UnloadPrefix", BindingFlags.Static | BindingFlags.NonPublic));
             Delegate unload = Delegate.CreateDelegate(typeof(Action), type.GetMethod("Unload", BindingFlags.Static | BindingFlags.NonPublic));
 
             RegistFoo<T>.Foo = (Action<T>)register;
             Loads.Add((Action)load);
-            UnloadPrefixs.Add((Action)unloadpr);
             Unloads.Add((Action)unload);
         }
 
@@ -104,7 +101,6 @@ namespace ExtenContent.Extens
             IsLoaded = false;
             ThisMod.Log(out DateTime time);
 
-            UnloadPrefixs.ForEach(i => i());
             Unloads.ForEach(i => i());
 
             foreach (IAssetRepository asset in Assets) asset.Dispose();

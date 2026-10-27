@@ -33,13 +33,10 @@ namespace ExtenContent.Extens
             ThisMod.Log($"{typeof(ItemLoader)}:加载完成:新物品:{ItemCount - ItemID.Count}个", time);
         }
 
-        internal static void UnloadPrefix()
-        {
-            ItemCount = ItemID.Count;
-        }
-
         internal static void Unload()
         {
+            ItemCount = ItemID.Count;
+
             items.ForEach(i => i.Unload());
             items.Clear();
             itemsKey.Clear();
