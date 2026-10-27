@@ -1,6 +1,6 @@
-﻿using ExtenContent.Extens;
+﻿//using ExtenContent.Extens;
 
-namespace NewContents.Assets.Sounds
-{
-    internal class Music1 : ExtenMusic { }
-}
+//namespace NewContents.Assets.Sounds
+//{
+//    internal class Music1 : ExtenMusic { }
+//}

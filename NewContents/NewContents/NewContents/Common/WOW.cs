@@ -1,5 +1,6 @@
 ﻿using ExtenContent.Extens;
 using Terraria;
+using Terraria.ID;
 
 namespace NewContents.Common
 {
@@ -19,7 +20,7 @@ namespace NewContents.Common
 
         public override bool UpdateAudio_DecideOnNewMusicPrefix()
         {
-            if (ok) Main.newMusic = ExtenManag.MusicType<Assets.Sounds.Music1>();
+            if (ok) Main.newMusic = MusicID.OtherworldSnow;
             return !ok;
         }
     }
