@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Terraria;
 using Terraria.ID;
 
 namespace ExtenContent.Extens
@@ -31,8 +32,12 @@ namespace ExtenContent.Extens
 
         internal static void Unload()
         {
+            Main.bgStyle = SurfaceBackgroundID.Forest1;
+
             backs.ForEach(i => i.Unload());
             backs.Clear();
+
+            Main.bgStyle = SurfaceBackgroundID.Forest1;
 
             ContentInit();
         }
