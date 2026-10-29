@@ -1,0 +1,62 @@
+<!--复制一份该文件并重命名为"ConfigPublic.targets"-->
+
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+	<PropertyGroup>
+		<!--输出位置选择-->
+		<OutPathSwitch>0</OutPathSwitch>
+
+		<!--用于引用的Terraria.exe文件位置-->
+		<DllTerraria>$(MSBuildThisFileDirectory)\dll\Terraria_v1.4.5.8.exe</DllTerraria>
+		<!--用于引用的ReLogic.dll文件位置-->
+		<DllReLogic>$(MSBuildThisFileDirectory)\dll\ReLogic.dll</DllReLogic>
+		
+		<!--用于引用的tPML的dll文件位置-->
+		<tPMLDllPath><!--需修改--></tPMLDllPath>
+		<Dll0Harmony>$(tPMLDllPath)\0Harmony.dll</Dll0Harmony>
+		<DllCommandHelp>$(tPMLDllPath)\CommandHelp.dll</DllCommandHelp>
+		<DlltContentPatch>$(tPMLDllPath)\tContentPatch.dll</DlltContentPatch>
+	</PropertyGroup>
+	
+	<!--输出位置0-->
+	<PropertyGroup Condition="'$(OutPathSwitch)'=='0'">
+		<!--tPlainModLoader项目的输出目录-->
+		<tPMLOutPath>$(tPMLDllPath)</tPMLOutPath>
+		<tPMLOutPathMod>$(tPMLOutPath)\Mods</tPMLOutPathMod>
+		
+		<!--用于启动调试用的tPlainModLoader.exe文件位置-->
+		<tPMLStartProgram>$(tPMLOutPath)\tPlainModLoader.exe</tPMLStartProgram>
+	</PropertyGroup>
+	
+	<!--输出位置1-->
+	<PropertyGroup Condition="'$(OutPathSwitch)'=='1'">
+		<tPMLOutPath></tPMLOutPath>
+		<tPMLOutPathMod></tPMLOutPathMod>
+		
+		<tPMLStartProgram></tPMLStartProgram>
+	</PropertyGroup>
+
+	<!--引用-->
+	<ItemGroup>
+		<Reference Include="ReLogic">
+			<HintPath>$(DllReLogic)</HintPath>
+			<Private>False</Private>
+		</Reference>
+		<Reference Include="Terraria">
+			<HintPath>$(DllTerraria)</HintPath>
+			<Private>False</Private>
+		</Reference>
+		
+		<Reference Include="0Harmony">
+			<HintPath>$(Dll0Harmony)</HintPath>
+			<Private>False</Private>
+		</Reference>
+		<Reference Include="CommandHelp">
+			<HintPath>$(DllCommandHelp)</HintPath>
+			<Private>False</Private>
+		</Reference>
+		<Reference Include="tContentPatch">
+			<HintPath>$(DlltContentPatch)</HintPath>
+			<Private>False</Private>
+		</Reference>
+	</ItemGroup>
+</Project>

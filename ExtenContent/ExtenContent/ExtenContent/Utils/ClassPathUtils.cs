@@ -1,4 +1,4 @@
-﻿using ExtenContent.Extens;
+﻿using ExtenContent.Exten;
 
 namespace ExtenContent.Utils
 {

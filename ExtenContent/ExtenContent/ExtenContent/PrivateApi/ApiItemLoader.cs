@@ -1,4 +1,4 @@
-﻿using ExtenContent.Extens;
+﻿using ExtenContent.Exten;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.DataStructures;

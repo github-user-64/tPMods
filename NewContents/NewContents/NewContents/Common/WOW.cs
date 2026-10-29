@@ -1,4 +1,4 @@
-﻿using ExtenContent.Extens;
+﻿using ExtenContent.Exten;
 using Terraria;
 using Terraria.ID;
 

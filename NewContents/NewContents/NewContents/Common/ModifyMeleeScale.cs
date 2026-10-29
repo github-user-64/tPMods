@@ -1,4 +1,4 @@
-﻿using ExtenContent.Extens;
+﻿using ExtenContent.Exten;
 using tContentPatch;
 using Terraria;
 using Terraria.DataStructures;

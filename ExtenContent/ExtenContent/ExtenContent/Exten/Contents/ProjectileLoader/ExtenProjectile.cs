@@ -1,0 +1,46 @@
+﻿using ExtenContent.Utils;
+using Microsoft.Xna.Framework;
+using Terraria;
+using Terraria.DataStructures;
+using Terraria.Localization;
+
+namespace ExtenContent.Exten
+{
+    /// <summary>
+    /// 扩展射弹
+    /// </summary>
+    public abstract class ExtenProjectile : ExtenType, LanguageUtils.ILanguageUtils, ClassPathUtils.IClassPathUtils
+    {
+        /// <summary/>
+        public Projectile Projectile { get; } = new Projectile();
+        /// <summary>
+        /// 对应的<see cref="Projectile.type"/>
+        /// </summary>
+        public int Type => Projectile.type;
+        /// <summary>
+        /// 纹理位置
+        /// </summary>
+        public virtual string Texture => this.GetPath();
+        /// <summary/>
+        public virtual LocalizedText DisplayName => this.GetLocalization($"{nameof(DisplayName)}", Name);
+
+        /// <summary/>
+        public virtual void SetDefault(Projectile proj) { }
+        /// <summary/>
+        public virtual void AI(Projectile proj) { }
+        /// <summary/>
+        public virtual void OnKill(Projectile proj) { }
+        /// <summary/>
+        public virtual void NewProjectilePostfix(Projectile proj, IEntitySource spawnSource) { }
+        /// <summary/>
+        public virtual bool? Colliding(Projectile proj, Rectangle myRect, Rectangle targetRect) => null;
+        /// <summary/>
+        public virtual Color? GetAlpha(Projectile proj, Color newColor) => null;
+        /// <summary/>
+        public virtual bool PreDraw(Projectile proj, Color lightColor, Player player = null) => true;
+        /// <summary/>
+        public virtual void PostDraw(Projectile proj, Color lightColor, Player player = null) { }
+        /// <summary/>
+        public virtual bool CanUpdatePosition(Projectile proj, Vector2 wetVelocity) => true;
+    }
+}

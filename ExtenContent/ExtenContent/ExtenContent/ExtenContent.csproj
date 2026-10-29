@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <Import Project="..\..\..\ConfigPublic.targets" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
@@ -17,11 +18,11 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>..\..\..\..\tPlainModLoader\tPlainModLoader\tPlainModLoader\bin\Debug\Mods\ExtenContent\</OutputPath>
+    <OutputPath>$(tPMLOutPathMod)\ExtenContent\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <DocumentationFile>..\..\..\..\tPlainModLoader\tPlainModLoader\tPlainModLoader\bin\Debug\Mods\ExtenContent\ExtenContent.xml</DocumentationFile>
+    <DocumentationFile>$(tPMLOutPathMod)\ExtenContent\ExtenContent.xml</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -32,22 +33,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="ReLogic">
-      <HintPath>..\..\..\..\tPlainModLoader\dll\ReLogic.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="Terraria_v1.4.5.8">
-      <HintPath>..\..\..\..\tPlainModLoader\dll\Terraria_v1.4.5.8.exe</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="0Harmony">
-      <HintPath>..\..\..\..\tPlainModLoader\tPlainModLoader\tPlainModLoader\bin\Debug\0Harmony.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="tContentPatch">
-      <HintPath>..\..\..\..\tPlainModLoader\tPlainModLoader\tPlainModLoader\bin\Debug\tContentPatch.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Net.Http" />
@@ -61,44 +46,64 @@
     <Reference Include="Microsoft.Xna.Framework.Graphics, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Extens\Attributes\AutoloadEquip.cs" />
-    <Compile Include="Extens\Enums\FileType.cs" />
-    <Compile Include="Extens\ExtenContents\ExtenSound.cs" />
-    <Compile Include="Extens\ExtenContents\ExtenMusic.cs" />
-    <Compile Include="Extens\ExtenContents\ExtenMenuStyle.cs" />
-    <Compile Include="Extens\ExtenContents\ExtenPatchs\EPatchArmorSetBonuses.cs" />
-    <Compile Include="Extens\ExtenContents\ExtenPatchs\EPatchMain.cs" />
-    <Compile Include="Extens\ExtenContents\ExtenPatchs\EPatchRecipe.cs" />
-    <Compile Include="Extens\ExtenContents\ExtenBuff.cs" />
-    <Compile Include="Extens\ExtenContents\ExtenSurfaceBackground.cs" />
-    <Compile Include="Extens\ExtenManag\Help\HelpMusic.cs" />
-    <Compile Include="Extens\ExtenManag\Help\HelpBack.cs" />
-    <Compile Include="Extens\ExtenManag\Help\HelpBuff.cs" />
-    <Compile Include="Extens\ExtenManag\Help\HelpEquip.cs" />
-    <Compile Include="Extens\ExtenManag\Help\HelpProjectile.cs" />
-    <Compile Include="Extens\Interfaces\ILoadable.cs" />
-    <Compile Include="Extens\LoaderUtils.cs" />
-    <Compile Include="Extens\Loader\EquipLoader\EquipLoader.cs" />
-    <Compile Include="Extens\Loader\EquipLoader\ExtenItemEquip.cs" />
-    <Compile Include="Extens\Loader\EquipLoader\Patch.cs" />
-    <Compile Include="Extens\Loader\ItemLoader\ItemData.cs" />
-    <Compile Include="Extens\Loader\ItemLoader\Patch_SetDefaults.cs" />
-    <Compile Include="Extens\Loader\SurfaceBackgroundLoader\Patch_DrawSunAndMoon.cs" />
-    <Compile Include="Extens\Loader\MenuStyleLoader\Patch_Logo.cs" />
-    <Compile Include="Extens\Loader\MusicLoader\Load.cs" />
-    <Compile Include="Extens\Loader\MusicLoader\MusicLoader.cs" />
-    <Compile Include="Extens\Loader\MenuStyleLoader\MenuStyleLoader.cs" />
-    <Compile Include="Extens\Loader\MenuStyleLoader\Patch.cs" />
-    <Compile Include="Extens\Loader\BuffLoader\Patch.cs" />
-    <Compile Include="Extens\Loader\BuffLoader\BuffLoader.cs" />
-    <Compile Include="Extens\Loader\BuffLoader\Load.cs" />
-    <Compile Include="Extens\Loader\PatchLoader\PatchArmorSetBonusesLoader.cs" />
-    <Compile Include="Extens\Loader\PatchLoader\PatchMainLoader.cs" />
-    <Compile Include="Extens\Loader\SoundLoader\Load.cs" />
-    <Compile Include="Extens\Loader\SoundLoader\SoundLoader.cs" />
-    <Compile Include="Extens\Loader\SurfaceBackgroundLoader\Load.cs" />
-    <Compile Include="Extens\Loader\SurfaceBackgroundLoader\Patch.cs" />
-    <Compile Include="Extens\Loader\SurfaceBackgroundLoader\SurfaceBackgroundLoader.cs" />
+    <Compile Include="Exten\Attributes\AutoloadEquip.cs" />
+    <Compile Include="Exten\Contents\BuffLoader\BuffLoader.cs" />
+    <Compile Include="Exten\Contents\BuffLoader\ExtenBuff.cs" />
+    <Compile Include="Exten\Contents\BuffLoader\Load.cs" />
+    <Compile Include="Exten\Contents\BuffLoader\Patch.cs" />
+    <Compile Include="Exten\Contents\EquipLoader\EquipLoader.cs" />
+    <Compile Include="Exten\Contents\EquipLoader\ExtenEquip.cs" />
+    <Compile Include="Exten\Contents\EquipLoader\ExtenItemEquip.cs" />
+    <Compile Include="Exten\Contents\EquipLoader\Load.cs" />
+    <Compile Include="Exten\Contents\EquipLoader\Patch.cs" />
+    <Compile Include="Exten\Contents\ItemLoader\ExtenItem.cs" />
+    <Compile Include="Exten\Contents\ItemLoader\ItemData.cs" />
+    <Compile Include="Exten\Contents\ItemLoader\ItemLoader.cs" />
+    <Compile Include="Exten\Contents\ItemLoader\Load.cs" />
+    <Compile Include="Exten\Contents\ItemLoader\Patch.cs" />
+    <Compile Include="Exten\Contents\ItemLoader\Patch_SetDefaults.cs" />
+    <Compile Include="Exten\Contents\ItemLoader\UnloadItem.cs" />
+    <Compile Include="Exten\Contents\MenuStyleLoader\ExtenMenuStyle.cs" />
+    <Compile Include="Exten\Contents\MenuStyleLoader\MenuStyleLoader.cs" />
+    <Compile Include="Exten\Contents\MenuStyleLoader\Patch.cs" />
+    <Compile Include="Exten\Contents\MenuStyleLoader\Patch_Logo.cs" />
+    <Compile Include="Exten\Contents\MusicLoader\ExtenMusic.cs" />
+    <Compile Include="Exten\Contents\MusicLoader\Load.cs" />
+    <Compile Include="Exten\Contents\MusicLoader\MusicLoader.cs" />
+    <Compile Include="Exten\Contents\PatchLoader\PatchArmorSetBonuses\EPatchArmorSetBonuses.cs" />
+    <Compile Include="Exten\Contents\PatchLoader\PatchArmorSetBonuses\PatchArmorSetBonusesLoader.cs" />
+    <Compile Include="Exten\Contents\PatchLoader\PatchMain\EPatchMain.cs" />
+    <Compile Include="Exten\Contents\PatchLoader\PatchMain\PatchMainLoader.cs" />
+    <Compile Include="Exten\Contents\PatchLoader\PatchPlayer\EPatchPlayer.cs" />
+    <Compile Include="Exten\Contents\PatchLoader\PatchPlayer\PatchPlayerLoader.cs" />
+    <Compile Include="Exten\Contents\PatchLoader\PatchRecipe\EPatchRecipe.cs" />
+    <Compile Include="Exten\Contents\PatchLoader\PatchRecipe\PatchRecipeLoader.cs" />
+    <Compile Include="Exten\Contents\ProjectileLoader\ExtenProjectile.cs" />
+    <Compile Include="Exten\Contents\ProjectileLoader\Load.cs" />
+    <Compile Include="Exten\Contents\ProjectileLoader\Patch.cs" />
+    <Compile Include="Exten\Contents\ProjectileLoader\ProjectileLoader.cs" />
+    <Compile Include="Exten\Contents\SoundLoader\ExtenSound.cs" />
+    <Compile Include="Exten\Contents\SoundLoader\Load.cs" />
+    <Compile Include="Exten\Contents\SoundLoader\SoundLoader.cs" />
+    <Compile Include="Exten\Contents\SurfaceBackgroundLoader\ExtenSurfaceBackground.cs" />
+    <Compile Include="Exten\Contents\SurfaceBackgroundLoader\Load.cs" />
+    <Compile Include="Exten\Contents\SurfaceBackgroundLoader\Patch.cs" />
+    <Compile Include="Exten\Contents\SurfaceBackgroundLoader\Patch_DrawSunAndMoon.cs" />
+    <Compile Include="Exten\Contents\SurfaceBackgroundLoader\SurfaceBackgroundLoader.cs" />
+    <Compile Include="Exten\Enums\EquipType.cs" />
+    <Compile Include="Exten\Enums\FileType.cs" />
+    <Compile Include="Exten\ExtenInstance.cs" />
+    <Compile Include="Exten\ExtenManag\ExtenManag.cs" />
+    <Compile Include="Exten\ExtenManag\Help\HelpBack.cs" />
+    <Compile Include="Exten\ExtenManag\Help\HelpBuff.cs" />
+    <Compile Include="Exten\ExtenManag\Help\HelpEquip.cs" />
+    <Compile Include="Exten\ExtenManag\Help\HelpItem.cs" />
+    <Compile Include="Exten\ExtenManag\Help\HelpMusic.cs" />
+    <Compile Include="Exten\ExtenManag\Help\HelpProjectile.cs" />
+    <Compile Include="Exten\ExtenType.cs" />
+    <Compile Include="Exten\Interfaces\IExtenType.cs" />
+    <Compile Include="Exten\Interfaces\ILoadable.cs" />
+    <Compile Include="Exten\LoaderUtils.cs" />
     <Compile Include="PrivateApi\ApiBuffLoader.cs" />
     <Compile Include="PrivateApi\ApiEquipLoader.cs" />
     <Compile Include="PrivateApi\ApiPatchMainLoader.cs" />
@@ -107,31 +112,11 @@
     <Compile Include="PrivateApi\ApiMenuStyleLoader.cs" />
     <Compile Include="PrivateApi\ApiPatchPlayerLoader.cs" />
     <Compile Include="PrivateApi\Api.cs" />
-    <Compile Include="Extens\Enums\EquipType.cs" />
-    <Compile Include="Extens\Loader\EquipLoader\Load.cs" />
-    <Compile Include="Extens\Loader\PatchLoader\PatchRecipeLoader.cs" />
-    <Compile Include="Extens\ExtenContents\ExtenEquip.cs" />
-    <Compile Include="Extens\ExtenContents\ExtenProjectile.cs" />
-    <Compile Include="Extens\ExtenInstance.cs" />
-    <Compile Include="Extens\ExtenContents\ExtenPatchs\EPatchPlayer.cs" />
-    <Compile Include="Extens\Loader\PatchLoader\PatchPlayerLoader.cs" />
-    <Compile Include="Extens\Loader\ProjectileLoader\ProjectileLoader.cs" />
-    <Compile Include="Extens\Loader\ProjectileLoader\Patch.cs" />
-    <Compile Include="Extens\Loader\ProjectileLoader\Load.cs" />
-    <Compile Include="Extens\UnloadItem.cs" />
-    <Compile Include="Extens\ExtenManag\ExtenManag.cs" />
-    <Compile Include="Extens\ExtenManag\Help\HelpItem.cs" />
-    <Compile Include="Extens\ExtenType.cs" />
-    <Compile Include="Extens\Interfaces\IExtenType.cs" />
-    <Compile Include="Extens\Loader\ItemLoader\Patch.cs" />
-    <Compile Include="Extens\Loader\ItemLoader\ItemLoader.cs" />
-    <Compile Include="Extens\ExtenContents\ExtenItem.cs" />
-    <Compile Include="IO\ExtenItemData.cs" />
-    <Compile Include="IO\PlayerExtenData.cs" />
+    <Compile Include="Utils\IO\ExtenItemData.cs" />
+    <Compile Include="Utils\IO\PlayerExtenData.cs" />
     <Compile Include="PrivateApi\ApiProjectileLoader.cs" />
     <Compile Include="PrivateApi\ApiSurfaceBackgroundLoader.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Extens\Loader\ItemLoader\Load.cs" />
     <Compile Include="ThisMod.cs" />
     <Compile Include="Utils\Asset\GameAndExtenAssetRepository.cs" />
     <Compile Include="Utils\MySoundStyle.cs" />

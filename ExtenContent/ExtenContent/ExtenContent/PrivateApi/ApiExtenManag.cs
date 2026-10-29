@@ -1,4 +1,4 @@
-﻿using ExtenContent.Extens;
+﻿using ExtenContent.Exten;
 using tContentPatch.ModLoad;
 
 namespace ExtenContent.PrivateApi

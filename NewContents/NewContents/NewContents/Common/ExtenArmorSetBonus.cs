@@ -1,4 +1,4 @@
-﻿using ExtenContent.Extens;
+﻿using ExtenContent.Exten;
 using NewContents.Content.Items.Armor;
 using Terraria;
 

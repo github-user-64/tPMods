@@ -1,4 +1,4 @@
-﻿using ExtenContent.Extens;
+﻿using ExtenContent.Exten;
 using ExtenContent.Utils;
 using Terraria;
 using Terraria.Localization;

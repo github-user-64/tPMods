@@ -1,0 +1,95 @@
+﻿using ExtenContent.Utils.IO;
+using System;
+using Terraria;
+using Terraria.ID;
+using Terraria.IO;
+
+namespace ExtenContent.Exten
+{
+    public static partial class ItemLoader
+    {
+        internal static void LoadPlayerPostfix(PlayerFileData result, string playerPath, bool cloudSave)
+        {
+            PlayerExtenData data = PlayerExtenData.Load(result.GetFileName());
+            if (data == null) return;
+
+            Player player = result.Player;
+
+            LoadData(player.inventory, data.inventory);
+            LoadData(player.miscEquips, data.miscEquips);
+            LoadData(player.miscDyes, data.miscDyes);
+            LoadData(player.bank.item, data.bank);
+            LoadData(player.bank2.item, data.bank2);
+            LoadData(player.bank3.item, data.bank3);
+            LoadData(player.bank4.item, data.bank4);
+
+            int LoadoutsArmorLen = Math.Min(player.Loadouts.Length, data.LoadoutsArmor?.Count ?? 0);
+            for (int i = 0; i < LoadoutsArmorLen; ++i)
+            {
+                if (player.CurrentLoadoutIndex == i)
+                {
+                    LoadData(player.armor, data.LoadoutsArmor[i]);
+                }
+
+                LoadData(player.Loadouts[i].Armor, data.LoadoutsArmor[i]);
+            }
+
+            int LoadoutsDyeLen = Math.Min(player.Loadouts.Length, data.LoadoutsDye?.Count ?? 0);
+            for (int i = 0; i < LoadoutsDyeLen; ++i)
+            {
+                if (player.CurrentLoadoutIndex == i)
+                {
+                    LoadData(player.dye, data.LoadoutsDye[i]);
+                }
+
+                LoadData(player.Loadouts[i].Dye, data.LoadoutsDye[i]);
+            }
+        }
+
+        internal static void SavePlayerPrefix(PlayerFileData playerFile, bool skipMapSave)
+        {
+            if (Main.ServerSideCharacter) return;
+
+            Player player = playerFile.Player;
+            PlayerExtenData data = new PlayerExtenData(player);
+
+            PlayerExtenData.Save(playerFile.GetFileName(), data);
+        }
+
+        private static void LoadData(Item[] items, ExtenItemData[] EItems = null)
+        {
+            foreach (Item i in items)
+            {
+                if (i.type >= ItemID.Count) i.SetDefaults(ItemID.None);
+            }
+
+            int len = Math.Min(items.Length, EItems.Length);
+            for (int i = 0; i < len; ++i)
+            {
+                //空物品
+                if (EItems[i] == null) continue;
+                if (EItems[i].Name == null) continue;
+                if (EItems[i].Stack < 1) continue;
+
+                //对应格子已经有物品, 且不是扩展物品
+                if (items[i].IsAir != true && ExtenManag.IsExtenItem(items[i].type) != true) continue;
+
+                string key = EItems[i].Name;
+
+                if (GetExtenItem(key) == null)//物品没加载
+                {
+                    RegisterUnload(key);//注册卸载物品
+
+                    SetUnloadItem(items[i], key);
+                }
+                else
+                {
+                    items[i].SetDefaults(ExtenManag.GetExtenItem(key).Type);
+                }
+
+                items[i].stack = EItems[i].Stack;
+                items[i].Prefix(EItems[i].Prefix);
+            }
+        }
+    }
+}

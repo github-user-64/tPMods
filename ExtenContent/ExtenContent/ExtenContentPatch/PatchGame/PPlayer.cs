@@ -1,4 +1,4 @@
-﻿using ExtenContent.Extens;
+﻿using ExtenContent.Exten;
 using HarmonyLib;
 using Microsoft.Xna.Framework;
 using System.Collections.Generic;

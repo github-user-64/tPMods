@@ -1,5 +1,5 @@
-﻿using ExtenContent.Extens;
-using ExtenContent.Extens.Attributes;
+﻿using ExtenContent.Exten;
+using ExtenContent.Exten.Attributes;
 using Terraria;
 
 namespace NewContents.Content.Items.Armor
