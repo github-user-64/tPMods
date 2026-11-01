@@ -28,7 +28,7 @@ namespace ExtenContent.Exten
         {
             ThisMod.Log(out DateTime time);
 
-            if (LogoExten == null) LogoExten = ThisMod.Asset.Request<Texture2D>("LogoExten");
+            if (LogoExten == null) LogoExten = ThisMod.Asset?.Request<Texture2D>("LogoExten");
 
             styles.ForEach(i => i.Load());
 

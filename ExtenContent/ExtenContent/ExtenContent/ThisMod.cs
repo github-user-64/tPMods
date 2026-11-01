@@ -1,6 +1,7 @@
 ﻿using ReLogic.Content;
 using System;
 using tContentPatch.ModLoad;
+using Terraria;
 
 namespace ExtenContent
 {
@@ -17,7 +18,11 @@ namespace ExtenContent
         internal static void Init(ModObject mo)
         {
             ThisMod.mo = mo;
-            Asset = Utils.AssetUtils.GameAndExtenAssetRepository.GetAssets(ThisMod.mo);
+
+            if (Main.dedServ != true)
+            {
+                Asset = Utils.AssetUtils.GameAndExtenAssetRepository.GetAssets(ThisMod.mo);
+            }
         }
 
         internal static void Log(string s)
