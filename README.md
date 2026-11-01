@@ -31,6 +31,7 @@
 
 - [流光叠影 · LightsAndShadows-TPML](https://github.com/misuOVO/LightsAndShadows-TPML)
 - [光之女皇 视觉重铸 · EmpressVisualReforge](https://github.com/misuOVO/EmpressVisualReforge)
+- [更好的体验Lite · ImproveGameLite](https://github.com/misuOVO/ImproveGameLite-tPlainModLoader)
 
 ## 引用
 ### 该项目地址
