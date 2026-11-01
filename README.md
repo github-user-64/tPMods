@@ -27,6 +27,11 @@
 
 玩家账号的`管理等级`标签值越小代表等级越大，0为服主级别
 
+## 第三方模组
+
+- [流光叠影 · LightsAndShadows-TPML](https://github.com/misuOVO/LightsAndShadows-TPML)
+- [光之女皇 视觉重铸 · EmpressVisualReforge](https://github.com/misuOVO/EmpressVisualReforge)
+
 ## 引用
 ### 该项目地址
 <https://github.com/github-user-64/tPMods>
