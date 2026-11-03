@@ -1,6 +1,11 @@
 [tPlainModLoader](https://github.com/github-user-64/tPlainModLoader)的模组
 
-> 这里的模组都不能重新加载，不然一些功能会用不了
+> 这里的模组大部分不能重新加载，不然一些功能会用不了
+
+## 其它玩家制作的模组
+- [流光叠影 · LightsAndShadows-TPML](https://github.com/misuOVO/LightsAndShadows-TPML)
+- [光之女皇 视觉重铸 · EmpressVisualReforge](https://github.com/misuOVO/EmpressVisualReforge)
+- [更好的体验Lite · ImproveGameLite](https://github.com/misuOVO/ImproveGame://github.com/misuOVO/ImproveGameLite-tPlainModLoader)
 
 ## 使用
 **Mods_tpmods.zip**解压后，把里面的模组复制到**tPlainModLoader**的**Mods**文件夹中即可.
