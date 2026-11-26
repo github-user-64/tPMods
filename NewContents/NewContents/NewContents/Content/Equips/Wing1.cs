@@ -21,11 +21,10 @@ namespace NewContents.Content.Equips
 
         public override void ApplyEquipFunctionalPostfix(Player player, int itemSlot, Item currentItem)
         {
-            //ArmorIDs.Wing.Sets.Stats[Slot] = new WingStats(60 * 5, 16f, 8f, true, 16f * 2, 8f * 2);
-
             Effects(player);
 
             if (player.controlJump == false || player.controlDown == false) return;
+            if (player.wingTime <= 0f) return;
 
             float num2 = 0.95f;
             float num5 = 0.15f;
