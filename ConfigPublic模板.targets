@@ -12,6 +12,7 @@
 		
 		<!--用于引用的tPML的dll文件位置-->
 		<tPMLDllPath><!--需修改--></tPMLDllPath>
+		<DllNewtonsoftJson>$(tPMLDllPath)\Newtonsoft.Json.dll</DllNewtonsoftJson>
 		<Dll0Harmony>$(tPMLDllPath)\0Harmony.dll</Dll0Harmony>
 		<DllCommandHelp>$(tPMLDllPath)\CommandHelp.dll</DllCommandHelp>
 		<DlltContentPatch>$(tPMLDllPath)\tContentPatch.dll</DlltContentPatch>
@@ -54,6 +55,10 @@
 		</Reference>
 		<Reference Include="Terraria">
 			<HintPath>$(DllTerraria)</HintPath>
+			<Private>False</Private>
+		</Reference>
+		<Reference Include="Newtonsoft.Json">
+			<HintPath>$(DllNewtonsoftJson)</HintPath>
 			<Private>False</Private>
 		</Reference>
 		<Reference Include="0Harmony">
