@@ -5,7 +5,7 @@
 ## 其它玩家制作的模组
 - [流光叠影 · LightsAndShadows-TPML](https://github.com/misuOVO/LightsAndShadows-TPML)
 - [光之女皇 视觉重铸 · EmpressVisualReforge](https://github.com/misuOVO/EmpressVisualReforge)
-- [更好的体验Lite · ImproveGameLite](https://github.com/misuOVO/ImproveGame://github.com/misuOVO/ImproveGameLite-tPlainModLoader)
+- [更好的体验Lite · ImproveGameLite](https://github.com/misuOVO/ImproveGameLite-tPlainModLoader)
 
 ## 使用
 **Mods_tpmods.zip**解压后，把里面的模组复制到**tPlainModLoader**的**Mods**文件夹中即可.
