@@ -22,13 +22,13 @@ namespace ExtenContent.Exten
         public static ExtenMenuStyle CurrentStyle { get; private set; } = null;
         private static readonly List<ExtenMenuStyle> styles = new List<ExtenMenuStyle>();
         private static readonly Dictionary<string, ExtenMenuStyle> keyToStyle = new Dictionary<string, ExtenMenuStyle>();
-        private static Asset<Texture2D> LogoExten = null;
+        private static Asset<Texture2D> LogoExtenTexture = null;
 
         internal static void Load()
         {
             ThisMod.Log(out DateTime time);
 
-            if (LogoExten == null) LogoExten = ThisMod.Asset?.Request<Texture2D>("LogoExten");
+            if (LogoExtenTexture == null) LogoExtenTexture = ThisMod.Asset?.Request<Texture2D>("LogoExten");
 
             styles.ForEach(i => i.Load());
 

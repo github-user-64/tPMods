@@ -76,13 +76,13 @@ namespace ExtenContent.Exten
                 Main.spriteBatch.Draw(TextureAssets.Logo2.Value, pos, rect, color3, logoRotation, origin, logoScale, SpriteEffects.None, 0f);
             }
 
-            if (LogoExten == null) return;
+            if (LogoExtenTexture == null) return;
 
             Vector2 off = -logoRotation.ToRotationVector2() * 193f;
             off -= (logoRotation + MathHelper.TwoPi / -4).ToRotationVector2() * 11f;
             Vector2 p = pos + off * logoScale;
 
-            if ((p - Main.MouseScreen).Length() < (LogoExten.Width() + LogoExten.Height()) * logoScale / 2f / 2f)
+            if ((p - Main.MouseScreen).Length() < (LogoExtenTexture.Width() + LogoExtenTexture.Height()) * logoScale / 2f / 2f)
             {
                 if (Main.mouseLeftRelease)
                 {
@@ -97,9 +97,9 @@ namespace ExtenContent.Exten
                 }
             }
 
-            Set(LogoExten, ref origin, ref rect);
+            Set(LogoExtenTexture, ref origin, ref rect);
 
-            Main.spriteBatch.Draw(LogoExten.Value, p, rect, color, logoRotation, origin, logoScale, SpriteEffects.None, 0f);
+            Main.spriteBatch.Draw(LogoExtenTexture.Value, p, rect, color, logoRotation, origin, logoScale, SpriteEffects.None, 0f);
         }
     }
 }

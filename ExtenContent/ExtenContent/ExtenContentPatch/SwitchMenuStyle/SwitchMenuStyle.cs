@@ -59,6 +59,7 @@ namespace ExtenContentPatch
             }
             ui.SetState(state);
             ui.Update(gameTime);
+            state.Recalculate();
 
             text.TextColor = text.IsMouseHovering ? Colors.FancyUIFatButtonMouseOver : Color.White * 0.8f;
             text.ShadowColor = text.IsMouseHovering ? Color.Black : Color.Black * 0.8f;

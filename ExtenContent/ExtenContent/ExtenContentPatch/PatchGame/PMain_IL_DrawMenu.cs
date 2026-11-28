@@ -30,6 +30,7 @@ namespace ExtenContentPatch.PatchGame
             codeMatcher.Advance(1);
             codeMatcher.InsertAndAdvance(new CodeMatch(OpCodes.Pop));//从堆栈移除Ldarg_0//this
 
+            //删到这前面
             codeMatcher.RemoveUntilForward(
                 new CodeMatch(OpCodes.Ldsfld, typeof(Main).GetField(nameof(Main.dayTime))),
                 new CodeMatch(OpCodes.Brfalse_S),
