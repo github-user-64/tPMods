@@ -1,6 +1,4 @@
-﻿using Terraria;
-
-namespace ExtenContent.Exten
+﻿namespace ExtenContent.Exten
 {
     /// <summary>
     /// 卸载物品
@@ -9,12 +7,5 @@ namespace ExtenContent.Exten
     {
         /// <inheritdoc/>
         public override string Texture => "ExtenItemUnload";
-
-        /// <inheritdoc/>
-        public override void SetDefault(Item item)
-        {
-            item.width = 20;
-            item.height = 20;
-        }
     }
 }

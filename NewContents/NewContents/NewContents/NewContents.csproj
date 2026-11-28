@@ -48,7 +48,6 @@
     <Compile Include="Common\WOW.cs" />
     <Compile Include="Content\Buffs\Buff1.cs" />
     <Compile Include="Content\Equips\Wing1.cs" />
-    <Compile Include="Content\Items\Armor\EquipTemplate.cs" />
     <Compile Include="Content\Items\Weapons\Item1.cs" />
     <Compile Include="Content\Items\Accessories\Acc2.cs" />
     <Compile Include="Content\Items\Accessories\Acc1.cs" />

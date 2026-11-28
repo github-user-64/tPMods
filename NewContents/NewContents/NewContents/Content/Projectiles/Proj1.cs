@@ -133,7 +133,7 @@ namespace NewContents.Content.Projectiles
                 Projectile.NewProjectile(null, pos, v, ExtenManag.ProjectileType<Proj2>(),
                 proj.damage, proj.knockBack, player.whoAmI,
                 3f, 1,
-                modifer: p =>
+                modifier: p =>
                 {
                     p.localAI[0] = 10;
                 });

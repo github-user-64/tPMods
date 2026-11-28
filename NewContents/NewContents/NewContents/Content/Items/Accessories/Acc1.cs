@@ -17,8 +17,6 @@ namespace NewContents.Content.Items.Accessories
 
         public override void SetDefault(Item item)
         {
-            item.width = 22;
-            item.height = 20;
             item.accessory = true;
             item.value = Item.buyPrice(0, 40);
             item.rare = 10;

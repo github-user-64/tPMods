@@ -6,7 +6,7 @@ using Terraria.Localization;
 
 namespace NewContents.Content.Items.Armor
 {
-    internal class Equip2 : EquipTemplate
+    internal class Equip2 : ExtenItem
     {
         public override string Texture => "Terraria/Images/Item_1742";
         public override LocalizedText Tooltip => this.GetLocalization($"{nameof(Tooltip)}", "\"[W]已损坏，你无法思考\"");
@@ -16,8 +16,6 @@ namespace NewContents.Content.Items.Armor
             item.defense = 11;
             item.headSlot = ExtenManag.EquipSlot<EE>();
         }
-
-        public override bool CanLoad() => true;
 
         internal class EE : ExtenEquip
         {

@@ -23,7 +23,7 @@ namespace ExtenContentPatch
 
         public ThisMod()
         {
-            string targetVersion = "1-beta18-t1.4.5.8";
+            string targetVersion = "1-beta18-t1.4.6.1";
             if (ContentPatch.VersionTPlainModLoader != targetVersion) throw new Exception($"扩展内容的tPlainModLoader目标版本为:{targetVersion}");
 
             LoadAssembly(out ModObject mo);

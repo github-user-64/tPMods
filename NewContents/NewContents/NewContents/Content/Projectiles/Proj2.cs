@@ -67,7 +67,7 @@ namespace NewContents.Content.Projectiles
             Projectile.NewProjectile(null, pos, vect, ExtenManag.ProjectileType<Proj2>(),
                 proj.damage, proj.knockBack, proj.owner,
                 proj.ai[0], proj.ai[1],
-                modifer: p =>
+                modifier: p =>
                 {
                     p.localAI[0] = proj.localAI[0] - 1;
                 });

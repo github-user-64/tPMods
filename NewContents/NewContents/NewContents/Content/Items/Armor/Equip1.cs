@@ -5,35 +5,20 @@ using Terraria;
 namespace NewContents.Content.Items.Armor
 {
     [AutoloadEquip(EquipType.Head)]
-    internal class Equip1Head : EquipTemplate
+    internal class Equip1Head : ExtenItem
     {
-        public override void SetDefault(Item item)
-        {
-            item.defense = 1;
-        }
-
-        public override bool CanLoad() => true;
+        public override void SetDefault(Item item) => item.defense = 1;
     }
 
     [AutoloadEquip(EquipType.Body)]
-    internal class Equip1Body : EquipTemplate
+    internal class Equip1Body : ExtenItem
     {
-        public override void SetDefault(Item item)
-        {
-            item.defense = 2;
-        }
-
-        public override bool CanLoad() => true;
+        public override void SetDefault(Item item) => item.defense = 2;
     }
 
     [AutoloadEquip(EquipType.Legs)]
-    internal class Equip1Legs : EquipTemplate
+    internal class Equip1Legs : ExtenItem
     {
-        public override void SetDefault(Item item)
-        {
-            item.defense = 3;
-        }
-
-        public override bool CanLoad() => true;
+        public override void SetDefault(Item item) => item.defense = 3;
     }
 }

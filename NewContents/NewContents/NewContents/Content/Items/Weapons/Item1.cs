@@ -30,8 +30,6 @@ namespace NewContents.Content.Items.Weapons
 
         public override void SetDefault(Item item)
         {
-            item.width = 78;
-            item.height = 120;
             item.useStyle = 1;
             item.useAnimation = 16;
             item.useTime = 16;
